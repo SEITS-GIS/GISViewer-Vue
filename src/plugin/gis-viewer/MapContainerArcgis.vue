@@ -13,7 +13,7 @@ export default class MapContainerArcgis extends Vue {
   @Emit("mapLoaded")
   async mounted() {
     this.mapApp = new MapApp();
-    await this.mapApp.initialize();
+    await this.mapApp.initialize("/MapConfig.json");
   }
 }
 </script>
