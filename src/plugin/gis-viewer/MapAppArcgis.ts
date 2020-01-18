@@ -1,13 +1,18 @@
 import { setDefaultOptions, loadCss, loadModules } from "esri-loader";
+import { ILayerConfig } from "@/types/map";
+
 export default class MapAppArcGIS {
   public view!: __esri.SceneView;
 
-  public async initialize(configFile: string): Promise<void> {
+  public async initialize(
+    configFile: string,
+    mapContainer: string
+  ): Promise<void> {
     // configFile = process.env.BASE_URL + configFile;
     const response = await fetch(configFile);
     const mapConfig = await response.json();
     const apiUrl = mapConfig.arcgis_api || "https://js.arcgis.com/4.14/";
-    setDefaultOptions({ url: apiUrl });
+    setDefaultOptions({ url: `${apiUrl}/init.js` });
 
     const cssFile: string = mapConfig.theme
       ? `themes/${mapConfig.theme}/main.css`
@@ -34,5 +39,29 @@ export default class MapAppArcGIS {
       "esri/layers/TileLayer",
       "esri/core/Collection"
     ]) as Promise<MapModules>);
+
+    const baseLayers: __esri.Collection = new Collection();
+    baseLayers.addMany(
+      mapConfig.baseLayers.map((layerConfig: ILayerConfig) => {
+        if (layerConfig.type === "tiled") {
+          delete layerConfig.type;
+          return new TileLayer(layerConfig);
+        }
+      })
+    );
+
+    const basemap: __esri.Basemap = new Basemap({
+      baseLayers
+    });
+    const view: __esri.SceneView = new SceneView({
+      map: new Map({
+        basemap
+      }),
+      container: mapContainer,
+      ...mapConfig.options
+    });
+    view.ui.remove("attribution");
+    await view.when();
+    this.view = view;
   }
 }
