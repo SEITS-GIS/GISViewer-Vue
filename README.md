@@ -1,24 +1,27 @@
 # gisviewer-vue
 
-## Project setup
-```
-npm install
+地图容器
+
+## 安装
+
+```js
+npm install gisviewer-vue -S
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+## 使用
+
+```js
+import GisViewer from "gisviewer-vue";
+import "gisviewer-vue/lib/gis-viewer.css";
+Vue.use(GisViewer);
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
+```html
+<template>
+  <div id="app">
+    <gis-viewer />
+  </div>
+</template>
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 配置

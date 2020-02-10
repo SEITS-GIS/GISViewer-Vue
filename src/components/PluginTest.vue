@@ -1,15 +1,10 @@
 <template>
-  <map-container />
+  <gis-viewer />
 </template>
 
-<script>
+<script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import MapContainer from "@/plugin/gis-viewer/MapContainer.vue";
-@Component({
-  components: {
-    MapContainer
-  }
-})
+@Component
 export default class PluginTest extends Vue {}
 </script>
 

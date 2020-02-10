@@ -1,7 +1,7 @@
 {
   "name": "gisviewer-vue",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -11,6 +11,10 @@
   "main": "lib/gis-viewer.umd.min.js",
   "typings": "types/index.d.ts",
   "homepage": "https://github.com/herrshi/GISViewer-Vue",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/herrshi/GISViewer-Vue.git"
+  },
   "files": [
     "lib/**/*",
     "types/*"
