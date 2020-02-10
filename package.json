@@ -11,6 +11,10 @@
   "main": "lib/gis-viewer.umd.min.js",
   "typings": "types/index.d.ts",
   "homepage": "https://github.com/herrshi/GISViewer-Vue",
+  "files": [
+    "lib/**/*",
+    "types/*"
+  ],
   "dependencies": {
     "core-js": "^3.4.4",
     "esri-loader": "^2.13.0",
