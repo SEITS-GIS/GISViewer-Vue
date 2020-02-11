@@ -1,5 +1,5 @@
 <template>
-  <gis-viewer ref="gisViewer" />
+  <gis-viewer ref="gisViewer" platform="arcgis3d" />
 </template>
 
 <script lang="ts">

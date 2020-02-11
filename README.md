@@ -48,4 +48,10 @@ export default {
 </style>
 ```
 
-### 配置
+## 配置
+
+### Props
+
+|name|description|type|defalt|
+|----|-----------|----|------|
+|platform|地图平台|String|arcgis3D

@@ -1,25 +1,44 @@
 <template>
   <div id="divMap">
-    <map-container-arcgis ref="containerArcgis" />
+    <map-container-arcgis-three-d
+      ref="containerArcgis3D"
+      v-if="this.platform === 'arcgis3d'"
+    />
+    <map-container-arcgis-two-d
+      ref="containerArcgis2D"
+      v-if="this.platform === 'arcgis2d'"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Ref } from "vue-property-decorator";
-import MapContainerArcgis3D from "@/plugin/gis-viewer/MapContainerArcgis3D.vue";
+import MapContainerArcgisThreeD from "@/plugin/gis-viewer/MapContainerArcgis3D.vue";
+import MapContainerArcgisTwoD from "@/plugin/gis-viewer/MapContainerArcgis2D.vue";
+import { Platforms } from "@/types/map";
 
 @Component({
   components: {
-    MapContainerArcgis3D
+    MapContainerArcgisThreeD,
+    MapContainerArcgisTwoD
   }
 })
 export default class MapContainer extends Vue {
-  @Prop({ default: "arcgis3D" }) readonly platform!: string;
+  //平台类型 高德/百度/arcgis
+  @Prop({ default: Platforms.ArcGIS3D, type: String })
+  readonly platform!: string;
 
-  @Ref() readonly containerArcgis3D!: MapContainerArcgis3D;
+  //地图配置
+  @Prop({ type: Object }) readonly mapConfig!: Object;
 
+  @Ref() readonly containerArcgis3D!: MapContainerArcgisThreeD;
+  @Ref() readonly containerArcgis2D!: MapContainerArcgisTwoD;
+
+  //当前的地图容器
   get mapContainer() {
     switch (this.platform) {
+      case Platforms.ArcGIS2D:
+        return this.containerArcgis2D;
       default:
         return this.containerArcgis3D;
     }

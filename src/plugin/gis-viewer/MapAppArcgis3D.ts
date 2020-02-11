@@ -1,7 +1,7 @@
 import { setDefaultOptions, loadCss, loadModules } from "esri-loader";
 import { ILayerConfig } from "@/types/map";
 
-export default class MapAppArcGIS {
+export default class MapAppArcGIS3D {
   public view!: __esri.SceneView;
 
   public async initialize(
