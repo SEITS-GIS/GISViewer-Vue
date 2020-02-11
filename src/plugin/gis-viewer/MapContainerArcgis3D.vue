@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { Vue, Component, Emit } from "vue-property-decorator";
-import MapApp from "@/plugin/gis-viewer/MapAppArcgis";
+import MapApp from "@/plugin/gis-viewer/MapAppArcgis3D";
 
 @Component
 export default class MapContainerArcgis extends Vue {

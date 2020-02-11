@@ -1,5 +1,5 @@
 <template>
-  <gis-viewer />
+  <gis-viewer ref="gisViewer" />
 </template>
 
 <script lang="ts">
