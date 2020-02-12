@@ -4,14 +4,7 @@ import { ILayerConfig } from "@/types/map";
 export default class MapAppArcGIS3D {
   public view!: __esri.SceneView;
 
-  public async initialize(
-    // configFile: string,
-    mapConfig: any,
-    mapContainer: string
-  ): Promise<void> {
-    // configFile = process.env.BASE_URL + configFile;
-    // const response = await fetch(configFile);
-    // const mapConfig = await response.json();
+  public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
     const apiUrl = mapConfig.arcgis_api || "https://js.arcgis.com/4.14/";
     setDefaultOptions({ url: `${apiUrl}/init.js` });
 

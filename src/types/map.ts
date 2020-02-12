@@ -8,3 +8,5 @@ export interface ILayerConfig {
   url: string;
   visible: boolean;
 }
+
+export interface IArcgisMapConfig {}

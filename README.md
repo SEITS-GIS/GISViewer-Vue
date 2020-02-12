@@ -63,3 +63,4 @@ export default {
 |----|-----------|----|--------|-------|------|
 |arcgis_api|本地arcgis js api地址|String|false|arcgis online上的最新api地址|
 |theme|地图主题样式|String|false|light|light<br>dark<br>light-blue<br>dark-blue<br>light-green<br>dark-green<br>light-purple<br>dark-purple<br>light-red<br>dark-red
+|baseLayers|底图|Array|true|
