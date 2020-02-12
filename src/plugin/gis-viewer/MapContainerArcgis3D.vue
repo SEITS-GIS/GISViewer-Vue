@@ -10,7 +10,7 @@ import MapApp from "@/plugin/gis-viewer/MapAppArcgis3D";
   name: "MapContainerArcgisThreeD"
 })
 export default class MapContainerArcgis3D extends Vue {
-  mapApp!: MapApp;
+  private mapApp!: MapApp;
 
   //地图配置
   @Prop({ type: Object }) readonly mapConfig!: Object;

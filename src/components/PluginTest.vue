@@ -1,5 +1,5 @@
 <template>
-  <gis-viewer ref="gisViewer" platform="arcgis3d" :mapConfig="mapConfig" />
+  <gis-viewer ref="gisViewer" platform="arcgis2d" :mapConfig="mapConfig" />
 </template>
 
 <script lang="ts">
@@ -18,15 +18,19 @@ export default class PluginTest extends Vue {
       }
     ],
     options: {
-      camera: {
-        heading: 0,
-        tilt: 0,
-        position: {
-          x: 0,
-          y: 0,
-          z: 25000000
-        }
-      }
+      //for arcgis-2d
+      center: [121, 31],
+      zoom: 15
+      //for arcgis-3d
+      // camera: {
+      //   heading: 0,
+      //   tilt: 0,
+      //   position: {
+      //     x: 0,
+      //     y: 0,
+      //     z: 25000000
+      //   }
+      // }
     },
     bookmarks: [
       {

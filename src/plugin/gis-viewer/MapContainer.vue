@@ -8,6 +8,7 @@
     <map-container-arcgis-two-d
       ref="containerArcgis2D"
       v-if="this.platform === 'arcgis2d'"
+      :mapConfig="this.mapConfig"
     />
   </div>
 </template>
