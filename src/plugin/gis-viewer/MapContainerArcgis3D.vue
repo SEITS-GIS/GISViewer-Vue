@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Emit } from "vue-property-decorator";
+import { Vue, Component, Emit, Prop } from "vue-property-decorator";
 import MapApp from "@/plugin/gis-viewer/MapAppArcgis3D";
 
 @Component({
@@ -12,10 +12,13 @@ import MapApp from "@/plugin/gis-viewer/MapAppArcgis3D";
 export default class MapContainerArcgis3D extends Vue {
   mapApp!: MapApp;
 
+  //地图配置
+  @Prop({ type: Object }) readonly mapConfig!: Object;
+
   @Emit("mapLoaded")
   async mounted() {
     this.mapApp = new MapApp();
-    await this.mapApp.initialize("/MapConfig.json", "divArcGISMap3D");
+    await this.mapApp.initialize(this.mapConfig, "divArcGISMap3D");
   }
 }
 </script>

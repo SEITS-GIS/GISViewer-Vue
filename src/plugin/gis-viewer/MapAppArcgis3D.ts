@@ -5,12 +5,13 @@ export default class MapAppArcGIS3D {
   public view!: __esri.SceneView;
 
   public async initialize(
-    configFile: string,
+    // configFile: string,
+    mapConfig: any,
     mapContainer: string
   ): Promise<void> {
     // configFile = process.env.BASE_URL + configFile;
-    const response = await fetch(configFile);
-    const mapConfig = await response.json();
+    // const response = await fetch(configFile);
+    // const mapConfig = await response.json();
     const apiUrl = mapConfig.arcgis_api || "https://js.arcgis.com/4.14/";
     setDefaultOptions({ url: `${apiUrl}/init.js` });
 

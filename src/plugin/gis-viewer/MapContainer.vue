@@ -3,6 +3,7 @@
     <map-container-arcgis-three-d
       ref="containerArcgis3D"
       v-if="this.platform === 'arcgis3d'"
+      :mapConfig="this.mapConfig"
     />
     <map-container-arcgis-two-d
       ref="containerArcgis2D"
