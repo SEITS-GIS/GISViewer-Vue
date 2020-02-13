@@ -8,3 +8,7 @@ export interface ILayerConfig {
   url: string;
   visible: boolean;
 }
+
+export interface IMapContainer {
+  addOverlays: () => void;
+}

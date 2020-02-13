@@ -5,11 +5,12 @@
 <script lang="ts">
 import { Vue, Component, Emit, Prop } from "vue-property-decorator";
 import MapApp from "@/plugin/gis-viewer/MapAppArcgis2D";
+import { IMapContainer } from "@/types/map";
 
 @Component({
   name: "MapContainerArcgisTwoD"
 })
-export default class MapContainerArcgis extends Vue {
+export default class MapContainerArcgis extends Vue implements IMapContainer {
   private mapApp!: MapApp;
 
   //地图配置
@@ -20,6 +21,8 @@ export default class MapContainerArcgis extends Vue {
     this.mapApp = new MapApp();
     await this.mapApp.initialize(this.mapConfig, "divArcGISMap2D");
   }
+
+  public addOverlays() {}
 }
 </script>
 
