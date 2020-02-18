@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component, Emit, Prop } from "vue-property-decorator";
 import MapApp from "@/plugin/gis-viewer/MapAppArcgis3D";
-import { IMapContainer } from "@/types/map";
+import { IMapContainer, IOverlayParameter } from "@/types/map";
 
 @Component({
   name: "MapContainerArcgisThreeD"
@@ -22,7 +22,9 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
     await this.mapApp.initialize(this.mapConfig, "divArcGISMap3D");
   }
 
-  public addOverlays() {}
+  public addOverlays(params: IOverlayParameter) {
+    this.mapApp.addOverlays(params);
+  }
 }
 </script>
 

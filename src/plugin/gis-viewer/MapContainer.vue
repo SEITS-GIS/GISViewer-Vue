@@ -19,7 +19,7 @@
 import { Vue, Component, Prop, Ref, Emit } from "vue-property-decorator";
 import MapContainerArcgisThreeD from "@/plugin/gis-viewer/MapContainerArcgis3D.vue";
 import MapContainerArcgisTwoD from "@/plugin/gis-viewer/MapContainerArcgis2D.vue";
-import { Platforms, IMapContainer } from "@/types/map";
+import { Platforms, IMapContainer, IOverlayParameter } from "@/types/map";
 
 @Component({
   components: {
@@ -51,8 +51,8 @@ export default class MapContainer extends Vue implements IMapContainer {
   @Emit("map-loaded")
   private mapLoaded() {}
 
-  public addOverlays() {
-    this.mapContainer.addOverlays();
+  public addOverlays(params: IOverlayParameter) {
+    this.mapContainer.addOverlays(params);
   }
 }
 </script>

@@ -57,7 +57,15 @@ export default class PluginTest extends Vue {
 
   private mapLoaded() {
     console.log("map loaded");
-    (this.$refs.gisViewer as any).addOverlays();
+    (this.$refs.gisViewer as any).addOverlays({
+      type: "police",
+      defaultSymbol: {
+        type: "2d",
+        primitive: "circle",
+        size: "66px"
+      },
+      overlays: [{ id: "test001", geometry: { x: 121.418924, y: 31.157101 } }]
+    });
   }
 }
 </script>

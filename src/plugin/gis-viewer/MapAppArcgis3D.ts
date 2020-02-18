@@ -1,7 +1,13 @@
 import { setDefaultOptions, loadCss, loadModules } from "esri-loader";
-import { ILayerConfig } from "@/types/map";
+import {
+  ILayerConfig,
+  IOverlayParameter,
+  IMapContainer,
+  IOverlay
+} from "@/types/map";
+import { OverlayArcgis3D } from "@/plugin/gis-viewer/widgets/OverlayArcgis3D";
 
-export default class MapAppArcGIS3D {
+export default class MapAppArcGIS3D implements IMapContainer {
   public view!: __esri.SceneView;
 
   public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
@@ -57,5 +63,9 @@ export default class MapAppArcGIS3D {
     view.ui.remove("attribution");
     await view.when();
     this.view = view;
+  }
+
+  public addOverlays(params: IOverlayParameter) {
+    OverlayArcgis3D.getInstance(this.view).addOverlays();
   }
 }
