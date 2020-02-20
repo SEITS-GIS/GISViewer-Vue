@@ -65,7 +65,8 @@ export default class MapAppArcGIS3D implements IMapContainer {
     this.view = view;
   }
 
-  public addOverlays(params: IOverlayParameter) {
-    OverlayArcgis3D.getInstance(this.view).addOverlays();
+  public async addOverlays(params: IOverlayParameter) {
+    const overlay = OverlayArcgis3D.getInstance(this.view);
+    await overlay.addOverlays(params);
   }
 }

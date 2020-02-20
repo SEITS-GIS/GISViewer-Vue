@@ -9,11 +9,6 @@ export interface ILayerConfig {
   visible: boolean;
 }
 
-export interface ILineSimpleSymbol {
-  type: string;
-  color?: string | number;
-}
-
 enum PointPrimitives {
   circle = "circle",
   cross = "cross",
@@ -24,7 +19,7 @@ enum PointPrimitives {
 }
 
 export interface IPointSymbol {
-  type: string; //2d/3d
+  type: string; //point-2d/point-3d
   url?: string; //使用图片时图片的url地址
   primitive?: PointPrimitives; //使用图元时的图元类型
   //使用图元时的图元颜色
@@ -37,6 +32,10 @@ export interface IPointSymbol {
   yoffset?: number; //图元或图片的垂直位移
 }
 
+export interface IPolylineSymbol {
+  type: string; //line-2d/line-3d
+}
+
 export interface IPointGeometry {
   x: number;
   y: number;
@@ -44,14 +43,15 @@ export interface IPointGeometry {
 }
 
 export interface IOverlay {
-  id?: string;
-  symbol: IPointSymbol;
+  id?: string; //覆盖物编号, 用于按编号/类型删除
+  type?: string; //覆盖物类型, 用于按编号/类型删除
+  symbol: IPointSymbol | IPolylineSymbol;
   geometry: IPointGeometry;
 }
 
 export interface IOverlayParameter {
-  type?: string;
-  defaultSymbol?: IPointSymbol;
+  defaultType?: string;
+  defaultSymbol?: IPointSymbol | IPolylineSymbol;
   overlays: Array<IOverlay>;
 }
 
