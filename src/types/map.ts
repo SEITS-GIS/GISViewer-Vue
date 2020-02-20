@@ -23,7 +23,7 @@ export interface IPointSymbol {
   url?: string; //使用图片时图片的url地址
   primitive?: PointPrimitives; //使用图元时的图元类型
   //使用图元时的图元颜色
-  color?: number | string;
+  color?: number | string | number[];
   //[width, height], number单位默认为pt, 可以使用'pt'或'px'
   //size = 14; size = ["12pt", "14pt"]
   size?: Array<number | string> | number | string;
