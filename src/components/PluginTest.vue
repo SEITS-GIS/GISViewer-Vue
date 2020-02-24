@@ -60,10 +60,16 @@ export default class PluginTest extends Vue {
     (this.$refs.gisViewer as any).addOverlays({
       type: "police",
       defaultSymbol: {
+        //symbol for simple marker
+        // type: "point-2d",
+        // primitive: "circle",
+        // size: "20",
+        // color: "red",
+
+        //symbol for picture marker
         type: "point-2d",
-        primitive: "circle",
-        size: 20,
-        color: "red"
+        url: "assets/image/Anchor.png",
+        size: "30"
       },
       overlays: [{ id: "test001", geometry: { x: 121.418924, y: 31.157101 } }]
     });

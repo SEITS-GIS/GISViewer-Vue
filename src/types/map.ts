@@ -1,6 +1,9 @@
 export interface IResult {
+  //本次接口调用状态，如果成功返回0，如果失败返回其他数字。
   status: number;
+  //对接口调用状态值的英文说明，如果成功返回"ok"，并返回结果字段，如果失败返回错误说明。
   message: string;
+  //接口调用结果
   result?: any;
 }
 

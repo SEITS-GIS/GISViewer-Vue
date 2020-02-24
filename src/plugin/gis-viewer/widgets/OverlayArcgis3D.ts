@@ -33,23 +33,16 @@ export class OverlayArcgis3D {
     this.view.map.add(this.overlayLayer);
   }
 
-  //校验overlay参数
-  private verifyParams(): Boolean {
-    return true;
-  }
-
   private async makeSymbol(symbol: IPointSymbol | undefined): Promise<IResult> {
     if (!symbol) {
       return { status: -1, message: "no symbol" };
     }
 
     const [
-      Color,
       PointSymbol3D,
       SimpleMarkerSymbol,
       PictureMarkerSymbol
     ] = await loadModules([
-      "esri/Color",
       "esri/symbols/PointSymbol3D",
       "esri/symbols/SimpleMarkerSymbol",
       "esri/symbols/PictureMarkerSymbol"
@@ -60,18 +53,32 @@ export class OverlayArcgis3D {
         if (symbol.primitive) {
           //使用图元
           result = new SimpleMarkerSymbol({
-            style: symbol.primitive ?? PointPrimitives.circle,
-            color: symbol.color ?? [255, 255, 255, 0.25],
-            angle: symbol.angle ?? 0,
-            xoffset: symbol.xoffset ?? 0,
-            yoffset: symbol.yoffset ?? 0
+            style: symbol.primitive,
+            color: symbol.color,
+            size: symbol.size instanceof Array ? symbol.size[0] : symbol.size,
+            angle: symbol.angle,
+            xoffset: symbol.xoffset,
+            yoffset: symbol.yoffset
           });
         } else if (symbol.url) {
           //使用图片
-          return new PictureMarkerSymbol();
+          result = new PictureMarkerSymbol({
+            url: symbol.url,
+            width: symbol.size instanceof Array ? symbol.size[0] : symbol.size,
+            height:
+              symbol.size instanceof Array
+                ? symbol.size.length > 1
+                  ? symbol.size[1]
+                  : symbol.size[0]
+                : symbol.size,
+            angle: symbol.angle,
+            xoffset: symbol.xoffset,
+            yoffset: symbol.yoffset
+          });
         }
         break;
       case "point-3d":
+        result = new PointSymbol3D({});
         break;
     }
     return { status: 0, message: "ok", result };
