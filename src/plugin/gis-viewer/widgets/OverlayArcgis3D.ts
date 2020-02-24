@@ -1,4 +1,9 @@
-import { IOverlayParameter, IPointSymbol } from "@/types/map";
+import {
+  IOverlayParameter,
+  IPointSymbol,
+  PointPrimitives,
+  IResult
+} from "@/types/map";
 import { loadModules } from "esri-loader";
 
 export class OverlayArcgis3D {
@@ -33,17 +38,9 @@ export class OverlayArcgis3D {
     return true;
   }
 
-  private async makeSymbol(
-    symbol: IPointSymbol | undefined
-  ): Promise<__esri.Symbol | undefined> {
-    type MapModules = [
-      typeof import("esri/Color"),
-      typeof import("esri/symbols/PointSymbol3D"),
-      typeof import("esri/symbols/SimpleMarkerSymbol"),
-      typeof import("esri/symbols/PictureMarkerSymbol")
-    ];
+  private async makeSymbol(symbol: IPointSymbol | undefined): Promise<IResult> {
     if (!symbol) {
-      return undefined;
+      return { status: -1, message: "no symbol" };
     }
 
     const [
@@ -51,31 +48,33 @@ export class OverlayArcgis3D {
       PointSymbol3D,
       SimpleMarkerSymbol,
       PictureMarkerSymbol
-    ] = await (loadModules([
+    ] = await loadModules([
       "esri/Color",
       "esri/symbols/PointSymbol3D",
       "esri/symbols/SimpleMarkerSymbol",
       "esri/symbols/PictureMarkerSymbol"
-    ]) as Promise<MapModules>);
+    ]);
+    let result;
     switch (symbol.type) {
       case "point-2d":
         if (symbol.primitive) {
-          return new SimpleMarkerSymbol({
-            style: symbol.primitive,
-            color: symbol.color
-              ? new Color(symbol.color)
-              : [255, 255, 255, 0.25],
-            angle: symbol.angle,
-            xoffset: symbol.xoffset,
-            yoffset: symbol.yoffset
+          //使用图元
+          result = new SimpleMarkerSymbol({
+            style: symbol.primitive ?? PointPrimitives.circle,
+            color: symbol.color ?? [255, 255, 255, 0.25],
+            angle: symbol.angle ?? 0,
+            xoffset: symbol.xoffset ?? 0,
+            yoffset: symbol.yoffset ?? 0
           });
         } else if (symbol.url) {
+          //使用图片
           return new PictureMarkerSymbol();
         }
         break;
       case "point-3d":
         break;
     }
+    return { status: 0, message: "ok", result };
   }
 
   public async addOverlays(params: IOverlayParameter): Promise<void> {
@@ -88,10 +87,10 @@ export class OverlayArcgis3D {
       "esri/geometry/support/jsonUtils"
     ]);
 
-    const defaultSymbol = await this.makeSymbol(params.defaultSymbol);
+    const defaultSymbol = (await this.makeSymbol(params.defaultSymbol)).result;
     for (let i = 0; i < params.overlays.length; i++) {
       const overlay = params.overlays[i];
-      const symbol = await this.makeSymbol(overlay.symbol);
+      const symbol = (await this.makeSymbol(overlay.symbol)).result;
       const graphic = new Graphic({
         geometry: geometryJsonUtils.fromJSON(overlay.geometry),
         symbol: symbol || defaultSymbol

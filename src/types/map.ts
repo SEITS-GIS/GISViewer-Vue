@@ -1,3 +1,9 @@
+export interface IResult {
+  status: number;
+  message: string;
+  result?: any;
+}
+
 export enum Platforms {
   ArcGIS3D = "arcgis3d",
   ArcGIS2D = "arcgis2d"
@@ -9,7 +15,7 @@ export interface ILayerConfig {
   visible: boolean;
 }
 
-enum PointPrimitives {
+export enum PointPrimitives {
   circle = "circle",
   cross = "cross",
   x = "x",

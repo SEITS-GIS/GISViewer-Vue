@@ -9,12 +9,6 @@
     "lib": "vue-cli-service build --dest lib --target lib --name gis-viewer ./src/plugin/index.ts"
   },
   "main": "lib/gis-viewer.umd.min.js",
-  "typings": "types/index.d.ts",
-  "homepage": "https://github.com/herrshi/GISViewer-Vue",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/herrshi/GISViewer-Vue.git"
-  },
   "files": [
     "lib/**/*",
     "types/*"
@@ -28,17 +22,25 @@
   },
   "devDependencies": {
     "@types/arcgis-js-api": "^4.14.0",
-    "@vue/cli-plugin-babel": "^4.1.0",
-    "@vue/cli-plugin-eslint": "^4.1.0",
-    "@vue/cli-plugin-typescript": "^4.1.0",
-    "@vue/cli-service": "^4.1.0",
-    "@vue/eslint-config-prettier": "^5.0.0",
-    "@vue/eslint-config-typescript": "^4.0.0",
-    "eslint": "^5.16.0",
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "@typescript-eslint/parser": "^2.18.0",
+    "@vue/cli-plugin-babel": "~4.2.2",
+    "@vue/cli-plugin-eslint": "~4.2.2",
+    "@vue/cli-plugin-typescript": "~4.2.2",
+    "@vue/cli-service": "~4.2.2",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^5.0.1",
+    "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-vue": "^5.0.0",
+    "eslint-plugin-vue": "^6.1.2",
     "prettier": "^1.19.1",
-    "typescript": "~3.5.3",
+    "typescript": "~3.7.5",
     "vue-template-compiler": "^2.6.10"
-  }
+  },
+  "homepage": "https://github.com/herrshi/GISViewer-Vue",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/herrshi/GISViewer-Vue.git"
+  },
+  "typings": "types/index.d.ts"
 }
