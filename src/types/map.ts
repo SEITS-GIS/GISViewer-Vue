@@ -18,7 +18,7 @@ export interface ILayerConfig {
   visible: boolean;
 }
 
-export enum PointPrimitives {
+enum PointPrimitives2D {
   circle = "circle",
   square = "square",
   cross = "cross",
@@ -27,10 +27,12 @@ export enum PointPrimitives {
   triangle = "triangle"
 }
 
+enum PointPrimitives3D {}
+
 export interface IPointSymbol {
   type: string; //point-2d/point-3d
   url?: string; //使用图片时图片的url地址
-  primitive?: PointPrimitives; //使用图元时的图元类型
+  primitive?: PointPrimitives2D; //使用图元时的图元类型
   color?: number | string | number[]; //使用图元时的图元颜色
   outline?: {
     //使用图元时的图元边框

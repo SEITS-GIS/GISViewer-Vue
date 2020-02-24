@@ -1,9 +1,4 @@
-import {
-  IOverlayParameter,
-  IPointSymbol,
-  PointPrimitives,
-  IResult
-} from "@/types/map";
+import { IOverlayParameter, IPointSymbol, IResult } from "@/types/map";
 import { loadModules } from "esri-loader";
 
 export class OverlayArcgis3D {
@@ -33,33 +28,21 @@ export class OverlayArcgis3D {
     this.view.map.add(this.overlayLayer);
   }
 
-  private async makeSymbol(symbol: IPointSymbol | undefined): Promise<IResult> {
-    if (!symbol) {
-      return { status: -1, message: "no symbol" };
-    }
+  private makeSymbol(symbol: IPointSymbol | undefined): Object | undefined {
+    if (!symbol) return undefined;
 
-    const [
-      PointSymbol3D,
-      SimpleMarkerSymbol,
-      PictureMarkerSymbol
-    ] = await loadModules([
-      "esri/symbols/PointSymbol3D",
-      "esri/symbols/SimpleMarkerSymbol",
-      "esri/symbols/PictureMarkerSymbol"
-    ]);
     let result;
     switch (symbol.type) {
       case "point-2d":
         result = {
-          //autocasts as new PointSymbol3D()
-          type: "point-3d",
+          type: "point-3d", //autocasts as new PointSymbol3D()
           symbolLayers: [
             {
               type: "icon", //autocasts as new IconSymbol3DLayer()
-              size: symbol.size instanceof Array ? symbol.size[0] : symbol.size,
               resource: symbol.primitive
                 ? { primitive: symbol.primitive }
                 : { href: symbol.url },
+              size: symbol.size instanceof Array ? symbol.size[0] : symbol.size,
               material: { color: symbol.color },
               outline: symbol.outline,
               anchor: symbol.anchor
@@ -68,10 +51,18 @@ export class OverlayArcgis3D {
         };
         break;
       case "point-3d":
-        result = new PointSymbol3D({});
+        result = {
+          type: "point-3d", //autocasts as new PointSymbol3D()
+          symbolLayers: [
+            {
+              type: "object", // autocasts as new ObjectSymbol3DLayer()
+              resource: {}
+            }
+          ]
+        };
         break;
     }
-    return { status: 0, message: "ok", result };
+    return result;
   }
 
   public async addOverlays(params: IOverlayParameter): Promise<void> {
@@ -84,15 +75,20 @@ export class OverlayArcgis3D {
       "esri/geometry/support/jsonUtils"
     ]);
 
-    const defaultSymbol = (await this.makeSymbol(params.defaultSymbol)).result;
+    const defaultSymbol = this.makeSymbol(params.defaultSymbol);
     for (let i = 0; i < params.overlays.length; i++) {
       const overlay = params.overlays[i];
-      const symbol = (await this.makeSymbol(overlay.symbol)).result;
-      const graphic = new Graphic({
-        geometry: geometryJsonUtils.fromJSON(overlay.geometry),
-        symbol: symbol || defaultSymbol
-      });
-      this.overlayLayer.add(graphic);
+      const overlaySymbol = this.makeSymbol(overlay.symbol);
+      try {
+        const geometry = geometryJsonUtils.fromJSON(overlay.geometry);
+        const graphic = new Graphic({
+          geometry,
+          symbol: overlaySymbol || defaultSymbol
+        });
+        this.overlayLayer.add(graphic);
+      } catch (error) {
+        console.log(111);
+      }
     }
   }
 }

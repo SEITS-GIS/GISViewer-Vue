@@ -62,7 +62,7 @@ export default class PluginTest extends Vue {
       defaultSymbol: {
         //symbol for simple marker
         type: "point-2d",
-        primitive: "square",
+        primitive: "squares",
         // url: "assets/image/Anchor.png",
         size: 20,
         color: "red",
