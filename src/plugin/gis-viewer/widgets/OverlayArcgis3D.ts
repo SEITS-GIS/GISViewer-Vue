@@ -50,32 +50,22 @@ export class OverlayArcgis3D {
     let result;
     switch (symbol.type) {
       case "point-2d":
-        if (symbol.primitive) {
-          //使用图元
-          result = new SimpleMarkerSymbol({
-            style: symbol.primitive,
-            color: symbol.color,
-            size: symbol.size instanceof Array ? symbol.size[0] : symbol.size,
-            angle: symbol.angle,
-            xoffset: symbol.xoffset,
-            yoffset: symbol.yoffset
-          });
-        } else if (symbol.url) {
-          //使用图片
-          result = new PictureMarkerSymbol({
-            url: symbol.url,
-            width: symbol.size instanceof Array ? symbol.size[0] : symbol.size,
-            height:
-              symbol.size instanceof Array
-                ? symbol.size.length > 1
-                  ? symbol.size[1]
-                  : symbol.size[0]
-                : symbol.size,
-            angle: symbol.angle,
-            xoffset: symbol.xoffset,
-            yoffset: symbol.yoffset
-          });
-        }
+        result = {
+          //autocasts as new PointSymbol3D()
+          type: "point-3d",
+          symbolLayers: [
+            {
+              type: "icon", //autocasts as new IconSymbol3DLayer()
+              size: symbol.size instanceof Array ? symbol.size[0] : symbol.size,
+              resource: symbol.primitive
+                ? { primitive: symbol.primitive }
+                : { href: symbol.url },
+              material: { color: symbol.color },
+              outline: symbol.outline,
+              anchor: symbol.anchor
+            }
+          ]
+        };
         break;
       case "point-3d":
         result = new PointSymbol3D({});

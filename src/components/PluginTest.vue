@@ -61,15 +61,20 @@ export default class PluginTest extends Vue {
       type: "police",
       defaultSymbol: {
         //symbol for simple marker
-        // type: "point-2d",
-        // primitive: "circle",
-        // size: "20",
-        // color: "red",
-
-        //symbol for picture marker
         type: "point-2d",
-        url: "assets/image/Anchor.png",
-        size: "30"
+        primitive: "square",
+        // url: "assets/image/Anchor.png",
+        size: 20,
+        color: "red",
+        outline: {
+          color: "white",
+          size: 4
+        },
+        anchor: "top"
+        //symbol for picture marker
+        // type: "point-2d",
+        // url: "assets/image/Anchor.png",
+        // size: "30"
       },
       overlays: [{ id: "test001", geometry: { x: 121.418924, y: 31.157101 } }]
     });
