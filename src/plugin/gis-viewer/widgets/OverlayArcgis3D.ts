@@ -7,6 +7,17 @@ export class OverlayArcgis3D {
   private overlayLayer!: __esri.GraphicsLayer;
   private view!: __esri.SceneView;
 
+  private primitive2D = ["circle", "square", "cross", "x", "kite", "triangle"];
+  private primitive3D = [
+    "sphere",
+    "cylinder",
+    "cube",
+    "cone",
+    "inverted-cone",
+    "diamond",
+    "tetrahedron"
+  ];
+
   private constructor(view: __esri.SceneView) {
     this.view = view;
   }
@@ -32,8 +43,14 @@ export class OverlayArcgis3D {
     if (!symbol) return undefined;
 
     let result;
-    switch (symbol.type) {
+    switch (symbol.type.toLowerCase()) {
       case "point-2d":
+        //图元类型不匹配
+        if (symbol.primitive && !this.primitive2D.includes(symbol.primitive)) {
+          console.error(`Wrong primitive: ${symbol.primitive}`);
+          return undefined;
+        }
+
         result = {
           type: "point-3d", //autocasts as new PointSymbol3D()
           symbolLayers: [
@@ -50,13 +67,34 @@ export class OverlayArcgis3D {
           ]
         };
         break;
+
       case "point-3d":
+        //图元类型不匹配
+        if (symbol.primitive && !this.primitive3D.includes(symbol.primitive)) {
+          console.error(`Wrong primitive: ${symbol.primitive}`);
+          return undefined;
+        }
+
         result = {
           type: "point-3d", //autocasts as new PointSymbol3D()
           symbolLayers: [
             {
               type: "object", // autocasts as new ObjectSymbol3DLayer()
-              resource: {}
+              resource: symbol.primitive
+                ? { primitive: symbol.primitive }
+                : { href: symbol.url },
+              width:
+                symbol.size instanceof Array ? symbol.size[0] : symbol.size,
+              height:
+                symbol.size instanceof Array ? symbol.size[1] : symbol.size,
+              depth:
+                symbol.size instanceof Array ? symbol.size[2] : symbol.size,
+              material: { color: symbol.color },
+              tilt: symbol.rotation instanceof Array ? symbol.rotation[0] : 0,
+              roll: symbol.rotation instanceof Array ? symbol.rotation[1] : 0,
+              heading:
+                symbol.rotation instanceof Array ? symbol.rotation[2] : 0,
+              anchor: symbol.anchor
             }
           ]
         };
@@ -65,7 +103,7 @@ export class OverlayArcgis3D {
     return result;
   }
 
-  public async addOverlays(params: IOverlayParameter): Promise<void> {
+  public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     if (!this.overlayLayer) {
       await this.createOverlayLayer();
     }
@@ -76,19 +114,26 @@ export class OverlayArcgis3D {
     ]);
 
     const defaultSymbol = this.makeSymbol(params.defaultSymbol);
+    let addCount = 0;
     for (let i = 0; i < params.overlays.length; i++) {
       const overlay = params.overlays[i];
       const overlaySymbol = this.makeSymbol(overlay.symbol);
-      try {
-        const geometry = geometryJsonUtils.fromJSON(overlay.geometry);
-        const graphic = new Graphic({
-          geometry,
-          symbol: overlaySymbol || defaultSymbol
-        });
-        this.overlayLayer.add(graphic);
-      } catch (error) {
-        console.log(111);
+      //TODO: 加入更详细的参数是否合法判断
+      if (!defaultSymbol && !overlaySymbol) {
+        continue;
       }
+      const geometry = geometryJsonUtils.fromJSON(overlay.geometry);
+      const graphic = new Graphic({
+        geometry,
+        symbol: overlaySymbol || defaultSymbol
+      });
+      this.overlayLayer.add(graphic);
+      addCount++;
     }
+    return {
+      status: 0,
+      message: "ok",
+      result: `成功添加${params.overlays.length}中的${addCount}个覆盖物`
+    };
   }
 }

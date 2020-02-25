@@ -18,32 +18,33 @@ export interface ILayerConfig {
   visible: boolean;
 }
 
-enum PointPrimitives2D {
-  circle = "circle",
-  square = "square",
-  cross = "cross",
-  x = "x",
-  kite = "kite",
-  triangle = "triangle"
-}
-
-enum PointPrimitives3D {}
-
 export interface IPointSymbol {
   type: string; //point-2d/point-3d
-  url?: string; //使用图片时图片的url地址
-  primitive?: PointPrimitives2D; //使用图元时的图元类型
+  //2D时为图片地址
+  //3D时为模型地址
+  url?: string;
+  //使用图元时的图元类型
+  //2D图元
+  //"circle" | "square" | "cross" | "x" | "kite" | "triangle"
+  //3D图元
+  //"sphere" | "cylinder" | "cube" | "cone" | "inverted-cone" | "diamond" | "tetrahedron"
+  primitive?: string;
   color?: number | string | number[]; //使用图元时的图元颜色
   outline?: {
     //使用图元时的图元边框
     size?: number;
     color?: number | string;
   };
-  //[width, height], number单位默认为pt, 可以使用'pt'或'px'
+  //[width, height, depth], number单位默认为pt, 可以使用'pt'或'px'
+  //depth在point-3D时可用
   //size = 14; size = ["12pt", "14pt"]
   size?: Array<number | string> | number | string;
-  //锚点 "center" | "left" | "right" | "top" | "bottom" | "top-left" | "top-right" | "bottom-left" | "bottom-right"
+  //锚点
+  //"center" | "left" | "right" | "top" | "bottom" | "top-left" | "top-right" | "bottom-left" | "bottom-right"
   anchor?: string;
+  //旋转角度，在point-3d时可用
+  //[x轴角度, y轴角度, z轴角度]
+  rotation?: Array<number>;
 }
 
 export interface IPolylineSymbol {
