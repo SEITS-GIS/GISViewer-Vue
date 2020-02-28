@@ -62,6 +62,7 @@ export interface IOverlay {
   type?: string; //覆盖物类型, 用于按编号/类型删除
   symbol: IPointSymbol | IPolylineSymbol;
   geometry: IPointGeometry;
+  //
 }
 
 export interface IOverlayParameter {
