@@ -1,5 +1,6 @@
 import { IOverlayParameter, IPointSymbol, IResult } from "@/types/map";
 import { loadModules } from "esri-loader";
+import ToolTip from "./ToolTip";
 
 export class OverlayArcgis3D {
   private static overlayArcgis3D: OverlayArcgis3D;
@@ -102,7 +103,104 @@ export class OverlayArcgis3D {
     }
     return result;
   }
+  /**根据graphic的属性生成弹出框*/
+  private getInfoWindowContent(graphic: any): any {
+    let content = "";
+    //键值对
+    for (let fieldName in graphic.attributes) {
+      if (graphic.attributes.hasOwnProperty(fieldName)) {
+        content +=
+          "<b>" + fieldName + ": </b>" + graphic.attributes[fieldName] + "<br>";
+      }
+    }
+    //去掉最后的<br>
+    content = content.substring(0, content.lastIndexOf("<br>"));
+    if (graphic.buttons !== undefined) {
+      content += "<hr>";
+      graphic.buttons.forEach(
+        (buttonConfig: { type: string; label: string }) => {
+          content +=
+            "<button type='button' class='btn btn-primary btn-sm' onclick='mapFeatureClicked(" +
+            '"' +
+            buttonConfig.type +
+            '", "' +
+            graphic.id +
+            '"' +
+            ")'>" +
+            buttonConfig.label +
+            "</button>  ";
+        }
+      );
+    }
+    let divContent = document.createElement("div");
+    divContent.innerHTML = content;
+    return divContent;
+  }
+  //使popup中的content,支持html.
+  private getPopUpHtml(graphic: any, content: string): any {
+    let tipContent = content;
+    for (let fieldName in graphic.attributes) {
+      if (graphic.attributes.hasOwnProperty(fieldName)) {
+        tipContent = tipContent.replace(
+          "{" + fieldName + "}",
+          graphic.attributes[fieldName]
+        );
+      }
+    }
+    let divContent = document.createElement("div");
+    divContent.innerHTML = tipContent;
+    return divContent;
+  }
+  //使toolTip中支持{字段}的形式
+  private getToolTipContent(graphic: any, content: string): string {
+    let tipContent = content;
+    if (content) {
+      //键值对
+      for (let fieldName in graphic.attributes) {
+        if (graphic.attributes.hasOwnProperty(fieldName)) {
+          tipContent = tipContent.replace(
+            "{" + fieldName + "}",
+            graphic.attributes[fieldName]
+          );
+        }
+      }
+    } else {
+      tipContent = this.getInfoWindowContent(graphic).innerHTML;
+    }
+    return tipContent;
+  }
 
+  private MoveToolTip(content: string) {
+    const view = this.view;
+    const moveLayer = this.overlayLayer;
+    let parent = this;
+    let tip!: any;
+    view.on("pointer-move", function(event) {
+      view.hitTest(event).then(response => {
+        if (response.results.length > 0) {
+          response.results.forEach(result => {
+            if (result.graphic.layer === moveLayer) {
+              if (!tip) {
+                tip = new ToolTip(
+                  view,
+                  {
+                    title: "",
+                    content: parent.getToolTipContent(result.graphic, content)
+                  },
+                  result.graphic
+                );
+              }
+            }
+          });
+        } else {
+          if (tip) {
+            tip.remove();
+            tip = null;
+          }
+        }
+      });
+    });
+  }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     if (!this.overlayLayer) {
       await this.createOverlayLayer();
@@ -114,6 +212,17 @@ export class OverlayArcgis3D {
     ]);
 
     const defaultSymbol = this.makeSymbol(params.defaultSymbol);
+    const showPopup = params.showPopup;
+    const defaultInfoTemplate = params.defaultInfoTemplate;
+    const autoPopup = params.autoPopup;
+    const showToolTip = params.showToolTip;
+    const toolTipContent = params.toolTipContent;
+    const defaultButtons = params.defaultButtons;
+
+    if (showToolTip) {
+      this.MoveToolTip(toolTipContent);
+    }
+
     let addCount = 0;
     for (let i = 0; i < params.overlays.length; i++) {
       const overlay = params.overlays[i];
@@ -123,10 +232,39 @@ export class OverlayArcgis3D {
         continue;
       }
       const geometry = geometryJsonUtils.fromJSON(overlay.geometry);
+      const fields = overlay.fields;
+      const buttons = overlay.buttons;
+
       const graphic = new Graphic({
         geometry,
-        symbol: overlaySymbol || defaultSymbol
+        symbol: overlaySymbol || defaultSymbol,
+        attributes: fields || {}
       });
+      graphic.buttons = buttons || defaultButtons;
+      if (showPopup) {
+        if (defaultInfoTemplate === undefined) {
+          graphic.popupTemplate = new PopupTemplate({
+            content: this.getInfoWindowContent(graphic)
+          });
+        } else {
+          graphic.popupTemplate = {
+            title: defaultInfoTemplate.title,
+            content: this.getPopUpHtml(graphic, defaultInfoTemplate.content)
+          };
+        }
+        if (autoPopup) {
+          this.view.popup.open({
+            title: "",
+            content: this.getInfoWindowContent(graphic),
+            location: geometry
+          });
+          this.view.popup.dockOptions = {
+            buttonEnabled: false,
+            breakpoint: { width: 400, height: 30 }
+          };
+        }
+      }
+
       this.overlayLayer.add(graphic);
       addCount++;
     }
