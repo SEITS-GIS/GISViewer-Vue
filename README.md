@@ -83,16 +83,16 @@ export default {
 | 　id | 覆盖物编号, 用于按编号删除 | string |
 | 　type | 覆盖物类型, 用于按类型删除  | string |
 | 　symbol | 覆盖物符号 |  object |
-| 　type | 覆盖物符号类型2d或3d |  string | point-2d/point-3d
-| 　url | 覆盖物符号地址 |  string |
-| 　primitive | 覆盖物的图元类型 |  string |2D图元："circle"，"square"， "cross"， "x"，"kite" ，"triangle"<br/>3D图元："sphere"，"cylinder"， "cube"，"cone"，"inverted-cone"，"diamond"，"tetrahedron"
-| 　color | 图元颜色 |  number/string/number[] |
-| 　outline | 图元边框 |  object |
-| 　　size | 图元边框大小 |  number |
-| 　　color | 图元边框颜色 |  number/string|
-| 　size | 覆盖物大小 |  Array<number/string>/ number/string; |
-| 　anchor | 覆盖物锚点 |  string | "center"，"left"，"right"，"top"，"bottom"，"top-left"，"top-right"，"bottom-left"，"bottom-right"
-| 　rotation | 旋转角度 |  number[] | 在point-3d时可用，[x轴角度, y轴角度, z轴角度]
+| 　　type | 覆盖物符号类型2d或3d |  string | point-2d/point-3d
+| 　　url | 覆盖物符号地址 |  string |
+| 　　primitive | 覆盖物的图元类型 |  string |2D图元："circle"，"square"， "cross"， "x"，"kite" ，"triangle"<br/>3D图元："sphere"，"cylinder"， "cube"，"cone"，"inverted-cone"，"diamond"，"tetrahedron"
+| 　　color | 图元颜色 |  number/string/number[] |
+| 　　outline | 图元边框 |  object |
+| 　　　size | 图元边框大小 |  number |
+| 　　　color | 图元边框颜色 |  number/string|
+| 　　size | 覆盖物大小 |  Array<number/string>/ number/string; |
+| 　　anchor | 覆盖物锚点 |  string | "center"，"left"，"right"，"top"，"bottom"，"top-left"，"top-right"，"bottom-left"，"bottom-right"
+| 　　rotation | 旋转角度 |  number[] | 在point-3d时可用，[x轴角度, y轴角度, z轴角度]
 | 　geometry | 覆盖物几何属性 | object |
 | 　　x | x坐标 | number |
 | 　　y | y坐标 | number |
