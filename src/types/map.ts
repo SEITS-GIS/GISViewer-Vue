@@ -9,7 +9,8 @@ export interface IResult {
 
 export enum Platforms {
   ArcGIS3D = "arcgis3d",
-  ArcGIS2D = "arcgis2d"
+  ArcGIS2D = "arcgis2d",
+  BDMap = "bd"
 }
 
 export interface ILayerConfig {

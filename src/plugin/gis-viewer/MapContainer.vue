@@ -12,6 +12,12 @@
       :map-config="this.mapConfig"
       @map-loaded="mapLoaded"
     />
+     <map-container-baidu
+      ref="containerBaidu"
+      v-if="this.platform === 'bd'"
+      :map-config="this.mapConfig"
+      @map-loaded="mapLoaded"
+    />
   </div>
 </template>
 
@@ -19,12 +25,14 @@
 import { Vue, Component, Prop, Ref, Emit } from "vue-property-decorator";
 import MapContainerArcgisThreeD from "@/plugin/gis-viewer/MapContainerArcgis3D.vue";
 import MapContainerArcgisTwoD from "@/plugin/gis-viewer/MapContainerArcgis2D.vue";
+import MapContainerBaidu from "@/plugin/gis-viewer/MapContainerBaidu.vue";
 import { Platforms, IMapContainer, IOverlayParameter } from "@/types/map";
 
 @Component({
   components: {
     MapContainerArcgisThreeD,
-    MapContainerArcgisTwoD
+    MapContainerArcgisTwoD,
+    MapContainerBaidu
   }
 })
 export default class MapContainer extends Vue implements IMapContainer {
@@ -37,12 +45,17 @@ export default class MapContainer extends Vue implements IMapContainer {
 
   @Ref() readonly containerArcgis3D!: MapContainerArcgisThreeD;
   @Ref() readonly containerArcgis2D!: MapContainerArcgisTwoD;
+   @Ref() readonly containerBaidu!: MapContainerBaidu;
 
   //当前的地图容器
   get mapContainer(): IMapContainer {
     switch (this.platform) {
       case Platforms.ArcGIS2D:
         return this.containerArcgis2D;
+      case Platforms.ArcGIS3D:
+        return this.containerArcgis3D;
+      case Platforms.BDMap:
+        return this.containerBaidu;
       default:
         return this.containerArcgis3D;
     }

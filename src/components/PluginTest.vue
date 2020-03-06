@@ -1,7 +1,7 @@
 <template>
   <gis-viewer
     ref="gisViewer"
-    platform="arcgis3d"
+    platform="bd"
     :map-config="mapConfig"
     @map-loaded="mapLoaded"
   />
@@ -13,13 +13,12 @@ import { Vue, Component } from "vue-property-decorator";
 @Component
 export default class PluginTest extends Vue {
   private mapConfig = {
-    arcgis_api: "http://localhost:8090/arcgis_js_api_4/",
-    theme: "dark-blue",
+    //arcgis_api: "http://localhost:8090/arcgis_js_api_4/",
+    arcgis_api:"http://localhost:8090/baidu/BDAPI.js",
+    theme: "vec",//dark,vec
     baseLayers: [
       {
-        type: "tiled",
-        url:
-          "https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer",
+        type: "traffic",
         visible: true
       }
     ],
@@ -84,21 +83,24 @@ export default class PluginTest extends Vue {
     (this.$refs.gisViewer as any).addOverlays({
       type: "police",
       defaultSymbol: {
-        //symbol for simple marker
-        type: "point-2d",
-        primitive: "circle",
-        // url: "assets/image/Anchor.png",
-        size: 20,
-        color: "red",
-        outline: {
-          color: "white",
-          size: 4
-        },
-        anchor: "top"
-        //symbol for picture marker
+        //symbol for 2d
         // type: "point-2d",
+        // primitive: "square",
         // url: "assets/image/Anchor.png",
-        // size: "30"
+        // size: 20,
+        // color: "red",
+        // outline: {
+        //   color: "white",
+        //   size: 4
+        // },
+        // anchor: "top"
+
+        //symbol for 3d
+        type: "point-3d",
+        primitive: "cube",
+        color: "red",
+        size: 20000,
+        anchor: "bottom"
       },
       overlays: [{ id: "test001", geometry: { x: 121.418924, y: 31.157101 },fields:{name:"测试2",featureid:"0002"} },
       { id: "test002", geometry: { x: 121.318924, y: 31.157101 },fields:{name:"测试3",featureid:"0003"} },
