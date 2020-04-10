@@ -1,7 +1,7 @@
 <template>
   <div class="MapText TextDiv">
     <div v-html="content"></div>
-    <div class="TextTriTop"/>
+    <div class="TextTriTop" />
   </div>
 </template>
 

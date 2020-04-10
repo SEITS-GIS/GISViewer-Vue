@@ -206,7 +206,7 @@ export class OverlayArcgis3D {
       await this.createOverlayLayer();
     }
 
-    const [Graphic, geometryJsonUtils,PopupTemplate] = await loadModules([
+    const [Graphic, geometryJsonUtils, PopupTemplate] = await loadModules([
       "esri/Graphic",
       "esri/geometry/support/jsonUtils",
       "esri/PopupTemplate"

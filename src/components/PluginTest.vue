@@ -14,8 +14,8 @@ import { Vue, Component } from "vue-property-decorator";
 export default class PluginTest extends Vue {
   private mapConfig = {
     //arcgis_api: "http://localhost:8090/arcgis_js_api_4/",
-    arcgis_api:"http://localhost:8090/baidu/BDAPI.js",
-    theme: "vec",//dark,vec
+    arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
+    theme: "vec", //dark,vec
     baseLayers: [
       {
         type: "traffic",
@@ -102,15 +102,32 @@ export default class PluginTest extends Vue {
         size: 20000,
         anchor: "bottom"
       },
-      overlays: [{ id: "test001", geometry: { x: 121.418924, y: 31.157101 },fields:{name:"测试2",featureid:"0002"} },
-      { id: "test002", geometry: { x: 121.318924, y: 31.157101 },fields:{name:"测试3",featureid:"0003"} },
-      { id: "test003", geometry: { x: 121.418924, y: 31.257101 },fields:{name:"测试4",featureid:"0001"} }],
-      showPopup:true,
-      autoPopup:true,
-      defaultInfoTemplate:{title:"1212",content:"name:<br/><button>{name}</button>"},
-      defaultButtons:[{"label":"确认报警","type":"confirmAlarm"}],
-      showToolTip:true,
-      toolTipContent:"{name}",
+      overlays: [
+        {
+          id: "test001",
+          geometry: { x: 121.418924, y: 31.157101 },
+          fields: { name: "测试2", featureid: "0002" }
+        },
+        {
+          id: "test002",
+          geometry: { x: 121.318924, y: 31.157101 },
+          fields: { name: "测试3", featureid: "0003" }
+        },
+        {
+          id: "test003",
+          geometry: { x: 121.418924, y: 31.257101 },
+          fields: { name: "测试4", featureid: "0001" }
+        }
+      ],
+      showPopup: true,
+      autoPopup: true,
+      defaultInfoTemplate: {
+        title: "1212",
+        content: "name:<br/><button>{name}</button>"
+      },
+      defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }],
+      showToolTip: true,
+      toolTipContent: "{name}"
     });
   }
 }
