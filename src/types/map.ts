@@ -63,26 +63,26 @@ export interface IOverlay {
   type?: string; //覆盖物类型, 用于按编号/类型删除
   symbol: IPointSymbol | IPolylineSymbol;
   geometry: IPointGeometry;
-  fields:any,
-  buttons:string[];
+  fields: any;
+  buttons: string[];
 }
 
 export interface IOverlayParameter {
   defaultType?: string;
   defaultSymbol?: IPointSymbol | IPolylineSymbol;
   overlays: Array<IOverlay>;
-  autoPopup:boolean;
-  showPopup:boolean;//是否显示popup
-  defaultInfoTemplate:IPopUpTemplate;
-  defaultButtons:Object[];
-  showToolTip:boolean;//鼠标移到该点位是，是否显示悬浮窗
-  toolTipContent:string;//悬浮窗内容
+  autoPopup: boolean;
+  showPopup: boolean; //是否显示popup
+  defaultInfoTemplate: IPopUpTemplate;
+  defaultButtons: Object[];
+  showToolTip: boolean; //鼠标移到该点位是，是否显示悬浮窗
+  toolTipContent: string; //悬浮窗内容
 }
 
 export interface IMapContainer {
   addOverlays: (param: IOverlayParameter) => void;
 }
-export interface IPopUpTemplate{
-	title?:string
-	content:string
+export interface IPopUpTemplate {
+  title?: string;
+  content: string;
 }
