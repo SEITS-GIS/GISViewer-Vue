@@ -111,7 +111,7 @@ export default class PluginTest extends Vue {
       defaultInfoTemplate:{title:"1212",content:"name:{name}<br/><button>{name}</button>"},
       defaultButtons:[{"label":"确认报警","type":"confirmAlarm"}],
       showToolTip:true,
-      toolTipContent:"{name}",
+      toolTipContent:"{name}"
     });
   }
 }
