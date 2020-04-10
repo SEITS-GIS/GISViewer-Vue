@@ -14,7 +14,7 @@ import { Vue, Component } from "vue-property-decorator";
 export default class PluginTest extends Vue {
   private mapConfig = {
     //arcgis_api: "http://localhost:8090/arcgis_js_api_4/",
-    arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
+    arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
     theme: "vec", //dark,vec
     baseLayers: [
       {
@@ -26,32 +26,31 @@ export default class PluginTest extends Vue {
       //for arcgis-2d
       // center: [121, 31],
       // zoom: 15
-
       //for arcgis-3d
-      camera: {
-        heading: 0,
-        tilt: 9.15,
-        position: {
-          x: 105.508849,
-          y: 22.581284,
-          z: 7000000
-        }
-      }
-    },
-    bookmarks: [
-      {
-        name: "china",
-        camera: {
-          heading: 0,
-          tilt: 9.15,
-          position: {
-            x: 105.508849,
-            y: 22.581284,
-            z: 7000000
-          }
-        }
-      }
-    ]
+      // camera: {
+      //   heading: 0,
+      //   tilt: 9.15,
+      //   position: {
+      //     x: 105.508849,
+      //     y: 22.581284,
+      //     z: 7000000
+      //   }
+      // }
+    }
+    // bookmarks: [
+    //   {
+    //     name: "china",
+    //     camera: {
+    //       heading: 0,
+    //       tilt: 9.15,
+    //       position: {
+    //         x: 105.508849,
+    //         y: 22.581284,
+    //         z: 7000000
+    //       }
+    //     }
+    //   }
+    // ]
   };
 
   private mapLoaded() {
