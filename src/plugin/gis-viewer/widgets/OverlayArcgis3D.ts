@@ -159,7 +159,7 @@ export class OverlayArcgis3D {
       for (let fieldName in graphic.attributes) {
         if (graphic.attributes.hasOwnProperty(fieldName)) {
           tipContent = tipContent.replace(
-            "{" + fieldName + "}",
+            new RegExp("{" + fieldName + "}", "g"),
             graphic.attributes[fieldName]
           );
         }

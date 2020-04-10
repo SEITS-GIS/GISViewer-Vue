@@ -5,7 +5,7 @@
 <script lang="ts">
 import { Vue, Component, Emit, Prop } from "vue-property-decorator";
 import MapApp from "@/plugin/gis-viewer/MapAppBaidu";
-import { IMapContainer } from "@/types/map";
+import { IMapContainer, IOverlayParameter } from "@/types/map";
 
 @Component({
   name: "MapAppBaidu"
@@ -22,7 +22,9 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
     await this.mapApp.initialize(this.mapConfig, "divBMap");
   }
 
-  public addOverlays() {}
+  public addOverlays(params: IOverlayParameter) {
+    this.mapApp.addOverlays(params);
+  }
 }
 </script>
 

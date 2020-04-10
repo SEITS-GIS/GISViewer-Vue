@@ -1,9 +1,10 @@
 import { loadScript } from "esri-loader";
 import { IMapContainer, IOverlayParameter } from "@/types/map";
+import { OverlayBaidu } from "@/plugin/gis-viewer/widgets/OverlayBaidu";
 declare let BMap: any;
 
 export default class MapAppBaidu implements IMapContainer {
-  public view!: __esri.MapView;
+  public view!: any;
 
   public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
     const apiUrl = mapConfig.arcgis_api; //"http://localhost:8090/baidu/BDAPI.js";
@@ -65,7 +66,6 @@ export default class MapAppBaidu implements IMapContainer {
       );
     }
     view.centerAndZoom(center, zoom);
-
     view.enableScrollWheelZoom();
     this.view = view;
   }
@@ -91,5 +91,8 @@ export default class MapAppBaidu implements IMapContainer {
         break;
     }
   }
-  public async addOverlays(params: IOverlayParameter) {}
+  public async addOverlays(params: IOverlayParameter) {
+    const overlay = OverlayBaidu.getInstance(this.view);
+    await overlay.addOverlays(params);
+  }
 }
