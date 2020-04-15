@@ -5,7 +5,11 @@
 <script lang="ts">
 import { Vue, Component, Emit, Prop } from "vue-property-decorator";
 import MapApp from "@/plugin/gis-viewer/MapAppArcgis2D";
-import { IMapContainer } from "@/types/map";
+import {
+  IMapContainer,
+  IHeatParameter,
+  IOverlayClusterParameter
+} from "@/types/map";
 
 @Component({
   name: "MapContainerArcgisTwoD"
@@ -23,6 +27,12 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   }
 
   public addOverlays() {}
+
+  public addHeatMap(params: IHeatParameter) {}
+  public addOverlaysCluster(params: IOverlayClusterParameter) {}
+  public deleteAllOverlays() {}
+  public deleteAllOverlaysCluster() {}
+  public deleteHeatMap() {}
 }
 </script>
 

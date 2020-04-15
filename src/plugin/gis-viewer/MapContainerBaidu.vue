@@ -1,11 +1,10 @@
 <template>
   <div id="divBMap" />
 </template>
-
 <script lang="ts">
 import { Vue, Component, Emit, Prop } from "vue-property-decorator";
 import MapApp from "@/plugin/gis-viewer/MapAppBaidu";
-import { IMapContainer, IOverlayParameter } from "@/types/map";
+import { IMapContainer, IOverlayParameter, IHeatParameter, IOverlayClusterParameter } from "@/types/map";
 
 @Component({
   name: "MapAppBaidu"
@@ -20,10 +19,33 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   async mounted() {
     this.mapApp = new MapApp();
     await this.mapApp.initialize(this.mapConfig, "divBMap");
+    this.mapApp.showGisDeviceInfo=this.showGisDeviceInfo;
+  }
+
+  @Emit("marker-click")
+  public showGisDeviceInfo(type:string,id:string){
   }
 
   public addOverlays(params: IOverlayParameter) {
     this.mapApp.addOverlays(params);
+  }
+  public addOverlaysCluster(params:IOverlayClusterParameter)
+  {
+    this.mapApp.addOverlaysCluster(params);
+  }
+  public addHeatMap(params:IHeatParameter)
+  {
+    this.mapApp.addHeatMap(params);
+  }
+
+  public deleteAllOverlays() {
+    this.mapApp.deleteAllOverlays();
+  }
+  public deleteAllOverlaysCluster() {
+    this.mapApp.deleteAllOverlaysCluster();
+  }
+  public deleteHeatMap() {
+    this.mapApp.deleteHeatMap();
   }
 }
 </script>

@@ -1,10 +1,12 @@
-import { loadScript } from "esri-loader";
-import { IMapContainer, IOverlayParameter } from "@/types/map";
+import { loadScript, ILoadScriptOptions } from "esri-loader";
+import { IMapContainer, IOverlayParameter, IHeatParameter, IOverlayClusterParameter } from "@/types/map";
 import { OverlayBaidu } from "@/plugin/gis-viewer/widgets/OverlayBaidu";
+import { HeatMapBD } from "./widgets/BD/HeatMapBD";
 declare let BMap: any;
 
 export default class MapAppBaidu implements IMapContainer {
   public view!: any;
+  public showGisDeviceInfo: any;
 
   public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
     const apiUrl = mapConfig.arcgis_api; //"http://localhost:8090/baidu/BDAPI.js";
@@ -12,12 +14,21 @@ export default class MapAppBaidu implements IMapContainer {
     await loadScript({
       url: `${apiUrl}`
     });
+    const apiRoot = mapConfig.arcgis_api.substring(0, apiUrl.lastIndexOf("/"));
+    console.log(apiRoot);
 
+    await this.loadOtherScripts([
+      apiRoot + "/library/Heatmap/Heatmap_min.js",
+      apiRoot + "/library/TextIconOverlay/TextIconOverlay_min.js",
+      apiRoot + "/library/MarkerClusterer/MarkerClusterer_min.js"
+    ]).then(function(e: any) {
+      console.log("Load Scripts");
+    });
+    
     view = new BMap.Map(mapContainer);
     let gisUrl = mapConfig.gisServer
       ? mapConfig.gisServer
       : this.getIpPort(apiUrl);
-    console.log(gisUrl);
     if (mapConfig.theme === "dark") {
       let darklayer = new BMap.TileLayer();
       darklayer["getTilesUrl"] = (
@@ -51,7 +62,9 @@ export default class MapAppBaidu implements IMapContainer {
     }
     if (mapConfig.baseLayers) {
       mapConfig.baseLayers.forEach((element: any) => {
-        this.createLayer(view, element);
+        if (element.visible) {
+          this.createLayer(view, element);
+        }
       });
     }
     let zoom = 12;
@@ -68,6 +81,22 @@ export default class MapAppBaidu implements IMapContainer {
     view.centerAndZoom(center, zoom);
     view.enableScrollWheelZoom();
     this.view = view;
+  }
+
+  private async loadOtherScripts(scriptUrls: string[]): Promise<any> {
+    let promises = scriptUrls.map(url => {
+      return new Promise((resolve, reject) => {
+        const scriptElement = document.createElement("script");
+        scriptElement.src = url;
+        scriptElement.onload = resolve;
+        document.body.appendChild(scriptElement);
+      });
+    });
+    return new Promise(resolve => {
+      Promise.all(promises).then(e => {
+        resolve(e);
+      });
+    });
   }
   //得到url中的ip和port
   private getIpPort(url: string): string {
@@ -93,6 +122,33 @@ export default class MapAppBaidu implements IMapContainer {
   }
   public async addOverlays(params: IOverlayParameter) {
     const overlay = OverlayBaidu.getInstance(this.view);
+    overlay.showGisDeviceInfo = this.showGisDeviceInfo;
     await overlay.addOverlays(params);
+  }
+
+  public async addOverlaysCluster(params:IOverlayClusterParameter) {
+    const overlay = OverlayBaidu.getInstance(this.view);
+    overlay.showGisDeviceInfo = this.showGisDeviceInfo;
+    await overlay.addOverlaysCluster(params);
+  }
+
+  public async addHeatMap(params: IHeatParameter) {
+    const heatmap = HeatMapBD.getInstance(this.view);
+    await heatmap.addHeatMap(params);
+  }
+
+  public async deleteAllOverlays() {
+    const overlay = OverlayBaidu.getInstance(this.view);
+    overlay.showGisDeviceInfo = this.showGisDeviceInfo;
+    await overlay.deleteAllOverlays();
+  }
+  public async deleteAllOverlaysCluster() {
+    const overlay = OverlayBaidu.getInstance(this.view);
+    overlay.showGisDeviceInfo = this.showGisDeviceInfo;
+    await overlay.deleteAllOverlaysCluster();
+  }
+  public async deleteHeatMap() {
+    const heatmap = HeatMapBD.getInstance(this.view);
+    await heatmap.deleteHeatMap();
   }
 }

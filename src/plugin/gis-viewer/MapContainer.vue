@@ -12,11 +12,12 @@
       :map-config="this.mapConfig"
       @map-loaded="mapLoaded"
     />
-     <map-container-baidu
+    <map-container-baidu
       ref="containerBaidu"
       v-if="this.platform === 'bd'"
       :map-config="this.mapConfig"
       @map-loaded="mapLoaded"
+      @marker-click="showGisDeviceInfo"
     />
   </div>
 </template>
@@ -26,7 +27,13 @@ import { Vue, Component, Prop, Ref, Emit } from "vue-property-decorator";
 import MapContainerArcgisThreeD from "@/plugin/gis-viewer/MapContainerArcgis3D.vue";
 import MapContainerArcgisTwoD from "@/plugin/gis-viewer/MapContainerArcgis2D.vue";
 import MapContainerBaidu from "@/plugin/gis-viewer/MapContainerBaidu.vue";
-import { Platforms, IMapContainer, IOverlayParameter } from "@/types/map";
+import {
+  Platforms,
+  IMapContainer,
+  IOverlayParameter,
+  IHeatParameter,
+  IOverlayClusterParameter
+} from "@/types/map";
 
 @Component({
   components: {
@@ -45,7 +52,7 @@ export default class MapContainer extends Vue implements IMapContainer {
 
   @Ref() readonly containerArcgis3D!: MapContainerArcgisThreeD;
   @Ref() readonly containerArcgis2D!: MapContainerArcgisTwoD;
-   @Ref() readonly containerBaidu!: MapContainerBaidu;
+  @Ref() readonly containerBaidu!: MapContainerBaidu;
 
   //当前的地图容器
   get mapContainer(): IMapContainer {
@@ -64,8 +71,28 @@ export default class MapContainer extends Vue implements IMapContainer {
   @Emit("map-loaded")
   private mapLoaded() {}
 
+  @Emit("marker-click")
+  private showGisDeviceInfo(type: string, id: string) {}
+
   public addOverlays(params: IOverlayParameter) {
     this.mapContainer.addOverlays(params);
+  }
+
+  public addOverlaysCluster(params: IOverlayClusterParameter) {
+    this.mapContainer.addOverlaysCluster(params);
+  }
+  public addHeatMap(params: IHeatParameter) {
+    this.mapContainer.addHeatMap(params);
+  }
+
+  public deleteAllOverlays() {
+    this.mapContainer.deleteAllOverlays();
+  }
+  public deleteAllOverlaysCluster() {
+    this.mapContainer.deleteAllOverlaysCluster();
+  }
+  public deleteHeatMap() {
+    this.mapContainer.deleteHeatMap();
   }
 }
 </script>

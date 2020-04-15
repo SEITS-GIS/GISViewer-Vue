@@ -55,4 +55,5 @@ export default class MapAppArcGIS2D {
     await view.when();
     this.view = view;
   }
+
 }

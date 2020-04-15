@@ -46,8 +46,11 @@ export interface IPointSymbol {
   //旋转角度，在point-3d时可用
   //[x轴角度, y轴角度, z轴角度]
   rotation?: Array<number>;
+  width?:number;
+  height?:number;
+  xoffset?:number;
+  yoffset?:number;
 }
-
 export interface IPolylineSymbol {
   type: string; //line-2d/line-3d
 }
@@ -69,6 +72,7 @@ export interface IOverlay {
 
 export interface IOverlayParameter {
   defaultType?: string;
+  type?: string;
   defaultSymbol?: IPointSymbol | IPolylineSymbol;
   overlays: Array<IOverlay>;
   autoPopup: boolean;
@@ -78,11 +82,42 @@ export interface IOverlayParameter {
   showToolTip: boolean; //鼠标移到该点位是，是否显示悬浮窗
   toolTipContent: string; //悬浮窗内容
 }
+export interface IOverlayClusterParameter{
+  points:Array<IOverlay>;
+  type?:string;
+  zoom:number;
+  distance:number;
+  defaultSymbol?: IPointSymbol;
+  defaultVisible:boolean;
+  defaultTooltip:string;
+}
 
 export interface IMapContainer {
   addOverlays: (param: IOverlayParameter) => void;
+  addHeatMap:(param:IHeatParameter)=>void;
+  addOverlaysCluster:(param:IOverlayClusterParameter)=>void;
+  deleteAllOverlays:()=>void;
+  deleteAllOverlaysCluster:()=>void;
+  deleteHeatMap:()=>void;
 }
 export interface IPopUpTemplate {
   title?: string;
   content: string;
+}
+export interface IHeatParameter
+{
+  points:Array<IHeatPoint>;
+  options:IHeatOptions;
+}
+export interface IHeatOptions
+{
+  field:string;
+  radius?:number;
+  colors?:Array<string>;
+  maxValue?:number;
+}
+export interface IHeatPoint
+{
+  fields:any;
+  geometry:IPointGeometry;
 }

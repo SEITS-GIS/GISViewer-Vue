@@ -5,7 +5,12 @@
 <script lang="ts">
 import { Vue, Component, Emit, Prop } from "vue-property-decorator";
 import MapApp from "@/plugin/gis-viewer/MapAppArcgis3D";
-import { IMapContainer, IOverlayParameter } from "@/types/map";
+import {
+  IMapContainer,
+  IOverlayParameter,
+  IHeatParameter,
+  IOverlayClusterParameter
+} from "@/types/map";
 
 @Component({
   name: "MapContainerArcgisThreeD"
@@ -25,6 +30,13 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   public addOverlays(params: IOverlayParameter) {
     this.mapApp.addOverlays(params);
   }
+
+  public addHeatMap(params: IHeatParameter) {}
+  public addOverlaysCluster(params: IOverlayClusterParameter) {}
+
+  public deleteAllOverlays() {}
+  public deleteAllOverlaysCluster() {}
+  public deleteHeatMap() {}
 }
 </script>
 
