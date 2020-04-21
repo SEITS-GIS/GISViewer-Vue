@@ -75,12 +75,12 @@ export interface IOverlayParameter {
   type?: string;
   defaultSymbol?: IPointSymbol | IPolylineSymbol;
   overlays: Array<IOverlay>;
-  autoPopup: boolean;
-  showPopup: boolean; //是否显示popup
-  defaultInfoTemplate: IPopUpTemplate;
-  defaultButtons: Object[];
-  showToolTip: boolean; //鼠标移到该点位是，是否显示悬浮窗
-  toolTipContent: string; //悬浮窗内容
+  autoPopup?: boolean;
+  showPopup?: boolean; //是否显示popup
+  defaultInfoTemplate?: IPopUpTemplate;
+  defaultButtons?: Object[];
+  showToolTip?: boolean; //鼠标移到该点位是，是否显示悬浮窗
+  toolTipContent?: string; //悬浮窗内容
 }
 export interface IOverlayClusterParameter{
   points:Array<IOverlay>;
@@ -96,6 +96,7 @@ export interface IMapContainer {
   addOverlays: (param: IOverlayParameter) => void;
   addHeatMap:(param:IHeatParameter)=>void;
   addOverlaysCluster:(param:IOverlayClusterParameter)=>void;
+  deleteOverlays:(param:IOverlayDelete)=>void;
   deleteAllOverlays:()=>void;
   deleteAllOverlaysCluster:()=>void;
   deleteHeatMap:()=>void;
@@ -115,9 +116,17 @@ export interface IHeatOptions
   radius?:number;
   colors?:Array<string>;
   maxValue?:number;
+  zoom?:number;
+  renderer?:any;
 }
 export interface IHeatPoint
 {
   fields:any;
   geometry:IPointGeometry;
+}
+
+export interface IOverlayDelete
+{
+  types?:Array<string>;
+  ids?:Array<string>
 }

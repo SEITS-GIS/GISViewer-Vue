@@ -9,11 +9,12 @@ import {
   IMapContainer,
   IOverlayParameter,
   IHeatParameter,
-  IOverlayClusterParameter
+  IOverlayClusterParameter,
+  IOverlayDelete,
 } from "@/types/map";
 
 @Component({
-  name: "MapContainerArcgisThreeD"
+  name: "MapContainerArcgisThreeD",
 })
 export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   private mapApp!: MapApp;
@@ -33,7 +34,7 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
 
   public addHeatMap(params: IHeatParameter) {}
   public addOverlaysCluster(params: IOverlayClusterParameter) {}
-
+  public deleteOverlays(params: IOverlayDelete) {}
   public deleteAllOverlays() {}
   public deleteAllOverlaysCluster() {}
   public deleteHeatMap() {}

@@ -4,7 +4,7 @@
 <script lang="ts">
 import { Vue, Component, Emit, Prop } from "vue-property-decorator";
 import MapApp from "@/plugin/gis-viewer/MapAppBaidu";
-import { IMapContainer, IOverlayParameter, IHeatParameter, IOverlayClusterParameter } from "@/types/map";
+import { IMapContainer, IOverlayParameter, IHeatParameter, IOverlayClusterParameter,IOverlayDelete } from "@/types/map";
 
 @Component({
   name: "MapAppBaidu"
@@ -37,7 +37,10 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   {
     this.mapApp.addHeatMap(params);
   }
-
+  public deleteOverlays(params:IOverlayDelete)
+  {
+    this.mapApp.deleteOverlays(params);
+  }
   public deleteAllOverlays() {
     this.mapApp.deleteAllOverlays();
   }

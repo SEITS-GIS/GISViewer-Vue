@@ -8,11 +8,12 @@ import MapApp from "@/plugin/gis-viewer/MapAppArcgis2D";
 import {
   IMapContainer,
   IHeatParameter,
-  IOverlayClusterParameter
+  IOverlayClusterParameter,
+  IOverlayDelete,
 } from "@/types/map";
 
 @Component({
-  name: "MapContainerArcgisTwoD"
+  name: "MapContainerArcgisTwoD",
 })
 export default class MapContainerArcgis extends Vue implements IMapContainer {
   private mapApp!: MapApp;
@@ -27,9 +28,9 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   }
 
   public addOverlays() {}
-
   public addHeatMap(params: IHeatParameter) {}
   public addOverlaysCluster(params: IOverlayClusterParameter) {}
+  public deleteOverlays(params: IOverlayDelete) {}
   public deleteAllOverlays() {}
   public deleteAllOverlaysCluster() {}
   public deleteHeatMap() {}

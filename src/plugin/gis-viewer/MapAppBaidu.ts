@@ -1,5 +1,5 @@
 import { loadScript, ILoadScriptOptions } from "esri-loader";
-import { IMapContainer, IOverlayParameter, IHeatParameter, IOverlayClusterParameter } from "@/types/map";
+import { IMapContainer, IOverlayParameter, IHeatParameter, IOverlayClusterParameter, IOverlayDelete } from "@/types/map";
 import { OverlayBaidu } from "@/plugin/gis-viewer/widgets/OverlayBaidu";
 import { HeatMapBD } from "./widgets/BD/HeatMapBD";
 declare let BMap: any;
@@ -135,6 +135,11 @@ export default class MapAppBaidu implements IMapContainer {
   public async addHeatMap(params: IHeatParameter) {
     const heatmap = HeatMapBD.getInstance(this.view);
     await heatmap.addHeatMap(params);
+  }
+
+  public async deleteOverlays(params:IOverlayDelete) {
+    const overlay = OverlayBaidu.getInstance(this.view);
+    await overlay.deleteOverlays(params);
   }
 
   public async deleteAllOverlays() {

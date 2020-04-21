@@ -121,38 +121,40 @@ export default class PluginTest extends Vue {
       showToolTip:true,
       toolTipContent:"{name}"
 	});
-	var points=[];
-      var x=121.43;
-      var y=31.15;
-      for(var i=0;i<200;i++)
-      {
-          var x1=x+(Math.random()*2-1)/5;
-          var y1=y+(Math.random()*2-1)/5;
-          var value=1000*Math.random()+1;
-          var a=i%2==0?"1":"0";
-          points.push({"geometry":{"x":x1,"y":y1},"fields":{"desc":"上海体育馆停车场","totalSpace":value,"type":a}});
-      }
-    var json={"points":points,"options":{"field":"totalSpace","radius":"20","colors":["rgba(30,144,255)","rgb(0, 255, 0)","rgb(255, 255, 0)", "rgb(254,89,0)"],"maxValue":1000,"minValue":1,"zoom":16,"renderer":{"type":"simple","symbol":{"type":"esriPMS","url":"images/mapIcons/icon_qbb_blue.png","width":24,"height":32,"yoffset":16}}}};
-    map.addHeatMap(json);
-	axios.get("config/point.json").then(res=>{
-		map.addOverlaysCluster(res.data)
-	});
   }
-private btn_test1()
-{
-	(this.$refs.gisViewer as any).deleteHeatMap();
-}
-private btn_test2()
-{
-	(this.$refs.gisViewer as any).deleteAllOverlays();
-}
-private btn_test3()
-{
-	(this.$refs.gisViewer as any).deleteAllOverlaysCluster();
-}
+  private btn_test1()
+  {
+    let map=(this.$refs.gisViewer as any)
+    axios.get("config/point.json").then(res=>{
+      map.addOverlaysCluster(res.data)
+    });
+  }
+  private btn_test2()
+  {
+    let map=(this.$refs.gisViewer as any)
+    var points=[];
+        var x=121.43;
+        var y=31.15;
+        for(var i=0;i<200;i++)
+        {
+            var x1=x+(Math.random()*2-1)/5;
+            var y1=y+(Math.random()*2-1)/5;
+            var value=1000*Math.random()+1;
+            var a=i%2==0?"1":"0";
+            points.push({"geometry":{"x":x1,"y":y1},"fields":{"desc":"上海体育馆停车场","totalSpace":value,"type":a}});
+        }
+      var json={"points":points,"options":{"field":"totalSpace","radius":"20","colors":["rgba(30,144,255)","rgb(0, 255, 0)","rgb(255, 255, 0)", "rgb(254,89,0)"],"maxValue":1000,"minValue":1,"zoom":12,"renderer":{"type":"simple","symbol":{"type":"esriPMS","url":"assets/image/Anchor.png","width":64,"height":66,"yoffset":16}}}};
+      map.addHeatMap(json);
+    
+  }
+  private btn_test3()
+  {
+    (this.$refs.gisViewer as any).deleteHeatMap();
+    (this.$refs.gisViewer as any).deleteAllOverlaysCluster();
+  }
   private showGisDeviceInfo(type:string,id:string)
   {
-      console.log(type+","+id);
+    console.log(type+","+id);
   }
 }
 </script>
@@ -169,6 +171,7 @@ private btn_test3()
 {
 	position: absolute;
 	z-index: 99;
+  display: block;
 }
 
 </style>

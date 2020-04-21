@@ -220,7 +220,7 @@ export class OverlayArcgis3D {
     const toolTipContent = params.toolTipContent;
     const defaultButtons = params.defaultButtons;
 
-    if (showToolTip) {
+    if (showToolTip && toolTipContent) {
       this.MoveToolTip(toolTipContent);
     }
 

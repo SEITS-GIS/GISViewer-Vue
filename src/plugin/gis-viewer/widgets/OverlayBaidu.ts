@@ -4,7 +4,8 @@ import {
   IPolylineSymbol,
   IResult,
   IPopUpTemplate,
-  IOverlayClusterParameter
+  IOverlayClusterParameter,
+  IOverlayDelete,
 } from "@/types/map";
 declare let BMap: any;
 declare let BMapLib: any;
@@ -29,10 +30,13 @@ export class OverlayBaidu {
   }
 
   private async createOverlayLayer() {}
-  private getMarker(type: string, overlay: any, symbol: any): any {
+  private getMarker(overlay: any, symbol: any): any {
     let marker: any;
     let geometry = overlay.geometry;
-
+    let type: any;
+    if (symbol) {
+      type = symbol.type;
+    }
     switch (type) {
       case "polyline":
         marker = new BMap.Polyline(this.getGeometry(geometry.paths[0]), symbol);
@@ -86,7 +90,7 @@ export class OverlayBaidu {
         marker = {
           strokeColor: symbol.outline.color,
           strokeWeight: symbol.outline.size,
-          fillColor: symbol.color
+          fillColor: symbol.color,
         };
         break;
       case "point":
@@ -182,12 +186,7 @@ export class OverlayBaidu {
       const fields = overlay.fields;
       const buttons = overlay.buttons || defaultButtons;
 
-      //TODO: 加入更详细的参数是否合法判断
-      let graphic = this.getMarker(
-        (params.defaultSymbol as IPointSymbol).type || overlay.symbol.type,
-        overlay,
-        overlaySymbol || defaultSymbol
-      );
+      let graphic = this.getMarker(overlay, overlaySymbol || defaultSymbol);
       graphic.attributes = fields;
       graphic.buttons = buttons;
       graphic.id = overlay.id;
@@ -210,7 +209,7 @@ export class OverlayBaidu {
             //height: 50,     // 信息窗口高度
             title: title, // 信息窗口标题
             enableMessage: true, //设置允许信息窗发送短息
-            message: ""
+            message: "",
           });
           this.view.openInfoWindow(infoWindow, graphic.point);
         }
@@ -220,7 +219,7 @@ export class OverlayBaidu {
             height: 0, // 信息窗口高度
             title: title, // 信息窗口标题
             enableMessage: true, //设置允许信息窗发送短息
-            message: ""
+            message: "",
           }); // 创建信息窗口对象
           mapView.openInfoWindow(infoWindow, e.point);
           _this._showGisDeviceInfo(e.target.type, e.target.id);
@@ -233,7 +232,7 @@ export class OverlayBaidu {
     return {
       status: 0,
       message: "ok",
-      result: `成功添加${params.overlays.length}中的${addCount}个覆盖物`
+      result: `成功添加${params.overlays.length}中的${addCount}个覆盖物`,
     };
   }
   public async addOverlaysCluster(
@@ -257,11 +256,7 @@ export class OverlayBaidu {
       const overlay = points[i];
       const overlaySymbol = this.makeSymbol(overlay.symbol);
       const fields = overlay.fields;
-      let graphic = this.getMarker(
-        "point",
-        overlay,
-        overlaySymbol || defaultSymbol
-      );
+      let graphic = this.getMarker(overlay, overlaySymbol || defaultSymbol);
 
       graphic.attributes = fields;
       graphic.id = overlay.id;
@@ -274,7 +269,7 @@ export class OverlayBaidu {
           height: 0, // 信息窗口高度
           title: "", // 信息窗口标题
           enableMessage: true, //设置允许信息窗发送短息
-          message: ""
+          message: "",
         }); // 创建信息窗口对象
         mapView.openInfoWindow(infoWindow, e.point);
         _this._showGisDeviceInfo(e.target.type, e.target.id);
@@ -287,11 +282,11 @@ export class OverlayBaidu {
       markers: markers,
       styles: [{ url: "assets/image/m0.png", size: new BMap.Size(53, 53) }],
       maxZoom: zoom,
-      gridSize: distance
+      gridSize: distance,
     });
     return {
       status: 0,
-      message: "ok"
+      message: "ok",
     };
   }
   public async deleteAllOverlays() {
@@ -302,7 +297,34 @@ export class OverlayBaidu {
       this.overlayers = [];
     }
   }
+  public async deleteOverlays(params: IOverlayDelete) {
+    var types = params.types || [];
+    var ids = params.ids || [];
+    this.overlayers=this.overlayers.filter((graphic) => {
+      if (
+        //只判断type
+        (types.length > 0 &&
+          ids.length === 0 &&
+          types.indexOf(graphic.type) >= 0) ||
+        //只判断id
+        (types.length === 0 &&
+          ids.length > 0 &&
+          ids.indexOf(graphic.id) >= 0) ||
+        //type和id都要判断
+        (types.length > 0 &&
+          ids.length > 0 &&
+          types.indexOf(graphic.type) >= 0 &&
+          ids.indexOf(graphic.id) >= 0)
+      ) {
+        this.view.removeOverlay(graphic);
+        return false;
+      }
+      return true;
+    });
+  }
   public async deleteAllOverlaysCluster() {
-    this.markerClusterer.clearMarkers();
+    if (this.markerClusterer) {
+      this.markerClusterer.clearMarkers();
+    }
   }
 }
