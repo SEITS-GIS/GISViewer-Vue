@@ -333,5 +333,6 @@ export class OverlayBaidu {
     if (this.markerClusterer) {
       this.markerClusterer.clearMarkers();
     }
+    this.view.closeInfoWindow();
   }
 }

@@ -187,7 +187,7 @@ export default class PluginTest extends Vue {
   }
   private btn_test3() {
     (this.$refs.gisViewer as any).deleteHeatMap();
-    //(this.$refs.gisViewer as any).deleteAllOverlaysCluster();
+    (this.$refs.gisViewer as any).deleteAllOverlaysCluster();
     (this.$refs.gisViewer as any).deleteOverlays({ids:["test003"]});
   }
   private showGisDeviceInfo(type: string, id: string) {
