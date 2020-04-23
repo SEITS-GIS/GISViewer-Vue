@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { loadScript, ILoadScriptOptions } from "esri-loader";
 import { IMapContainer, IOverlayParameter, IHeatParameter, IOverlayClusterParameter, IOverlayDelete } from "@/types/map";
 import { OverlayBaidu } from "@/plugin/gis-viewer/widgets/OverlayBaidu";
@@ -7,6 +8,14 @@ declare let BMap: any;
 export default class MapAppBaidu implements IMapContainer {
   public view!: any;
   public showGisDeviceInfo: any;
+=======
+import { loadScript } from "esri-loader";
+import { IMapContainer, IOverlayParameter } from "@/types/map";
+declare let BMap: any;
+
+export default class MapAppBaidu implements IMapContainer {
+  public view!: __esri.MapView;
+>>>>>>> 8b4c2ea4bcfafc5dd8e8ddc464d568c3fbdb8028
 
   public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
     const apiUrl = mapConfig.arcgis_api; //"http://localhost:8090/baidu/BDAPI.js";
@@ -79,6 +88,7 @@ export default class MapAppBaidu implements IMapContainer {
       );
     }
     view.centerAndZoom(center, zoom);
+
     view.enableScrollWheelZoom();
     this.view = view;
   }
@@ -120,6 +130,7 @@ export default class MapAppBaidu implements IMapContainer {
         break;
     }
   }
+<<<<<<< HEAD
   public async addOverlays(params: IOverlayParameter) {
     const overlay = OverlayBaidu.getInstance(this.view);
     overlay.showGisDeviceInfo = this.showGisDeviceInfo;
@@ -156,4 +167,7 @@ export default class MapAppBaidu implements IMapContainer {
     const heatmap = HeatMapBD.getInstance(this.view);
     await heatmap.deleteHeatMap();
   }
+=======
+  public async addOverlays(params: IOverlayParameter) {}
+>>>>>>> 8b4c2ea4bcfafc5dd8e8ddc464d568c3fbdb8028
 }

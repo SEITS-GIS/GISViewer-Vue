@@ -48,7 +48,7 @@ export class OverlayArcgis3D {
       case "point-2d":
         //图元类型不匹配
         if (symbol.primitive && !this.primitive2D.includes(symbol.primitive)) {
-          console.error(`Wrong primitive: ${symbol.primitive}`);
+          // console.error(`Wrong primitive: ${symbol.primitive}`);
           return undefined;
         }
 
@@ -72,7 +72,7 @@ export class OverlayArcgis3D {
       case "point-3d":
         //图元类型不匹配
         if (symbol.primitive && !this.primitive3D.includes(symbol.primitive)) {
-          console.error(`Wrong primitive: ${symbol.primitive}`);
+          // console.error(`Wrong primitive: ${symbol.primitive}`);
           return undefined;
         }
 
@@ -159,7 +159,7 @@ export class OverlayArcgis3D {
       for (let fieldName in graphic.attributes) {
         if (graphic.attributes.hasOwnProperty(fieldName)) {
           tipContent = tipContent.replace(
-            new RegExp("{" + fieldName + "}", "g"),
+            "{" + fieldName + "}",
             graphic.attributes[fieldName]
           );
         }
