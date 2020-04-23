@@ -70,6 +70,7 @@ export default {
 | name       | description  | parameters |
 | ---------- | ------------ | ---------- |
 | map-loaded | 地图创建完成 |
+|showGisDeviceInfo|撒点点击事件|
 
 
 
@@ -109,3 +110,9 @@ export default {
 | 　type | js函数mapFeatureClicked的type参数 | string |
 | showToolTip | 是否显示飞行提示 | boolean| false
 | toolTipContent | 飞行提示内容 | string | 
+### deleteOverlays 删除撒点接口
+### deleteAllOverlays 删除全部撒点接口
+### addOverlaysCluster 点聚合接口
+### deleteAllOverlaysCluster 删除点聚合接口
+### addHeatMap 热力图接口
+### deleteHeatMap 删除热力图接口

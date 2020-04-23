@@ -90,10 +90,10 @@ export default class PluginTest extends Vue {
       type: "police",
       defaultSymbol: {
         //symbol for 2d
-        // type: "point-2d",
+        type: "point-2d",
         // primitive: "square",
-        // url: "assets/image/Anchor.png",
-        // size: 20,
+        url: "assets/image/Anchor.png",
+        size: 120,
         // color: "red",
         // outline: {
         //   color: "white",
@@ -102,10 +102,10 @@ export default class PluginTest extends Vue {
         // anchor: "top"
 
         //symbol for 3d
-        type: "point-3d",
-        primitive: "cube",
-        color: "red",
-        size: 20000,
+        //type: "point-3d",
+        //primitive: "cube",
+        //color: "red",
+        //size: 20000,
         anchor: "bottom",
       },
       overlays: [
@@ -187,7 +187,8 @@ export default class PluginTest extends Vue {
   }
   private btn_test3() {
     (this.$refs.gisViewer as any).deleteHeatMap();
-    (this.$refs.gisViewer as any).deleteAllOverlaysCluster();
+    //(this.$refs.gisViewer as any).deleteAllOverlaysCluster();
+    (this.$refs.gisViewer as any).deleteOverlays({ids:["test003"]});
   }
   private showGisDeviceInfo(type: string, id: string) {
     console.log(type + "," + id);

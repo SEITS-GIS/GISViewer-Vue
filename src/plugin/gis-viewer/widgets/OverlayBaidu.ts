@@ -211,6 +211,7 @@ export class OverlayBaidu {
             enableMessage: true, //设置允许信息窗发送短息
             message: "",
           });
+          graphic.isOpenInfo=true;
           this.view.openInfoWindow(infoWindow, graphic.point);
         }
         graphic.addEventListener("click", function(e: any) {
@@ -221,6 +222,7 @@ export class OverlayBaidu {
             enableMessage: true, //设置允许信息窗发送短息
             message: "",
           }); // 创建信息窗口对象
+          e.target.isOpenInfo=true;
           mapView.openInfoWindow(infoWindow, e.point);
           _this._showGisDeviceInfo(e.target.type, e.target.id);
         });
@@ -296,6 +298,7 @@ export class OverlayBaidu {
       }
       this.overlayers = [];
     }
+    this.view.closeInfoWindow();
   }
   public async deleteOverlays(params: IOverlayDelete) {
     var types = params.types || [];
@@ -317,6 +320,10 @@ export class OverlayBaidu {
           ids.indexOf(graphic.id) >= 0)
       ) {
         this.view.removeOverlay(graphic);
+        if(graphic.isOpenInfo===true)
+        {
+          this.view.closeInfoWindow();
+        }
         return false;
       }
       return true;
