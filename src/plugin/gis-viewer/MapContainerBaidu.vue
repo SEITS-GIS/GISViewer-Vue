@@ -4,9 +4,15 @@
 <script lang="ts">
 import { Vue, Component, Emit, Prop } from "vue-property-decorator";
 import MapApp from "@/plugin/gis-viewer/MapAppBaidu";
-import { IMapContainer, IOverlayParameter, IHeatParameter, IOverlayClusterParameter,IOverlayDelete } from "@/types/map";
+import {
+  IMapContainer,
+  IOverlayParameter,
+  IHeatParameter,
+  IOverlayClusterParameter,
+  IOverlayDelete,
+} from "@/types/map";
 @Component({
-  name: "MapAppBaidu"
+  name: "MapAppBaidu",
 })
 export default class MapContainerArcgis extends Vue implements IMapContainer {
   private mapApp!: MapApp;
@@ -18,25 +24,21 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   async mounted() {
     this.mapApp = new MapApp();
     await this.mapApp.initialize(this.mapConfig, "divBMap");
-    this.mapApp.showGisDeviceInfo=this.showGisDeviceInfo;
+    this.mapApp.showGisDeviceInfo = this.showGisDeviceInfo;
   }
 
   @Emit("marker-click")
-  public showGisDeviceInfo(type:string,id:string){
-  }
+  public showGisDeviceInfo(type: string, id: string) {}
   public addOverlays(params: IOverlayParameter) {
     this.mapApp.addOverlays(params);
   }
-  public addOverlaysCluster(params:IOverlayClusterParameter)
-  {
+  public addOverlaysCluster(params: IOverlayClusterParameter) {
     this.mapApp.addOverlaysCluster(params);
   }
-  public addHeatMap(params:IHeatParameter)
-  {
+  public addHeatMap(params: IHeatParameter) {
     this.mapApp.addHeatMap(params);
   }
-  public deleteOverlays(params:IOverlayDelete)
-  {
+  public deleteOverlays(params: IOverlayDelete) {
     this.mapApp.deleteOverlays(params);
   }
   public deleteAllOverlays() {

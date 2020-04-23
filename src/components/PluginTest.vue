@@ -1,23 +1,22 @@
 <template>
-<div id="gisDiv">
-	<div id="test">
-		<button @click="btn_test1">test1</button>
-		<button @click="btn_test2">test2</button>
-		<button @click="btn_test3">test3</button>
-	</div>
-	<gis-viewer
-		ref="gisViewer"
-		platform="bd"
-		:map-config="mapConfig"
-		@map-loaded="mapLoaded"
-		@marker-click="showGisDeviceInfo"
-	/>
-</div>
-
+  <div id="gisDiv">
+    <div id="test">
+      <button @click="btn_test1">test1</button>
+      <button @click="btn_test2">test2</button>
+      <button @click="btn_test3">test3</button>
+    </div>
+    <gis-viewer
+      ref="gisViewer"
+      platform="bd"
+      :map-config="mapConfig"
+      @map-loaded="mapLoaded"
+      @marker-click="showGisDeviceInfo"
+    />
+  </div>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import axios from 'axios';
+import axios from "axios";
 @Component
 export default class PluginTest extends Vue {
   private mapConfig = {
@@ -27,8 +26,8 @@ export default class PluginTest extends Vue {
     baseLayers: [
       {
         type: "traffic",
-        visible: true
-      }
+        visible: true,
+      },
     ],
     options: {
       //for arcgis-2d
@@ -54,15 +53,15 @@ export default class PluginTest extends Vue {
           position: {
             x: 105.508849,
             y: 22.581284,
-            z: 7000000
-          }
-        }
-      }
-    ]
+            z: 7000000,
+          },
+        },
+      },
+    ],
   };
   private mapLoaded() {
-	console.log("map loaded");
-	let map=(this.$refs.gisViewer as any);
+    console.log("map loaded");
+    let map = this.$refs.gisViewer as any;
     /* (this.$refs.gisViewer as any).addOverlays({
       type: "police",
       defaultSymbol: {
@@ -107,69 +106,105 @@ export default class PluginTest extends Vue {
         primitive: "cube",
         color: "red",
         size: 20000,
-        anchor: "bottom"
+        anchor: "bottom",
       },
-      overlays: [{ id: "test001", geometry: { x: 121.418924, y: 31.157101 },fields:{name:"测试2",featureid:"0002"} },
-      { id: "test002", geometry: { x: 121.318924, y: 31.157101 },fields:{name:"测试3",featureid:"0003"} },
-      { id: "test003", geometry: { x: 121.418924, y: 31.257101 },fields:{name:"测试4",featureid:"0001"} }],
-      showPopup:true,
-      autoPopup:false,
-      defaultInfoTemplate:{title:"1212",content:"name:{name}<br/><button>{name}</button>"},
-      defaultButtons:[{"label":"确认报警","type":"confirmAlarm"}],
-      showToolTip:true,
-      toolTipContent:"{name}"
-	});
-  }
-  private btn_test1()
-  {
-    let map=(this.$refs.gisViewer as any)
-    axios.get("config/point.json").then(res=>{
-      map.addOverlaysCluster(res.data)
+      overlays: [
+        {
+          id: "test001",
+          geometry: { x: 121.418924, y: 31.157101 },
+          fields: { name: "测试2", featureid: "0002" },
+        },
+        {
+          id: "test002",
+          geometry: { x: 121.318924, y: 31.157101 },
+          fields: { name: "测试3", featureid: "0003" },
+        },
+        {
+          id: "test003",
+          geometry: { x: 121.418924, y: 31.257101 },
+          fields: { name: "测试4", featureid: "0001" },
+        },
+      ],
+      showPopup: true,
+      autoPopup: false,
+      defaultInfoTemplate: {
+        title: "1212",
+        content: "name:{name}<br/><button>{name}</button>",
+      },
+      defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }],
+      showToolTip: true,
+      toolTipContent: "{name}",
     });
   }
-  private btn_test2()
-  {
-    let map=(this.$refs.gisViewer as any)
-    var points=[];
-        var x=121.43;
-        var y=31.15;
-        for(var i=0;i<200;i++)
-        {
-            var x1=x+(Math.random()*2-1)/5;
-            var y1=y+(Math.random()*2-1)/5;
-            var value=1000*Math.random()+1;
-            var a=i%2==0?"1":"0";
-            points.push({"geometry":{"x":x1,"y":y1},"fields":{"desc":"上海体育馆停车场","totalSpace":value,"type":a}});
-        }
-      var json={"points":points,"options":{"field":"totalSpace","radius":"20","colors":["rgba(30,144,255)","rgb(0, 255, 0)","rgb(255, 255, 0)", "rgb(254,89,0)"],"maxValue":1000,"minValue":1,"zoom":12,"renderer":{"type":"simple","symbol":{"type":"esriPMS","url":"assets/image/Anchor.png","width":64,"height":66,"yoffset":16}}}};
-      map.addHeatMap(json);
-    
+  private btn_test1() {
+    let map = this.$refs.gisViewer as any;
+    axios.get("config/point.json").then((res: any) => {
+      map.addOverlaysCluster(res.data);
+    });
   }
-  private btn_test3()
-  {
+  private btn_test2() {
+    let map = this.$refs.gisViewer as any;
+    var points = [];
+    var x = 121.43;
+    var y = 31.15;
+    for (var i = 0; i < 200; i++) {
+      var x1 = x + (Math.random() * 2 - 1) / 5;
+      var y1 = y + (Math.random() * 2 - 1) / 5;
+      var value = 1000 * Math.random() + 1;
+      var a = i % 2 == 0 ? "1" : "0";
+      points.push({
+        geometry: { x: x1, y: y1 },
+        fields: { desc: "上海体育馆停车场", totalSpace: value, type: a },
+      });
+    }
+    var json = {
+      points: points,
+      options: {
+        field: "totalSpace",
+        radius: "20",
+        colors: [
+          "rgba(30,144,255)",
+          "rgb(0, 255, 0)",
+          "rgb(255, 255, 0)",
+          "rgb(254,89,0)",
+        ],
+        maxValue: 1000,
+        minValue: 1,
+        zoom: 12,
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "esriPMS",
+            url: "assets/image/Anchor.png",
+            width: 64,
+            height: 66,
+            yoffset: 16,
+          },
+        },
+      },
+    };
+    map.addHeatMap(json);
+  }
+  private btn_test3() {
     (this.$refs.gisViewer as any).deleteHeatMap();
     (this.$refs.gisViewer as any).deleteAllOverlaysCluster();
   }
-  private showGisDeviceInfo(type:string,id:string)
-  {
-    console.log(type+","+id);
+  private showGisDeviceInfo(type: string, id: string) {
+    console.log(type + "," + id);
   }
 }
 </script>
 
 <style scoped>
-#gisDiv
-{
-	position: relative;
-	width: 100%;
-	height: 100%;
-	margin: 0 auto;
+#gisDiv {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
 }
-#test
-{
-	position: absolute;
-	z-index: 99;
+#test {
+  position: absolute;
+  z-index: 99;
   display: block;
 }
-
 </style>

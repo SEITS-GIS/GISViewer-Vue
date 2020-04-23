@@ -19,3 +19,10 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+lib/gis-viewer.common.js
+lib/gis-viewer.common.js.map
+lib/gis-viewer.css
+lib/gis-viewer.umd.js
+lib/gis-viewer.umd.js.map
+lib/gis-viewer.umd.min.js
+lib/gis-viewer.umd.min.js.map
