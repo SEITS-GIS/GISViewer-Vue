@@ -130,7 +130,6 @@ export default class MapAppBaidu implements IMapContainer {
         break;
     }
   }
-<<<<<<< HEAD
   public async addOverlays(params: IOverlayParameter) {
     const overlay = OverlayBaidu.getInstance(this.view);
     overlay.showGisDeviceInfo = this.showGisDeviceInfo;
@@ -167,7 +166,4 @@ export default class MapAppBaidu implements IMapContainer {
     const heatmap = HeatMapBD.getInstance(this.view);
     await heatmap.deleteHeatMap();
   }
-=======
-  public async addOverlays(params: IOverlayParameter) {}
->>>>>>> 8b4c2ea4bcfafc5dd8e8ddc464d568c3fbdb8028
 }
