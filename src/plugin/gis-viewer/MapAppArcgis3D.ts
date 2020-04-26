@@ -6,7 +6,7 @@ import {
   IOverlay,
   IHeatParameter,
   IOverlayClusterParameter,
-  IOverlayDelete,
+  IOverlayDelete
 } from "@/types/map";
 import { OverlayArcgis3D } from "@/plugin/gis-viewer/widgets/OverlayArcgis3D";
 
@@ -79,4 +79,5 @@ export default class MapAppArcGIS3D implements IMapContainer {
   public async deleteAllOverlaysCluster() {}
   public async deleteHeatMap() {}
   public async deleteOverlays(params: IOverlayDelete) {}
+  public async showLayer(params:ILayerConfig){}
 }

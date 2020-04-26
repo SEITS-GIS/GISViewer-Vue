@@ -223,6 +223,7 @@ export class OverlayBaidu {
             message: "",
           }); // 创建信息窗口对象
           e.target.isOpenInfo=true;
+          console.log(e);
           mapView.openInfoWindow(infoWindow, e.point);
           _this._showGisDeviceInfo(e.target.type, e.target.id);
         });

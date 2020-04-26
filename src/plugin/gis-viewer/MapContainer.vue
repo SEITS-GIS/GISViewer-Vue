@@ -33,7 +33,8 @@ import {
   IOverlayParameter,
   IHeatParameter,
   IOverlayClusterParameter,
-  IOverlayDelete
+  IOverlayDelete,
+  ILayerConfig
 } from "@/types/map";
 
 @Component({
@@ -97,6 +98,10 @@ export default class MapContainer extends Vue implements IMapContainer {
   }
   public deleteHeatMap() {
     this.mapContainer.deleteHeatMap();
+  }
+  public showLayer(params:ILayerConfig)
+  {
+    this.mapContainer.showLayer(params)
   }
 }
 </script>

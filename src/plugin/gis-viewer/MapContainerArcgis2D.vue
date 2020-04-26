@@ -10,6 +10,7 @@ import {
   IHeatParameter,
   IOverlayClusterParameter,
   IOverlayDelete,
+  ILayerConfig,
 } from "@/types/map";
 
 @Component({
@@ -34,6 +35,7 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public deleteAllOverlays() {}
   public deleteAllOverlaysCluster() {}
   public deleteHeatMap() {}
+  public showLayer(params:ILayerConfig) {}
 }
 </script>
 

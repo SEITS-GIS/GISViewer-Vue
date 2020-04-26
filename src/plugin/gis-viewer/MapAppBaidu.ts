@@ -1,18 +1,26 @@
 import { loadScript, ILoadScriptOptions } from "esri-loader";
-import { IMapContainer, IOverlayParameter, IHeatParameter, IOverlayClusterParameter, IOverlayDelete } from "@/types/map";
+import {
+  IMapContainer,
+  IOverlayParameter,
+  IHeatParameter,
+  IOverlayClusterParameter,
+  IOverlayDelete,
+  ILayerConfig,
+} from "@/types/map";
 import { OverlayBaidu } from "@/plugin/gis-viewer/widgets/OverlayBaidu";
 import { HeatMapBD } from "./widgets/BD/HeatMapBD";
 declare let BMap: any;
 
 export default class MapAppBaidu implements IMapContainer {
   public view!: any;
+  public baseLayers: Array<any> = [];
   public showGisDeviceInfo: any;
 
   public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
     const apiUrl = mapConfig.arcgis_api; //"http://localhost:8090/baidu/BDAPI.js";
     let view: any;
     await loadScript({
-      url: `${apiUrl}`
+      url: `${apiUrl}`,
     });
     const apiRoot = mapConfig.arcgis_api.substring(0, apiUrl.lastIndexOf("/"));
     console.log(apiRoot);
@@ -20,11 +28,11 @@ export default class MapAppBaidu implements IMapContainer {
     await this.loadOtherScripts([
       apiRoot + "/library/Heatmap/Heatmap_min.js",
       apiRoot + "/library/TextIconOverlay/TextIconOverlay_min.js",
-      apiRoot + "/library/MarkerClusterer/MarkerClusterer_min.js"
+      apiRoot + "/library/MarkerClusterer/MarkerClusterer_min.js",
     ]).then(function(e: any) {
       console.log("Load Scripts");
     });
-    
+
     view = new BMap.Map(mapContainer);
     let gisUrl = mapConfig.gisServer
       ? mapConfig.gisServer
@@ -56,15 +64,13 @@ export default class MapAppBaidu implements IMapContainer {
       };
       var maptype = new BMap.MapType("地图", darklayer, {
         tips: "显示午夜蓝地图",
-        maxZoom: 15
+        maxZoom: 15,
       });
       view.setMapType(maptype);
     }
     if (mapConfig.baseLayers) {
       mapConfig.baseLayers.forEach((element: any) => {
-        if (element.visible) {
-          this.createLayer(view, element);
-        }
+        this.createLayer(view, element);
       });
     }
     let zoom = 12;
@@ -85,7 +91,7 @@ export default class MapAppBaidu implements IMapContainer {
   }
 
   private async loadOtherScripts(scriptUrls: string[]): Promise<any> {
-    let promises = scriptUrls.map(url => {
+    let promises = scriptUrls.map((url) => {
       return new Promise((resolve, reject) => {
         const scriptElement = document.createElement("script");
         scriptElement.src = url;
@@ -93,8 +99,8 @@ export default class MapAppBaidu implements IMapContainer {
         document.body.appendChild(scriptElement);
       });
     });
-    return new Promise(resolve => {
-      Promise.all(promises).then(e => {
+    return new Promise((resolve) => {
+      Promise.all(promises).then((e) => {
         resolve(e);
       });
     });
@@ -117,7 +123,16 @@ export default class MapAppBaidu implements IMapContainer {
   public createLayer(view: any, layer: any) {
     switch (layer.type) {
       case "traffic":
-        view.addTileLayer(new BMap.TrafficLayer());
+        let trafficlayer = new BMap.TrafficLayer();
+        if (layer.visible) {
+          view.addTileLayer(trafficlayer);
+        }
+        this.baseLayers.push({
+          label: layer.label || "",
+          type: layer.type || "",
+          layer: trafficlayer,
+          visible: layer.visible,
+        });
         break;
     }
   }
@@ -127,7 +142,7 @@ export default class MapAppBaidu implements IMapContainer {
     await overlay.addOverlays(params);
   }
 
-  public async addOverlaysCluster(params:IOverlayClusterParameter) {
+  public async addOverlaysCluster(params: IOverlayClusterParameter) {
     const overlay = OverlayBaidu.getInstance(this.view);
     overlay.showGisDeviceInfo = this.showGisDeviceInfo;
     await overlay.addOverlaysCluster(params);
@@ -138,7 +153,7 @@ export default class MapAppBaidu implements IMapContainer {
     await heatmap.addHeatMap(params);
   }
 
-  public async deleteOverlays(params:IOverlayDelete) {
+  public async deleteOverlays(params: IOverlayDelete) {
     const overlay = OverlayBaidu.getInstance(this.view);
     await overlay.deleteOverlays(params);
   }
@@ -156,5 +171,21 @@ export default class MapAppBaidu implements IMapContainer {
   public async deleteHeatMap() {
     const heatmap = HeatMapBD.getInstance(this.view);
     await heatmap.deleteHeatMap();
+  }
+  public async showLayer(params: ILayerConfig) {
+    this.baseLayers.forEach((baselayer) => {
+      if (
+        (params.label && baselayer.label === params.label) ||
+        (params.type && baselayer.type === params.type)
+      ) {
+        if (params.visible) {
+          this.view.addTileLayer(baselayer.layer);
+          baselayer.visible = true;
+        } else {
+          this.view.removeTileLayer(baselayer.layer);
+          baselayer.visible = false;
+        }
+      }
+    });
   }
 }

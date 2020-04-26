@@ -116,3 +116,9 @@ export default {
 ### deleteAllOverlaysCluster 删除点聚合接口
 ### addHeatMap 热力图接口
 ### deleteHeatMap 删除热力图接口
+### showLayer 图层控制
+| name       | description  | type | default
+| ---------- | ------------ | ---------- | ---------- |
+| label | 图层名称 | string |
+| type | 图层类型 | string |
+| visible | 显示/隐藏 | boolean |

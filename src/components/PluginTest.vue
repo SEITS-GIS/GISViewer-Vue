@@ -25,6 +25,7 @@ export default class PluginTest extends Vue {
     theme: "vec", //dark,vec
     baseLayers: [
       {
+        label:"路况",
         type: "traffic",
         visible: true,
       },
@@ -93,7 +94,7 @@ export default class PluginTest extends Vue {
         type: "point-2d",
         // primitive: "square",
         url: "assets/image/Anchor.png",
-        size: 120,
+        size: 64,
         // color: "red",
         // outline: {
         //   color: "white",
@@ -132,7 +133,7 @@ export default class PluginTest extends Vue {
         content: "name:{name}<br/><button>{name}</button>",
       },
       defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }],
-      showToolTip: true,
+      showToolTip: false,
       toolTipContent: "{name}",
     });
   }
@@ -184,11 +185,14 @@ export default class PluginTest extends Vue {
       },
     };
     map.addHeatMap(json);
+
+    (this.$refs.gisViewer as any).showLayer({type:"traffic",visible:true});
   }
   private btn_test3() {
-    (this.$refs.gisViewer as any).deleteHeatMap();
-    (this.$refs.gisViewer as any).deleteAllOverlaysCluster();
-    (this.$refs.gisViewer as any).deleteOverlays({ids:["test003"]});
+    // (this.$refs.gisViewer as any).deleteHeatMap();
+    // (this.$refs.gisViewer as any).deleteAllOverlaysCluster();
+    // (this.$refs.gisViewer as any).deleteOverlays({ids:["test003"]});
+    (this.$refs.gisViewer as any).showLayer({type:"traffic",visible:false});
   }
   private showGisDeviceInfo(type: string, id: string) {
     console.log(type + "," + id);

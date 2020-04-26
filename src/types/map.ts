@@ -15,6 +15,7 @@ export enum Platforms {
 
 export interface ILayerConfig {
   type: string;
+  label:string;
   url: string;
   visible: boolean;
 }
@@ -100,6 +101,7 @@ export interface IMapContainer {
   deleteAllOverlays:()=>void;
   deleteAllOverlaysCluster:()=>void;
   deleteHeatMap:()=>void;
+  showLayer:(param:ILayerConfig)=>void;
 }
 export interface IPopUpTemplate {
   title?: string;
