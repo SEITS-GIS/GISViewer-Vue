@@ -26,8 +26,7 @@ export default class PluginTest extends Vue {
     baseLayers: [
       {
         label:"路况",
-        type: "traffic",
-        visible: true,
+        type: "traffic"
       },
     ],
     options: {
@@ -186,13 +185,13 @@ export default class PluginTest extends Vue {
     };
     map.addHeatMap(json);
 
-    (this.$refs.gisViewer as any).showLayer({type:"traffic",visible:true});
+    (this.$refs.gisViewer as any).showLayer({type:"traffic"});
   }
   private btn_test3() {
     // (this.$refs.gisViewer as any).deleteHeatMap();
     // (this.$refs.gisViewer as any).deleteAllOverlaysCluster();
     // (this.$refs.gisViewer as any).deleteOverlays({ids:["test003"]});
-    (this.$refs.gisViewer as any).showLayer({type:"traffic",visible:false});
+    (this.$refs.gisViewer as any).hideLayer({type:"traffic"});
   }
   private showGisDeviceInfo(type: string, id: string) {
     console.log(type + "," + id);

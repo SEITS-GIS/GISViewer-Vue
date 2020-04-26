@@ -36,6 +36,7 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public deleteAllOverlaysCluster() {}
   public deleteHeatMap() {}
   public showLayer(params:ILayerConfig) {}
+  public hideLayer(params:ILayerConfig) {}
 }
 </script>
 

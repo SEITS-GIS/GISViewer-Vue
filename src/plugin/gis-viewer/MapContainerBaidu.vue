@@ -55,6 +55,10 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   {
     this.mapApp.showLayer(params)
   }
+  public hideLayer(params:ILayerConfig)
+  {
+    this.mapApp.hideLayer(params)
+  }
 }
 </script>
 

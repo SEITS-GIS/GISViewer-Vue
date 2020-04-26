@@ -121,4 +121,8 @@ export default {
 | ---------- | ------------ | ---------- | ---------- |
 | label | 图层名称 | string |
 | type | 图层类型 | string |
-| visible | 显示/隐藏 | boolean |
+### hideLayer 图层控制
+| name       | description  | type | default
+| ---------- | ------------ | ---------- | ---------- |
+| label | 图层名称 | string |
+| type | 图层类型 | string |

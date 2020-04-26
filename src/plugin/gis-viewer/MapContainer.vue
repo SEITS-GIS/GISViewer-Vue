@@ -103,6 +103,10 @@ export default class MapContainer extends Vue implements IMapContainer {
   {
     this.mapContainer.showLayer(params)
   }
+  public hideLayer(params:ILayerConfig)
+  {
+    this.mapContainer.hideLayer(params)
+  }
 }
 </script>
 

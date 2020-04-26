@@ -124,14 +124,14 @@ export default class MapAppBaidu implements IMapContainer {
     switch (layer.type) {
       case "traffic":
         let trafficlayer = new BMap.TrafficLayer();
-        if (layer.visible) {
+        if (layer.visible !== false) {
           view.addTileLayer(trafficlayer);
         }
         this.baseLayers.push({
           label: layer.label || "",
           type: layer.type || "",
           layer: trafficlayer,
-          visible: layer.visible,
+          visible: layer.visible !== false,
         });
         break;
     }
@@ -172,16 +172,26 @@ export default class MapAppBaidu implements IMapContainer {
     const heatmap = HeatMapBD.getInstance(this.view);
     await heatmap.deleteHeatMap();
   }
-  public async showLayer(params: ILayerConfig) {
+  public showLayer(params: ILayerConfig) {
     this.baseLayers.forEach((baselayer) => {
       if (
         (params.label && baselayer.label === params.label) ||
         (params.type && baselayer.type === params.type)
       ) {
-        if (params.visible) {
+        if (!baselayer.visible) {
           this.view.addTileLayer(baselayer.layer);
           baselayer.visible = true;
-        } else {
+        }
+      }
+    });
+  }
+  public hideLayer(params: ILayerConfig) {
+    this.baseLayers.forEach((baselayer) => {
+      if (
+        (params.label && baselayer.label === params.label) ||
+        (params.type && baselayer.type === params.type)
+      ) {
+        if (baselayer.visible) {
           this.view.removeTileLayer(baselayer.layer);
           baselayer.visible = false;
         }
