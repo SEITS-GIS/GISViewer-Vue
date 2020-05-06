@@ -93,7 +93,7 @@ export default class PluginTest extends Vue {
         type: "point-2d",
         // primitive: "square",
         url: "assets/image/Anchor.png",
-        size: 64,
+        size: 32,
         // color: "red",
         // outline: {
         //   color: "white",
@@ -139,6 +139,9 @@ export default class PluginTest extends Vue {
   private btn_test1() {
     let map = this.$refs.gisViewer as any;
     axios.get("config/point.json").then((res: any) => {
+      map.addOverlaysCluster(res.data);
+    });
+    axios.get("config/point1.json").then((res: any) => {
       map.addOverlaysCluster(res.data);
     });
   }
@@ -189,9 +192,10 @@ export default class PluginTest extends Vue {
   }
   private btn_test3() {
     // (this.$refs.gisViewer as any).deleteHeatMap();
-    // (this.$refs.gisViewer as any).deleteAllOverlaysCluster();
+    (this.$refs.gisViewer as any).deleteOverlaysCluster({types:["sxj"]});
+    //(this.$refs.gisViewer as any).deleteAllOverlaysCluster();
     // (this.$refs.gisViewer as any).deleteOverlays({ids:["test003"]});
-    (this.$refs.gisViewer as any).hideLayer({type:"traffic"});
+    //(this.$refs.gisViewer as any).hideLayer({type:"traffic"});
   }
   private showGisDeviceInfo(type: string, id: string) {
     console.log(type + "," + id);

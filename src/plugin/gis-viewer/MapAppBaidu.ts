@@ -157,7 +157,10 @@ export default class MapAppBaidu implements IMapContainer {
     const overlay = OverlayBaidu.getInstance(this.view);
     await overlay.deleteOverlays(params);
   }
-
+  public async deleteOverlaysCluster(params: IOverlayDelete) {
+    const overlay = OverlayBaidu.getInstance(this.view);
+    await overlay.deleteOverlaysCluster(params);
+  }
   public async deleteAllOverlays() {
     const overlay = OverlayBaidu.getInstance(this.view);
     overlay.showGisDeviceInfo = this.showGisDeviceInfo;

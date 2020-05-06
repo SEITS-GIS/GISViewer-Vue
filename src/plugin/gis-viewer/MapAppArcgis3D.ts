@@ -79,5 +79,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
   public async deleteAllOverlaysCluster() {}
   public async deleteHeatMap() {}
   public async deleteOverlays(params: IOverlayDelete) {}
+  public async deleteOverlaysCluster(params: IOverlayDelete) {}
   public async showLayer(params:ILayerConfig){}
+  public async hideLayer(params: ILayerConfig) {}
 }

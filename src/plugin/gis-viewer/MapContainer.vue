@@ -90,6 +90,11 @@ export default class MapContainer extends Vue implements IMapContainer {
   {
     this.mapContainer.deleteOverlays(params);
   }
+   public deleteOverlaysCluster(params:IOverlayDelete)
+  {
+    this.mapContainer.deleteOverlaysCluster(params);
+  }
+  
   public deleteAllOverlays() {
     this.mapContainer.deleteAllOverlays();
   }

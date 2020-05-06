@@ -14,7 +14,7 @@ export class OverlayBaidu {
   private static overlayBD: OverlayBaidu;
   private view!: any;
   private overlayers = new Array();
-  private markerClusterer: any;
+  private markerClustererLayer=new Array();
   public showGisDeviceInfo: any;
 
   private constructor(view: any) {
@@ -107,7 +107,9 @@ export class OverlayBaidu {
         xoffset = symbol.xoffset || 0;
         yoffset = symbol.yoffset || 0;
 
-        myIcon = new BMap.Icon(symbol.url, size);
+        myIcon = new BMap.Icon(symbol.url, size,{
+          imageSize:size 
+        });
         marker = { icon: myIcon, offset: new BMap.Size(xoffset, yoffset) };
         break;
     }
@@ -281,12 +283,14 @@ export class OverlayBaidu {
       markers.push(graphic);
     }
 
-    this.markerClusterer = new BMapLib.MarkerClusterer(this.view, {
+    let markerClusterer = new BMapLib.MarkerClusterer(this.view, {
       markers: markers,
       styles: [{ url: "assets/image/m0.png", size: new BMap.Size(53, 53) }],
       maxZoom: zoom,
       gridSize: distance,
     });
+    markerClusterer.type=defaultType;
+    this.markerClustererLayer.push(markerClusterer);
     return {
       status: 0,
       message: "ok",
@@ -302,8 +306,8 @@ export class OverlayBaidu {
     this.view.closeInfoWindow();
   }
   public async deleteOverlays(params: IOverlayDelete) {
-    var types = params.types || [];
-    var ids = params.ids || [];
+    let types = params.types || [];
+    let ids = params.ids || [];
     this.overlayers=this.overlayers.filter((graphic) => {
       if (
         //只判断type
@@ -330,9 +334,23 @@ export class OverlayBaidu {
       return true;
     });
   }
+  public async deleteOverlaysCluster(params:IOverlayDelete) {
+    let types = params.types || [];
+    if (this.markerClustererLayer && this.markerClustererLayer.length>0) {
+      this.markerClustererLayer.forEach(layer=>{
+        if( types.indexOf(layer.type) >= 0)
+        {
+          layer.clearMarkers();
+        }
+      })
+    }
+    this.view.closeInfoWindow();
+  }
   public async deleteAllOverlaysCluster() {
-    if (this.markerClusterer) {
-      this.markerClusterer.clearMarkers();
+    if (this.markerClustererLayer && this.markerClustererLayer.length>0) {
+      this.markerClustererLayer.forEach(layer=>{
+        layer.clearMarkers();
+      })
     }
     this.view.closeInfoWindow();
   }

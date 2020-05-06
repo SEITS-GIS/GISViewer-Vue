@@ -32,6 +32,7 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public addHeatMap(params: IHeatParameter) {}
   public addOverlaysCluster(params: IOverlayClusterParameter) {}
   public deleteOverlays(params: IOverlayDelete) {}
+  public deleteOverlaysCluster(params: IOverlayDelete) {}
   public deleteAllOverlays() {}
   public deleteAllOverlaysCluster() {}
   public deleteHeatMap() {}

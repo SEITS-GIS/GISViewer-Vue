@@ -98,6 +98,7 @@ export interface IMapContainer {
   addHeatMap:(param:IHeatParameter)=>void;
   addOverlaysCluster:(param:IOverlayClusterParameter)=>void;
   deleteOverlays:(param:IOverlayDelete)=>void;
+  deleteOverlaysCluster:(param:IOverlayDelete)=>void;
   deleteAllOverlays:()=>void;
   deleteAllOverlaysCluster:()=>void;
   deleteHeatMap:()=>void;

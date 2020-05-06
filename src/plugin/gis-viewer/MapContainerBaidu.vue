@@ -42,6 +42,9 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public deleteOverlays(params: IOverlayDelete) {
     this.mapApp.deleteOverlays(params);
   }
+  public deleteOverlaysCluster(params: IOverlayDelete) {
+    this.mapApp.deleteOverlaysCluster(params);
+  }
   public deleteAllOverlays() {
     this.mapApp.deleteAllOverlays();
   }
