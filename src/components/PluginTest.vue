@@ -21,9 +21,9 @@ import axios from "axios";
 export default class PluginTest extends Vue {
   private mapConfig = {
     //arcgis_api: "http://localhost:8090/arcgis_js_api_4/",
-    //arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
+    arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
     //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
-    arcgis_api:"http://localhost:8090/baidu/BDAPI.js",
+    //arcgis_api:"http://localhost:8090/baidu/BDAPI.js",
     theme: "vec", //dark,vec
     baseLayers: [
       {
