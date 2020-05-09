@@ -108,19 +108,19 @@ export default class MapContainer extends Vue implements IMapContainer {
   }
   public showLayer(params:ILayerConfig)
   {
-    this.mapContainer.showLayer(params)
+    this.mapContainer.showLayer(params);
   }
   public hideLayer(params:ILayerConfig)
   {
-    this.mapContainer.hideLayer(params)
+    this.mapContainer.hideLayer(params);
   }
   public setMapCenter(params:IPointGeometry)
   {
-    this.mapContainer.setMapCenter(params)
+    this.mapContainer.setMapCenter(params);
   }
   public setMapCenterAndLevel(params:ICenterLevel)
   {
-    this.mapContainer.setMapCenterAndLevel(params)
+    this.mapContainer.setMapCenterAndLevel(params);
   }
 }
 </script>
