@@ -14,7 +14,7 @@ export class OverlayBaidu {
   private static overlayBD: OverlayBaidu;
   private view!: any;
   private overlayers = new Array();
-  private markerClustererLayer=new Array();
+  private markerClustererLayer = new Array();
   public showGisDeviceInfo: any;
 
   private constructor(view: any) {
@@ -107,8 +107,8 @@ export class OverlayBaidu {
         xoffset = symbol.xoffset || 0;
         yoffset = symbol.yoffset || 0;
 
-        myIcon = new BMap.Icon(symbol.url, size,{
-          imageSize:size 
+        myIcon = new BMap.Icon(symbol.url, size, {
+          imageSize: size,
         });
         marker = { icon: myIcon, offset: new BMap.Size(xoffset, yoffset) };
         break;
@@ -213,7 +213,7 @@ export class OverlayBaidu {
             enableMessage: true, //设置允许信息窗发送短息
             message: "",
           });
-          graphic.isOpenInfo=true;
+          graphic.isOpenInfo = true;
           this.view.openInfoWindow(infoWindow, graphic.point);
         }
         graphic.addEventListener("click", function(e: any) {
@@ -224,7 +224,7 @@ export class OverlayBaidu {
             enableMessage: true, //设置允许信息窗发送短息
             message: "",
           }); // 创建信息窗口对象
-          e.target.isOpenInfo=true;
+          e.target.isOpenInfo = true;
           console.log(e);
           mapView.openInfoWindow(infoWindow, e.point);
           _this._showGisDeviceInfo(e.target.type, e.target.id);
@@ -233,6 +233,10 @@ export class OverlayBaidu {
       this.overlayers.push(graphic);
       this.view.addOverlay(graphic);
       addCount++;
+
+      if (params.overlays.length == 1) {
+        this.view.panTo(graphic.getPosition());
+      }
     }
     return {
       status: 0,
@@ -289,7 +293,7 @@ export class OverlayBaidu {
       maxZoom: zoom,
       gridSize: distance,
     });
-    markerClusterer.type=defaultType;
+    markerClusterer.type = defaultType;
     this.markerClustererLayer.push(markerClusterer);
     return {
       status: 0,
@@ -308,7 +312,7 @@ export class OverlayBaidu {
   public async deleteOverlays(params: IOverlayDelete) {
     let types = params.types || [];
     let ids = params.ids || [];
-    this.overlayers=this.overlayers.filter((graphic) => {
+    this.overlayers = this.overlayers.filter((graphic) => {
       if (
         //只判断type
         (types.length > 0 &&
@@ -325,8 +329,7 @@ export class OverlayBaidu {
           ids.indexOf(graphic.id) >= 0)
       ) {
         this.view.removeOverlay(graphic);
-        if(graphic.isOpenInfo===true)
-        {
+        if (graphic.isOpenInfo === true) {
           this.view.closeInfoWindow();
         }
         return false;
@@ -334,23 +337,22 @@ export class OverlayBaidu {
       return true;
     });
   }
-  public async deleteOverlaysCluster(params:IOverlayDelete) {
+  public async deleteOverlaysCluster(params: IOverlayDelete) {
     let types = params.types || [];
-    if (this.markerClustererLayer && this.markerClustererLayer.length>0) {
-      this.markerClustererLayer.forEach(layer=>{
-        if( types.indexOf(layer.type) >= 0)
-        {
+    if (this.markerClustererLayer && this.markerClustererLayer.length > 0) {
+      this.markerClustererLayer.forEach((layer) => {
+        if (types.indexOf(layer.type) >= 0) {
           layer.clearMarkers();
         }
-      })
+      });
     }
     this.view.closeInfoWindow();
   }
   public async deleteAllOverlaysCluster() {
-    if (this.markerClustererLayer && this.markerClustererLayer.length>0) {
-      this.markerClustererLayer.forEach(layer=>{
+    if (this.markerClustererLayer && this.markerClustererLayer.length > 0) {
+      this.markerClustererLayer.forEach((layer) => {
         layer.clearMarkers();
-      })
+      });
     }
     this.view.closeInfoWindow();
   }

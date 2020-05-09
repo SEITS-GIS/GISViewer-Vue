@@ -21,7 +21,9 @@ import axios from "axios";
 export default class PluginTest extends Vue {
   private mapConfig = {
     //arcgis_api: "http://localhost:8090/arcgis_js_api_4/",
-    arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
+    //arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
+    //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
+    arcgis_api:"http://localhost:8090/baidu/BDAPI.js",
     theme: "vec", //dark,vec
     baseLayers: [
       {
@@ -93,7 +95,8 @@ export default class PluginTest extends Vue {
         type: "point-2d",
         // primitive: "square",
         url: "assets/image/Anchor.png",
-        size: 32,
+        width: 50,
+        height:30,
         // color: "red",
         // outline: {
         //   color: "white",
@@ -129,7 +132,7 @@ export default class PluginTest extends Vue {
       autoPopup: false,
       defaultInfoTemplate: {
         title: "1212",
-        content: "name:{name}<br/><button>{name}</button>",
+        content: "<div>name:{name}<br/><button>{name}</button></div>",
       },
       defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }],
       showToolTip: false,
@@ -196,6 +199,8 @@ export default class PluginTest extends Vue {
     //(this.$refs.gisViewer as any).deleteAllOverlaysCluster();
     // (this.$refs.gisViewer as any).deleteOverlays({ids:["test003"]});
     //(this.$refs.gisViewer as any).hideLayer({type:"traffic"});
+    //(this.$refs.gisViewer as any).setMapCenter({x:121.12,y:31.23});
+    //(this.$refs.gisViewer as any).setMapCenterAndLevel({x:121.12,y:31.23,level:15});
   }
   private showGisDeviceInfo(type: string, id: string) {
     console.log(type + "," + id);

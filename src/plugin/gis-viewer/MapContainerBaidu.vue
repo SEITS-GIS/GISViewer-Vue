@@ -11,6 +11,8 @@ import {
   IOverlayClusterParameter,
   IOverlayDelete,
   ILayerConfig,
+  IPointGeometry,
+  ICenterLevel,
 } from "@/types/map";
 @Component({
   name: "MapAppBaidu",
@@ -54,13 +56,17 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public deleteHeatMap() {
     this.mapApp.deleteHeatMap();
   }
-  public showLayer(params:ILayerConfig)
-  {
-    this.mapApp.showLayer(params)
+  public showLayer(params: ILayerConfig) {
+    this.mapApp.showLayer(params);
   }
-  public hideLayer(params:ILayerConfig)
-  {
-    this.mapApp.hideLayer(params)
+  public hideLayer(params: ILayerConfig) {
+    this.mapApp.hideLayer(params);
+  }
+  public setMapCenter(params: IPointGeometry) {
+    this.mapApp.setMapCenter(params);
+  }
+  public setMapCenterAndLevel(params: ICenterLevel) {
+    this.mapApp.setMapCenterAndLevel(params);
   }
 }
 </script>

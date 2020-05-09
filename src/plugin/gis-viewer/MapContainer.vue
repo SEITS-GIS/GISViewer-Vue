@@ -34,7 +34,9 @@ import {
   IHeatParameter,
   IOverlayClusterParameter,
   IOverlayDelete,
-  ILayerConfig
+  ILayerConfig,
+  IPointGeometry,
+  ICenterLevel
 } from "@/types/map";
 
 @Component({
@@ -111,6 +113,14 @@ export default class MapContainer extends Vue implements IMapContainer {
   public hideLayer(params:ILayerConfig)
   {
     this.mapContainer.hideLayer(params)
+  }
+  public setMapCenter(params:IPointGeometry)
+  {
+    this.mapContainer.setMapCenter(params)
+  }
+  public setMapCenterAndLevel(params:ICenterLevel)
+  {
+    this.mapContainer.setMapCenterAndLevel(params)
   }
 }
 </script>

@@ -61,6 +61,12 @@ export interface IPointGeometry {
   y: number;
   z?: number;
 }
+export interface ICenterLevel
+{
+  x: number;
+  y: number;
+  level?:number;
+}
 
 export interface IOverlay {
   id?: string; //覆盖物编号, 用于按编号/类型删除
@@ -104,6 +110,8 @@ export interface IMapContainer {
   deleteHeatMap:()=>void;
   showLayer:(param:ILayerConfig)=>void;
   hideLayer:(param:ILayerConfig)=>void;
+  setMapCenter:(param:IPointGeometry)=>void;
+  setMapCenterAndLevel:(param:ICenterLevel)=>void;
 }
 export interface IPopUpTemplate {
   title?: string;

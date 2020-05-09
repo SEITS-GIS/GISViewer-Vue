@@ -6,6 +6,8 @@ import {
   IOverlayClusterParameter,
   IOverlayDelete,
   ILayerConfig,
+  IPointGeometry,
+  ICenterLevel,
 } from "@/types/map";
 import { OverlayBaidu } from "@/plugin/gis-viewer/widgets/OverlayBaidu";
 import { HeatMapBD } from "./widgets/BD/HeatMapBD";
@@ -175,6 +177,20 @@ export default class MapAppBaidu implements IMapContainer {
     const heatmap = HeatMapBD.getInstance(this.view);
     await heatmap.deleteHeatMap();
   }
+  public async setMapCenter(params:IPointGeometry) {
+    let x=params.x;
+    let y=params.y; 
+    let center = new BMap.Point(x, y);
+    this.view.panTo(center);
+  }
+  public async setMapCenterAndLevel(params:ICenterLevel) {
+    let x=params.x;
+    let y=params.y; 
+    let level=params.level || this.view.getZoom();
+    let center = new BMap.Point(x, y);
+    this.view.centerAndZoom(center, level);
+  }
+  
   public showLayer(params: ILayerConfig) {
     this.baseLayers.forEach((baselayer) => {
       if (
