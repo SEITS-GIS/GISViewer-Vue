@@ -256,6 +256,15 @@ export class OverlayBaidu {
     const defaultVisible = params.defaultVisible;
     const defaultTooltip = params.defaultTooltip;
 
+    const clusterSymbol = params.clusterSymbol;
+    const clusterImage = clusterSymbol
+      ? clusterSymbol.url
+      : "assets/image/m0.png";
+    const clusterSize =
+      clusterSymbol && clusterSymbol.width
+        ? new BMap.Size(clusterSymbol.width, clusterSymbol.height)
+        : new BMap.Size(53, 53);
+
     const points = params.points;
     let mapView = this.view;
 
@@ -289,7 +298,7 @@ export class OverlayBaidu {
 
     let markerClusterer = new BMapLib.MarkerClusterer(this.view, {
       markers: markers,
-      styles: [{ url: "assets/image/m0.png", size: new BMap.Size(53, 53) }],
+      styles: [{ url: clusterImage, size: clusterSize }],
       maxZoom: zoom,
       gridSize: distance,
     });

@@ -8,6 +8,11 @@
 		"height": 29,
 		"width": 29
 	},
+	"clusterSymbol":{
+		"url": "assets/image/Anchor.png",
+		"height": 30,
+		"width": 30
+	},
 	"points": [{
 			"id": "31011300001310000003",
 			"geometry": {
