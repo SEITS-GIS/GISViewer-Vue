@@ -255,7 +255,7 @@ export class OverlayBaidu {
         this.view.centerAndZoom(overlay.getPosition(), level);
         overlay.setAnimation(2);
         setTimeout(function() {
-          overlay.setAnimation(1);
+          overlay.setAnimation(0);
         }, 3600);
       }
     });
