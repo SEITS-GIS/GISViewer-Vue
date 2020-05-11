@@ -250,9 +250,13 @@ export class OverlayBaidu {
     let ids = params.ids || [];
     let level = params.level || this.view.getZoom();
     let overlays = this.overlayers;
+    let centerResult=params.centerResult;
     overlays.forEach((overlay) => {
       if (type == overlay.type && ids.indexOf(overlay.id) >= 0) {
-        this.view.centerAndZoom(overlay.getPosition(), level);
+        if(centerResult)
+        {
+          this.view.centerAndZoom(overlay.getPosition(), level);
+        }
         overlay.setAnimation(2);
         setTimeout(function() {
           overlay.setAnimation(0);

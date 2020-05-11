@@ -155,7 +155,7 @@ export default class PluginTest extends Vue {
     //  console.log(res.data);
     //});
     //map.showJurisdiction();
-    map.findFeature({layerName: "police", ids: ["test002"],level:15, centerResult: true});
+    map.findFeature({layerName: "police", ids: ["test003"],level:15, centerResult: true});
   }
   private btn_test2() {
     let map = this.$refs.gisViewer as any;
