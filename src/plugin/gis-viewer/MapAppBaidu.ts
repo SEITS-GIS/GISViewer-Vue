@@ -8,9 +8,11 @@ import {
   ILayerConfig,
   IPointGeometry,
   ICenterLevel,
+  IFindParameter,
 } from "@/types/map";
 import { OverlayBaidu } from "@/plugin/gis-viewer/widgets/OverlayBaidu";
 import { HeatMapBD } from "./widgets/BD/HeatMapBD";
+import { JurisdictionPolice } from "./widgets/BD/JurisdictionPolice";
 declare let BMap: any;
 
 export default class MapAppBaidu implements IMapContainer {
@@ -90,6 +92,7 @@ export default class MapAppBaidu implements IMapContainer {
 
     view.enableScrollWheelZoom();
     this.view = view;
+    this.view.gisServer=gisUrl;
   }
 
   private async loadOtherScripts(scriptUrls: string[]): Promise<any> {
@@ -143,6 +146,10 @@ export default class MapAppBaidu implements IMapContainer {
     overlay.showGisDeviceInfo = this.showGisDeviceInfo;
     await overlay.addOverlays(params);
   }
+  public async findFeature(params:IFindParameter) {
+    const overlay = OverlayBaidu.getInstance(this.view);
+    await overlay.findFeature(params);
+  }
 
   public async addOverlaysCluster(params: IOverlayClusterParameter) {
     const overlay = OverlayBaidu.getInstance(this.view);
@@ -177,20 +184,20 @@ export default class MapAppBaidu implements IMapContainer {
     const heatmap = HeatMapBD.getInstance(this.view);
     await heatmap.deleteHeatMap();
   }
-  public async setMapCenter(params:IPointGeometry) {
-    let x=params.x;
-    let y=params.y; 
+  public async setMapCenter(params: IPointGeometry) {
+    let x = params.x;
+    let y = params.y;
     let center = new BMap.Point(x, y);
     this.view.panTo(center);
   }
-  public async setMapCenterAndLevel(params:ICenterLevel) {
-    let x=params.x;
-    let y=params.y; 
-    let level=params.level || this.view.getZoom();
+  public async setMapCenterAndLevel(params: ICenterLevel) {
+    let x = params.x;
+    let y = params.y;
+    let level = params.level || this.view.getZoom();
     let center = new BMap.Point(x, y);
     this.view.centerAndZoom(center, level);
   }
-  
+
   public showLayer(params: ILayerConfig) {
     this.baseLayers.forEach((baselayer) => {
       if (
@@ -216,5 +223,14 @@ export default class MapAppBaidu implements IMapContainer {
         }
       }
     });
+  }
+
+  public async showJurisdiction() {
+    const police = JurisdictionPolice.getInstance(this.view);
+    await police.showJurisdiction();
+  }
+  public async hideJurisdiction() {
+    const police = JurisdictionPolice.getInstance(this.view);
+    await police.hideJurisdiction();
   }
 }

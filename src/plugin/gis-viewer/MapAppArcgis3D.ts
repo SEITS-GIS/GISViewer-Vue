@@ -8,7 +8,8 @@ import {
   IOverlayClusterParameter,
   IOverlayDelete,
   IPointGeometry,
-  ICenterLevel
+  ICenterLevel,
+  IFindParameter,
 } from "@/types/map";
 import { OverlayArcgis3D } from "@/plugin/gis-viewer/widgets/OverlayArcgis3D";
 
@@ -82,8 +83,11 @@ export default class MapAppArcGIS3D implements IMapContainer {
   public async deleteHeatMap() {}
   public async deleteOverlays(params: IOverlayDelete) {}
   public async deleteOverlaysCluster(params: IOverlayDelete) {}
-  public async showLayer(params:ILayerConfig){}
+  public async showLayer(params: ILayerConfig) {}
   public async hideLayer(params: ILayerConfig) {}
-  public async setMapCenter(params:IPointGeometry) {}
-  public async setMapCenterAndLevel(params:ICenterLevel) {}
+  public async setMapCenter(params: IPointGeometry) {}
+  public async setMapCenterAndLevel(params: ICenterLevel) {}
+  public async showJurisdiction() {}
+  public async hideJurisdiction() {}
+  public async findFeature(params: IFindParameter) {}
 }

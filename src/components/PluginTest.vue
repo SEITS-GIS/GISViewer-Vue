@@ -21,16 +21,18 @@ import axios from "axios";
 export default class PluginTest extends Vue {
   private mapConfig = {
     //arcgis_api: "http://localhost:8090/arcgis_js_api_4/",
-    arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
+    //arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
     //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
-    //arcgis_api:"http://localhost:8090/baidu/BDAPI.js",
+    arcgis_api:"http://localhost:8090/baidu/BDAPI.js",
     theme: "vec", //dark,vec
     baseLayers: [
       {
         label:"路况",
-        type: "traffic"
+        type: "traffic",
+        visible:false
       },
     ],
+    gisServer:"http://128.64.151.245:8019",
     options: {
       //for arcgis-2d
       // center: [121, 31],
@@ -92,7 +94,7 @@ export default class PluginTest extends Vue {
       type: "police",
       defaultSymbol: {
         //symbol for 2d
-        type: "point-2d",
+        type: "point",
         // primitive: "square",
         url: "assets/image/Anchor.png",
         width: 50,
@@ -109,7 +111,7 @@ export default class PluginTest extends Vue {
         //primitive: "cube",
         //color: "red",
         //size: 20000,
-        anchor: "bottom",
+        //anchor: "bottom",
       },
       overlays: [
         {
@@ -141,12 +143,19 @@ export default class PluginTest extends Vue {
   }
   private btn_test1() {
     let map = this.$refs.gisViewer as any;
-    axios.get("config/point.json").then((res: any) => {
-      map.addOverlaysCluster(res.data);
-    });
-    axios.get("config/point1.json").then((res: any) => {
-      map.addOverlaysCluster(res.data);
-    });
+    // axios.get("config/point.json").then((res: any) => {
+    //   map.addOverlaysCluster(res.data);
+    // });
+    // axios.get("config/point2.json").then((res: any) => {
+    //   map.addOverlaysCluster(res.data);
+    // });
+
+    //axios.get("config/Jurisdiction/bsga_v2.geo.json").then((res: any) => {
+      //map.addOverlaysCluster(res.data);
+    //  console.log(res.data);
+    //});
+    //map.showJurisdiction();
+    map.findFeature({layerName: "police", ids: ["test002"],level:15, centerResult: true});
   }
   private btn_test2() {
     let map = this.$refs.gisViewer as any;

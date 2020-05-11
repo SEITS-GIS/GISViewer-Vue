@@ -13,6 +13,7 @@ import {
   ILayerConfig,
   IPointGeometry,
   ICenterLevel,
+  IFindParameter,
 } from "@/types/map";
 @Component({
   name: "MapAppBaidu",
@@ -67,6 +68,16 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   }
   public setMapCenterAndLevel(params: ICenterLevel) {
     this.mapApp.setMapCenterAndLevel(params);
+  }
+  public showJurisdiction() {
+    this.mapApp.showJurisdiction();
+  }
+  public hideJurisdiction() {
+    this.mapApp.hideJurisdiction();
+  }
+  public findFeature(params:IFindParameter)
+  {
+     this.mapApp.findFeature(params);
   }
 }
 </script>

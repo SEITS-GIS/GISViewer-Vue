@@ -13,7 +13,7 @@ export class HeatMapBD {
   private constructor(view: any) {
     this.view = view;
   }
-  public static getInstance(view: __esri.SceneView) {
+  public static getInstance(view:any) {
     if (!HeatMapBD.heatMapBD) {
       HeatMapBD.heatMapBD = new HeatMapBD(view);
     }

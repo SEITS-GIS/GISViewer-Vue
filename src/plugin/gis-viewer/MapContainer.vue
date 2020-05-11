@@ -36,15 +36,16 @@ import {
   IOverlayDelete,
   ILayerConfig,
   IPointGeometry,
-  ICenterLevel
+  ICenterLevel,
+  IFindParameter,
 } from "@/types/map";
 
 @Component({
   components: {
     MapContainerArcgisThreeD,
     MapContainerArcgisTwoD,
-    MapContainerBaidu
-  }
+    MapContainerBaidu,
+  },
 })
 export default class MapContainer extends Vue implements IMapContainer {
   //平台类型 高德/百度/arcgis
@@ -88,15 +89,13 @@ export default class MapContainer extends Vue implements IMapContainer {
   public addHeatMap(params: IHeatParameter) {
     this.mapContainer.addHeatMap(params);
   }
-  public deleteOverlays(params:IOverlayDelete)
-  {
+  public deleteOverlays(params: IOverlayDelete) {
     this.mapContainer.deleteOverlays(params);
   }
-   public deleteOverlaysCluster(params:IOverlayDelete)
-  {
+  public deleteOverlaysCluster(params: IOverlayDelete) {
     this.mapContainer.deleteOverlaysCluster(params);
   }
-  
+
   public deleteAllOverlays() {
     this.mapContainer.deleteAllOverlays();
   }
@@ -106,21 +105,27 @@ export default class MapContainer extends Vue implements IMapContainer {
   public deleteHeatMap() {
     this.mapContainer.deleteHeatMap();
   }
-  public showLayer(params:ILayerConfig)
-  {
+  public showLayer(params: ILayerConfig) {
     this.mapContainer.showLayer(params);
   }
-  public hideLayer(params:ILayerConfig)
-  {
+  public hideLayer(params: ILayerConfig) {
     this.mapContainer.hideLayer(params);
   }
-  public setMapCenter(params:IPointGeometry)
-  {
+  public setMapCenter(params: IPointGeometry) {
     this.mapContainer.setMapCenter(params);
   }
-  public setMapCenterAndLevel(params:ICenterLevel)
-  {
+  public setMapCenterAndLevel(params: ICenterLevel) {
     this.mapContainer.setMapCenterAndLevel(params);
+  }
+  public showJurisdiction() {
+    this.mapContainer.showJurisdiction();
+  }
+  public hideJurisdiction() {
+    this.mapContainer.hideJurisdiction();
+  }
+  public findFeature(params:IFindParameter)
+  {
+     this.mapContainer.findFeature(params);
   }
 }
 </script>

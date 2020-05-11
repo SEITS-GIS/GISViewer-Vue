@@ -6,6 +6,7 @@ import {
   IPopUpTemplate,
   IOverlayClusterParameter,
   IOverlayDelete,
+  IFindParameter,
 } from "@/types/map";
 declare let BMap: any;
 declare let BMapLib: any;
@@ -243,6 +244,21 @@ export class OverlayBaidu {
       message: "ok",
       result: `成功添加${params.overlays.length}中的${addCount}个覆盖物`,
     };
+  }
+  public async findFeature(params: IFindParameter) {
+    let type = params.layerName;
+    let ids = params.ids || [];
+    let level = params.level || this.view.getZoom();
+    let overlays = this.overlayers;
+    overlays.forEach((overlay) => {
+      if (type == overlay.type && ids.indexOf(overlay.id) >= 0) {
+        this.view.centerAndZoom(overlay.getPosition(), level);
+        overlay.setAnimation(2);
+        setTimeout(function() {
+          overlay.setAnimation(1);
+        }, 3600);
+      }
+    });
   }
   public async addOverlaysCluster(
     params: IOverlayClusterParameter

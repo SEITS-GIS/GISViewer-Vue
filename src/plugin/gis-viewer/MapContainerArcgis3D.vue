@@ -14,6 +14,7 @@ import {
   ILayerConfig,
   IPointGeometry,
   ICenterLevel,
+  IFindParameter,
 } from "@/types/map";
 
 @Component({
@@ -46,6 +47,9 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   public hideLayer(params: ILayerConfig) {}
   public setMapCenter(params: IPointGeometry) {}
   public setMapCenterAndLevel(params: ICenterLevel) {}
+  public showJurisdiction() {}
+  public hideJurisdiction() {}
+  public findFeature(params: IFindParameter) {}
 }
 </script>
 
