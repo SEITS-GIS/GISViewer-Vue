@@ -226,7 +226,6 @@ export class OverlayBaidu {
             message: "",
           }); // 创建信息窗口对象
           e.target.isOpenInfo = true;
-          console.log(e);
           mapView.openInfoWindow(infoWindow, e.point);
           _this._showGisDeviceInfo(e.target.type, e.target.id);
         });
@@ -250,12 +249,14 @@ export class OverlayBaidu {
     let ids = params.ids || [];
     let level = params.level || this.view.getZoom();
     let overlays = this.overlayers;
-    let centerResult=params.centerResult;
+    let centerResult = params.centerResult;
     overlays.forEach((overlay) => {
       if (type == overlay.type && ids.indexOf(overlay.id) >= 0) {
-        if(centerResult)
-        {
-          this.view.centerAndZoom(overlay.getPosition(), level);
+        if (centerResult) {
+          let center = overlay.getPosition();
+          if (center.lat !== null && center.lng !== null) {
+            this.view.centerAndZoom(overlay.getPosition(), level);
+          }
         }
         overlay.setAnimation(2);
         setTimeout(function() {

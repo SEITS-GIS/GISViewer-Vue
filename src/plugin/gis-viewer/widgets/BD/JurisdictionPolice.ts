@@ -5,6 +5,7 @@ declare let BMap: any;
 export class JurisdictionPolice {
   private static jurisdictionPolice: JurisdictionPolice;
   private overlayers = new Array();
+  private clickOverlay: any;
   private view!: any;
 
   private constructor(view: any) {
@@ -17,10 +18,24 @@ export class JurisdictionPolice {
     }
     return JurisdictionPolice.jurisdictionPolice;
   }
-  private getGraphic(overlay: any): any {
+  private getGraphic(overlay: any, index: number): any {
     let marker: any;
     let geometry = overlay.geometry;
     let type = overlay.geometry.type;
+    let colorRamps = [
+      "#9575cd",
+      "#7986cb",
+      "#64b5f6",
+      "#4dd0e1",
+      "#4db6ac",
+      "#81c784",
+      "#aed581",
+      "#dce775",
+      "#fff176",
+      "#ffd54f",
+      "#ffb74d",
+      "#ff8a65",
+    ];
     switch (type.toLowerCase()) {
       case "polyline":
       case "linestring":
@@ -31,9 +46,10 @@ export class JurisdictionPolice {
         break;
       case "polygon":
         marker = new BMap.Polygon(this.getGeometry(geometry.coordinates[0]), {
-          strokeColor: "rgba(0,0,0,255)",
-          strokeWeight: 2,
-          fillColor: "rgba(255,0,0,255)",
+          strokeColor: "#3f51b5",
+          strokeWeight: 1,
+          fillColor: colorRamps[index % colorRamps.length],
+          fillOpacity: 0.4,
         });
         break;
     }
@@ -63,7 +79,9 @@ export class JurisdictionPolice {
         count++;
       }
     }
-    featuresArr.push(feaureStr);
+    if (feaureStr != "") {
+      featuresArr.push(feaureStr);
+    }
     for (let j = 0; j < featuresArr.length; j++) {
       let promise = new Promise((resolve, reject) => {
         features = featuresArr[j];
@@ -97,41 +115,118 @@ export class JurisdictionPolice {
     return features;
   }
   public async showJurisdiction(): Promise<IResult> {
+    this.hideJurisdiction();
     this.overlayers = [];
-    axios.get("config/Jurisdiction/bsga_v2.geo.json").then((res: any) => {
+    let _this = this;
+    axios.get("config/Jurisdiction/bsga_v2.bd.json").then((res: any) => {
       let data = res.data;
       console.log(data);
-      data.features.forEach((overlay: any) => {
-        // let graphic = this.getGraphic(overlay);
-        // graphic.id = overlay.id || "";
-        // graphic.type = "Jurisdiction";
-        // this.view.addOverlay(graphic);
-        // this.overlayers.push(graphic);
-        this.translate(overlay).then((res) => {
-          console.log(res);
-          let geo = Array();
-          for (let i = 0; i < res.length; i++) {
-            let geometry = res[i];
-            if (geometry) {
-              let geometryNew = geometry.map((point: any) => {
-                return new BMap.Point(point.x, point.y);
-              });
-              geo = geo.concat(geometryNew);
-            }
+      for (let i = 0; i < data.features.length; i++) {
+        let overlay = data.features[i];
+        let graphic = this.getGraphic(overlay, i);
+        graphic.id = overlay.id || "";
+        graphic.type = "Jurisdiction";
+
+        graphic.addEventListener("click", function(e: any) {
+          if (_this.clickOverlay) {
+            _this.view.removeOverlay(_this.clickOverlay);
           }
-          let marker = new BMap.Polygon(geo, {
-            strokeColor: "rgba(0,0,0,255)",
-            strokeWeight: 2,
-            fillColor: "rgba(255,0,0,255)",
+          let polygon = e.currentTarget;
+          _this.clickOverlay = new BMap.Polyline(polygon.getPath(), {
+            strokeColor: "red",
+            strokeWeight: 3,
+            strokeStyle: "dashed",
           });
-          this.view.addOverlay(marker);
+          _this.view.addOverlay(_this.clickOverlay);
         });
-      }, this);
+
+        this.view.addOverlay(graphic);
+        this.overlayers.push(graphic);
+        let name = overlay.properties.name;
+        let cp: any;
+        if (overlay.geometry.type == "Polygon") {
+          cp = new BMap.Point(
+            overlay.properties.cp[0],
+            overlay.properties.cp[1]
+          );
+        }
+        if (cp) {
+          var opts = {
+            position: cp, // 指定文本标注所在的地理位置
+            offset: new BMap.Size(-15, -15), //设置文本偏移量
+          };
+          var label = new BMap.Label(name, opts); // 创建文本标注对象
+          label.setStyle({
+            backgroundColor: "rgba(0,0,0,0)",
+            border: 0,
+            color: "#45526e",
+            fontWeight: "bold",
+            fontSize: "13px",
+            pointerEvents:"none",
+          });
+          this.view.addOverlay(label);
+          this.overlayers.push(label);
+        }
+        // this.translate(overlay).then((res) => {
+        //   console.log(name);
+
+        //   let geo = Array();
+        //   let geo2 = Array();
+        //   for (let i = 0; i < res.length; i++) {
+        //     let geometry = res[i];
+        //     if (geometry) {
+        //       let geometryNew = geometry.map((point: any) => {
+        //         return new BMap.Point(point.x, point.y);
+        //       });
+        //       geo = geo.concat(geometryNew);
+
+        //       let geometryNew2 = geometry.map((point: any) => {
+        //         return [point.x, point.y];
+        //       });
+
+        //       geo2 = geo2.concat(geometryNew2);
+        //     }
+        //   }
+        //   console.log(JSON.stringify(geo2));
+        //   let marker = new BMap.Polygon(geo, {
+        //     strokeColor: "rgba(0,0,0,255)",
+        //     strokeWeight: 2,
+        //     fillColor: "rgba(255,0,0,255)",
+        //   });
+        //   if (cp) {
+        //     var opts = {
+        //       position: cp, // 指定文本标注所在的地理位置
+        //       offset: new BMap.Size(30, -30), //设置文本偏移量
+        //     };
+        //     var label = new BMap.Label(name, opts); // 创建文本标注对象
+        //     label.setStyle({
+        //       color: "red",
+        //       fontSize: "12px",
+        //       height: "20px",
+        //       lineHeight: "20px",
+        //       fontFamily: "微软雅黑",
+        //     });
+        //     this.view.addOverlay(label);
+        //   }
+        //   this.view.addOverlay(marker);
+        // });
+      }
     });
     return {
       status: 0,
       message: "ok",
     };
   }
-  public async hideJurisdiction() {}
+  public async hideJurisdiction() {
+    if (this.clickOverlay) {
+      this.view.removeOverlay(this.clickOverlay);
+    }
+    if (this.overlayers.length > 0) {
+      for (let i = 0; i < this.overlayers.length; i++) {
+        this.view.removeOverlay(this.overlayers[i]);
+      }
+      this.overlayers = [];
+    }
+    this.view.closeInfoWindow();
+  }
 }

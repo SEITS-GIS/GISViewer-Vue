@@ -113,7 +113,8 @@ export default {
 ### deleteOverlays 删除撒点接口
 ### deleteAllOverlays 删除全部撒点接口
 ### addOverlaysCluster 点聚合接口
-### deleteAllOverlaysCluster 删除点聚合接口
+### deleteOverlaysCluster 删除点聚合接口
+### deleteAllOverlaysCluster 删除全部点聚合接口
 ### addHeatMap 热力图接口
 ### deleteHeatMap 删除热力图接口
 ### showLayer 显示图层
@@ -126,3 +127,8 @@ export default {
 | ---------- | ------------ | ---------- | ---------- |
 | label | 图层名称 | string |
 | type | 图层类型 | string |
+
+### findFeature 查找定位
+
+### setMapCenter 定位坐标
+### setMapCenterAndLevel 定位坐标层级
