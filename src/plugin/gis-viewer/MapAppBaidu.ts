@@ -42,35 +42,8 @@ export default class MapAppBaidu implements IMapContainer {
       ? mapConfig.gisServer
       : this.getIpPort(apiUrl);
     if (mapConfig.theme === "dark") {
-      let darklayer = new BMap.TileLayer();
-      darklayer["getTilesUrl"] = (
-        tileCoord: { x: number; y: number },
-        zoom: number,
-        style: string
-      ) => {
-        let x = Number((tileCoord.x + "").replace(/-/gi, "M"));
-        let y = Number((tileCoord.y + "").replace(/-/gi, "M"));
-        let z = zoom;
-        return (
-          gisUrl +
-          "/customtile/" +
-          z +
-          "/" +
-          ~~(x / 10) +
-          "/" +
-          ~~(y / 10) +
-          "/" +
-          x +
-          "_" +
-          y +
-          ".png"
-        );
-      };
-      var maptype = new BMap.MapType("地图", darklayer, {
-        tips: "显示午夜蓝地图",
-        maxZoom: 15,
-      });
-      view.setMapType(maptype);
+      view.setMapStyle({style:"midnight"});
+      console.log("midnight");
     }
     if (mapConfig.baseLayers) {
       mapConfig.baseLayers.forEach((element: any) => {
