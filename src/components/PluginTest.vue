@@ -35,8 +35,8 @@ export default class PluginTest extends Vue {
     gisServer: "http://128.64.151.245:8019",
     options: {
       //for arcgis-2d
-      // center: [121, 31],
-      // zoom: 15
+      center: [121.3943501, 31.39351155],
+      zoom: 13,
       //for arcgis-3d
       // camera: {
       //   heading: 0,
@@ -65,9 +65,10 @@ export default class PluginTest extends Vue {
   };
   private mapLoaded() {
     console.log("map loaded");
-    
+
     let map = this.$refs.gisViewer as any;
-    console.log(this.$refs.gisViewer);
+
+    map.showJurisdiction();
     /* (this.$refs.gisViewer as any).addOverlays({
       type: "police",
       defaultSymbol: {
@@ -278,7 +279,11 @@ export default class PluginTest extends Vue {
     //  console.log(res.data);
     //});
     map.showJurisdiction();
-    map.findFeature({layerName: "jingqing", ids: ["310113610000"], centerResult: true});
+    map.findFeature({
+      layerName: "jingqing",
+      ids: ["310113610000"],
+      centerResult: true,
+    });
   }
   private btn_test2() {
     let map = this.$refs.gisViewer as any;

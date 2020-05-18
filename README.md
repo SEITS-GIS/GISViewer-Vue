@@ -132,3 +132,5 @@ export default {
 
 ### setMapCenter 定位坐标
 ### setMapCenterAndLevel 定位坐标层级
+### showJurisdiction()显示辖区
+### hideJurisdiction()隐藏辖区
