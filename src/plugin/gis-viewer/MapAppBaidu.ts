@@ -28,14 +28,13 @@ export default class MapAppBaidu implements IMapContainer {
       url: `${apiUrl}`,
     });
     const apiRoot = mapConfig.arcgis_api.substring(0, apiUrl.lastIndexOf("/"));
-    console.log(apiRoot);
 
     await this.loadOtherScripts([
       apiRoot + "/library/Heatmap/Heatmap_min.js",
       apiRoot + "/library/TextIconOverlay/TextIconOverlay_min.js",
       apiRoot + "/library/MarkerClusterer/MarkerClusterer_min.js",
     ]).then(function(e: any) {
-      console.log("Load Scripts");
+      //console.log("Load Scripts");
     });
 
     view = new BMap.Map(mapContainer);
@@ -44,7 +43,6 @@ export default class MapAppBaidu implements IMapContainer {
       : this.getIpPort(apiUrl);
     if (mapConfig.theme === "dark") {
       view.setMapStyle({style:"midnight"});
-      console.log("midnight");
     }
     if (mapConfig.baseLayers) {
       mapConfig.baseLayers.forEach((element: any) => {

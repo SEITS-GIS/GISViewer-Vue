@@ -65,8 +65,6 @@ export default class PluginTest extends Vue {
     ],
   };
   private async mapLoaded() {
-    console.log("map loaded");
-
     let map = this.$refs.gisViewer as any;
 
     // map.showJurisdiction();
@@ -262,7 +260,6 @@ export default class PluginTest extends Vue {
       },
       defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }]
     });
-    console.log(result);
   }
   private btn_test1() {
     let map = this.$refs.gisViewer as any;
@@ -340,7 +337,7 @@ export default class PluginTest extends Vue {
     (this.$refs.gisViewer as any).hideJurisdiction();
   }
   private showGisDeviceInfo(type: string, id: string) {
-    console.log(type + "," + id);
+    //console.log(type + "," + id);
   }
 }
 </script>

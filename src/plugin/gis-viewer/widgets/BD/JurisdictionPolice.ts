@@ -120,7 +120,6 @@ export class JurisdictionPolice {
     let _this = this;
     axios.get("config/Jurisdiction/bsga_v2.bd.json").then((res: any) => {
       let data = res.data;
-      console.log(data);
       for (let i = 0; i < data.features.length; i++) {
         let overlay = data.features[i];
         let graphic = this.getGraphic(overlay, i);

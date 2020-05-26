@@ -8,8 +8,6 @@ export class OverlayArcgis2D {
   private overlayLayer!: __esri.GraphicsLayer;
   private view!: __esri.MapView;
 
-  public showGisDeviceInfo: any;
-
   private primitive2D = ["circle", "cross", "diamond", "square", "triangle", "x"];
 
   private constructor(view: __esri.MapView) {
@@ -177,7 +175,6 @@ export class OverlayArcgis2D {
         symbol: overlaySymbol || defaultSymbol,
         attributes: fields || {}
       });
-      console.log(graphic);
       this.view.goTo(graphic);
       graphic.buttons = buttons || defaultButtons;
       if (showPopup) {

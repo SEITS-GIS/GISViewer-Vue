@@ -85,7 +85,6 @@ export class HeatMapBD {
       }
 
       this.view.addEventListener("zoomend", this.zoomEvent=function(e: any) {
-        console.log(e.target.getZoom());
         if (e.target.getZoom() <= zoom) {
           if (_this._state == "nomal") {
             _this._clear();
