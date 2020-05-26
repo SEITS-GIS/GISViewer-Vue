@@ -44,13 +44,13 @@ export interface IPointSymbol {
   //锚点
   //"center" | "left" | "right" | "top" | "bottom" | "top-left" | "top-right" | "bottom-left" | "bottom-right"
   anchor?: string;
-  //旋转角度，在point-3d时可用
-  //[x轴角度, y轴角度, z轴角度]
-  rotation?: Array<number>;
-  width?: number;
-  height?: number;
-  xoffset?: number;
-  yoffset?: number;
+  //旋转角度，在point-3d时代表[x轴角度, y轴角度, z轴角度]
+  //在point-2d时代表中心旋转角度
+  rotation?: Array<number> | number;
+  width?: number | string;
+  height?: number | string;
+  xoffset?: number | string;
+  yoffset?: number | string;
 }
 export interface IPolylineSymbol {
   type: string; //line-2d/line-3d
@@ -100,7 +100,7 @@ export interface IOverlayClusterParameter {
 }
 
 export interface IMapContainer {
-  addOverlays: (param: IOverlayParameter) => void;
+  addOverlays: (param: IOverlayParameter) => Promise<IResult>;
   addHeatMap: (param: IHeatParameter) => void;
   addOverlaysCluster: (param: IOverlayClusterParameter) => void;
   deleteOverlays: (param: IOverlayDelete) => void;

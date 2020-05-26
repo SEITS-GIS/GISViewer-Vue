@@ -10,6 +10,7 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
+  IResult
 } from "@/types/map";
 import { OverlayArcgis3D } from "@/plugin/gis-viewer/widgets/OverlayArcgis3D";
 
@@ -71,9 +72,9 @@ export default class MapAppArcGIS3D implements IMapContainer {
     this.view = view;
   }
 
-  public async addOverlays(params: IOverlayParameter) {
+  public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayArcgis3D.getInstance(this.view);
-    await overlay.addOverlays(params);
+    return await overlay.addOverlays(params);
   }
   public async addOverlaysCluster(params: IOverlayClusterParameter) {}
 

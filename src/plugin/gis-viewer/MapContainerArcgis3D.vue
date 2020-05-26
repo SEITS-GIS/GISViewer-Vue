@@ -15,6 +15,7 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
+  IResult
 } from "@/types/map";
 
 @Component({
@@ -32,8 +33,8 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
     await this.mapApp.initialize(this.mapConfig, "divArcGISMap3D");
   }
 
-  public addOverlays(params: IOverlayParameter) {
-    this.mapApp.addOverlays(params);
+  public async addOverlays(params: IOverlayParameter): Promise<IResult> {
+    return await this.mapApp.addOverlays(params);
   }
 
   public addHeatMap(params: IHeatParameter) {}

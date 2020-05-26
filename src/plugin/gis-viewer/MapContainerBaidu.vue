@@ -14,6 +14,7 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
+  IResult
 } from "@/types/map";
 @Component({
   name: "MapAppBaidu",
@@ -33,8 +34,9 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
 
   @Emit("marker-click")
   public showGisDeviceInfo(type: string, id: string) {}
-  public addOverlays(params: IOverlayParameter) {
-    this.mapApp.addOverlays(params);
+
+  public async addOverlays(params: IOverlayParameter): Promise<IResult> {
+    return await this.mapApp.addOverlays(params);
   }
   public addOverlaysCluster(params: IOverlayClusterParameter) {
     this.mapApp.addOverlaysCluster(params);

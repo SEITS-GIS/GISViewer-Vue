@@ -9,6 +9,7 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
+  IResult
 } from "@/types/map";
 import { OverlayBaidu } from "@/plugin/gis-viewer/widgets/OverlayBaidu";
 import { HeatMapBD } from "./widgets/BD/HeatMapBD";
@@ -114,10 +115,10 @@ export default class MapAppBaidu implements IMapContainer {
         break;
     }
   }
-  public async addOverlays(params: IOverlayParameter) {
+  public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayBaidu.getInstance(this.view);
     overlay.showGisDeviceInfo = this.showGisDeviceInfo;
-    await overlay.addOverlays(params);
+    return await overlay.addOverlays(params);
   }
   public async findFeature(params:IFindParameter) {
     const overlay = OverlayBaidu.getInstance(this.view);

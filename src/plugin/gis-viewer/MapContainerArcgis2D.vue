@@ -7,6 +7,7 @@ import { Vue, Component, Emit, Prop } from "vue-property-decorator";
 import MapApp from "@/plugin/gis-viewer/MapAppArcgis2D";
 import {
   IMapContainer,
+  IOverlayParameter,
   IHeatParameter,
   IOverlayClusterParameter,
   IOverlayDelete,
@@ -14,6 +15,7 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
+  IResult
 } from "@/types/map";
 
 @Component({
@@ -25,13 +27,19 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   //地图配置
   @Prop({ type: Object }) readonly mapConfig!: Object;
 
-  @Emit("mapLoaded")
+  @Emit("map-loaded")
   async mounted() {
     this.mapApp = new MapApp();
     await this.mapApp.initialize(this.mapConfig, "divArcGISMap2D");
+    this.mapApp.showGisDeviceInfo = this.showGisDeviceInfo;
   }
 
-  public addOverlays() {}
+  @Emit("marker-click")
+  public showGisDeviceInfo(type: string, id: string) {}
+
+  public async addOverlays(params: IOverlayParameter): Promise<IResult> {
+    return await this.mapApp.addOverlays(params);
+  }
   public addHeatMap(params: IHeatParameter) {}
   public addOverlaysCluster(params: IOverlayClusterParameter) {}
   public deleteOverlays(params: IOverlayDelete) {}

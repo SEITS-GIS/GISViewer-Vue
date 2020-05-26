@@ -7,7 +7,7 @@
     </div>
     <gis-viewer
       ref="gisViewer"
-      platform="bd"
+      platform="arcgis2d"
       :map-config="mapConfig"
       @map-loaded="mapLoaded"
       @marker-click="showGisDeviceInfo"
@@ -20,17 +20,18 @@ import axios from "axios";
 @Component
 export default class PluginTest extends Vue {
   private mapConfig = {
-    //arcgis_api: "http://localhost:8090/arcgis_js_api_4/",
-    arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
+    arcgis_api: "http://localhost:8090/arcgis_js_api_4/",
+    // arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
     //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
-    theme: "dark", //dark,vec
+    theme: "light", //dark,vec
     baseLayers: [
       {
-        label: "路况",
-        type: "traffic",
-        visible: false,
-      },
+        type: "tiled",
+          url:
+            "https://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer",
+          visible: true,
+      }
     ],
     gisServer: "http://128.64.151.245:8019",
     options: {
@@ -63,12 +64,12 @@ export default class PluginTest extends Vue {
       },
     ],
   };
-  private mapLoaded() {
+  private async mapLoaded() {
     console.log("map loaded");
 
     let map = this.$refs.gisViewer as any;
 
-    map.showJurisdiction();
+    // map.showJurisdiction();
     /* (this.$refs.gisViewer as any).addOverlays({
       type: "police",
       defaultSymbol: {
@@ -93,136 +94,135 @@ export default class PluginTest extends Vue {
       },
       overlays: [{ id: "test001", geometry: { x: 121.418924, y: 31.157101 } }]
     }); */
-    map.addOverlays({
-      type: "jingqing",
-      defaultSymbol: {
-        type: "point",
-        url: "assets/image/Anchor.png",
-        width: 50,
-        height: 30,
-      },
-      overlays: [
-        {
-          id: "310113610000",
-          geometry: { x: null, y: null },
-          fields: {
-            jqId: "202004171434362492126666",
-            jqTime: "2020-05-11 16:03:54",
-            informerPhone: "15776038940",
-            informer: null,
-            jqType: "2101",
-            jqSubType: null,
-            carType: "CAR_TYPE_08",
-            jqAddress: "（报班长）宝山 宝祁路788号门口",
-            jqDescription:
-              "土方车单车事故（拉断光纤线），人无事，不影响交通，周围没有用电影响，请民警到场处理。",
-            longitude: null,
-            latitude: null,
-            roadId: "40149",
-            crossId: null,
-            roadName: "未知",
-            crossName: "未知",
-            duplicate: "0",
-            invalid: "0",
-            handleDeptId: "310113610000",
-            handlePoliceId: "046230",
-            handlePoliceName: "汪冰清",
-            handleTime: 1587105378000,
-            feedback: "1",
-            createUser: null,
-            createTime: 1587105353000,
-            updateUser: null,
-            updateTime: 1587106265000,
-            jqNo: "202004171434362492126666",
-            jqTypeDesc: "事故类",
-            jqLevel: "02",
-            jqLevelDesc: "三级",
-            jqSubTypeDesc: null,
-            carTypeDesc: "其他",
-            deptId: "310113610000",
-            deptName: "祁连派出所",
-            areaId: "310113610000",
-            areaName: "祁连派出所",
-            handleDescription: "民警已到现场，遇到报警人，系单车事故，当场处理",
-            jqStatus: "已反馈",
-            jqStatusDesc: null,
-            handleDeptName: "祁连派出所",
-            pdId: "21001",
-            jqSubTypeEntity: null,
-            carTypeEntity: null,
-            jqTypeEntity: null,
-          },
-        },
-        {
-          id: "310113750000",
-          geometry: { x: 121.459135, y: 31.396139 },
-          fields: {
-            jqId: "202004171213229932213053",
-            jqTime: "2020-05-11 16:03:54",
-            informerPhone: "13817782369",
-            informer: "陈宁宁",
-            jqType: "2101",
-            jqSubType: null,
-            carType: "CAR_TYPE_02",
-            jqAddress: "（报班长）宝山  铁山路（宝杨路—友谊路）  桥下",
-            jqDescription:
-              "路人：一人疑似骑自行车摔倒在地上，请民警到场处理。(已通知120到场，如不需要救护车，请民警电告120或110)",
-            longitude: 121.459135,
-            latitude: 31.396139,
-            roadId: "80108",
-            crossId: null,
-            roadName: "铁山路",
-            crossName: "铁山路/铁通路路口",
-            duplicate: "0",
-            invalid: "0",
-            handleDeptId: "310113750000",
-            handlePoliceId: "045644",
-            handlePoliceName: "许郁",
-            handleTime: 1587097003000,
-            feedback: "1",
-            createUser: null,
-            createTime: 1587096974000,
-            updateUser: null,
-            updateTime: 1587097904000,
-            jqNo: "202004171213229932213053",
-            jqTypeDesc: "事故类",
-            jqLevel: "02",
-            jqLevelDesc: "三级",
-            jqSubTypeDesc: null,
-            carTypeDesc: "机动车与非机动车",
-            deptId: "310113750000",
-            deptName: "宝杨派出所",
-            areaId: "310113750000",
-            areaName: "宝杨派出所",
-            handleDescription:
-              "经了解，夫妻双方结伴骑自行车外出。一方下坡时操作不慎摔倒。人无大碍，未受伤 不需要民警处理。",
-            jqStatus: "已反馈",
-            jqStatusDesc: null,
-            handleDeptName: "宝杨派出所",
-            pdId: "21003",
-            jqSubTypeEntity: null,
-            carTypeEntity: null,
-            jqTypeEntity: null,
-          },
-        },
-      ],
-      showPopup: true,
-      autoPopup: false,
-      defaultInfoTemplate: {
-        title: "警情信息",
-        content:
-          '<div class="jq_table">\n    <div class="jq-msg">\n        <div>警情描述:</div>\n        <div>{jqDescription}</div>\n    </div>\n    <div class="jq-msg">\n        <div>警情类型:</div>\n        <div>{jqTypeDesc}</div>\n    </div>\n    <div class="jq-msg">\n        <div>警情地址:</div>\n        <div>{jqAddress}</div>\n    </div>\n    <div class="jq-msg">\n        <div>发生时间:</div>\n        <div>{jqTime}</div>\n    </div>\n    <div class="jq-msg">\n        <div>报警人:</div>\n        <div>{informer}</div>\n    </div>\n    <div class="jq-msg">\n        <div>联系方式:</div>\n        <div>{informerPhone}</div>\n    </div>\n    <div class="jq-msg">\n        <div>处置描述:</div>\n        <div>{handleDescription}</div>\n    </div>\n    <div class="jq-msg">\n        <div>警情状态:</div>\n        <div>{jqStatus}</div>\n    </div>\n</div>',
-      },
-    });
-    map.addOverlays({
+    // map.addOverlays({
+    //   type: "jingqing",
+    //   defaultSymbol: {
+    //     type: "point",
+    //     url: "assets/image/Anchor.png",
+    //     width: 50,
+    //     height: 30,
+    //   },
+    //   overlays: [
+    //     {
+    //       id: "310113610000",
+    //       geometry: { x: 121.3943501, y: 31.39351155 },
+    //       fields: {
+    //         jqId: "202004171434362492126666",
+    //         jqTime: "2020-05-11 16:03:54",
+    //         informerPhone: "15776038940",
+    //         informer: null,
+    //         jqType: "2101",
+    //         jqSubType: null,
+    //         carType: "CAR_TYPE_08",
+    //         jqAddress: "（报班长）宝山 宝祁路788号门口",
+    //         jqDescription:
+    //           "土方车单车事故（拉断光纤线），人无事，不影响交通，周围没有用电影响，请民警到场处理。",
+    //         longitude: null,
+    //         latitude: null,
+    //         roadId: "40149",
+    //         crossId: null,
+    //         roadName: "未知",
+    //         crossName: "未知",
+    //         duplicate: "0",
+    //         invalid: "0",
+    //         handleDeptId: "310113610000",
+    //         handlePoliceId: "046230",
+    //         handlePoliceName: "汪冰清",
+    //         handleTime: 1587105378000,
+    //         feedback: "1",
+    //         createUser: null,
+    //         createTime: 1587105353000,
+    //         updateUser: null,
+    //         updateTime: 1587106265000,
+    //         jqNo: "202004171434362492126666",
+    //         jqTypeDesc: "事故类",
+    //         jqLevel: "02",
+    //         jqLevelDesc: "三级",
+    //         jqSubTypeDesc: null,
+    //         carTypeDesc: "其他",
+    //         deptId: "310113610000",
+    //         deptName: "祁连派出所",
+    //         areaId: "310113610000",
+    //         areaName: "祁连派出所",
+    //         handleDescription: "民警已到现场，遇到报警人，系单车事故，当场处理",
+    //         jqStatus: "已反馈",
+    //         jqStatusDesc: null,
+    //         handleDeptName: "祁连派出所",
+    //         pdId: "21001",
+    //         jqSubTypeEntity: null,
+    //         carTypeEntity: null,
+    //         jqTypeEntity: null,
+    //       },
+    //     },
+    //     {
+    //       id: "310113750000",
+    //       geometry: { x: 121.459135, y: 31.396139 },
+    //       fields: {
+    //         jqId: "202004171213229932213053",
+    //         jqTime: "2020-05-11 16:03:54",
+    //         informerPhone: "13817782369",
+    //         informer: "陈宁宁",
+    //         jqType: "2101",
+    //         jqSubType: null,
+    //         carType: "CAR_TYPE_02",
+    //         jqAddress: "（报班长）宝山  铁山路（宝杨路—友谊路）  桥下",
+    //         jqDescription:
+    //           "路人：一人疑似骑自行车摔倒在地上，请民警到场处理。(已通知120到场，如不需要救护车，请民警电告120或110)",
+    //         longitude: 121.459135,
+    //         latitude: 31.396139,
+    //         roadId: "80108",
+    //         crossId: null,
+    //         roadName: "铁山路",
+    //         crossName: "铁山路/铁通路路口",
+    //         duplicate: "0",
+    //         invalid: "0",
+    //         handleDeptId: "310113750000",
+    //         handlePoliceId: "045644",
+    //         handlePoliceName: "许郁",
+    //         handleTime: 1587097003000,
+    //         feedback: "1",
+    //         createUser: null,
+    //         createTime: 1587096974000,
+    //         updateUser: null,
+    //         updateTime: 1587097904000,
+    //         jqNo: "202004171213229932213053",
+    //         jqTypeDesc: "事故类",
+    //         jqLevel: "02",
+    //         jqLevelDesc: "三级",
+    //         jqSubTypeDesc: null,
+    //         carTypeDesc: "机动车与非机动车",
+    //         deptId: "310113750000",
+    //         deptName: "宝杨派出所",
+    //         areaId: "310113750000",
+    //         areaName: "宝杨派出所",
+    //         handleDescription:
+    //           "经了解，夫妻双方结伴骑自行车外出。一方下坡时操作不慎摔倒。人无大碍，未受伤 不需要民警处理。",
+    //         jqStatus: "已反馈",
+    //         jqStatusDesc: null,
+    //         handleDeptName: "宝杨派出所",
+    //         pdId: "21003",
+    //         jqSubTypeEntity: null,
+    //         carTypeEntity: null,
+    //         jqTypeEntity: null,
+    //       },
+    //     },
+    //   ],
+    //   showPopup: true,
+    //   autoPopup: false,
+    //   defaultInfoTemplate: {
+    //     title: "警情信息",
+    //     content:
+    //       '<div class="jq_table">\n    <div class="jq-msg">\n        <div>警情描述:</div>\n        <div>{jqDescription}</div>\n    </div>\n    <div class="jq-msg">\n        <div>警情类型:</div>\n        <div>{jqTypeDesc}</div>\n    </div>\n    <div class="jq-msg">\n        <div>警情地址:</div>\n        <div>{jqAddress}</div>\n    </div>\n    <div class="jq-msg">\n        <div>发生时间:</div>\n        <div>{jqTime}</div>\n    </div>\n    <div class="jq-msg">\n        <div>报警人:</div>\n        <div>{informer}</div>\n    </div>\n    <div class="jq-msg">\n        <div>联系方式:</div>\n        <div>{informerPhone}</div>\n    </div>\n    <div class="jq-msg">\n        <div>处置描述:</div>\n        <div>{handleDescription}</div>\n    </div>\n    <div class="jq-msg">\n        <div>警情状态:</div>\n        <div>{jqStatus}</div>\n    </div>\n</div>',
+    //   },
+    // });
+    const result = await map.addOverlays({
       type: "police",
       defaultSymbol: {
         //symbol for 2d
-        type: "point",
+        type: "point-2d",
         // primitive: "square",
         url: "assets/image/Anchor.png",
-        width: 50,
-        height: 30,
+        size: ["64px", "64px"]
         // color: "red",
         // outline: {
         //   color: "white",
@@ -260,10 +260,9 @@ export default class PluginTest extends Vue {
         title: "1212",
         content: "<div>name:{name}<br/><button>{name}</button></div>",
       },
-      defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }],
-      showToolTip: false,
-      toolTipContent: "{name}",
+      defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }]
     });
+    console.log(result);
   }
   private btn_test1() {
     let map = this.$refs.gisViewer as any;

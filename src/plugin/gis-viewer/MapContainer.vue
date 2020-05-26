@@ -5,12 +5,14 @@
       v-if="this.platform === 'arcgis3d'"
       :map-config="this.mapConfig"
       @map-loaded="mapLoaded"
+      @marker-click="showGisDeviceInfo"
     />
     <map-container-arcgis-two-d
       ref="containerArcgis2D"
       v-if="this.platform === 'arcgis2d'"
       :map-config="this.mapConfig"
       @map-loaded="mapLoaded"
+      @marker-click="showGisDeviceInfo"
     />
     <map-container-baidu
       ref="containerBaidu"
@@ -38,6 +40,7 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
+  IResult,
 } from "@/types/map";
 
 @Component({
@@ -79,8 +82,8 @@ export default class MapContainer extends Vue implements IMapContainer {
   @Emit("marker-click")
   private showGisDeviceInfo(type: string, id: string) {}
 
-  public addOverlays(params: IOverlayParameter) {
-    this.mapContainer.addOverlays(params);
+  public async addOverlays(params: IOverlayParameter): Promise<IResult> {
+    return await this.mapContainer.addOverlays(params);
   }
 
   public addOverlaysCluster(params: IOverlayClusterParameter) {

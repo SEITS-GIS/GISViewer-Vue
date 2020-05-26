@@ -1,8 +1,10 @@
 import { setDefaultOptions, loadCss, loadModules } from "esri-loader";
-import { ILayerConfig } from "@/types/map";
+import { ILayerConfig, IOverlayParameter, IResult } from "@/types/map";
+import { OverlayArcgis2D } from "@/plugin/gis-viewer/widgets/OverlayArcgis2D";
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
+  public showGisDeviceInfo: any;
 
   public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
     const apiUrl = mapConfig.arcgis_api || "https://js.arcgis.com/4.14/";
@@ -52,8 +54,24 @@ export default class MapAppArcGIS2D {
       ...mapConfig.options
     });
     view.ui.remove("attribution");
+
+    view.on("click", async (event) => {
+      const response = await view.hitTest(event);
+      response.results.forEach(result => {
+        const graphic = result.graphic;
+        const { type, id } = graphic.attributes;
+        if (type && id) {
+          this.showGisDeviceInfo(type, id);
+        }
+      })
+    })
     await view.when();
-    this.view = view;
+    this.view = view;    
+  }
+
+  public async addOverlays(params: IOverlayParameter): Promise<IResult> {
+    const overlay = OverlayArcgis2D.getInstance(this.view);
+    return await overlay.addOverlays(params);
   }
 
 }
