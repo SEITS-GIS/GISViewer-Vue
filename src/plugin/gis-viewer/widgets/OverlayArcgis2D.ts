@@ -53,8 +53,8 @@ export class OverlayArcgis2D {
           color: symbol.outline?.color,
           width: symbol.outline?.size
         }
-      }      
-    } 
+      }
+    }
     else if (symbol.url) {
       result = {
         type: "picture-marker",
@@ -69,7 +69,7 @@ export class OverlayArcgis2D {
 
     return result;
 
-    
+
   }
   /**根据graphic的属性生成弹出框*/
   private getInfoWindowContent(graphic: any): any {
@@ -138,8 +138,8 @@ export class OverlayArcgis2D {
     return tipContent;
   }
 
-  
-  public async addOverlays(params: IOverlayParameter): Promise<IResult> {    
+
+  public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     if (!this.overlayLayer) {
       await this.createOverlayLayer();
     }
@@ -154,7 +154,7 @@ export class OverlayArcgis2D {
     const showPopup = params.showPopup;
     const defaultInfoTemplate = params.defaultInfoTemplate;
     const autoPopup = params.autoPopup;
-    const defaultButtons = params.defaultButtons;    
+    const defaultButtons = params.defaultButtons;
 
     let addCount = 0;
     for (let i = 0; i < params.overlays.length; i++) {

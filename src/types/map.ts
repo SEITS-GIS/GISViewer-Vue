@@ -113,9 +113,9 @@ export interface IMapContainer {
   hideLayer: (param: ILayerConfig) => void;
   setMapCenter: (param: IPointGeometry) => void;
   setMapCenterAndLevel: (param: ICenterLevel) => void;
-  showJurisdiction:()=>void;
-  hideJurisdiction:()=>void;
-  findFeature:(param:IFindParameter)=>void;
+  showJurisdiction: () => void;
+  hideJurisdiction: () => void;
+  findFeature: (param: IFindParameter) => void;
 }
 export interface IPopUpTemplate {
   title?: string;
@@ -137,11 +137,11 @@ export interface IHeatPoint {
   fields: any;
   geometry: IPointGeometry;
 }
-export interface IFindParameter{
-  layerName:string;
-  ids:Array<string>;
-  level?:number;
-  centerResult?:boolean;
+export interface IFindParameter {
+  layerName: string;
+  ids: Array<string>;
+  level?: number;
+  centerResult?: boolean;
 }
 export interface IOverlayDelete {
   types?: Array<string>;

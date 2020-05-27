@@ -7,13 +7,13 @@ export class HeatMapBD {
   private view!: any;
   private heatmapOverlay: any;
   private _state: string = "nomal";
-  private zoomEvent:any;
-  private overlays:any;
+  private zoomEvent: any;
+  private overlays: any;
 
   private constructor(view: any) {
     this.view = view;
   }
-  public static getInstance(view:any) {
+  public static getInstance(view: any) {
     if (!HeatMapBD.heatMapBD) {
       HeatMapBD.heatMapBD = new HeatMapBD(view);
     }
@@ -25,13 +25,12 @@ export class HeatMapBD {
   }
   public async deleteHeatMap() {
     this._clear();
-    this.view.removeEventListener("zoomend",this.zoomEvent);
+    this.view.removeEventListener("zoomend", this.zoomEvent);
   }
   public _clear() {
     this.view.removeOverlay(this.heatmapOverlay);
-    if(this.overlays)
-    {
-      this.overlays.deleteOverlays({types:["heatpoint"]});
+    if (this.overlays) {
+      this.overlays.deleteOverlays({ types: ["heatpoint"] });
     }
   }
   public async addHeatLayer(params: IHeatParameter): Promise<IResult> {
@@ -84,7 +83,7 @@ export class HeatMapBD {
         this._state = "nomal";
       }
 
-      this.view.addEventListener("zoomend", this.zoomEvent=function(e: any) {
+      this.view.addEventListener("zoomend", this.zoomEvent = function (e: any) {
         if (e.target.getZoom() <= zoom) {
           if (_this._state == "nomal") {
             _this._clear();
@@ -122,25 +121,24 @@ export class HeatMapBD {
     return obj;
   }
   public async addOverlays(params: IHeatParameter) {
-    const points=params.points;
-    const options=params.options;
-    const renderer=options.renderer;
+    const points = params.points;
+    const options = params.options;
+    const renderer = options.renderer;
     let symbol;
-    if(options.renderer)
-    {
-      symbol={
+    if (options.renderer) {
+      symbol = {
         type: "point",
         url: renderer.symbol.url,
-        width:renderer.symbol.width,
-        height:renderer.symbol.height,
-        xoffset:renderer.symbol.xoffset || 0,
-        yoffset:renderer.symbol.yoffset || 0
+        width: renderer.symbol.width,
+        height: renderer.symbol.height,
+        xoffset: renderer.symbol.xoffset || 0,
+        yoffset: renderer.symbol.yoffset || 0
       }
     }
     let overlayparams = {
       defaultSymbol: symbol,
       overlays: points,
-      type:"heatpoint"
+      type: "heatpoint"
     };
     this.overlays = OverlayBaidu.getInstance(this.view);
     await this.overlays.addOverlays(overlayparams);

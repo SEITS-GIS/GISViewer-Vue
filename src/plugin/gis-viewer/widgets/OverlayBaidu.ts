@@ -30,7 +30,7 @@ export class OverlayBaidu {
     return OverlayBaidu.overlayBD;
   }
 
-  private async createOverlayLayer() {}
+  private async createOverlayLayer() { }
   private getMarker(overlay: any, symbol: any): any {
     let marker: any;
     let geometry = overlay.geometry;
@@ -217,7 +217,7 @@ export class OverlayBaidu {
           graphic.isOpenInfo = true;
           this.view.openInfoWindow(infoWindow, graphic.point);
         }
-        graphic.addEventListener("click", function(e: any) {
+        graphic.addEventListener("click", function (e: any) {
           let infoWindow = new BMap.InfoWindow(content, {
             width: 0, // 信息窗口宽度
             height: 0, // 信息窗口高度
@@ -259,7 +259,7 @@ export class OverlayBaidu {
           }
         }
         overlay.setAnimation(2);
-        setTimeout(function() {
+        setTimeout(function () {
           overlay.setAnimation(0);
         }, 3600);
       }
@@ -302,7 +302,7 @@ export class OverlayBaidu {
       graphic.type = overlay.type || defaultType;
       let content = this.getPopUpHtml(graphic, defaultTooltip);
 
-      graphic.addEventListener("click", function(e: any) {
+      graphic.addEventListener("click", function (e: any) {
         let infoWindow = new BMap.InfoWindow(content, {
           width: 0, // 信息窗口宽度
           height: 0, // 信息窗口高度

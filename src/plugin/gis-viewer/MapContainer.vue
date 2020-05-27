@@ -48,7 +48,7 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
-  IResult,
+  IResult
 } from "@/types/map";
 
 @Component({
@@ -56,8 +56,8 @@ import {
     MapContainerArcgisThreeD,
     MapContainerArcgisTwoD,
     MapContainerBaidu,
-    MapContainerGaode,
-  },
+    MapContainerGaode
+  }
 })
 export default class MapContainer extends Vue implements IMapContainer {
   //平台类型 高德/百度/arcgis
@@ -81,8 +81,8 @@ export default class MapContainer extends Vue implements IMapContainer {
         return this.containerArcgis3D;
       case Platforms.BDMap:
         return this.containerBaidu;
-       case Platforms.AMap:
-        return this.containerGaode;  
+      case Platforms.AMap:
+        return this.containerGaode;
       default:
         return this.containerArcgis3D;
     }

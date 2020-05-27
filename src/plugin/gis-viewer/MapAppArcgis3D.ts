@@ -76,19 +76,19 @@ export default class MapAppArcGIS3D implements IMapContainer {
     const overlay = OverlayArcgis3D.getInstance(this.view);
     return await overlay.addOverlays(params);
   }
-  public async addOverlaysCluster(params: IOverlayClusterParameter) {}
+  public async addOverlaysCluster(params: IOverlayClusterParameter) { }
 
-  public async addHeatMap(params: IHeatParameter) {}
-  public async deleteAllOverlays() {}
-  public async deleteAllOverlaysCluster() {}
-  public async deleteHeatMap() {}
-  public async deleteOverlays(params: IOverlayDelete) {}
-  public async deleteOverlaysCluster(params: IOverlayDelete) {}
-  public async showLayer(params: ILayerConfig) {}
-  public async hideLayer(params: ILayerConfig) {}
-  public async setMapCenter(params: IPointGeometry) {}
-  public async setMapCenterAndLevel(params: ICenterLevel) {}
-  public async showJurisdiction() {}
-  public async hideJurisdiction() {}
-  public async findFeature(params: IFindParameter) {}
+  public async addHeatMap(params: IHeatParameter) { }
+  public async deleteAllOverlays() { }
+  public async deleteAllOverlaysCluster() { }
+  public async deleteHeatMap() { }
+  public async deleteOverlays(params: IOverlayDelete) { }
+  public async deleteOverlaysCluster(params: IOverlayDelete) { }
+  public async showLayer(params: ILayerConfig) { }
+  public async hideLayer(params: ILayerConfig) { }
+  public async setMapCenter(params: IPointGeometry) { }
+  public async setMapCenterAndLevel(params: ICenterLevel) { }
+  public async showJurisdiction() { }
+  public async hideJurisdiction() { }
+  public async findFeature(params: IFindParameter) { }
 }

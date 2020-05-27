@@ -33,7 +33,7 @@ export default class MapAppBaidu implements IMapContainer {
       apiRoot + "/library/Heatmap/Heatmap_min.js",
       apiRoot + "/library/TextIconOverlay/TextIconOverlay_min.js",
       apiRoot + "/library/MarkerClusterer/MarkerClusterer_min.js",
-    ]).then(function(e: any) {
+    ]).then(function (e: any) {
       //console.log("Load Scripts");
     });
 
@@ -42,7 +42,7 @@ export default class MapAppBaidu implements IMapContainer {
       ? mapConfig.gisServer
       : this.getIpPort(apiUrl);
     if (mapConfig.theme === "dark") {
-      view.setMapStyle({style:"midnight"});
+      view.setMapStyle({ style: "midnight" });
     }
     if (mapConfig.baseLayers) {
       mapConfig.baseLayers.forEach((element: any) => {
@@ -64,7 +64,7 @@ export default class MapAppBaidu implements IMapContainer {
 
     view.enableScrollWheelZoom();
     this.view = view;
-    this.view.gisServer=gisUrl;
+    this.view.gisServer = gisUrl;
   }
 
   private async loadOtherScripts(scriptUrls: string[]): Promise<any> {
@@ -118,7 +118,7 @@ export default class MapAppBaidu implements IMapContainer {
     overlay.showGisDeviceInfo = this.showGisDeviceInfo;
     return await overlay.addOverlays(params);
   }
-  public async findFeature(params:IFindParameter) {
+  public async findFeature(params: IFindParameter) {
     const overlay = OverlayBaidu.getInstance(this.view);
     await overlay.findFeature(params);
   }

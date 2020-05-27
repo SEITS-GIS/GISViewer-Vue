@@ -19,7 +19,7 @@ import {
 } from "@/types/map";
 
 @Component({
-  name: "MapContainerArcgisThreeD",
+  name: "MapContainerArcgisThreeD"
 })
 export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   private mapApp!: MapApp;

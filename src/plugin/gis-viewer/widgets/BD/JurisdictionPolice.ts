@@ -88,9 +88,9 @@ export class JurisdictionPolice {
         axios
           .get(
             _this.view.gisServer +
-              "/geoconv?coords=" +
-              features +
-              "&from=3&to=5&output=json"
+            "/geoconv?coords=" +
+            features +
+            "&from=3&to=5&output=json"
           )
           .then((res: any) => {
             resolve(res.data.results);
@@ -126,7 +126,7 @@ export class JurisdictionPolice {
         graphic.id = overlay.id || "";
         graphic.type = "Jurisdiction";
 
-        graphic.addEventListener("click", function(e: any) {
+        graphic.addEventListener("click", function (e: any) {
           if (_this.clickOverlay) {
             _this.view.removeOverlay(_this.clickOverlay);
           }
@@ -161,7 +161,7 @@ export class JurisdictionPolice {
             color: "#45526e",
             fontWeight: "bold",
             fontSize: "13px",
-            pointerEvents:"none",
+            pointerEvents: "none",
           });
           this.view.addOverlay(label);
           this.overlayers.push(label);

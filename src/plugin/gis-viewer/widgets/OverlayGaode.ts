@@ -385,7 +385,7 @@ export class OverlayGaode {
           if (overlay.CLASS_NAME == "AMap.Marker") {
             this.view.setZoomAndCenter(level, overlay.getPosition());
             overlay.setAnimation("AMAP_ANIMATION_BOUNCE");
-            setTimeout(function() {
+            setTimeout(function () {
               overlay.setAnimation("AMAP_ANIMATION_NONE");
             }, 3500);
           } else {

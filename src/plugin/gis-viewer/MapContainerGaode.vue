@@ -19,7 +19,7 @@ import {
 } from "@/types/map";
 
 @Component({
-  name: "MapContainerGaode",
+  name: "MapContainerGaode"
 })
 export default class MapContainerGd extends Vue implements IMapContainer {
   private mapApp!: MapApp;
@@ -43,7 +43,7 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   public addHeatMap(params: IHeatParameter) {}
   public addOverlaysCluster(params: IOverlayClusterParameter) {}
   public deleteOverlays(params: IOverlayDelete) {
-     this.mapApp.deleteOverlays(params);
+    this.mapApp.deleteOverlays(params);
   }
   public deleteOverlaysCluster(params: IOverlayDelete) {}
   public deleteAllOverlays() {

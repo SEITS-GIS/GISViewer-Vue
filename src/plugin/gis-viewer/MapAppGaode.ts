@@ -99,21 +99,21 @@ export default class MapAppGaode implements IMapContainer {
     await overlay.findFeature(params);
   }
 
-  public async addOverlaysCluster(params: IOverlayClusterParameter) {}
+  public async addOverlaysCluster(params: IOverlayClusterParameter) { }
 
-  public async addHeatMap(params: IHeatParameter) {}
+  public async addHeatMap(params: IHeatParameter) { }
 
   public async deleteOverlays(params: IOverlayDelete) {
     const overlay = OverlayGaode.getInstance(this.view);
     await overlay.deleteOverlays(params);
   }
-  public async deleteOverlaysCluster(params: IOverlayDelete) {}
+  public async deleteOverlaysCluster(params: IOverlayDelete) { }
   public async deleteAllOverlays() {
     const overlay = OverlayGaode.getInstance(this.view);
     await overlay.deleteAllOverlays();
   }
-  public async deleteAllOverlaysCluster() {}
-  public async deleteHeatMap() {}
+  public async deleteAllOverlaysCluster() { }
+  public async deleteHeatMap() { }
   public async setMapCenter(params: IPointGeometry) {
     let x = params.x;
     let y = params.y;
@@ -156,6 +156,6 @@ export default class MapAppGaode implements IMapContainer {
     });
   }
 
-  public async showJurisdiction() {}
-  public async hideJurisdiction() {}
+  public async showJurisdiction() { }
+  public async hideJurisdiction() { }
 }

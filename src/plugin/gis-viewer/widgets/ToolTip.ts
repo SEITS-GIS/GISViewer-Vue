@@ -32,14 +32,14 @@ export default class ToolTip {
     const height = this.vm.$el.clientHeight;
     switch (location) {
       case "top":
-        xoffset = 0 - width / 2-10;
-        yoffset = 0 - height-10;
+        xoffset = 0 - width / 2 - 10;
+        yoffset = 0 - height - 10;
     }
     return { xoffset: xoffset, yoffset: yoffset };
   }
   private init() {
     let o: any = this;
-    o.view.watch("extent", function(event: any) {
+    o.view.watch("extent", function (event: any) {
       o.changeText();
     });
   }

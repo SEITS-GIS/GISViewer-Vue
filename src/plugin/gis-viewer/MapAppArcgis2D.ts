@@ -66,7 +66,7 @@ export default class MapAppArcGIS2D {
       })
     })
     await view.when();
-    this.view = view;    
+    this.view = view;
   }
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
