@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 #gisDiv[data-v-01bad910]{position:relative;width:100%;height:100%;margin:0 auto}#test[data-v-01bad910]{position:absolute;z-index:99;display:block}body{padding:0;margin:0;height:100%;width:100%}#app{height:100vh}
+=======
+.MapText[data-v-55f93b81]{min-width:30px;max-width:260px;border-radius:4px;position:absolute;text-align:left;color:#fff;padding:8px 15px 8px 15px;line-height:18px;font-size:14px;pointer-events:none;z-index:999}.TextDiv[data-v-55f93b81],.TextTriTop[data-v-55f93b81]{border:1.5px solid #666;background:#666}.TextTriTop[data-v-55f93b81]{position:absolute;width:10px;height:10px;z-index:-1;transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);-o-transform:rotate(45deg);border-left:none;border-top:none;margin:auto;margin-top:4px;left:0;right:0}#divAMap[data-v-1892d5c8],#divArcGISMap2D[data-v-3547f20a],#divArcGISMap3D[data-v-48a79732],#divBMap[data-v-2fb7a49d],#divMap[data-v-a142306e]{padding:0;margin:0;width:100%;height:100%}
+>>>>>>> 0318099ad86129aa1fb484f6840cde4bbaf575fb
