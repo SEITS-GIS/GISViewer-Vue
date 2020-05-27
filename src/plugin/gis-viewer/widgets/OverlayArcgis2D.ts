@@ -175,7 +175,6 @@ export class OverlayArcgis2D {
         symbol: overlaySymbol || defaultSymbol,
         attributes: fields || {}
       });
-      this.view.goTo(graphic);
       graphic.buttons = buttons || defaultButtons;
       if (showPopup) {
         if (defaultInfoTemplate === undefined) {
