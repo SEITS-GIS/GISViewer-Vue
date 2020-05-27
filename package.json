@@ -1,12 +1,12 @@
 {
   "name": "gisviewer-vue",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --dest lib --target lib --name gis-viewer ./src/plugin/index.ts"
+    "lib": "vue-cli-service build --dest lib --target lib --name gis-viewer --fix ./src/plugin/index.ts"
   },
   "main": "lib/gis-viewer.umd.min.js",
   "files": [
