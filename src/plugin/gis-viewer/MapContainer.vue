@@ -21,6 +21,13 @@
       @map-loaded="mapLoaded"
       @marker-click="showGisDeviceInfo"
     />
+    <map-container-gaode
+      ref="containerGaode"
+      v-if="this.platform === 'gd'"
+      :map-config="this.mapConfig"
+      @map-loaded="mapLoaded"
+      @marker-click="showGisDeviceInfo"
+    />
   </div>
 </template>
 
@@ -29,6 +36,7 @@ import { Vue, Component, Prop, Ref, Emit } from "vue-property-decorator";
 import MapContainerArcgisThreeD from "@/plugin/gis-viewer/MapContainerArcgis3D.vue";
 import MapContainerArcgisTwoD from "@/plugin/gis-viewer/MapContainerArcgis2D.vue";
 import MapContainerBaidu from "@/plugin/gis-viewer/MapContainerBaidu.vue";
+import MapContainerGaode from "@/plugin/gis-viewer/MapContainerGaode.vue";
 import {
   Platforms,
   IMapContainer,
@@ -48,6 +56,7 @@ import {
     MapContainerArcgisThreeD,
     MapContainerArcgisTwoD,
     MapContainerBaidu,
+    MapContainerGaode,
   },
 })
 export default class MapContainer extends Vue implements IMapContainer {
@@ -61,6 +70,7 @@ export default class MapContainer extends Vue implements IMapContainer {
   @Ref() readonly containerArcgis3D!: MapContainerArcgisThreeD;
   @Ref() readonly containerArcgis2D!: MapContainerArcgisTwoD;
   @Ref() readonly containerBaidu!: MapContainerBaidu;
+  @Ref() readonly containerGaode!: MapContainerGaode;
 
   //当前的地图容器
   get mapContainer(): IMapContainer {
@@ -71,6 +81,8 @@ export default class MapContainer extends Vue implements IMapContainer {
         return this.containerArcgis3D;
       case Platforms.BDMap:
         return this.containerBaidu;
+       case Platforms.AMap:
+        return this.containerGaode;  
       default:
         return this.containerArcgis3D;
     }
@@ -126,9 +138,8 @@ export default class MapContainer extends Vue implements IMapContainer {
   public hideJurisdiction() {
     this.mapContainer.hideJurisdiction();
   }
-  public findFeature(params:IFindParameter)
-  {
-     this.mapContainer.findFeature(params);
+  public findFeature(params: IFindParameter) {
+    this.mapContainer.findFeature(params);
   }
 }
 </script>

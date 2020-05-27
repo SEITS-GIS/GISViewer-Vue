@@ -7,7 +7,7 @@
     </div>
     <gis-viewer
       ref="gisViewer"
-      platform="arcgis2d"
+      platform="gd"
       :map-config="mapConfig"
       @map-loaded="mapLoaded"
       @marker-click="showGisDeviceInfo"
@@ -20,7 +20,7 @@ import axios from "axios";
 @Component
 export default class PluginTest extends Vue {
   private mapConfig = {
-    arcgis_api: "http://localhost:8090/arcgis_js_api_4/",
+    arcgis_api: "https://webapi.amap.com/maps?v=1.4.15&key=29dd04daa39aa33a7e2cdffa37ebec4d",
     // arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
     //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
@@ -31,13 +31,19 @@ export default class PluginTest extends Vue {
           url:
             "https://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer",
           visible: true,
+      },
+      {
+        type: "traffic",
+        visible: true,
       }
     ],
     gisServer: "http://128.64.151.245:8019",
     options: {
       //for arcgis-2d
-      center: [121.3943501, 31.39351155],
+      center: [121.441, 31.159],
       zoom: 13,
+      viewMode:'2D',//使用3D视图
+      mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
       //for arcgis-3d
       // camera: {
       //   heading: 0,
@@ -220,7 +226,7 @@ export default class PluginTest extends Vue {
         type: "point-2d",
         // primitive: "square",
         url: "assets/image/Anchor.png",
-        size: ["64px", "64px"]
+        size: [50, 50]
         // color: "red",
         // outline: {
         //   color: "white",
@@ -261,7 +267,7 @@ export default class PluginTest extends Vue {
       defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }]
     });
   }
-  private btn_test1() {
+  private  btn_test1() {
     let map = this.$refs.gisViewer as any;
     // axios.get("config/point.json").then((res: any) => {
     //   map.addOverlaysCluster(res.data);
@@ -276,68 +282,115 @@ export default class PluginTest extends Vue {
     //});
     map.showJurisdiction();
     map.findFeature({
-      layerName: "jingqing",
-      ids: ["310113610000"],
+      layerName: "police",
+      zoom:18,
+      ids: ["test001"],
       centerResult: true,
     });
   }
-  private btn_test2() {
+  private async btn_test2() {
     let map = this.$refs.gisViewer as any;
-    var points = [];
-    var x = 121.43;
-    var y = 31.15;
-    for (var i = 0; i < 200; i++) {
-      var x1 = x + (Math.random() * 2 - 1) / 5;
-      var y1 = y + (Math.random() * 2 - 1) / 5;
-      var value = 1000 * Math.random() + 1;
-      var a = i % 2 == 0 ? "1" : "0";
-      points.push({
-        geometry: { x: x1, y: y1 },
-        fields: { desc: "上海体育馆停车场", totalSpace: value, type: a },
-      });
-    }
-    var json = {
-      points: points,
-      options: {
-        field: "totalSpace",
-        radius: "20",
-        colors: [
-          "rgba(30,144,255)",
-          "rgb(0, 255, 0)",
-          "rgb(255, 255, 0)",
-          "rgb(254,89,0)",
-        ],
-        maxValue: 1000,
-        minValue: 1,
-        zoom: 12,
-        renderer: {
-          type: "simple",
-          symbol: {
-            type: "esriPMS",
-            url: "assets/image/Anchor.png",
-            width: 64,
-            height: 66,
-            yoffset: 16,
-          },
-        },
-      },
-    };
-    map.addHeatMap(json);
+    // var points = [];
+    // var x = 121.43;
+    // var y = 31.15;
+    // for (var i = 0; i < 200; i++) {
+    //   var x1 = x + (Math.random() * 2 - 1) / 5;
+    //   var y1 = y + (Math.random() * 2 - 1) / 5;
+    //   var value = 1000 * Math.random() + 1;
+    //   var a = i % 2 == 0 ? "1" : "0";
+    //   points.push({
+    //     geometry: { x: x1, y: y1 },
+    //     fields: { desc: "上海体育馆停车场", totalSpace: value, type: a },
+    //   });
+    // }
+    // var json = {
+    //   points: points,
+    //   options: {
+    //     field: "totalSpace",
+    //     radius: "20",
+    //     colors: [
+    //       "rgba(30,144,255)",
+    //       "rgb(0, 255, 0)",
+    //       "rgb(255, 255, 0)",
+    //       "rgb(254,89,0)",
+    //     ],
+    //     maxValue: 1000,
+    //     minValue: 1,
+    //     zoom: 12,
+    //     renderer: {
+    //       type: "simple",
+    //       symbol: {
+    //         type: "esriPMS",
+    //         url: "assets/image/Anchor.png",
+    //         width: 64,
+    //         height: 66,
+    //         yoffset: 16,
+    //       },
+    //     },
+    //   },
+    // };
+    // map.addHeatMap(json);
+    const result = await map.addOverlays({
+      type: "police",
+      defaultSymbol: {
+        //symbol for 2d
+        type: "point-2d",
+        // primitive: "square",
+        url: "assets/image/Anchor.png",
+        size: [80, 90]
+        // color: "red",
+        // outline: {
+        //   color: "white",
+        //   size: 4
+        // },
+        // anchor: "top"
 
+        //symbol for 3d
+        //type: "point-3d",
+        //primitive: "cube",
+        //color: "red",
+        //size: 20000,
+        //anchor: "bottom",
+      },
+      overlays: [
+        {
+          id: "test001",
+          geometry: { x: 121.418924, y: 31.157101 },
+          fields: { name: "测试2", featureid: "0002" },
+        },
+        {
+          id: "test002",
+          geometry: { x: 121.318924, y: 31.157101 },
+          fields: { name: "测试3", featureid: "0003" },
+        },
+        {
+          id: "test003",
+          geometry: { x: 121.418924, y: 31.257101 },
+          fields: { name: "测试4", featureid: "0001" },
+        },
+      ],
+      showPopup: true,
+      autoPopup: false,
+      defaultInfoTemplate: {
+        title: "1212",
+        content: "<div>name:{name}<br/><button>{name}</button></div>",
+      },
+      defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }]
+    });
     (this.$refs.gisViewer as any).showLayer({ type: "traffic" });
   }
   private btn_test3() {
     // (this.$refs.gisViewer as any).deleteHeatMap();
     //(this.$refs.gisViewer as any).deleteOverlaysCluster({types:["sxj"]});
     //(this.$refs.gisViewer as any).deleteAllOverlaysCluster();
-    //(this.$refs.gisViewer as any).deleteOverlays({types:["police"]});
-    //(this.$refs.gisViewer as any).hideLayer({type:"traffic"});
+    (this.$refs.gisViewer as any).deleteOverlays({types:["police"]});
+    (this.$refs.gisViewer as any).hideLayer({type:"traffic"});
     //(this.$refs.gisViewer as any).setMapCenter({x:121.12,y:31.23});
     //(this.$refs.gisViewer as any).setMapCenterAndLevel({x:121.12,y:31.23,level:15});
-    (this.$refs.gisViewer as any).hideJurisdiction();
+    //(this.$refs.gisViewer as any).hideJurisdiction();
   }
   private showGisDeviceInfo(type: string, id: string) {
-    //console.log(type + "," + id);
+    console.log(type + "," + id);
   }
 }
 </script>
