@@ -31,6 +31,7 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   async mounted() {
     this.mapApp = new MapApp();
     await this.mapApp.initialize(this.mapConfig, "divAMap");
+
     this.mapApp.showGisDeviceInfo = this.showGisDeviceInfo;
   }
 

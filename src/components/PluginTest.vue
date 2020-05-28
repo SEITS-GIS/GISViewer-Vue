@@ -20,7 +20,8 @@ import axios from "axios";
 @Component
 export default class PluginTest extends Vue {
   private mapConfig = {
-    arcgis_api: "https://webapi.amap.com/maps?v=1.4.15&key=29dd04daa39aa33a7e2cdffa37ebec4d",
+    api_url:
+      "https://webapi.amap.com/maps?v=2.0&key=29dd04daa39aa33a7e2cdffa37ebec4d",
     // arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
     //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
@@ -28,13 +29,13 @@ export default class PluginTest extends Vue {
     baseLayers: [
       {
         type: "tiled",
-          url:
-            "https://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer",
-          visible: true,
+        url:
+          "https://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer",
+        visible: true
       },
       {
         type: "traffic",
-        visible: true,
+        visible: true
       }
     ],
     gisServer: "http://128.64.151.245:8019",
@@ -42,8 +43,8 @@ export default class PluginTest extends Vue {
       //for arcgis-2d
       center: [121.441, 31.159],
       zoom: 13,
-      viewMode:'2D',//使用3D视图
-      mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
+      viewMode: "2D", //使用3D视图
+      mapStyle: "amap://styles/darkblue" //设置地图的显示样式
       //for arcgis-3d
       // camera: {
       //   heading: 0,
@@ -64,13 +65,14 @@ export default class PluginTest extends Vue {
           position: {
             x: 105.508849,
             y: 22.581284,
-            z: 7000000,
-          },
-        },
-      },
-    ],
+            z: 7000000
+          }
+        }
+      }
+    ]
   };
   private async mapLoaded() {
+    console.log("Map Loaded.");
     let map = this.$refs.gisViewer as any;
 
     // map.showJurisdiction();
@@ -245,29 +247,29 @@ export default class PluginTest extends Vue {
         {
           id: "test001",
           geometry: { x: 121.418924, y: 31.157101 },
-          fields: { name: "测试2", featureid: "0002" },
+          fields: { name: "测试2", featureid: "0002" }
         },
         {
           id: "test002",
           geometry: { x: 121.318924, y: 31.157101 },
-          fields: { name: "测试3", featureid: "0003" },
+          fields: { name: "测试3", featureid: "0003" }
         },
         {
           id: "test003",
           geometry: { x: 121.418924, y: 31.257101 },
-          fields: { name: "测试4", featureid: "0001" },
-        },
+          fields: { name: "测试4", featureid: "0001" }
+        }
       ],
       showPopup: true,
       autoPopup: false,
       defaultInfoTemplate: {
         title: "1212",
-        content: "<div>name:{name}<br/><button>{name}</button></div>",
+        content: "<div>name:{name}<br/><button>{name}</button></div>"
       },
       defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }]
     });
   }
-  private  btn_test1() {
+  private btn_test1() {
     let map = this.$refs.gisViewer as any;
     // axios.get("config/point.json").then((res: any) => {
     //   map.addOverlaysCluster(res.data);
@@ -283,9 +285,9 @@ export default class PluginTest extends Vue {
     map.showJurisdiction();
     map.findFeature({
       layerName: "police",
-      zoom:18,
+      zoom: 18,
       ids: ["test001"],
-      centerResult: true,
+      centerResult: true
     });
   }
   private async btn_test2() {
@@ -356,24 +358,24 @@ export default class PluginTest extends Vue {
         {
           id: "test001",
           geometry: { x: 121.418924, y: 31.157101 },
-          fields: { name: "测试2", featureid: "0002" },
+          fields: { name: "测试2", featureid: "0002" }
         },
         {
           id: "test002",
           geometry: { x: 121.318924, y: 31.157101 },
-          fields: { name: "测试3", featureid: "0003" },
+          fields: { name: "测试3", featureid: "0003" }
         },
         {
           id: "test003",
           geometry: { x: 121.418924, y: 31.257101 },
-          fields: { name: "测试4", featureid: "0001" },
-        },
+          fields: { name: "测试4", featureid: "0001" }
+        }
       ],
       showPopup: true,
       autoPopup: false,
       defaultInfoTemplate: {
         title: "1212",
-        content: "<div>name:{name}<br/><button>{name}</button></div>",
+        content: "<div>name:{name}<br/><button>{name}</button></div>"
       },
       defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }]
     });
@@ -383,8 +385,8 @@ export default class PluginTest extends Vue {
     // (this.$refs.gisViewer as any).deleteHeatMap();
     //(this.$refs.gisViewer as any).deleteOverlaysCluster({types:["sxj"]});
     //(this.$refs.gisViewer as any).deleteAllOverlaysCluster();
-    (this.$refs.gisViewer as any).deleteOverlays({types:["police"]});
-    (this.$refs.gisViewer as any).hideLayer({type:"traffic"});
+    (this.$refs.gisViewer as any).deleteOverlays({ types: ["police"] });
+    (this.$refs.gisViewer as any).hideLayer({ type: "traffic" });
     //(this.$refs.gisViewer as any).setMapCenter({x:121.12,y:31.23});
     //(this.$refs.gisViewer as any).setMapCenterAndLevel({x:121.12,y:31.23,level:15});
     //(this.$refs.gisViewer as any).hideJurisdiction();

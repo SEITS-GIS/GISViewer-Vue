@@ -11,7 +11,7 @@ export enum Platforms {
   ArcGIS3D = "arcgis3d",
   ArcGIS2D = "arcgis2d",
   BDMap = "bd",
-  AMap = "gd",
+  AMap = "gd"
 }
 
 export interface ILayerConfig {
@@ -62,6 +62,15 @@ export interface IPointGeometry {
   y: number;
   z?: number;
 }
+
+export interface IPolylineGeometry {
+  path: Array<IPointGeometry>;
+}
+
+export interface IPolygonGeometry {
+  ring: Array<IPointGeometry>;
+}
+
 export interface ICenterLevel {
   x: number;
   y: number;
