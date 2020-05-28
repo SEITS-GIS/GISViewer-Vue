@@ -2,7 +2,7 @@ import {
   IOverlayParameter,
   IFindParameter,
   IResult,
-  IOverlayDelete
+  IOverlayDelete,
 } from "@/types/map";
 import "@amap/amap-jsapi-types";
 
@@ -27,13 +27,24 @@ export class OverlayGaode {
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     console.log(params);
-    let group: AMap.OverlayGroup;
-    if (params.type) {
-      group = this.getOverlayGroup(params.type);
-    }
+    const { type: overlayType, overlays } = params;
 
-    params.overlays.forEach(feature => {
-      const { geometry } = feature;
+    const group: AMap.OverlayGroup = this.getOverlayGroup(overlayType || "default");
+
+    overlays.forEach(feature => {
+      const { geometry, fields, id } = feature;
+      if (id) fields.id = id;
+      if (overlayType) fields.type = overlayType;
+      let overlay;
+      if ("x" in geometry && "y" in geometry) {
+        overlay = new AMap.Marker({
+          position: [geometry.x, geometry.y],
+          extData: fields
+        })
+        group.addOverlay(overlay)
+      }
+      else if ("path" in geometry) { }
+      else if ("ring" in geometry) { }
     });
 
     return {
@@ -47,7 +58,7 @@ export class OverlayGaode {
     return {
       status: 0,
       message: "ok",
-      result: ""
+      result: "",
     };
   }
 
@@ -55,7 +66,7 @@ export class OverlayGaode {
     return {
       status: 0,
       message: "ok",
-      result: ""
+      result: "",
     };
   }
 
@@ -63,7 +74,7 @@ export class OverlayGaode {
     return {
       status: 0,
       message: "ok",
-      result: ""
+      result: "",
     };
   }
 
