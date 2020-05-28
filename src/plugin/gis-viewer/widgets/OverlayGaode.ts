@@ -59,7 +59,7 @@ export class OverlayGaode {
     };
   }
 
-  public async deleteAllOverlays(params: IOverlayParameter): Promise<IResult> {
+  public async deleteAllOverlays(): Promise<IResult> {
     return {
       status: 0,
       message: "ok",
