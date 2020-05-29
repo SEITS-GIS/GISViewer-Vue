@@ -84,7 +84,10 @@ export class HeatMap {
     }
     this.heatmapOverlay.setDataSet({data: heatPoints, max: maxValue});
 
-    return {status: 0, message: 'ok'};
+    return {
+      status: 0,
+      message: 'ok'
+    };
   }
   public async addHeatMap(params: IHeatParameter) {
     if (!this.isSupportCanvas()) {

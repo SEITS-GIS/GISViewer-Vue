@@ -222,7 +222,7 @@ export default class PluginTest extends Vue {
         type: "point-2d",
         // primitive: "square",
         url: "assets/image/Anchor.png",
-        size: [64, 64],
+        size: [50, 100],
         anchor: "center"
         // color: "red",
         // outline: {

@@ -174,10 +174,10 @@ export class OverlayGaode {
   private getInfoWindowContent(graphic: any) {
     let content = "";
     //键值对
-    for (let fieldName in graphic.attributes) {
-      if (graphic.attributes.hasOwnProperty(fieldName)) {
+    for (let fieldName in graphic.fields) {
+      if (graphic.fields.hasOwnProperty(fieldName)) {
         content +=
-          "<b>" + fieldName + ": </b>" + graphic.attributes[fieldName] + "<br>";
+          "<b>" + fieldName + ": </b>" + graphic.fields[fieldName] + "<br>";
       }
     }
     //去掉最后的<br>
@@ -205,11 +205,11 @@ export class OverlayGaode {
   
   private getPopUpHtml(graphic: any, content: any) {
     let tipContent = content;
-    for (let fieldName in graphic.attributes) {
-      if (graphic.attributes.hasOwnProperty(fieldName)) {
+    for (let fieldName in graphic.fields) {
+      if (graphic.fields.hasOwnProperty(fieldName)) {
         tipContent = tipContent.replace(
           new RegExp("{" + fieldName + "}", "g"),
-          graphic.attributes[fieldName]
+          graphic.fields[fieldName]
         );
       }
     }
@@ -222,23 +222,52 @@ export class OverlayGaode {
 
     const defaultSymbol = this.makeSymbol(params.defaultSymbol);
 
+    const showPopup=params.showPopup;
+    const defaultInfoTemplate=params.defaultInfoTemplate;
+    const autoPopup=params.autoPopup;
+
     let addCount = 0;
 
     params.overlays.forEach(feature => {
       const { geometry, fields, id } = feature;
       fields.id = id;
       fields.type = params.type;
+      let content;
+      let title;
+      if (showPopup) {
+        if (defaultInfoTemplate === undefined) {
+          content = this.getInfoWindowContent(feature);
+        } else {
+          title = defaultInfoTemplate.title;
+          content = this.getPopUpHtml(feature, defaultInfoTemplate.content);
+        }
+        if (autoPopup) {
+          let infoWindow = new AMap.InfoWindow({
+            anchor: "bottom-center",
+            content: content,
+          });
+          infoWindow.open(this.view, [
+            (feature as any).getPosition().lng,
+            (feature as any).getPosition().lat,
+          ],10);
+        }
+      }
+      fields.content=content;
 
       let overlay;
       //点
       if ("x" in geometry && "y" in geometry) {    
         const symbol = this.makeSymbol(feature.symbol) || defaultSymbol;
         if (symbol) {
+          let xoffset=feature.symbol ?(feature.symbol as IPointSymbol).xoffset || 0 : (params.defaultSymbol as IPointSymbol).xoffset || 0;
+          let yoffset=feature.symbol ?(feature.symbol as IPointSymbol).yoffset || 0 : (params.defaultSymbol as IPointSymbol).yoffset || 0;
           overlay = new AMap.Marker({
             position: [geometry.x, geometry.y],
             extData: fields,
             icon: (symbol || defaultSymbol) as AMap.Icon,
-            anchor: feature.symbol ? (feature.symbol as IPointSymbol).anchor : (params.defaultSymbol as IPointSymbol).anchor
+            zooms: feature.zooms || params.defaultZooms,
+            offset: new AMap.Pixel(xoffset as number, yoffset as number),
+            anchor: feature.symbol ? (feature.symbol as IPointSymbol).anchor || "center" : (params.defaultSymbol as IPointSymbol).anchor || "center"
           })
         } 
         else {
@@ -312,7 +341,28 @@ export class OverlayGaode {
   }
 
   private onOverlayClick(event: any) {
-    console.log(event)
+    let mark=event.target;
+    let fields=event.target.getExtData();
+    let content=fields.content || "";
+    let yoffset=0-mark.getIcon().getImageSize().height/2;
+    if (content != "") {
+      let infoWindow = new AMap.InfoWindow({
+        anchor: "bottom-center",
+        content: content,
+        offset: new AMap.Pixel(0, yoffset),
+      }); // 创建信息窗口对象
+      let center;
+      if (event.target.getPosition) {
+        center = event.target.getPosition();
+      } else {
+        center = [event.lnglat.lng, event.lnglat.lat];
+      }
+      mark.isOpenInfo = true;
+      infoWindow.open(mark.getMap(), center,10);
+    }
+    if (this.showGisDeviceInfo) {
+      this.showGisDeviceInfo(fields.type, fields.id);
+    }
   }
 
   //创建点击事件
@@ -466,12 +516,13 @@ export class OverlayGaode {
 
     switch (symbol.type) {
       case "point-2d":
+      case "point":
         const pointSymbol = symbol as IPointSymbol;
         if (!pointSymbol.url) {
           return undefined;
         }
 
-        let size;
+        let size:any;
         if (pointSymbol.size instanceof Array) {
           size = [this.makePixelSize(pointSymbol.size[0]), this.makePixelSize(pointSymbol.size[1])]
         }
@@ -480,7 +531,8 @@ export class OverlayGaode {
         }
         return new AMap.Icon({
           image: pointSymbol.url,
-          size          
+          size:  new AMap.Size(size[0], size[1]) ,
+          imageSize: new AMap.Size(size[0], size[1])       
         });
         break;
     
