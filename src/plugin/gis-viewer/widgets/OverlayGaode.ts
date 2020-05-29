@@ -252,7 +252,6 @@ export class OverlayGaode {
           ],10);
         }
       }
-      fields.content=content;
 
       let overlay;
       //点
@@ -263,7 +262,7 @@ export class OverlayGaode {
           let yoffset=feature.symbol ?(feature.symbol as IPointSymbol).yoffset || 0 : (params.defaultSymbol as IPointSymbol).yoffset || 0;
           overlay = new AMap.Marker({
             position: [geometry.x, geometry.y],
-            extData: fields,
+            extData: {clickfunc:this.showGisDeviceInfo,attributes:fields,infoTemplate:content},
             icon: (symbol || defaultSymbol) as AMap.Icon,
             zooms: feature.zooms || params.defaultZooms,
             offset: new AMap.Pixel(xoffset as number, yoffset as number),
@@ -273,7 +272,7 @@ export class OverlayGaode {
         else {
           overlay = new AMap.Marker({
             position: [geometry.x, geometry.y],
-            extData: fields
+            extData: {clickfunc:this.showGisDeviceInfo,attributes:fields,infoTemplate:content}
           })
         }   
         overlay.on("click", this.onOverlayClick);
@@ -342,8 +341,8 @@ export class OverlayGaode {
 
   private onOverlayClick(event: any) {
     let mark=event.target;
-    let fields=event.target.getExtData();
-    let content=fields.content || "";
+    let fields=event.target.getExtData().attributes;
+    let content=fields.infoTemplate || "";
     let yoffset=0-mark.getIcon().getImageSize().height/2;
     if (content != "") {
       let infoWindow = new AMap.InfoWindow({
@@ -360,8 +359,8 @@ export class OverlayGaode {
       mark.isOpenInfo = true;
       infoWindow.open(mark.getMap(), center,10);
     }
-    if (this.showGisDeviceInfo) {
-      this.showGisDeviceInfo(fields.type, fields.id);
+    if (event.target.getExtData().clickfunc) {
+      event.target.getExtData().clickfunc(fields.type, fields.id,fields);
     }
   }
 
