@@ -37,7 +37,8 @@ export default class PluginTest extends Vue {
       //for arcgis-2d
       center: [121.441, 31.159],
       zoom: 13,
-      viewMode: "2D" //使用3D视图
+      viewMode: "2D",
+      mapStyle: "amap://styles/darkblue" //设置地图的显示样式
       //for arcgis-3d
       // camera: {
       //   heading: 0,
@@ -375,11 +376,11 @@ export default class PluginTest extends Vue {
       },
       defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }]
     });
-    //(this.$refs.gisViewer as any).showLayer({ type: "traffic" });
-    // (this.$refs.gisViewer as any).showDistrictMask({
-    //   name: "奉贤区",
-    //   showMask: false
-    // });
+    (this.$refs.gisViewer as any).showLayer({ type: "traffic" });
+    (this.$refs.gisViewer as any).showDistrictMask({
+      name: "徐汇区",
+      showMask: true
+    });
   }
   private btn_test3() {
     (this.$refs.gisViewer as any).deleteHeatMap();
