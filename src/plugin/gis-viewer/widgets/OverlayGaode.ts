@@ -410,37 +410,35 @@ export class OverlayGaode {
     let types = params.types || [];
     let ids = params.ids || [];
     let delCount=0;
-    if (this.overlayGroup === undefined) {
-      return {
-        status: 0,
-        message: "ok",
-        result: ""
-      };
-    }
-    let overlays = this.overlayGroup.getOverlays();
+    let overlays=new Array();
+    this.overlayGroups.forEach((overlay,key)=>{
+      if(types.length==0 || (types.length>0 && types.indexOf(key)>-1) )
+      {
+        overlays=overlays.concat(overlay.getOverlays());
+      }　　
+    });
     for (let i = 0; i < overlays.length; i++) {
       let overlay = overlays[i];
       if (
         //只判断type
         (types.length > 0 &&
           ids.length === 0 &&
-          types.indexOf(overlay.type) >= 0) ||
+          types.indexOf(overlay.getExtData().attributes.type) >= 0) ||
         //只判断id
         (types.length === 0 &&
           ids.length > 0 &&
-          ids.indexOf(overlay.id) >= 0) ||
+          ids.indexOf(overlay.getExtData().attributes.id) >= 0) ||
         //type和id都要判断
         (types.length > 0 &&
           ids.length > 0 &&
-          types.indexOf(overlay.type) >= 0 &&
-          ids.indexOf(overlay.id) >= 0)
+          types.indexOf(overlay.getExtData().attributes.type) >= 0 &&
+          ids.indexOf(overlay.getExtData().attributes.id) >= 0)
       ) {
         if (overlay.isOpenInfo) {
           this.view.clearInfoWindow();
         }
-        this.overlayGroup.removeOverlay(overlay);
+        this.view.remove(overlay);
         delCount++;
-        i--;
       }
     }
     return {
@@ -452,14 +450,9 @@ export class OverlayGaode {
 
   public async deleteAllOverlays() : Promise<IResult>{
     this.view.clearInfoWindow();
-    if (this.overlayGroup === undefined) {
-      return {
-        status: 0,
-        message: "ok",
-        result: ""
-      };
-    }
-    this.overlayGroup.clearOverlays();
+    this.overlayGroups.forEach((overlay,key)=>{　　
+      overlay.clearOverlays();
+    });
     return {
       status: 0,
       message: "ok",
@@ -471,16 +464,11 @@ export class OverlayGaode {
     let type = params.layerName;
     let ids = params.ids || [];
     let level = params.level || this.view.getZoom();
-    if (this.overlayGroup === undefined) {
-      return{
-        status: 0,
-        message: "ok"
-      };
-    }
+  
     let centerResult = params.centerResult;
-    let overlays = this.overlayGroup.getOverlays();
+    let overlays = this.getOverlayGroup(type).getOverlays();
     overlays.forEach((overlay: any) => {
-      if (type == overlay.type && ids.indexOf(overlay.id) >= 0) {
+      if (ids.indexOf(overlay.getExtData().attributes.id) >= 0) {
         if (centerResult) {
           if (overlay.CLASS_NAME == "AMap.Marker") {
             this.view.setZoomAndCenter(level, overlay.getPosition());
