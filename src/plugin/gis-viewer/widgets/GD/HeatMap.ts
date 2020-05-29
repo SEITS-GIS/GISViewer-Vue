@@ -1,5 +1,5 @@
-import { IOverlayParameter, IResult, IHeatParameter } from '@/types/map'
-import { OverlayGaode } from '../OverlayGaode'
+import {IOverlayParameter, IResult, IHeatParameter} from '@/types/map';
+import {OverlayGaode} from '../OverlayGaode';
 declare let AMap: any;
 
 export class HeatMap {
@@ -15,46 +15,46 @@ export class HeatMap {
   }
   public static getInstance(view: any) {
     if (!HeatMap.heatMap) {
-      HeatMap.heatMap = new HeatMap(view)
+      HeatMap.heatMap = new HeatMap(view);
     }
-    return HeatMap.heatMap
+    return HeatMap.heatMap;
   }
   public isSupportCanvas() {
-    var elem = document.createElement('canvas')
-    return !!(elem.getContext && elem.getContext('2d'))
+    var elem = document.createElement('canvas');
+    return !!(elem.getContext && elem.getContext('2d'));
   }
   public async deleteHeatMap() {
-    this._clear()
-    this.view.off('zoomend', this.zoomEvent)
+    this._clear();
+    this.view.off('zoomend', this.zoomEvent);
   }
   public _clear() {
     //this.view.remove(this.heatmapOverlay);
     if (this.heatmapOverlay) {
-      this.heatmapOverlay.hide()
+      this.heatmapOverlay.hide();
     }
     if (this.overlays) {
-      this.overlays.deleteOverlays({ types: ['heatpoint'] })
+      this.overlays.deleteOverlays({types: ['heatpoint']});
     }
   }
   public async addHeatLayer(params: IHeatParameter): Promise<IResult> {
-    this._clear()
-    const options = params.options
-    const countField = options.field
-    const radius = options.radius
-    const colors = options.colors || undefined
-    const maxValue = options.maxValue || 100
+    this._clear();
+    const options = params.options;
+    const countField = options.field;
+    const radius = options.radius;
+    const colors = options.colors || undefined;
+    const maxValue = options.maxValue || 100;
 
-    const points = params.points
-    let heatPoints = new Array()
+    const points = params.points;
+    let heatPoints = new Array();
 
     points.forEach((point) => {
       heatPoints.push({
         lng: point.geometry.x,
         lat: point.geometry.y,
-        count: point.fields[countField],
-      })
-    })
-    let gradient = this.getHeatColor(colors)
+        count: point.fields[countField]
+      });
+    });
+    let gradient = this.getHeatColor(colors);
     if (AMap.HeatMap) {
       this.heatmapOverlay = new AMap.HeatMap(this.view, {
         radius: radius,
@@ -66,8 +66,8 @@ export class HeatMap {
           //取样精度，值越小，曲面效果越精细，但同时性能消耗越大
           gridSize: 2,
           heightScale: 1
-        },
-      })
+        }
+      });
     } else {
       this.heatmapOverlay = new AMap.Heatmap(this.view, {
         radius: radius,
@@ -80,31 +80,30 @@ export class HeatMap {
           gridSize: 2,
           heightScale: 1
         }
-      })
+      });
     }
-    this.heatmapOverlay.setDataSet({data: heatPoints, max: maxValue })
+    this.heatmapOverlay.setDataSet({data: heatPoints, max: maxValue});
 
-    return {status: 0, message: 'ok'}
+    return {status: 0, message: 'ok'};
   }
   public async addHeatMap(params: IHeatParameter) {
-    if (!this.isSupportCanvas()) 
-    {
+    if (!this.isSupportCanvas()) {
       alert(
         '热力图目前只支持有canvas支持的浏览器,您所使用的浏览器不能使用热力图功能~'
-      )
+      );
     }
-    const options = params.options
+    const options = params.options;
 
-    const zoom = options.zoom || 0
+    const zoom = options.zoom || 0;
 
-    const _this = this
+    const _this = this;
     if (zoom > 0) {
       if (this.view.getZoom() <= zoom) {
-        this.addHeatLayer(params)
-        this._state = 'hot'
+        this.addHeatLayer(params);
+        this._state = 'hot';
       } else {
-        this.addOverlays(params)
-        this._state = 'nomal'
+        this.addOverlays(params);
+        this._state = 'nomal';
       }
 
       this.view.on(
@@ -112,47 +111,47 @@ export class HeatMap {
         (this.zoomEvent = (e: any) => {
           if (_this.view.getZoom() <= zoom) {
             if (_this._state == 'nomal') {
-              _this._clear()
-              _this.addHeatLayer(params)
-              _this._state = 'hot'
+              _this._clear();
+              _this.addHeatLayer(params);
+              _this._state = 'hot';
             }
           } else {
             if (_this._state == 'hot') {
-              _this._clear()
-              _this.addOverlays(params)
-              _this._state = 'nomal'
+              _this._clear();
+              _this.addOverlays(params);
+              _this._state = 'nomal';
             }
           }
         })
-      )
+      );
     } else {
-      this.addHeatLayer(params)
-      this._state = 'hot'
+      this.addHeatLayer(params);
+      this._state = 'hot';
     }
   }
   public getHeatColor(colors: string[] | undefined): any {
     let obj: any = {
       0.2: 'rgb(0, 255, 255)',
       0.5: 'rgb(0, 110, 255)',
-      0.8: 'rgb(100, 0, 255)',
-    }
+      0.8: 'rgb(100, 0, 255)'
+    };
     if (colors && colors.length >= 4) {
       //"rgba(30,144,255,0)","rgba(30,144,255)","rgb(0, 255, 0)","rgb(255, 255, 0)", "rgb(254,89,0)"
-      let step: string = (1 / colors.length).toFixed(2)
-      let colorObj: any = {}
+      let step: string = (1 / colors.length).toFixed(2);
+      let colorObj: any = {};
       colors.forEach((element: string, index: number) => {
-        let cur_step = parseFloat((Number(step) * (index + 1)).toFixed(2))
-        colorObj[cur_step] = element
-      })
-      return colorObj
+        let cur_step = parseFloat((Number(step) * (index + 1)).toFixed(2));
+        colorObj[cur_step] = element;
+      });
+      return colorObj;
     }
-    return obj
+    return obj;
   }
   public async addOverlays(params: IHeatParameter) {
-    const points = params.points
-    const options = params.options
-    const renderer = options.renderer
-    let symbol
+    const points = params.points;
+    const options = params.options;
+    const renderer = options.renderer;
+    let symbol;
     if (options.renderer) {
       symbol = {
         type: 'point',
@@ -160,15 +159,15 @@ export class HeatMap {
         width: renderer.symbol.width,
         height: renderer.symbol.height,
         xoffset: renderer.symbol.xoffset || 0,
-        yoffset: renderer.symbol.yoffset || 0,
-      }
+        yoffset: renderer.symbol.yoffset || 0
+      };
     }
     let overlayparams = {
       defaultSymbol: symbol,
       overlays: points,
-      type: 'heatpoint',
-    }
-    this.overlays = OverlayGaode.getInstance(this.view)
-    await this.overlays.addOverlays(overlayparams)
+      type: 'heatpoint'
+    };
+    this.overlays = OverlayGaode.getInstance(this.view);
+    await this.overlays.addOverlays(overlayparams);
   }
 }
