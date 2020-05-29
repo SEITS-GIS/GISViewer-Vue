@@ -385,8 +385,8 @@ export default class PluginTest extends Vue {
   private btn_test3() {
     (this.$refs.gisViewer as any).deleteHeatMap();
     //(this.$refs.gisViewer as any).deleteOverlaysCluster({types:["sxj"]});
-    (this.$refs.gisViewer as any).deleteAllOverlays();
-    //(this.$refs.gisViewer as any).deleteOverlays({ types: ["police"] });
+    //(this.$refs.gisViewer as any).deleteAllOverlays();
+    (this.$refs.gisViewer as any).deleteOverlays({ ids: ["test001"] });
     //(this.$refs.gisViewer as any).hideLayer({ type: "traffic" });
     //(this.$refs.gisViewer as any).setMapCenter({x:121.12,y:31.23});
     //(this.$refs.gisViewer as any).setMapCenterAndLevel({x:121.12,y:31.23,level:15});

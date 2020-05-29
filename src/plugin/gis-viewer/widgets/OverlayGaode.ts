@@ -342,7 +342,7 @@ export class OverlayGaode {
   private onOverlayClick(event: any) {
     let mark=event.target;
     let fields=event.target.getExtData().attributes;
-    let content=fields.infoTemplate || "";
+    let content=event.target.getExtData().infoTemplate || "";
     let yoffset=0-mark.getIcon().getImageSize().height/2;
     if (content != "") {
       let infoWindow = new AMap.InfoWindow({
