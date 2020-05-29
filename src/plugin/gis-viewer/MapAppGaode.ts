@@ -25,7 +25,12 @@ export default class MapAppGaode implements IMapContainer {
   public async initialize(mapConfig: any, mapContainer: string) {
     let apiUrl = mapConfig.arcgis_api || mapConfig.api_url;
     let plugins =
+      "&plugin=AMap.DistrictSearch,AMap.Heatmap,AMap.CustomLayer,AMap.ControlBar";
+    if(apiUrl.indexOf("v=2")>-1)
+    {
+      plugins =
       "&plugin=AMap.DistrictSearch,AMap.HeatMap,AMap.CustomLayer,AMap.ControlBar";
+    }  
     apiUrl = apiUrl + plugins;
     await loadScript({
       url: apiUrl

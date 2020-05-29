@@ -21,7 +21,7 @@ import axios from "axios";
 export default class PluginTest extends Vue {
   private mapConfig = {
     arcgis_api:
-      "https://webapi.amap.com/maps?v=2.0&key=29dd04daa39aa33a7e2cdffa37ebec4d",
+      "https://webapi.amap.com/maps?v=1.4.15&key=29dd04daa39aa33a7e2cdffa37ebec4d",
     // arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
     //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
@@ -323,7 +323,7 @@ export default class PluginTest extends Vue {
         }
       }
     };
-    //map.addHeatMap(json);
+    map.addHeatMap(json);
     map.addOverlays({
       type: "police",
       defaultSymbol: {

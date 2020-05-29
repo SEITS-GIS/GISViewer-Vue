@@ -55,11 +55,34 @@ export class HeatMap {
       });
     });
     let gradient = this.getHeatColor(colors);
-    this.heatmapOverlay = new AMap.HeatMap(this.view, {
-      radius: radius,
-      opacity: [0, 1],
-      gradient: gradient
-    });
+    if(AMap.HeatMap){
+      this.heatmapOverlay = new AMap.HeatMap(this.view, {
+        radius: radius,
+        opacity: [0, 1],
+        gradient: gradient,
+        '3d': {
+          //热度转高度的曲线控制参数，可以利用左侧的控制面板获取
+          heightBezier: [0.4, 0.2, 0.4, 0.8],
+          //取样精度，值越小，曲面效果越精细，但同时性能消耗越大
+          gridSize: 2,
+          heightScale: 1
+        }
+      });
+    }
+    else{
+      this.heatmapOverlay = new AMap.Heatmap(this.view, {
+        radius: radius,
+        opacity: [0, 1],
+        gradient: gradient,
+        '3d': {
+          //热度转高度的曲线控制参数，可以利用左侧的控制面板获取
+          heightBezier: [0.4, 0.2, 0.4, 0.8],
+          //取样精度，值越小，曲面效果越精细，但同时性能消耗越大
+          gridSize: 2,
+          heightScale: 1
+        }
+      });
+    }
     this.heatmapOverlay.setDataSet({ data: heatPoints, max: maxValue });
 
     return {
