@@ -8,7 +8,14 @@ export class OverlayArcgis2D {
   private overlayLayer!: __esri.GraphicsLayer;
   private view!: __esri.MapView;
 
-  private primitive2D = ["circle", "cross", "diamond", "square", "triangle", "x"];
+  private primitive2D = [
+    "circle",
+    "cross",
+    "diamond",
+    "square",
+    "triangle",
+    "x"
+  ];
 
   private constructor(view: __esri.MapView) {
     this.view = view;
@@ -53,9 +60,8 @@ export class OverlayArcgis2D {
           color: symbol.outline?.color,
           width: symbol.outline?.size
         }
-      }      
-    } 
-    else if (symbol.url) {
+      };
+    } else if (symbol.url) {
       result = {
         type: "picture-marker",
         url: symbol.url,
@@ -64,12 +70,10 @@ export class OverlayArcgis2D {
         xoffset: symbol.xoffset ? symbol.xoffset : null,
         yoffset: symbol.yoffset ? symbol.yoffset : null,
         angle: symbol.rotation ? symbol.rotation : null
-      }
+      };
     }
 
     return result;
-
-    
   }
   /**根据graphic的属性生成弹出框*/
   private getInfoWindowContent(graphic: any): any {
@@ -138,8 +142,7 @@ export class OverlayArcgis2D {
     return tipContent;
   }
 
-  
-  public async addOverlays(params: IOverlayParameter): Promise<IResult> {    
+  public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     if (!this.overlayLayer) {
       await this.createOverlayLayer();
     }
@@ -154,7 +157,7 @@ export class OverlayArcgis2D {
     const showPopup = params.showPopup;
     const defaultInfoTemplate = params.defaultInfoTemplate;
     const autoPopup = params.autoPopup;
-    const defaultButtons = params.defaultButtons;    
+    const defaultButtons = params.defaultButtons;
 
     let addCount = 0;
     for (let i = 0; i < params.overlays.length; i++) {

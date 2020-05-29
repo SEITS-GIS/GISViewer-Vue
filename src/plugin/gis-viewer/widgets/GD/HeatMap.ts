@@ -1,9 +1,9 @@
 import { IOverlayParameter, IResult, IHeatParameter } from "@/types/map";
-import { OverlayBaidu } from "../OverlayBaidu";
-declare let BMapLib: any;
+import { OverlayGaode } from "../OverlayGaode";
+declare let AMap: any;
 
-export class HeatMapBD {
-  private static heatMapBD: HeatMapBD;
+export class HeatMap {
+  private static heatMap: HeatMap;
   private view!: any;
   private heatmapOverlay: any;
   private _state: string = "nomal";
@@ -14,10 +14,10 @@ export class HeatMapBD {
     this.view = view;
   }
   public static getInstance(view: any) {
-    if (!HeatMapBD.heatMapBD) {
-      HeatMapBD.heatMapBD = new HeatMapBD(view);
+    if (!HeatMap.heatMap) {
+      HeatMap.heatMap = new HeatMap(view);
     }
-    return HeatMapBD.heatMapBD;
+    return HeatMap.heatMap;
   }
   public isSupportCanvas() {
     var elem = document.createElement("canvas");
@@ -25,10 +25,13 @@ export class HeatMapBD {
   }
   public async deleteHeatMap() {
     this._clear();
-    this.view.removeEventListener("zoomend", this.zoomEvent);
+    this.view.off("zoomend", this.zoomEvent);
   }
   public _clear() {
-    this.view.removeOverlay(this.heatmapOverlay);
+    //this.view.remove(this.heatmapOverlay);
+    if (this.heatmapOverlay) {
+      this.heatmapOverlay.hide();
+    }
     if (this.overlays) {
       this.overlays.deleteOverlays({ types: ["heatpoint"] });
     }
@@ -51,11 +54,11 @@ export class HeatMapBD {
       });
     });
     let gradient = this.getHeatColor(colors);
-    this.heatmapOverlay = new BMapLib.HeatmapOverlay({
+    this.heatmapOverlay = new AMap.Heatmap(this.view, {
       radius: radius,
+      opacity: [0, 1],
       gradient: gradient
     });
-    this.view.addOverlay(this.heatmapOverlay);
     this.heatmapOverlay.setDataSet({ data: heatPoints, max: maxValue });
 
     return {
@@ -83,10 +86,10 @@ export class HeatMapBD {
         this._state = "nomal";
       }
 
-      this.view.addEventListener(
+      this.view.on(
         "zoomend",
-        (this.zoomEvent = function(e: any) {
-          if (e.target.getZoom() <= zoom) {
+        (this.zoomEvent = (e: any) => {
+          if (_this.view.getZoom() <= zoom) {
             if (_this._state == "nomal") {
               _this._clear();
               _this.addHeatLayer(params);
@@ -114,12 +117,13 @@ export class HeatMapBD {
     };
     if (colors && colors.length >= 4) {
       //"rgba(30,144,255,0)","rgba(30,144,255)","rgb(0, 255, 0)","rgb(255, 255, 0)", "rgb(254,89,0)"
-      return {
-        0.2: colors[0],
-        0.4: colors[1],
-        0.6: colors[2],
-        0.8: colors[3]
-      };
+      let step: string = (1 / colors.length).toFixed(2);
+      let colorObj: any = {};
+      colors.forEach((element: string, index: number) => {
+        let cur_step = parseFloat((Number(step) * (index + 1)).toFixed(2));
+        colorObj[cur_step] = element;
+      });
+      return colorObj;
     }
     return obj;
   }
@@ -143,7 +147,7 @@ export class HeatMapBD {
       overlays: points,
       type: "heatpoint"
     };
-    this.overlays = OverlayBaidu.getInstance(this.view);
+    this.overlays = OverlayGaode.getInstance(this.view);
     await this.overlays.addOverlays(overlayparams);
   }
 }

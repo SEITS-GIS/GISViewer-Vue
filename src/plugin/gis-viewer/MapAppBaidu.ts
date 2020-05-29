@@ -9,7 +9,8 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
-  IResult
+  IResult,
+  IDistrictParameter
 } from "@/types/map";
 import { OverlayBaidu } from "@/plugin/gis-viewer/widgets/OverlayBaidu";
 import { HeatMapBD } from "./widgets/BD/HeatMapBD";
@@ -25,14 +26,14 @@ export default class MapAppBaidu implements IMapContainer {
     const apiUrl = mapConfig.arcgis_api; //"http://localhost:8090/baidu/BDAPI.js";
     let view: any;
     await loadScript({
-      url: `${apiUrl}`,
+      url: `${apiUrl}`
     });
     const apiRoot = mapConfig.arcgis_api.substring(0, apiUrl.lastIndexOf("/"));
 
     await this.loadOtherScripts([
       apiRoot + "/library/Heatmap/Heatmap_min.js",
       apiRoot + "/library/TextIconOverlay/TextIconOverlay_min.js",
-      apiRoot + "/library/MarkerClusterer/MarkerClusterer_min.js",
+      apiRoot + "/library/MarkerClusterer/MarkerClusterer_min.js"
     ]).then(function(e: any) {
       //console.log("Load Scripts");
     });
@@ -42,7 +43,7 @@ export default class MapAppBaidu implements IMapContainer {
       ? mapConfig.gisServer
       : this.getIpPort(apiUrl);
     if (mapConfig.theme === "dark") {
-      view.setMapStyle({style:"midnight"});
+      view.setMapStyle({ style: "midnight" });
     }
     if (mapConfig.baseLayers) {
       mapConfig.baseLayers.forEach((element: any) => {
@@ -64,11 +65,11 @@ export default class MapAppBaidu implements IMapContainer {
 
     view.enableScrollWheelZoom();
     this.view = view;
-    this.view.gisServer=gisUrl;
+    this.view.gisServer = gisUrl;
   }
 
   private async loadOtherScripts(scriptUrls: string[]): Promise<any> {
-    let promises = scriptUrls.map((url) => {
+    let promises = scriptUrls.map(url => {
       return new Promise((resolve, reject) => {
         const scriptElement = document.createElement("script");
         scriptElement.src = url;
@@ -76,8 +77,8 @@ export default class MapAppBaidu implements IMapContainer {
         document.body.appendChild(scriptElement);
       });
     });
-    return new Promise((resolve) => {
-      Promise.all(promises).then((e) => {
+    return new Promise(resolve => {
+      Promise.all(promises).then(e => {
         resolve(e);
       });
     });
@@ -108,7 +109,7 @@ export default class MapAppBaidu implements IMapContainer {
           label: layer.label || "",
           type: layer.type || "",
           layer: trafficlayer,
-          visible: layer.visible !== false,
+          visible: layer.visible !== false
         });
         break;
     }
@@ -118,7 +119,7 @@ export default class MapAppBaidu implements IMapContainer {
     overlay.showGisDeviceInfo = this.showGisDeviceInfo;
     return await overlay.addOverlays(params);
   }
-  public async findFeature(params:IFindParameter) {
+  public async findFeature(params: IFindParameter) {
     const overlay = OverlayBaidu.getInstance(this.view);
     await overlay.findFeature(params);
   }
@@ -171,7 +172,7 @@ export default class MapAppBaidu implements IMapContainer {
   }
 
   public showLayer(params: ILayerConfig) {
-    this.baseLayers.forEach((baselayer) => {
+    this.baseLayers.forEach(baselayer => {
       if (
         (params.label && baselayer.label === params.label) ||
         (params.type && baselayer.type === params.type)
@@ -184,7 +185,7 @@ export default class MapAppBaidu implements IMapContainer {
     });
   }
   public hideLayer(params: ILayerConfig) {
-    this.baseLayers.forEach((baselayer) => {
+    this.baseLayers.forEach(baselayer => {
       if (
         (params.label && baselayer.label === params.label) ||
         (params.type && baselayer.type === params.type)
@@ -205,4 +206,6 @@ export default class MapAppBaidu implements IMapContainer {
     const police = JurisdictionPolice.getInstance(this.view);
     await police.hideJurisdiction();
   }
+  public async showDistrictMask(param: IDistrictParameter) {}
+  public async hideDistrictMask() {}
 }

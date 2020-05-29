@@ -10,8 +10,11 @@ import {
   ICenterLevel,
   IFindParameter,
   IResult,
+  IDistrictParameter
 } from "@/types/map";
 import { OverlayGaode } from "@/plugin/gis-viewer/widgets/OverlayGaode";
+import { JurisdictionPolice } from "./widgets/GD/JurisdictionPolice";
+import { HeatMap } from "./widgets/GD/HeatMap";
 declare let AMap: any;
 
 export default class MapAppGaode implements IMapContainer {
@@ -20,10 +23,16 @@ export default class MapAppGaode implements IMapContainer {
   public showGisDeviceInfo: any;
 
   public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
-    const apiUrl = mapConfig.arcgis_api; //"http://localhost:8090/baidu/BDAPI.js";
+    let apiUrl: string = mapConfig.arcgis_api; //"http://localhost:8090/baidu/BDAPI.js";
+    let plugins =
+      "&plugin=AMap.DistrictSearch,AMap.Heatmap,AMap.CustomLayer,AMap.ControlBar";
+    // plugins.forEach((element: string) => {
+    //   apiUrl = apiUrl + "&plugin=" + element;
+    // });
+    apiUrl = apiUrl + plugins;
     let view: any;
     await loadScript({
-      url: `${apiUrl}`,
+      url: `${apiUrl}`
     });
     const apiRoot = mapConfig.arcgis_api.substring(0, apiUrl.lastIndexOf("/"));
     console.log(apiRoot);
@@ -41,7 +50,7 @@ export default class MapAppGaode implements IMapContainer {
   }
 
   private async loadOtherScripts(scriptUrls: string[]): Promise<any> {
-    let promises = scriptUrls.map((url) => {
+    let promises = scriptUrls.map(url => {
       return new Promise((resolve, reject) => {
         const scriptElement = document.createElement("script");
         scriptElement.src = url;
@@ -49,8 +58,8 @@ export default class MapAppGaode implements IMapContainer {
         document.body.appendChild(scriptElement);
       });
     });
-    return new Promise((resolve) => {
-      Promise.all(promises).then((e) => {
+    return new Promise(resolve => {
+      Promise.all(promises).then(e => {
         resolve(e);
       });
     });
@@ -75,7 +84,7 @@ export default class MapAppGaode implements IMapContainer {
       case "traffic":
         let trafficlayer = new AMap.TileLayer.Traffic({
           autoRefresh: true, //是否自动刷新，默认为false
-          interval: 60, //刷新间隔，默认180s
+          interval: 60 //刷新间隔，默认180s
         });
         if (layer.visible !== false) {
           view.add(trafficlayer);
@@ -84,7 +93,7 @@ export default class MapAppGaode implements IMapContainer {
           label: layer.label || "",
           type: layer.type || "",
           layer: trafficlayer,
-          visible: layer.visible !== false,
+          visible: layer.visible !== false
         });
         break;
     }
@@ -101,7 +110,10 @@ export default class MapAppGaode implements IMapContainer {
 
   public async addOverlaysCluster(params: IOverlayClusterParameter) {}
 
-  public async addHeatMap(params: IHeatParameter) {}
+  public async addHeatMap(params: IHeatParameter) {
+    const overlay = HeatMap.getInstance(this.view);
+    await overlay.addHeatMap(params);
+  }
 
   public async deleteOverlays(params: IOverlayDelete) {
     const overlay = OverlayGaode.getInstance(this.view);
@@ -113,7 +125,10 @@ export default class MapAppGaode implements IMapContainer {
     await overlay.deleteAllOverlays();
   }
   public async deleteAllOverlaysCluster() {}
-  public async deleteHeatMap() {}
+  public async deleteHeatMap() {
+    const overlay = HeatMap.getInstance(this.view);
+    await overlay.deleteHeatMap();
+  }
   public async setMapCenter(params: IPointGeometry) {
     let x = params.x;
     let y = params.y;
@@ -130,7 +145,7 @@ export default class MapAppGaode implements IMapContainer {
 
   public showLayer(params: ILayerConfig) {
     console.log(params);
-    this.baseLayers.forEach((baselayer) => {
+    this.baseLayers.forEach(baselayer => {
       if (
         (params.label && baselayer.label === params.label) ||
         (params.type && baselayer.type === params.type)
@@ -143,7 +158,7 @@ export default class MapAppGaode implements IMapContainer {
     });
   }
   public hideLayer(params: ILayerConfig) {
-    this.baseLayers.forEach((baselayer) => {
+    this.baseLayers.forEach(baselayer => {
       if (
         (params.label && baselayer.label === params.label) ||
         (params.type && baselayer.type === params.type)
@@ -158,4 +173,13 @@ export default class MapAppGaode implements IMapContainer {
 
   public async showJurisdiction() {}
   public async hideJurisdiction() {}
+
+  public async showDistrictMask(param: IDistrictParameter) {
+    const jurisdiction = JurisdictionPolice.getInstance(this.view);
+    await jurisdiction.showDistrictMask(param);
+  }
+  public async hideDistrictMask() {
+    const jurisdiction = JurisdictionPolice.getInstance(this.view);
+    await jurisdiction.hideDistrictMask();
+  }
 }

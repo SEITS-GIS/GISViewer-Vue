@@ -7,7 +7,7 @@ import {
   IOverlayClusterParameter,
   IOverlayDelete,
   IFindParameter,
-  IOverlay,
+  IOverlay
 } from "@/types/map";
 declare let AMap: any;
 
@@ -60,7 +60,7 @@ export class OverlayGaode {
           strokeDasharray: symbol.dashArray || [10, 5],
           lineJoin: symbol.lineJoin || "round",
           lineCap: symbol.lineCap || "round",
-          zIndex: symbol.zIndex || 1,
+          zIndex: symbol.zIndex || 1
         });
         break;
       case "polygon":
@@ -75,7 +75,7 @@ export class OverlayGaode {
           strokeDasharray: symbol.outline.dashArray || [10, 5],
           fillColor: symbol.color || "#000000",
           fillOpacity: symbol.opacity || 1,
-          zIndex: symbol.zIndex || 1,
+          zIndex: symbol.zIndex || 1
         });
         break;
       case "extent":
@@ -97,7 +97,7 @@ export class OverlayGaode {
           fillColor: symbol.color || "#000000",
           fillOpacity: symbol.opacity || 1,
           zIndex: symbol.zIndex || 1,
-          cursor: "pointer",
+          cursor: "pointer"
         });
         break;
       case "circle":
@@ -114,7 +114,7 @@ export class OverlayGaode {
           strokeDasharray: symbol.outline.dashArray || [10, 5],
           fillColor: symbol.color || "#000000",
           fillOpacity: symbol.opacity || 1,
-          zIndex: symbol.zIndex || 1,
+          zIndex: symbol.zIndex || 1
         }); //创建圆
         break;
       case "point":
@@ -122,7 +122,7 @@ export class OverlayGaode {
         marker = new AMap.Marker({
           position: new AMap.LngLat(overlay.geometry.x, overlay.geometry.y),
           offset: new AMap.Pixel(symbol.xoffset, symbol.yoffset),
-          icon: symbol,
+          icon: symbol
         });
         break;
     }
@@ -160,7 +160,7 @@ export class OverlayGaode {
         icon = new AMap.Icon({
           image: symbol.url,
           size: size,
-          imageSize: size,
+          imageSize: size
         });
         icon.xoffset = xoffset;
         icon.yoffset = yoffset;
@@ -256,11 +256,11 @@ export class OverlayGaode {
         if (autoPopup) {
           let infoWindow = new AMap.InfoWindow({
             anchor: "bottom-center",
-            content: content,
+            content: content
           });
           infoWindow.open(this.view, [
             graphic.getPosition().lng,
-            graphic.getPosition().lat,
+            graphic.getPosition().lat
           ]);
         }
       }
@@ -278,7 +278,7 @@ export class OverlayGaode {
           graphic.setLabel({
             offset: new AMap.Pixel(xoffset, yoffset), //设置文本标注偏移量
             content: this.getPopUpHtml(graphic, toolTipContent), //设置文本标注内容
-            direction: "center", //设置文本标注方位
+            direction: "center" //设置文本标注方位
           });
         }
       }
@@ -287,7 +287,7 @@ export class OverlayGaode {
     return {
       status: 0,
       message: "ok",
-      result: `成功添加${params.overlays.length}中的${addCount}个覆盖物`,
+      result: `成功添加${params.overlays.length}中的${addCount}个覆盖物`
     };
   }
   //创建点击事件
@@ -298,7 +298,7 @@ export class OverlayGaode {
         let infoWindow = new AMap.InfoWindow({
           anchor: "bottom-center",
           content: content,
-          offset: new AMap.Pixel(0, symbol.yoffset || 0),
+          offset: new AMap.Pixel(0, symbol.yoffset || 0)
         }); // 创建信息窗口对象
         let center;
         if (e.target.getPosition) {

@@ -14,10 +14,11 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
-  IResult
+  IResult,
+  IDistrictParameter
 } from "@/types/map";
 @Component({
-  name: "MapAppBaidu",
+  name: "MapAppBaidu"
 })
 export default class MapContainerArcgis extends Vue implements IMapContainer {
   private mapApp!: MapApp;
@@ -77,9 +78,10 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public hideJurisdiction() {
     this.mapApp.hideJurisdiction();
   }
-  public findFeature(params:IFindParameter)
-  {
-     this.mapApp.findFeature(params);
+  public showDistrictMask(param: IDistrictParameter) {}
+  public hideDistrictMask() {}
+  public findFeature(params: IFindParameter) {
+    this.mapApp.findFeature(params);
   }
 }
 </script>

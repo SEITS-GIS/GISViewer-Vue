@@ -55,7 +55,7 @@ export default class MapAppArcGIS2D {
     });
     view.ui.remove("attribution");
 
-    view.on("click", async (event) => {
+    view.on("click", async event => {
       const response = await view.hitTest(event);
       response.results.forEach(result => {
         const graphic = result.graphic;
@@ -63,15 +63,14 @@ export default class MapAppArcGIS2D {
         if (type && id) {
           this.showGisDeviceInfo(type, id);
         }
-      })
-    })
+      });
+    });
     await view.when();
-    this.view = view;    
+    this.view = view;
   }
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayArcgis2D.getInstance(this.view);
     return await overlay.addOverlays(params);
   }
-
 }

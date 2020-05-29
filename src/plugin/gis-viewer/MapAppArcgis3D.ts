@@ -10,7 +10,8 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
-  IResult
+  IResult,
+  IDistrictParameter
 } from "@/types/map";
 import { OverlayArcgis3D } from "@/plugin/gis-viewer/widgets/OverlayArcgis3D";
 
@@ -38,13 +39,13 @@ export default class MapAppArcGIS3D implements IMapContainer {
       Basemap,
       Map,
       TileLayer,
-      Collection,
+      Collection
     ] = await (loadModules([
       "esri/views/SceneView",
       "esri/Basemap",
       "esri/Map",
       "esri/layers/TileLayer",
-      "esri/core/Collection",
+      "esri/core/Collection"
     ]) as Promise<MapModules>);
 
     const baseLayers: __esri.Collection = new Collection();
@@ -58,14 +59,14 @@ export default class MapAppArcGIS3D implements IMapContainer {
     );
 
     const basemap: __esri.Basemap = new Basemap({
-      baseLayers,
+      baseLayers
     });
     const view: __esri.SceneView = new SceneView({
       map: new Map({
-        basemap,
+        basemap
       }),
       container: mapContainer,
-      ...mapConfig.options,
+      ...mapConfig.options
     });
     view.ui.remove("attribution");
     await view.when();
@@ -91,4 +92,6 @@ export default class MapAppArcGIS3D implements IMapContainer {
   public async showJurisdiction() {}
   public async hideJurisdiction() {}
   public async findFeature(params: IFindParameter) {}
+  public async showDistrictMask(param: IDistrictParameter) {}
+  public async hideDistrictMask() {}
 }
