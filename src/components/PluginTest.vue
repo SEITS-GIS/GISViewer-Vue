@@ -28,12 +28,6 @@ export default class PluginTest extends Vue {
     theme: "light", //dark,vec
     baseLayers: [
       {
-        type: "tiled",
-        url:
-          "https://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer",
-        visible: true
-      },
-      {
         type: "traffic",
         visible: false
       }
@@ -43,9 +37,7 @@ export default class PluginTest extends Vue {
       //for arcgis-2d
       center: [121.441, 31.159],
       zoom: 13,
-      showLabel:false,
-      viewMode: "2D", //使用3D视图
-      mapStyle: "amap://styles/darkblue" //设置地图的显示样式
+      viewMode: "2D" //使用3D视图
       //for arcgis-3d
       // camera: {
       //   heading: 0,
@@ -281,7 +273,7 @@ export default class PluginTest extends Vue {
     //map.addOverlaysCluster(res.data);
     //  console.log(res.data);
     //});
-    map.showJurisdiction();
+    //map.showJurisdiction();
     map.findFeature({
       layerName: "police",
       zoom: 18,
@@ -331,54 +323,55 @@ export default class PluginTest extends Vue {
         }
       }
     };
-    map.addHeatMap(json);
-    // const result = await map.addOverlays({
-    //   type: "police",
-    //   defaultSymbol: {
-    //     //symbol for 2d
-    //     type: "point-2d",
-    //     // primitive: "square",
-    //     url: "assets/image/Anchor.png",
-    //     size: [80, 90]
-    //     // color: "red",
-    //     // outline: {
-    //     //   color: "white",
-    //     //   size: 4
-    //     // },
-    //     // anchor: "top"
+    //map.addHeatMap(json);
+    map.addOverlays({
+      type: "police",
+      defaultSymbol: {
+        //symbol for 2d
+        type: "point-2d",
+        // primitive: "square",
+        url: "assets/image/Anchor.png",
+        size: [80, 90]
+        // color: "red",
+        // outline: {
+        //   color: "white",
+        //   size: 4
+        // },
+        // anchor: "top"
 
-    //     //symbol for 3d
-    //     //type: "point-3d",
-    //     //primitive: "cube",
-    //     //color: "red",
-    //     //size: 20000,
-    //     //anchor: "bottom",
-    //   },
-    //   overlays: [
-    //     {
-    //       id: "test001",
-    //       geometry: { x: 121.418924, y: 31.157101 },
-    //       fields: { name: "测试2", featureid: "0002" }
-    //     },
-    //     {
-    //       id: "test002",
-    //       geometry: { x: 121.318924, y: 31.157101 },
-    //       fields: { name: "测试3", featureid: "0003" }
-    //     },
-    //     {
-    //       id: "test003",
-    //       geometry: { x: 121.418924, y: 31.257101 },
-    //       fields: { name: "测试4", featureid: "0001" }
-    //     }
-    //   ],
-    //   showPopup: true,
-    //   autoPopup: false,
-    //   defaultInfoTemplate: {
-    //     title: "1212",
-    //     content: "<div>name:{name}<br/><button>{name}</button></div>"
-    //   },
-    //   defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }]
-    // });
+        //symbol for 3d
+        //type: "point-3d",
+        //primitive: "cube",
+        //color: "red",
+        //size: 20000,
+        //anchor: "bottom",
+      },
+      defaultZooms:[10,20],
+      overlays: [
+        {
+          id: "test001",
+          geometry: { x: 121.418924, y: 31.157101 },
+          fields: { name: "测试2", featureid: "0002" }
+        },
+        {
+          id: "test002",
+          geometry: { x: 121.318924, y: 31.157101 },
+          fields: { name: "测试3", featureid: "0003" }
+        },
+        {
+          id: "test003",
+          geometry: { x: 121.418924, y: 31.257101 },
+          fields: { name: "测试4", featureid: "0001" }
+        }
+      ],
+      showPopup: true,
+      autoPopup: false,
+      defaultInfoTemplate: {
+        title: "1212",
+        content: "<div>name:{name}<br/><button>{name}</button></div>"
+      },
+      defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }]
+    });
     //(this.$refs.gisViewer as any).showLayer({ type: "traffic" });
     // (this.$refs.gisViewer as any).showDistrictMask({
     //   name: "奉贤区",

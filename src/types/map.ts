@@ -83,6 +83,7 @@ export interface IOverlay {
   symbol: IPointSymbol | IPolylineSymbol;
   geometry: IPointGeometry | IPolylineGeometry | IPolygonGeometry;
   fields: any;
+  zooms?:Array<number>;
   buttons: string[];
 }
 
@@ -90,6 +91,7 @@ export interface IOverlayParameter {
   defaultType?: string;
   type?: string;
   defaultSymbol?: IPointSymbol | IPolylineSymbol;
+  defaultZooms?:Array<number>;
   overlays: Array<IOverlay>;
   autoPopup?: boolean;
   showPopup?: boolean; //是否显示popup
