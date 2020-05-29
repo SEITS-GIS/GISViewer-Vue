@@ -41,27 +41,41 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     return await this.mapApp.addOverlays(params);
   }
+
   public addHeatMap(params: IHeatParameter) {}
+
   public addOverlaysCluster(params: IOverlayClusterParameter) {}
+
   public deleteOverlays(params: IOverlayDelete) {
     this.mapApp.deleteOverlays(params);
   }
+
   public deleteOverlaysCluster(params: IOverlayDelete) {}
+
   public deleteAllOverlays() {
     this.mapApp.deleteAllOverlays();
   }
+
   public deleteAllOverlaysCluster() {}
+
   public deleteHeatMap() {}
+
   public showLayer(params: ILayerConfig) {
     this.mapApp.showLayer(params);
   }
+
   public hideLayer(params: ILayerConfig) {
     this.mapApp.hideLayer(params);
   }
+
   public setMapCenter(params: IPointGeometry) {}
+
   public setMapCenterAndLevel(params: ICenterLevel) {}
+
   public showJurisdiction() {}
+
   public hideJurisdiction() {}
+  
   public findFeature(params: IFindParameter) {
     this.mapApp.findFeature(params);
   }

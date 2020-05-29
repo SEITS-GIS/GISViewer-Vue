@@ -53,8 +53,13 @@ export interface IPointSymbol {
   xoffset?: number | string;
   yoffset?: number | string;
 }
+
 export interface IPolylineSymbol {
   type: string; //line-2d/line-3d
+}
+
+export interface IPolygonSymbol {
+  type: string;
 }
 
 export interface IPointGeometry {

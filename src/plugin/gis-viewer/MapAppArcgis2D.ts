@@ -7,7 +7,7 @@ export default class MapAppArcGIS2D {
   public showGisDeviceInfo: any;
 
   public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
-    const apiUrl = mapConfig.arcgis_api || "https://js.arcgis.com/4.14/";
+    const apiUrl = mapConfig.arcgis_api || mapConfig.apiUrl || "https://js.arcgis.com/4.14/";
     setDefaultOptions({
       url: `${apiUrl}/init.js`
     });
@@ -61,7 +61,7 @@ export default class MapAppArcGIS2D {
         const graphic = result.graphic;
         const { type, id } = graphic.attributes;
         if (type && id) {
-          this.showGisDeviceInfo(type, id);
+          this.showGisDeviceInfo(type, id, graphic.toJSON());
         }
       });
     });

@@ -7,7 +7,7 @@
     </div>
     <gis-viewer
       ref="gisViewer"
-      platform="gd"
+      platform="arcgis2d"
       :map-config="mapConfig"
       @map-loaded="mapLoaded"
       @marker-click="showGisDeviceInfo"
@@ -20,8 +20,8 @@ import axios from "axios";
 @Component
 export default class PluginTest extends Vue {
   private mapConfig = {
-    api_url:
-      "https://webapi.amap.com/maps?v=2.0&key=29dd04daa39aa33a7e2cdffa37ebec4d",
+    api_url: "http://localhost:8090/arcgis_js_api_4/",
+     // "https://webapi.amap.com/maps?v=2.0&key=29dd04daa39aa33a7e2cdffa37ebec4d",
     // arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
     //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
@@ -33,10 +33,10 @@ export default class PluginTest extends Vue {
           "https://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer",
         visible: true
       },
-      {
-        type: "traffic",
-        visible: true
-      }
+      // {
+      //   type: "traffic",
+      //   visible: true
+      // }
     ],
     gisServer: "http://128.64.151.245:8019",
     options: {
@@ -228,7 +228,8 @@ export default class PluginTest extends Vue {
         type: "point-2d",
         // primitive: "square",
         url: "assets/image/Anchor.png",
-        size: [50, 50]
+        size: [64, 64],
+        anchor: "center"
         // color: "red",
         // outline: {
         //   color: "white",
@@ -391,8 +392,8 @@ export default class PluginTest extends Vue {
     //(this.$refs.gisViewer as any).setMapCenterAndLevel({x:121.12,y:31.23,level:15});
     //(this.$refs.gisViewer as any).hideJurisdiction();
   }
-  private showGisDeviceInfo(type: string, id: string) {
-    console.log(type + "," + id);
+  private showGisDeviceInfo(type: string, id: string, detail: any) {
+    console.log(detail);
   }
 }
 </script>
