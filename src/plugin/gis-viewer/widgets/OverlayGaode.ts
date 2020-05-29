@@ -8,14 +8,14 @@ import {
   IPolylineSymbol,
   IPolygonSymbol,
   IFindParameter
-} from "@/types/map";
-import "@amap/amap-jsapi-types";
+} from '@/types/map';
+import '@amap/amap-jsapi-types';
 
 export class OverlayGaode {
   private static instance: OverlayGaode;
   private view!: AMap.Map;
   private overlayers = new Array();
-  private overlayGroup:any; 
+  private overlayGroup: any;
   private markerClustererLayer = new Array();
   public showGisDeviceInfo: any;
 
@@ -172,43 +172,41 @@ export class OverlayGaode {
   // }
   /**根据graphic的属性生成弹出框*/
   private getInfoWindowContent(graphic: any) {
-    let content = "";
+    let content = '';
     //键值对
     for (let fieldName in graphic.fields) {
       if (graphic.fields.hasOwnProperty(fieldName)) {
         content +=
-          "<b>" + fieldName + ": </b>" + graphic.fields[fieldName] + "<br>";
+          '<b>' + fieldName + ': </b>' + graphic.fields[fieldName] + '<br>';
       }
     }
     //去掉最后的<br>
-    content = content.substring(0, content.lastIndexOf("<br>"));
+    content = content.substring(0, content.lastIndexOf('<br>'));
 
     if (graphic.buttons !== undefined) {
-      content += "<hr>";
-      graphic.buttons.forEach(
-        (buttonConfig: { type: string; label: string }) => {
-          content +=
-            "<button type='button' class='btn btn-primary btn-sm' onclick='mapFeatureClicked(" +
-            '"' +
-            buttonConfig.type +
-            '", "' +
-            graphic.id +
-            '"' +
-            ")'>" +
-            buttonConfig.label +
-            "</button>  ";
-        }
-      );
+      content += '<hr>';
+      graphic.buttons.forEach((buttonConfig: {type: string; label: string}) => {
+        content +=
+          "<button type='button' class='btn btn-primary btn-sm' onclick='mapFeatureClicked(" +
+          '"' +
+          buttonConfig.type +
+          '", "' +
+          graphic.id +
+          '"' +
+          ")'>" +
+          buttonConfig.label +
+          '</button>  ';
+      });
     }
     return content;
   }
-  
+
   private getPopUpHtml(graphic: any, content: any) {
     let tipContent = content;
     for (let fieldName in graphic.fields) {
       if (graphic.fields.hasOwnProperty(fieldName)) {
         tipContent = tipContent.replace(
-          new RegExp("{" + fieldName + "}", "g"),
+          new RegExp('{' + fieldName + '}', 'g'),
           graphic.fields[fieldName]
         );
       }
@@ -218,18 +216,20 @@ export class OverlayGaode {
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     console.log(params);
-    const group: AMap.OverlayGroup = this.getOverlayGroup(params.type || "default");
+    const group: AMap.OverlayGroup = this.getOverlayGroup(
+      params.type || 'default'
+    );
 
     const defaultSymbol = this.makeSymbol(params.defaultSymbol);
 
-    const showPopup=params.showPopup;
-    const defaultInfoTemplate=params.defaultInfoTemplate;
-    const autoPopup=params.autoPopup;
+    const showPopup = params.showPopup;
+    const defaultInfoTemplate = params.defaultInfoTemplate;
+    const autoPopup = params.autoPopup;
 
     let addCount = 0;
 
-    params.overlays.forEach(feature => {
-      const { geometry, fields, id } = feature;
+    params.overlays.forEach((feature) => {
+      const {geometry, fields, id} = feature;
       fields.id = id;
       fields.type = params.type;
       let content;
@@ -243,112 +243,131 @@ export class OverlayGaode {
         }
         if (autoPopup) {
           let infoWindow = new AMap.InfoWindow({
-            anchor: "bottom-center",
-            content: content,
+            anchor: 'bottom-center',
+            content: content
           });
-          infoWindow.open(this.view, [
-            (feature as any).getPosition().lng,
-            (feature as any).getPosition().lat,
-          ],10);
+          infoWindow.open(
+            this.view,
+            [
+              (feature as any).getPosition().lng,
+              (feature as any).getPosition().lat
+            ],
+            10
+          );
         }
       }
 
       let overlay;
       //点
-      if ("x" in geometry && "y" in geometry) {    
+      if ('x' in geometry && 'y' in geometry) {
         const symbol = this.makeSymbol(feature.symbol) || defaultSymbol;
         if (symbol) {
-          let xoffset=feature.symbol ?(feature.symbol as IPointSymbol).xoffset || 0 : (params.defaultSymbol as IPointSymbol).xoffset || 0;
-          let yoffset=feature.symbol ?(feature.symbol as IPointSymbol).yoffset || 0 : (params.defaultSymbol as IPointSymbol).yoffset || 0;
+          let xoffset = feature.symbol
+            ? (feature.symbol as IPointSymbol).xoffset || 0
+            : (params.defaultSymbol as IPointSymbol).xoffset || 0;
+          let yoffset = feature.symbol
+            ? (feature.symbol as IPointSymbol).yoffset || 0
+            : (params.defaultSymbol as IPointSymbol).yoffset || 0;
           overlay = new AMap.Marker({
             position: [geometry.x, geometry.y],
-            extData: {clickfunc:this.showGisDeviceInfo,attributes:fields,infoTemplate:content},
+            extData: {
+              clickfunc: this.showGisDeviceInfo,
+              attributes: fields,
+              infoTemplate: content
+            },
             icon: (symbol || defaultSymbol) as AMap.Icon,
             zooms: feature.zooms || params.defaultZooms,
             offset: new AMap.Pixel(xoffset as number, yoffset as number),
-            anchor: feature.symbol ? (feature.symbol as IPointSymbol).anchor || "center" : (params.defaultSymbol as IPointSymbol).anchor || "center"
-          })
-        } 
-        else {
+            anchor: feature.symbol
+              ? (feature.symbol as IPointSymbol).anchor || 'center'
+              : (params.defaultSymbol as IPointSymbol).anchor || 'center'
+          });
+        } else {
           overlay = new AMap.Marker({
             position: [geometry.x, geometry.y],
-            extData: {clickfunc:this.showGisDeviceInfo,attributes:fields,infoTemplate:content}
-          })
-        }   
-        overlay.on("click", this.onOverlayClick);
-        
+            extData: {
+              clickfunc: this.showGisDeviceInfo,
+              attributes: fields,
+              infoTemplate: content
+            }
+          });
+        }
+        overlay.on('click', this.onOverlayClick);
+
         group.addOverlay(overlay);
       }
       //线
-      else if ("path" in geometry) { }
+      else if ('path' in geometry) {
+      }
       //面
-      else if ("ring" in geometry) { }
+      else if ('ring' in geometry) {
+      }
     });
 
-      // let graphic = this.getMarker(overlay, symbol);
-      // (graphic as any).attributes = fields;
-      // (graphic as any).id = overlay.id;
-      // (graphic as any).ptype = overlay.type || defaultType;
-      // (graphic as any).buttons = buttons;
+    // let graphic = this.getMarker(overlay, symbol);
+    // (graphic as any).attributes = fields;
+    // (graphic as any).id = overlay.id;
+    // (graphic as any).ptype = overlay.type || defaultType;
+    // (graphic as any).buttons = buttons;
 
-      // let title;
-      // let content = "";
+    // let title;
+    // let content = "";
 
-      // if (showPopup) {
-      //   if (defaultInfoTemplate === undefined) {
-      //     content = this.getInfoWindowContent(graphic);
-      //   } else {
-      //     title = defaultInfoTemplate.title;
-      //     content = this.getPopUpHtml(graphic, defaultInfoTemplate.content);
-      //   }
-      //   if (autoPopup) {
-      //     let infoWindow = new AMap.InfoWindow({
-      //       anchor: "bottom-center",
-      //       content: content,
-      //     });
-      //     infoWindow.open(this.view, [
-      //       (graphic as any).getPosition().lng,
-      //       (graphic as any).getPosition().lat,
-      //     ],10);
-      //   }
-      // }
-      // this.onMarkerClick(graphic, content, symbol);
-      // if (!this.overlayGroup) {
-      //   this.createOverlayLayer([graphic]);
-      // } else {
-      //   this.overlayGroup.addOverlay(graphic);
-      // }
-      // if (showToolTip) {
-      //   if (geoType == "point") {
-      //     // 创建纯文本标记
-      //     let xoffset = 0; //toolTipOption.xoffset || 0;
-      //     let yoffset = -6; //toolTipOption.yoffset || -6;
-      //     (graphic as any).setLabel({
-      //       offset: new AMap.Pixel(xoffset, yoffset), //设置文本标注偏移量
-      //       content: this.getPopUpHtml(graphic, toolTipContent), //设置文本标注内容
-      //       direction: "center", //设置文本标注方位
-      //     });
-      //   }
-      // }
-      // addCount++;
+    // if (showPopup) {
+    //   if (defaultInfoTemplate === undefined) {
+    //     content = this.getInfoWindowContent(graphic);
+    //   } else {
+    //     title = defaultInfoTemplate.title;
+    //     content = this.getPopUpHtml(graphic, defaultInfoTemplate.content);
+    //   }
+    //   if (autoPopup) {
+    //     let infoWindow = new AMap.InfoWindow({
+    //       anchor: "bottom-center",
+    //       content: content,
+    //     });
+    //     infoWindow.open(this.view, [
+    //       (graphic as any).getPosition().lng,
+    //       (graphic as any).getPosition().lat,
+    //     ],10);
+    //   }
+    // }
+    // this.onMarkerClick(graphic, content, symbol);
+    // if (!this.overlayGroup) {
+    //   this.createOverlayLayer([graphic]);
+    // } else {
+    //   this.overlayGroup.addOverlay(graphic);
+    // }
+    // if (showToolTip) {
+    //   if (geoType == "point") {
+    //     // 创建纯文本标记
+    //     let xoffset = 0; //toolTipOption.xoffset || 0;
+    //     let yoffset = -6; //toolTipOption.yoffset || -6;
+    //     (graphic as any).setLabel({
+    //       offset: new AMap.Pixel(xoffset, yoffset), //设置文本标注偏移量
+    //       content: this.getPopUpHtml(graphic, toolTipContent), //设置文本标注内容
+    //       direction: "center", //设置文本标注方位
+    //     });
+    //   }
+    // }
+    // addCount++;
     // }
     return {
       status: 0,
-      message: "ok",
-      result: `成功添加${params.overlays.length}中的${addCount}个覆盖物`,
+      message: 'ok',
+      result: `成功添加${params.overlays.length}中的${addCount}个覆盖物`
     };
   }
 
   private onOverlayClick(event: any) {
-    let mark=event.target;
-    let fields=event.target.getExtData().attributes;
-    let content=event.target.getExtData().infoTemplate || "";
-    let yoffset=0-mark.getIcon().getImageSize().height/2;
-    if (content != "") {
+    let mark = event.target;
+    let fields = event.target.getExtData().attributes;
+    let content = event.target.getExtData().infoTemplate || '';
+    let yoffset = 0 - mark.getIcon().getImageSize().height / 2;
+    if (content != '') {
       let infoWindow = new AMap.InfoWindow({
-        anchor: "bottom-center",
+        anchor: 'bottom-center',
         content: content,
-        offset: new AMap.Pixel(0, yoffset),
+        offset: new AMap.Pixel(0, yoffset)
       }); // 创建信息窗口对象
       let center;
       if (event.target.getPosition) {
@@ -357,22 +376,22 @@ export class OverlayGaode {
         center = [event.lnglat.lng, event.lnglat.lat];
       }
       mark.isOpenInfo = true;
-      infoWindow.open(mark.getMap(), center,10);
+      infoWindow.open(mark.getMap(), center, 10);
     }
     if (event.target.getExtData().clickfunc) {
-      event.target.getExtData().clickfunc(fields.type, fields.id,fields);
+      event.target.getExtData().clickfunc(fields.type, fields.id, fields);
     }
   }
 
   //创建点击事件
   private onMarkerClick(mark: any, content: any, symbol: any) {
     const _this = this;
-    mark.on("click", (e: any) => {
-      if (content != "") {
+    mark.on('click', (e: any) => {
+      if (content != '') {
         let infoWindow = new AMap.InfoWindow({
-          anchor: "bottom-center",
+          anchor: 'bottom-center',
           content: content,
-          offset: new AMap.Pixel(0, symbol.yoffset || 0),
+          offset: new AMap.Pixel(0, symbol.yoffset || 0)
         }); // 创建信息窗口对象
         let center;
         if (e.target.getPosition) {
@@ -381,7 +400,7 @@ export class OverlayGaode {
           center = [e.lnglat.lng, e.lnglat.lat];
         }
         mark.isOpenInfo = true;
-        infoWindow.open(_this.view, center,10);
+        infoWindow.open(_this.view, center, 10);
       }
       if (_this.showGisDeviceInfo) {
         _this.showGisDeviceInfo(e.target.ptype, e.target.id);
@@ -389,33 +408,32 @@ export class OverlayGaode {
     });
   }
   getSymbolType(geometry: any) {
-    var type = "point";
+    var type = 'point';
     if (geometry.ring) {
-      type = "polygon";
+      type = 'polygon';
     }
     if (geometry.path) {
-      type = "polyline";
+      type = 'polyline';
     }
     if (geometry.xmin) {
-      type = "extent";
+      type = 'extent';
     }
     if (geometry.radius) {
-      type = "circle";
+      type = 'circle';
     }
     geometry.type = type;
     return type;
   }
 
-  public async deleteOverlays(params: IOverlayDelete) : Promise<IResult>{
+  public async deleteOverlays(params: IOverlayDelete): Promise<IResult> {
     let types = params.types || [];
     let ids = params.ids || [];
-    let delCount=0;
-    let overlays=new Array();
-    this.overlayGroups.forEach((overlay,key)=>{
-      if(types.length==0 || (types.length>0 && types.indexOf(key)>-1) )
-      {
-        overlays=overlays.concat(overlay.getOverlays());
-      }　　
+    let delCount = 0;
+    let overlays = new Array();
+    this.overlayGroups.forEach((overlay, key) => {
+      if (types.length == 0 || (types.length > 0 && types.indexOf(key) > -1)) {
+        overlays = overlays.concat(overlay.getOverlays());
+      }
     });
     for (let i = 0; i < overlays.length; i++) {
       let overlay = overlays[i];
@@ -443,20 +461,20 @@ export class OverlayGaode {
     }
     return {
       status: 0,
-      message: "ok",
-      result: `成功删除${delCount}个覆盖物`,
+      message: 'ok',
+      result: `成功删除${delCount}个覆盖物`
     };
   }
 
-  public async deleteAllOverlays() : Promise<IResult>{
+  public async deleteAllOverlays(): Promise<IResult> {
     this.view.clearInfoWindow();
-    this.overlayGroups.forEach((overlay,key)=>{　　
+    this.overlayGroups.forEach((overlay, key) => {
       overlay.clearOverlays();
     });
     return {
       status: 0,
-      message: "ok",
-      result: ""
+      message: 'ok',
+      result: ''
     };
   }
 
@@ -464,17 +482,17 @@ export class OverlayGaode {
     let type = params.layerName;
     let ids = params.ids || [];
     let level = params.level || this.view.getZoom();
-  
+
     let centerResult = params.centerResult;
     let overlays = this.getOverlayGroup(type).getOverlays();
     overlays.forEach((overlay: any) => {
       if (ids.indexOf(overlay.getExtData().attributes.id) >= 0) {
         if (centerResult) {
-          if (overlay.CLASS_NAME == "AMap.Marker") {
+          if (overlay.CLASS_NAME == 'AMap.Marker') {
             this.view.setZoomAndCenter(level, overlay.getPosition());
-            overlay.setAnimation("AMAP_ANIMATION_BOUNCE");
+            overlay.setAnimation('AMAP_ANIMATION_BOUNCE');
             setTimeout(function() {
-              overlay.setAnimation("AMAP_ANIMATION_NONE");
+              overlay.setAnimation('AMAP_ANIMATION_NONE');
             }, 3500);
           } else {
             this.view.setFitView(overlay);
@@ -484,45 +502,52 @@ export class OverlayGaode {
     });
     return {
       status: 0,
-      message: "ok",
-      result: ""
+      message: 'ok',
+      result: ''
     };
   }
   private getOverlayGroup(type: string): AMap.OverlayGroup {
     let group = this.overlayGroups.get(type);
     if (!group) {
       group = new AMap.OverlayGroup();
-      this.view.add((group as any));
+      this.view.add(group as any);
       this.overlayGroups.set(type, group);
     }
     return group;
   }
 
-  private makeSymbol(symbol: IPointSymbol | IPolylineSymbol | IPolygonSymbol | undefined): AMap.Icon | {} | undefined {
+  private makeSymbol(
+    symbol: IPointSymbol | IPolylineSymbol | IPolygonSymbol | undefined
+  ): AMap.Icon | {} | undefined {
     if (!symbol) return undefined;
 
     switch (symbol.type) {
-      case "point-2d":
-      case "point":
+      case 'point-2d':
+      case 'point':
         const pointSymbol = symbol as IPointSymbol;
         if (!pointSymbol.url) {
           return undefined;
         }
 
-        let size:any;
+        let size: any;
         if (pointSymbol.size instanceof Array) {
-          size = [this.makePixelSize(pointSymbol.size[0]), this.makePixelSize(pointSymbol.size[1])]
-        }
-        else if (pointSymbol.size) {
-          size = [this.makePixelSize(pointSymbol.size), this.makePixelSize(pointSymbol.size)]
+          size = [
+            this.makePixelSize(pointSymbol.size[0]),
+            this.makePixelSize(pointSymbol.size[1])
+          ];
+        } else if (pointSymbol.size) {
+          size = [
+            this.makePixelSize(pointSymbol.size),
+            this.makePixelSize(pointSymbol.size)
+          ];
         }
         return new AMap.Icon({
           image: pointSymbol.url,
-          size:  new AMap.Size(size[0], size[1]) ,
-          imageSize: new AMap.Size(size[0], size[1])       
+          size: new AMap.Size(size[0], size[1]),
+          imageSize: new AMap.Size(size[0], size[1])
         });
         break;
-    
+
       default:
         return undefined;
     }
@@ -530,20 +555,17 @@ export class OverlayGaode {
 
   /** 将pixel/point为单位的统一转为pixel */
   private makePixelSize(size: string | number): number {
-    if (typeof size === "number") {
+    if (typeof size === 'number') {
       return size;
-    }
-    else {
+    } else {
       const value = size.slice(0, size.length - 2);
       const unit = size.slice(size.length - 2);
-      if (unit === "px") {
-        return Number(value)
-      } 
-      else if (unit === "pt") {
+      if (unit === 'px') {
+        return Number(value);
+      } else if (unit === 'pt') {
         return Number(value) * 0.75;
-      }
-      else {
-        return Number(size)
+      } else {
+        return Number(size);
       }
     }
   }
