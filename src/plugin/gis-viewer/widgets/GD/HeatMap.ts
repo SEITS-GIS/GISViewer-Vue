@@ -159,8 +159,7 @@ export class HeatMap {
       symbol = {
         type: 'point',
         url: renderer.symbol.url,
-        width: renderer.symbol.width,
-        height: renderer.symbol.height,
+        size: [renderer.symbol.width,renderer.symbol.height],
         xoffset: renderer.symbol.xoffset || 0,
         yoffset: renderer.symbol.yoffset || 0
       };
