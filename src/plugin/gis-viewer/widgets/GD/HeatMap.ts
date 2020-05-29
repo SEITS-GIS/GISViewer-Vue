@@ -37,6 +37,7 @@ export class HeatMap {
     }
   }
   public async addHeatLayer(params: IHeatParameter): Promise<IResult> {
+    this._clear();
     const options = params.options;
     const countField = options.field;
     const radius = options.radius;
