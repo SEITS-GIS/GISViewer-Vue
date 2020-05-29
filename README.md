@@ -135,4 +135,8 @@ export default {
 ### showJurisdiction()显示辖区
 ### hideJurisdiction()隐藏辖区
 ### showDistrictMask() 显示边界蒙层
+| name       | description  | type | default
+| ---------- | ------------ | ---------- | ---------- |
+| name | 区县名称 | string |
+| showMask | 是否显示外部蒙层 | boolean |
 ### hideDistrictMask() 显示边界蒙层
