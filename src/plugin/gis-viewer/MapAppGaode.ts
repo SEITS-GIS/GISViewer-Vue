@@ -15,70 +15,34 @@ import {
 import { OverlayGaode } from "@/plugin/gis-viewer/widgets/OverlayGaode";
 import { JurisdictionPolice } from "./widgets/GD/JurisdictionPolice";
 import { HeatMap } from "./widgets/GD/HeatMap";
-declare let AMap: any;
+import "@amap/amap-jsapi-types";
 
 export default class MapAppGaode implements IMapContainer {
-  public view!: any;
+  public view!: AMap.Map;
   public baseLayers: Array<any> = [];
   public showGisDeviceInfo: any;
 
-  public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
-    let apiUrl: string = mapConfig.arcgis_api; //"http://localhost:8090/baidu/BDAPI.js";
+  public async initialize(mapConfig: any, mapContainer: string) {
+    let apiUrl = mapConfig.arcgis_api || mapConfig.api_url;
     let plugins =
-      "&plugin=AMap.DistrictSearch,AMap.Heatmap,AMap.CustomLayer,AMap.ControlBar";
-    // plugins.forEach((element: string) => {
-    //   apiUrl = apiUrl + "&plugin=" + element;
-    // });
+      "&plugin=AMap.DistrictSearch,AMap.HeatMap";
     apiUrl = apiUrl + plugins;
-    let view: any;
     await loadScript({
-      url: `${apiUrl}`
+      url: apiUrl
     });
-    const apiRoot = mapConfig.arcgis_api.substring(0, apiUrl.lastIndexOf("/"));
-    console.log(apiRoot);
-
-    view = new AMap.Map(mapContainer, mapConfig.options);
-
-    let gisUrl = mapConfig.gisServer;
-    if (mapConfig.baseLayers) {
-      mapConfig.baseLayers.forEach((element: any) => {
-        this.createLayer(view, element);
-      });
-    }
-    this.view = view;
-    this.view.gisServer = gisUrl;
-  }
-
-  private async loadOtherScripts(scriptUrls: string[]): Promise<any> {
-    let promises = scriptUrls.map(url => {
-      return new Promise((resolve, reject) => {
-        const scriptElement = document.createElement("script");
-        scriptElement.src = url;
-        scriptElement.onload = resolve;
-        document.body.appendChild(scriptElement);
-      });
-    });
-    return new Promise(resolve => {
-      Promise.all(promises).then(e => {
-        resolve(e);
+    this.view = new AMap.Map(mapContainer, mapConfig.options);
+    return new Promise(resole => {
+      this.view.on("complete", () => {
+        if (mapConfig.baseLayers) {
+          mapConfig.baseLayers.forEach((element: any) => {
+            this.createLayer(this.view, element);
+          });
+        }
+        resole();
       });
     });
   }
-  //得到url中的ip和port
-  private getIpPort(url: string): string {
-    let urls = url.split("/");
-    let ip: string = "";
-    for (let el in urls) {
-      if (el.indexOf(":") > 0 || el.indexOf(".") > 0) {
-        ip = el;
-        break;
-      }
-    }
-    if (ip === "") {
-      ip = urls[2];
-    }
-    return ip;
-  }
+
   public createLayer(view: any, layer: any) {
     switch (layer.type) {
       case "traffic":
@@ -103,9 +67,10 @@ export default class MapAppGaode implements IMapContainer {
     overlay.showGisDeviceInfo = this.showGisDeviceInfo;
     return await overlay.addOverlays(params);
   }
-  public async findFeature(params: IFindParameter) {
+
+  public async findFeature(params: IFindParameter): Promise<IResult> {
     const overlay = OverlayGaode.getInstance(this.view);
-    await overlay.findFeature(params);
+    return await overlay.findFeature(params);
   }
 
   public async addOverlaysCluster(params: IOverlayClusterParameter) {}
@@ -119,11 +84,14 @@ export default class MapAppGaode implements IMapContainer {
     const overlay = OverlayGaode.getInstance(this.view);
     await overlay.deleteOverlays(params);
   }
+
   public async deleteOverlaysCluster(params: IOverlayDelete) {}
+
   public async deleteAllOverlays() {
     const overlay = OverlayGaode.getInstance(this.view);
     await overlay.deleteAllOverlays();
   }
+
   public async deleteAllOverlaysCluster() {}
   public async deleteHeatMap() {
     const overlay = HeatMap.getInstance(this.view);
@@ -135,6 +103,7 @@ export default class MapAppGaode implements IMapContainer {
     let center = new AMap.LngLat(x, y);
     this.view.setCenter(center);
   }
+
   public async setMapCenterAndLevel(params: ICenterLevel) {
     let x = params.x;
     let y = params.y;

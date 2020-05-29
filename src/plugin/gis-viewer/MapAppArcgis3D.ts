@@ -77,8 +77,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
     const overlay = OverlayArcgis3D.getInstance(this.view);
     return await overlay.addOverlays(params);
   }
-  public async addOverlaysCluster(params: IOverlayClusterParameter) {}
-
+  public async addOverlaysCluster(params: IOverlayClusterParameter) { }
   public async addHeatMap(params: IHeatParameter) {}
   public async deleteAllOverlays() {}
   public async deleteAllOverlaysCluster() {}
@@ -94,4 +93,5 @@ export default class MapAppArcGIS3D implements IMapContainer {
   public async findFeature(params: IFindParameter) {}
   public async showDistrictMask(param: IDistrictParameter) {}
   public async hideDistrictMask() {}
+
 }

@@ -5,7 +5,7 @@ import {
   IDistrictParameter
 } from "@/types/map";
 import axios from "axios";
-declare let AMap: any;
+declare let AMap:any;
 
 export class JurisdictionPolice {
   private static jurisdictionPolice: JurisdictionPolice;

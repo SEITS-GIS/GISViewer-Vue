@@ -175,7 +175,7 @@ export class OverlayArcgis3D {
     const moveLayer = this.overlayLayer;
     let parent = this;
     let tip!: any;
-    view.on("pointer-move", function(event) {
+    view.on("pointer-move", function (event) {
       view.hitTest(event).then(response => {
         if (response.results.length > 0) {
           response.results.forEach(result => {

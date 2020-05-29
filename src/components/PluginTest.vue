@@ -21,7 +21,7 @@ import axios from "axios";
 export default class PluginTest extends Vue {
   private mapConfig = {
     arcgis_api:
-      "https://webapi.amap.com/maps?v=1.4.15&key=29dd04daa39aa33a7e2cdffa37ebec4d",
+      "https://webapi.amap.com/maps?v=2.0&key=29dd04daa39aa33a7e2cdffa37ebec4d",
     // arcgis_api: "http://128.64.130.247:8219/baidumap/jsapi/api.js",
     //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
@@ -43,8 +43,7 @@ export default class PluginTest extends Vue {
       //for arcgis-2d
       center: [121.441, 31.159],
       zoom: 13,
-      resizeEnable: true,
-      showLabel: false,
+      showLabel:false,
       viewMode: "2D", //使用3D视图
       mapStyle: "amap://styles/darkblue" //设置地图的显示样式
       //for arcgis-3d
@@ -74,6 +73,7 @@ export default class PluginTest extends Vue {
     ]
   };
   private async mapLoaded() {
+    console.log("Map Loaded.");
     let map = this.$refs.gisViewer as any;
 
     // map.showJurisdiction();
@@ -236,7 +236,6 @@ export default class PluginTest extends Vue {
     //     //   size: 4
     //     // },
     //     // anchor: "top"
-
     //     //symbol for 3d
     //     //type: "point-3d",
     //     //primitive: "cube",
@@ -381,10 +380,10 @@ export default class PluginTest extends Vue {
     //   defaultButtons: [{ label: "确认报警", type: "confirmAlarm" }]
     // });
     //(this.$refs.gisViewer as any).showLayer({ type: "traffic" });
-    (this.$refs.gisViewer as any).showDistrictMask({
-      name: "奉贤区",
-      showMask: false
-    });
+    // (this.$refs.gisViewer as any).showDistrictMask({
+    //   name: "奉贤区",
+    //   showMask: false
+    // });
   }
   private btn_test3() {
     (this.$refs.gisViewer as any).deleteHeatMap();

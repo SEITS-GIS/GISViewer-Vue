@@ -60,8 +60,9 @@ export class OverlayArcgis2D {
           color: symbol.outline?.color,
           width: symbol.outline?.size
         }
-      };
-    } else if (symbol.url) {
+      }
+    }
+    else if (symbol.url) {
       result = {
         type: "picture-marker",
         url: symbol.url,
@@ -74,6 +75,8 @@ export class OverlayArcgis2D {
     }
 
     return result;
+
+
   }
   /**根据graphic的属性生成弹出框*/
   private getInfoWindowContent(graphic: any): any {

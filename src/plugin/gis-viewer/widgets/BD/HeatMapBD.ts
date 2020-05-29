@@ -82,7 +82,6 @@ export class HeatMapBD {
         this.addOverlays(params);
         this._state = "nomal";
       }
-
       this.view.addEventListener(
         "zoomend",
         (this.zoomEvent = function(e: any) {

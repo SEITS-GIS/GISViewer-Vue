@@ -1,6 +1,6 @@
 import { IOverlayParameter, IResult, IHeatParameter } from "@/types/map";
 import { OverlayGaode } from "../OverlayGaode";
-declare let AMap: any;
+declare let AMap:any;
 
 export class HeatMap {
   private static heatMap: HeatMap;
@@ -55,7 +55,7 @@ export class HeatMap {
       });
     });
     let gradient = this.getHeatColor(colors);
-    this.heatmapOverlay = new AMap.Heatmap(this.view, {
+    this.heatmapOverlay = new AMap.HeatMap(this.view, {
       radius: radius,
       opacity: [0, 1],
       gradient: gradient
