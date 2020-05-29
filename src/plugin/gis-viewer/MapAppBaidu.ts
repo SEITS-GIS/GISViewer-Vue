@@ -9,7 +9,8 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
-  IResult
+  IResult,
+  IDistrictParameter
 } from "@/types/map";
 import { OverlayBaidu } from "@/plugin/gis-viewer/widgets/OverlayBaidu";
 import { HeatMapBD } from "./widgets/BD/HeatMapBD";
@@ -205,4 +206,6 @@ export default class MapAppBaidu implements IMapContainer {
     const police = JurisdictionPolice.getInstance(this.view);
     await police.hideJurisdiction();
   }
+  public async showDistrictMask(param: IDistrictParameter) {}
+  public async hideDistrictMask() {}
 }

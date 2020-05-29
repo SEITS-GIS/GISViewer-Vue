@@ -6,7 +6,7 @@ import {
   IPopUpTemplate,
   IOverlayClusterParameter,
   IOverlayDelete,
-  IFindParameter,
+  IFindParameter
 } from "@/types/map";
 declare let BMap: any;
 declare let BMapLib: any;
@@ -91,7 +91,7 @@ export class OverlayBaidu {
         marker = {
           strokeColor: symbol.outline.color,
           strokeWeight: symbol.outline.size,
-          fillColor: symbol.color,
+          fillColor: symbol.color
         };
         break;
       case "point":
@@ -109,7 +109,7 @@ export class OverlayBaidu {
         yoffset = symbol.yoffset || 0;
 
         myIcon = new BMap.Icon(symbol.url, size, {
-          imageSize: size,
+          imageSize: size
         });
         marker = { icon: myIcon, offset: new BMap.Size(xoffset, yoffset) };
         break;
@@ -212,7 +212,7 @@ export class OverlayBaidu {
             //height: 50,     // 信息窗口高度
             title: title, // 信息窗口标题
             enableMessage: true, //设置允许信息窗发送短息
-            message: "",
+            message: ""
           });
           graphic.isOpenInfo = true;
           this.view.openInfoWindow(infoWindow, graphic.point);
@@ -223,7 +223,7 @@ export class OverlayBaidu {
             height: 0, // 信息窗口高度
             title: title, // 信息窗口标题
             enableMessage: true, //设置允许信息窗发送短息
-            message: "",
+            message: ""
           }); // 创建信息窗口对象
           e.target.isOpenInfo = true;
           mapView.openInfoWindow(infoWindow, e.point);
@@ -241,7 +241,7 @@ export class OverlayBaidu {
     return {
       status: 0,
       message: "ok",
-      result: `成功添加${params.overlays.length}中的${addCount}个覆盖物`,
+      result: `成功添加${params.overlays.length}中的${addCount}个覆盖物`
     };
   }
   public async findFeature(params: IFindParameter) {
@@ -250,7 +250,7 @@ export class OverlayBaidu {
     let level = params.level || this.view.getZoom();
     let overlays = this.overlayers;
     let centerResult = params.centerResult;
-    overlays.forEach((overlay) => {
+    overlays.forEach(overlay => {
       if (type == overlay.type && ids.indexOf(overlay.id) >= 0) {
         if (centerResult) {
           let center = overlay.getPosition();
@@ -308,7 +308,7 @@ export class OverlayBaidu {
           height: 0, // 信息窗口高度
           title: "", // 信息窗口标题
           enableMessage: true, //设置允许信息窗发送短息
-          message: "",
+          message: ""
         }); // 创建信息窗口对象
         mapView.openInfoWindow(infoWindow, e.point);
         _this._showGisDeviceInfo(e.target.type, e.target.id);
@@ -321,13 +321,13 @@ export class OverlayBaidu {
       markers: markers,
       styles: [{ url: clusterImage, size: clusterSize }],
       maxZoom: zoom,
-      gridSize: distance,
+      gridSize: distance
     });
     markerClusterer.type = defaultType;
     this.markerClustererLayer.push(markerClusterer);
     return {
       status: 0,
-      message: "ok",
+      message: "ok"
     };
   }
   public async deleteAllOverlays() {
@@ -342,7 +342,7 @@ export class OverlayBaidu {
   public async deleteOverlays(params: IOverlayDelete) {
     let types = params.types || [];
     let ids = params.ids || [];
-    this.overlayers = this.overlayers.filter((graphic) => {
+    this.overlayers = this.overlayers.filter(graphic => {
       if (
         //只判断type
         (types.length > 0 &&
@@ -370,7 +370,7 @@ export class OverlayBaidu {
   public async deleteOverlaysCluster(params: IOverlayDelete) {
     let types = params.types || [];
     if (this.markerClustererLayer && this.markerClustererLayer.length > 0) {
-      this.markerClustererLayer.forEach((layer) => {
+      this.markerClustererLayer.forEach(layer => {
         if (types.indexOf(layer.type) >= 0) {
           layer.clearMarkers();
         }
@@ -380,7 +380,7 @@ export class OverlayBaidu {
   }
   public async deleteAllOverlaysCluster() {
     if (this.markerClustererLayer && this.markerClustererLayer.length > 0) {
-      this.markerClustererLayer.forEach((layer) => {
+      this.markerClustererLayer.forEach(layer => {
         layer.clearMarkers();
       });
     }

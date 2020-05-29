@@ -10,7 +10,8 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
-  IResult
+  IResult,
+  IDistrictParameter
 } from "@/types/map";
 import { OverlayArcgis3D } from "@/plugin/gis-viewer/widgets/OverlayArcgis3D";
 
@@ -38,13 +39,13 @@ export default class MapAppArcGIS3D implements IMapContainer {
       Basemap,
       Map,
       TileLayer,
-      Collection,
+      Collection
     ] = await (loadModules([
       "esri/views/SceneView",
       "esri/Basemap",
       "esri/Map",
       "esri/layers/TileLayer",
-      "esri/core/Collection",
+      "esri/core/Collection"
     ]) as Promise<MapModules>);
 
     const baseLayers: __esri.Collection = new Collection();
@@ -58,14 +59,14 @@ export default class MapAppArcGIS3D implements IMapContainer {
     );
 
     const basemap: __esri.Basemap = new Basemap({
-      baseLayers,
+      baseLayers
     });
     const view: __esri.SceneView = new SceneView({
       map: new Map({
-        basemap,
+        basemap
       }),
       container: mapContainer,
-      ...mapConfig.options,
+      ...mapConfig.options
     });
     view.ui.remove("attribution");
     await view.when();
@@ -77,18 +78,20 @@ export default class MapAppArcGIS3D implements IMapContainer {
     return await overlay.addOverlays(params);
   }
   public async addOverlaysCluster(params: IOverlayClusterParameter) { }
+  public async addHeatMap(params: IHeatParameter) {}
+  public async deleteAllOverlays() {}
+  public async deleteAllOverlaysCluster() {}
+  public async deleteHeatMap() {}
+  public async deleteOverlays(params: IOverlayDelete) {}
+  public async deleteOverlaysCluster(params: IOverlayDelete) {}
+  public async showLayer(params: ILayerConfig) {}
+  public async hideLayer(params: ILayerConfig) {}
+  public async setMapCenter(params: IPointGeometry) {}
+  public async setMapCenterAndLevel(params: ICenterLevel) {}
+  public async showJurisdiction() {}
+  public async hideJurisdiction() {}
+  public async findFeature(params: IFindParameter) {}
+  public async showDistrictMask(param: IDistrictParameter) {}
+  public async hideDistrictMask() {}
 
-  public async addHeatMap(params: IHeatParameter) { }
-  public async deleteAllOverlays() { }
-  public async deleteAllOverlaysCluster() { }
-  public async deleteHeatMap() { }
-  public async deleteOverlays(params: IOverlayDelete) { }
-  public async deleteOverlaysCluster(params: IOverlayDelete) { }
-  public async showLayer(params: ILayerConfig) { }
-  public async hideLayer(params: ILayerConfig) { }
-  public async setMapCenter(params: IPointGeometry) { }
-  public async setMapCenterAndLevel(params: ICenterLevel) { }
-  public async showJurisdiction() { }
-  public async hideJurisdiction() { }
-  public async findFeature(params: IFindParameter) { }
 }

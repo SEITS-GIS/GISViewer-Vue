@@ -88,6 +88,7 @@ export interface IOverlay {
   symbol: IPointSymbol | IPolylineSymbol;
   geometry: IPointGeometry | IPolylineGeometry | IPolygonGeometry;
   fields: any;
+  zooms?:Array<number>;
   buttons: string[];
 }
 
@@ -95,6 +96,7 @@ export interface IOverlayParameter {
   defaultType?: string;
   type?: string;
   defaultSymbol?: IPointSymbol | IPolylineSymbol;
+  defaultZooms?:Array<number>;
   overlays: Array<IOverlay>;
   autoPopup?: boolean;
   showPopup?: boolean; //是否显示popup
@@ -129,6 +131,8 @@ export interface IMapContainer {
   setMapCenterAndLevel: (param: ICenterLevel) => void;
   showJurisdiction: () => void;
   hideJurisdiction: () => void;
+  showDistrictMask: (param: IDistrictParameter) => void;
+  hideDistrictMask: () => void;
   findFeature: (param: IFindParameter) => void;
 }
 export interface IPopUpTemplate {
@@ -160,4 +164,9 @@ export interface IFindParameter {
 export interface IOverlayDelete {
   types?: Array<string>;
   ids?: Array<string>;
+}
+export interface IDistrictParameter {
+  name: string;
+  city?: string;
+  showMask?: boolean;
 }

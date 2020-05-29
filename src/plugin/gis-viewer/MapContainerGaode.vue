@@ -15,7 +15,8 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
-  IResult
+  IResult,
+  IDistrictParameter
 } from "@/types/map";
 
 @Component({
@@ -41,9 +42,9 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     return await this.mapApp.addOverlays(params);
   }
-
-  public addHeatMap(params: IHeatParameter) {}
-
+  public addHeatMap(params: IHeatParameter) {
+    this.mapApp.addHeatMap(params);
+  }
   public addOverlaysCluster(params: IOverlayClusterParameter) {}
 
   public deleteOverlays(params: IOverlayDelete) {
@@ -57,9 +58,9 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   }
 
   public deleteAllOverlaysCluster() {}
-
-  public deleteHeatMap() {}
-
+  public deleteHeatMap() {
+    this.mapApp.deleteHeatMap();
+  }
   public showLayer(params: ILayerConfig) {
     this.mapApp.showLayer(params);
   }
@@ -75,7 +76,12 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   public showJurisdiction() {}
 
   public hideJurisdiction() {}
-  
+  public showDistrictMask(param: IDistrictParameter) {
+    this.mapApp.showDistrictMask(param);
+  }
+  public hideDistrictMask() {
+    this.mapApp.hideDistrictMask();
+  }
   public findFeature(params: IFindParameter) {
     this.mapApp.findFeature(params);
   }

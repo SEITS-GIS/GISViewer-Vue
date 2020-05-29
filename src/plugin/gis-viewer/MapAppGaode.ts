@@ -9,9 +9,12 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
-  IResult
+  IResult,
+  IDistrictParameter
 } from "@/types/map";
 import { OverlayGaode } from "@/plugin/gis-viewer/widgets/OverlayGaode";
+import { JurisdictionPolice } from "./widgets/GD/JurisdictionPolice";
+import { HeatMap } from "./widgets/GD/HeatMap";
 import "@amap/amap-jsapi-types";
 
 export default class MapAppGaode implements IMapContainer {
@@ -20,13 +23,19 @@ export default class MapAppGaode implements IMapContainer {
   public showGisDeviceInfo: any;
 
   public async initialize(mapConfig: any, mapContainer: string) {
-    const apiUrl = mapConfig.arcgis_api || mapConfig.api_url;
+    let apiUrl = mapConfig.arcgis_api || mapConfig.api_url;
+    let plugins =
+      "&plugin=AMap.DistrictSearch,AMap.Heatmap,AMap.CustomLayer,AMap.ControlBar";
+    if(apiUrl.indexOf("v=2")>-1)
+    {
+      plugins =
+      "&plugin=AMap.DistrictSearch,AMap.HeatMap,AMap.CustomLayer,AMap.ControlBar";
+    }  
+    apiUrl = apiUrl + plugins;
     await loadScript({
       url: apiUrl
     });
-
     this.view = new AMap.Map(mapContainer, mapConfig.options);
-
     return new Promise(resole => {
       this.view.on("complete", () => {
         if (mapConfig.baseLayers) {
@@ -71,7 +80,10 @@ export default class MapAppGaode implements IMapContainer {
 
   public async addOverlaysCluster(params: IOverlayClusterParameter) {}
 
-  public async addHeatMap(params: IHeatParameter) {}
+  public async addHeatMap(params: IHeatParameter) {
+    const overlay = HeatMap.getInstance(this.view);
+    await overlay.addHeatMap(params);
+  }
 
   public async deleteOverlays(params: IOverlayDelete) {
     const overlay = OverlayGaode.getInstance(this.view);
@@ -86,9 +98,10 @@ export default class MapAppGaode implements IMapContainer {
   }
 
   public async deleteAllOverlaysCluster() {}
-
-  public async deleteHeatMap() {}
-
+  public async deleteHeatMap() {
+    const overlay = HeatMap.getInstance(this.view);
+    await overlay.deleteHeatMap();
+  }
   public async setMapCenter(params: IPointGeometry) {
     let x = params.x;
     let y = params.y;
@@ -134,4 +147,13 @@ export default class MapAppGaode implements IMapContainer {
 
   public async showJurisdiction() {}
   public async hideJurisdiction() {}
+
+  public async showDistrictMask(param: IDistrictParameter) {
+    const jurisdiction = JurisdictionPolice.getInstance(this.view);
+    await jurisdiction.showDistrictMask(param);
+  }
+  public async hideDistrictMask() {
+    const jurisdiction = JurisdictionPolice.getInstance(this.view);
+    await jurisdiction.hideDistrictMask();
+  }
 }

@@ -48,7 +48,8 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
-  IResult
+  IResult,
+  IDistrictParameter
 } from "@/types/map";
 
 @Component({
@@ -137,6 +138,12 @@ export default class MapContainer extends Vue implements IMapContainer {
   }
   public hideJurisdiction() {
     this.mapContainer.hideJurisdiction();
+  }
+  public showDistrictMask(params: IDistrictParameter) {
+    this.mapContainer.showDistrictMask(params);
+  }
+  public hideDistrictMask() {
+    this.mapContainer.hideDistrictMask();
   }
   public findFeature(params: IFindParameter) {
     this.mapContainer.findFeature(params);

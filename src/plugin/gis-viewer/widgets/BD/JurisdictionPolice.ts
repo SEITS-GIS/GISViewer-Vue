@@ -34,14 +34,14 @@ export class JurisdictionPolice {
       "#fff176",
       "#ffd54f",
       "#ffb74d",
-      "#ff8a65",
+      "#ff8a65"
     ];
     switch (type.toLowerCase()) {
       case "polyline":
       case "linestring":
         marker = new BMap.Polyline(this.getGeometry(geometry.coordinates), {
           strokeColor: "rgba(0,0,0,255)",
-          strokeWeight: 2,
+          strokeWeight: 2
         });
         break;
       case "polygon":
@@ -49,7 +49,7 @@ export class JurisdictionPolice {
           strokeColor: "#3f51b5",
           strokeWeight: 1,
           fillColor: colorRamps[index % colorRamps.length],
-          fillOpacity: 0.4,
+          fillOpacity: 0.4
         });
         break;
     }
@@ -98,8 +98,8 @@ export class JurisdictionPolice {
       });
       promises.push(promise);
     }
-    return new Promise((resloveAll) => {
-      Promise.all(promises).then((e) => {
+    return new Promise(resloveAll => {
+      Promise.all(promises).then(e => {
         //console.log(e);
         resloveAll(e);
       });
@@ -134,7 +134,7 @@ export class JurisdictionPolice {
           _this.clickOverlay = new BMap.Polyline(polygon.getPath(), {
             strokeColor: "red",
             strokeWeight: 3,
-            strokeStyle: "dashed",
+            strokeStyle: "dashed"
           });
           _this.view.addOverlay(_this.clickOverlay);
         });
@@ -152,7 +152,7 @@ export class JurisdictionPolice {
         if (cp) {
           var opts = {
             position: cp, // 指定文本标注所在的地理位置
-            offset: new BMap.Size(-15, -15), //设置文本偏移量
+            offset: new BMap.Size(-15, -15) //设置文本偏移量
           };
           var label = new BMap.Label(name, opts); // 创建文本标注对象
           label.setStyle({
@@ -161,7 +161,7 @@ export class JurisdictionPolice {
             color: "#45526e",
             fontWeight: "bold",
             fontSize: "13px",
-            pointerEvents: "none",
+            pointerEvents: "none"
           });
           this.view.addOverlay(label);
           this.overlayers.push(label);
@@ -213,7 +213,7 @@ export class JurisdictionPolice {
     });
     return {
       status: 0,
-      message: "ok",
+      message: "ok"
     };
   }
   public async hideJurisdiction() {

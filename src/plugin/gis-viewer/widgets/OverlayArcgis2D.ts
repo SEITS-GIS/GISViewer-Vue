@@ -8,7 +8,14 @@ export class OverlayArcgis2D {
   private overlayLayer!: __esri.GraphicsLayer;
   private view!: __esri.MapView;
 
-  private primitive2D = ["circle", "cross", "diamond", "square", "triangle", "x"];
+  private primitive2D = [
+    "circle",
+    "cross",
+    "diamond",
+    "square",
+    "triangle",
+    "x"
+  ];
 
   private constructor(view: __esri.MapView) {
     this.view = view;
@@ -64,7 +71,7 @@ export class OverlayArcgis2D {
         xoffset: symbol.xoffset ? symbol.xoffset : null,
         yoffset: symbol.yoffset ? symbol.yoffset : null,
         angle: symbol.rotation ? symbol.rotation : null
-      }
+      };
     }
 
     return result;
@@ -137,7 +144,6 @@ export class OverlayArcgis2D {
     }
     return tipContent;
   }
-
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     if (!this.overlayLayer) {

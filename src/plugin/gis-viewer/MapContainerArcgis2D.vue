@@ -15,7 +15,8 @@ import {
   IPointGeometry,
   ICenterLevel,
   IFindParameter,
-  IResult
+  IResult,
+  IDistrictParameter
 } from "@/types/map";
 
 @Component({
@@ -53,6 +54,8 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public setMapCenterAndLevel(params: ICenterLevel) {}
   public showJurisdiction() {}
   public hideJurisdiction() {}
+  public showDistrictMask(param: IDistrictParameter) {}
+  public hideDistrictMask() {}
   public findFeature(params: IFindParameter) {}
 }
 </script>
