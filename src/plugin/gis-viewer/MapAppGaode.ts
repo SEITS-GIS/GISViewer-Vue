@@ -13,7 +13,7 @@ import {
   IDistrictParameter
 } from '@/types/map';
 import {OverlayGaode} from '@/plugin/gis-viewer/widgets/OverlayGaode';
-import {JurisdictionPolice} from '@/plugin/gis-viewer/widgets/GD/JurisdictionPolice';
+import {JurisdictionPoliceGD} from '@/plugin/gis-viewer/widgets/GD/JurisdictionPoliceGD';
 import {HeatMap} from '@/plugin/gis-viewer/widgets/GD/HeatMap';
 
 declare let AMap: any;
@@ -176,11 +176,11 @@ export default class MapAppGaode implements IMapContainer {
   public async hideJurisdiction() {}
 
   public async showDistrictMask(param: IDistrictParameter) {
-    const jurisdiction = JurisdictionPolice.getInstance(this.view);
+    const jurisdiction = JurisdictionPoliceGD.getInstance(this.view);
     await jurisdiction.showDistrictMask(param);
   }
   public async hideDistrictMask() {
-    const jurisdiction = JurisdictionPolice.getInstance(this.view);
+    const jurisdiction = JurisdictionPoliceGD.getInstance(this.view);
     await jurisdiction.hideDistrictMask();
   }
 }

@@ -3,12 +3,12 @@ import {
   IResult,
   IHeatParameter,
   IDistrictParameter
-} from "@/types/map";
-import axios from "axios";
-declare let AMap:any;
+} from '@/types/map';
+import axios from 'axios';
+declare let AMap: any;
 
-export class JurisdictionPolice {
-  private static jurisdictionPolice: JurisdictionPolice;
+export class JurisdictionPoliceGD {
+  private static jurisdictionPolice: JurisdictionPoliceGD;
   private overlayGroups: any;
   private clickOverlay: any;
   private view!: any;
@@ -18,15 +18,15 @@ export class JurisdictionPolice {
   }
 
   public static getInstance(view: any) {
-    if (!JurisdictionPolice.jurisdictionPolice) {
-      JurisdictionPolice.jurisdictionPolice = new JurisdictionPolice(view);
+    if (!JurisdictionPoliceGD.jurisdictionPolice) {
+      JurisdictionPoliceGD.jurisdictionPolice = new JurisdictionPoliceGD(view);
     }
-    return JurisdictionPolice.jurisdictionPolice;
+    return JurisdictionPoliceGD.jurisdictionPolice;
   }
   public async showDistrictMask(params: IDistrictParameter) {
     this.hideDistrictMask();
     let name = params.name;
-    let citycode: string = params.city || "021";
+    let citycode: string = params.city || '021';
     let outmask: boolean = params.showMask === true;
     let district = null;
     let polygons = new Array();
@@ -36,8 +36,8 @@ export class JurisdictionPolice {
       //实例化DistrictSearch
       var opts = {
         subdistrict: 0, //获取边界不需要返回下级行政区
-        extensions: "all", //返回行政区边界坐标组等具体信息
-        level: "city" //查询行政级别为 市
+        extensions: 'all', //返回行政区边界坐标组等具体信息
+        level: 'city' //查询行政级别为 市
       };
       district = new AMap.DistrictSearch(opts);
     }
@@ -80,8 +80,8 @@ export class JurisdictionPolice {
                 strokeWeight: 3,
                 path: area,
                 fillOpacity: 0.3,
-                fillColor: "rgb(255,255,255)",
-                strokeColor: "#0091ea"
+                fillColor: 'rgb(255,255,255)',
+                strokeColor: '#0091ea'
               });
               polygons.push(polygon);
             }
@@ -95,8 +95,8 @@ export class JurisdictionPolice {
           strokeWeight: 5,
           path: inner,
           fillOpacity: 0,
-          fillColor: "rgb(255,255,255)",
-          strokeColor: "#0091ea"
+          fillColor: 'rgb(255,255,255)',
+          strokeColor: '#0091ea'
         });
         polygons.push(polygon);
 
