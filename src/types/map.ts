@@ -8,10 +8,10 @@ export interface IResult {
 }
 
 export enum Platforms {
-  ArcGIS3D = "arcgis3d",
-  ArcGIS2D = "arcgis2d",
-  BDMap = "bd",
-  AMap = "gd"
+  ArcGIS3D = 'arcgis3d',
+  ArcGIS2D = 'arcgis2d',
+  BDMap = 'bd',
+  AMap = 'gd'
 }
 
 export interface ILayerConfig {
@@ -56,10 +56,25 @@ export interface IPointSymbol {
 
 export interface IPolylineSymbol {
   type: string; //line-2d/line-3d
+  isoutline?: boolean;
+  outlineColor?: string;
+  borderWeight?: number;
+  color?: string;
+  opacity?: number;
+  width?: number;
+  style?: 'solid' | 'dashed' | undefined;
+  dashArray?: [number, number] | [number, number, number, number] | undefined;
+  lineJoin?: 'miter' | 'bevel' | 'round' | undefined;
+  lineCap?: 'round' | 'butt' | 'square' | undefined;
+  zIndex?: number;
 }
 
 export interface IPolygonSymbol {
   type: string;
+  outline: IPolylineSymbol;
+  color?: string;
+  opacity?: number;
+  zIndex?: number;
 }
 
 export interface IPointGeometry {
@@ -88,7 +103,7 @@ export interface IOverlay {
   symbol: IPointSymbol | IPolylineSymbol;
   geometry: IPointGeometry | IPolylineGeometry | IPolygonGeometry;
   fields: any;
-  zooms?:[number,number];
+  zooms?: [number, number];
   buttons: string[];
 }
 
@@ -96,7 +111,7 @@ export interface IOverlayParameter {
   defaultType?: string;
   type?: string;
   defaultSymbol?: IPointSymbol | IPolylineSymbol;
-  defaultZooms?:[number,number];
+  defaultZooms?: [number, number];
   overlays: Array<IOverlay>;
   autoPopup?: boolean;
   showPopup?: boolean; //是否显示popup

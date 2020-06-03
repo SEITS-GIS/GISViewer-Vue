@@ -7,7 +7,9 @@ import {
   IPointSymbol,
   IPolylineSymbol,
   IPolygonSymbol,
-  IFindParameter
+  IFindParameter,
+  IPolylineGeometry,
+  IPolygonGeometry
 } from '@/types/map';
 import '@amap/amap-jsapi-types';
 
@@ -31,145 +33,6 @@ export class OverlayGaode {
     }
     return OverlayGaode.instance;
   }
-  // private createOverlayLayer(markers: any) {
-  //   this.overlayGroup = new AMap.OverlayGroup(markers);
-  //   this.overlayGroup.label = "Overlays";
-  //   this.view.add(this.overlayGroup);
-  // }
-  // private getMarker(overlay: any, symbol: any) {
-  //   let marker;
-  //   let type;
-  //   if (symbol) {
-  //     type = symbol.type;
-  //   }
-  //   if (!symbol.outline) {
-  //     symbol.outline = {};
-  //   }
-  //   switch (type) {
-  //     case "polyline":
-  //       marker = new AMap.Polyline({
-  //         path: overlay.geometry.path,
-  //         isOutline: symbol.isoutline || false,
-  //         outlineColor: symbol.outlineColor || "#ffffff",
-  //         borderWeight: symbol.borderWeight || 1,
-  //         strokeColor: symbol.color || "#000000",
-  //         strokeOpacity: symbol.opacity || 1,
-  //         strokeWeight: symbol.width || 3,
-  //         // 折线样式还支持 'dashed'
-  //         strokeStyle: symbol.style || "solid",
-  //         // strokeStyle是dashed时有效
-  //         strokeDasharray: symbol.dashArray || [10, 5],
-  //         lineJoin: symbol.lineJoin || "round",
-  //         lineCap: symbol.lineCap || "round",
-  //         zIndex: symbol.zIndex || 1,
-  //       });
-  //       break;
-  //     case "polygon":
-  //       marker = new AMap.Polygon({
-  //         path: overlay.geometry.ring || overlay.geometry.path,
-  //         strokeColor: symbol.outline.color || "#000000",
-  //         strokeOpacity: symbol.outline.opacity || 1,
-  //         strokeWeight: symbol.outline.width || 1,
-  //         // 线样式还支持 'dashed'
-  //         strokeStyle: symbol.outline.style || "solid",
-  //         // strokeStyle是dashed时有效
-  //         strokeDasharray: symbol.outline.dashArray || [10, 5],
-  //         fillColor: symbol.color || "#000000",
-  //         fillOpacity: symbol.opacity || 1,
-  //         zIndex: symbol.zIndex || 1,
-  //       });
-  //       break;
-  //     case "extent":
-  //       if (symbol.outline) {
-  //         symbol.outline = {};
-  //       }
-  //       marker = new AMap.Rectangle({
-  //         bounds: new AMap.Bounds(
-  //           new AMap.LngLat(overlay.geometry.xmin, overlay.geometry.ymin),
-  //           new AMap.LngLat(overlay.geometry.xmax, overlay.geometry.ymax)
-  //         ),
-  //         strokeColor: symbol.outline.color || "#000000",
-  //         strokeOpacity: symbol.outline.opacity || 1,
-  //         strokeWeight: symbol.outline.width || 1,
-  //         // 线样式还支持 'dashed'
-  //         strokeStyle: symbol.outline.style || "solid",
-  //         // strokeStyle是dashed时有效
-  //         strokeDasharray: symbol.outline.dashArray || [10, 5],
-  //         fillColor: symbol.color || "#000000",
-  //         fillOpacity: symbol.opacity || 1,
-  //         zIndex: symbol.zIndex || 1,
-  //         cursor: "pointer",
-  //       });
-  //       break;
-  //     case "circle":
-  //       marker = new AMap.Circle({
-  //         center: overlay.geometry.center,
-  //         radius: overlay.geometry.radius || 10, //半径
-  //         //borderWeight: Number(symbol.borderWeight) || 1,
-  //         strokeColor: symbol.outline.color || "#000000",
-  //         strokeOpacity: symbol.outline.opacity || 1,
-  //         strokeWeight: symbol.outline.width || 1,
-  //         // 线样式还支持 'dashed'
-  //         strokeStyle: symbol.outline.style || "solid",
-  //         // strokeStyle是dashed时有效
-  //         strokeDasharray: symbol.outline.dashArray || [10, 5],
-  //         fillColor: symbol.color || "#000000",
-  //         fillOpacity: symbol.opacity || 1,
-  //         zIndex: symbol.zIndex || 1,
-  //       }); //创建圆
-  //       break;
-  //     case "point":
-  //     default:
-  //       marker = new AMap.Marker({
-  //         position: [overlay.geometry.x, overlay.geometry.y],
-  //         zooms: overlay.zoom || overlay.zooms,
-  //         offset: new AMap.Pixel(symbol.xoffset, symbol.yoffset),
-  //         icon: symbol,
-  //       });
-  //       break;
-  //   }
-  //   return marker;
-  // }
-  // private makeSymbol(symbol: IPointSymbol | undefined) {
-  //   if (!symbol) return undefined;
-
-  //   let icon;
-  //   let myIcon;
-  //   let size = new AMap.Size(20, 20);
-  //   let xoffset;
-  //   let yoffset;
-
-  //   switch (symbol.type) {
-  //     case "polyline":
-  //     case "polygon":
-  //     case "extent":
-  //     case "circle":
-  //       icon = symbol;
-  //       break;
-  //     case "point":
-  //     default:
-  //       if (symbol.size) {
-  //         size = new AMap.Size(
-  //           symbol.size instanceof Array ? Number(symbol.size[0]):  Number(symbol.size),
-  //           symbol.size instanceof Array ? Number(symbol.size[1]) : Number(symbol.size)
-  //         );
-  //       }
-  //       if (symbol.width) {
-  //         size = new AMap.Size(Number(symbol.width), Number(symbol.height));
-  //       }
-  //       xoffset = symbol.xoffset || 0 - size.getWidth() / 2;
-  //       yoffset = symbol.yoffset || 0 - size.getHeight();
-  //       icon = new AMap.Icon({
-  //         image: symbol.url || "",
-  //         size: size,
-  //         imageSize: size
-  //       });
-  //       (icon as any).xoffset = xoffset;
-  //       (icon as any).yoffset = yoffset;
-  //       break;
-  //   }
-  //   return icon;
-  // }
   /**根据graphic的属性生成弹出框*/
   private getInfoWindowContent(graphic: any) {
     let content = '';
@@ -258,9 +121,10 @@ export class OverlayGaode {
       }
 
       let overlay;
+      let symbol;
       //点
       if ('x' in geometry && 'y' in geometry) {
-        const symbol = this.makeSymbol(feature.symbol) || defaultSymbol;
+        symbol = this.makeSymbol(feature.symbol) || defaultSymbol;
         if (symbol) {
           let xoffset = feature.symbol
             ? (feature.symbol as IPointSymbol).xoffset || 0
@@ -273,7 +137,8 @@ export class OverlayGaode {
             extData: {
               clickfunc: this.showGisDeviceInfo,
               attributes: fields,
-              infoTemplate: content
+              infoTemplate: content,
+              type: 'point'
             },
             icon: (symbol || defaultSymbol) as AMap.Icon,
             zooms: feature.zooms || params.defaultZooms,
@@ -292,65 +157,127 @@ export class OverlayGaode {
             }
           });
         }
-        overlay.on('click', this.onOverlayClick);
-
-        group.addOverlay(overlay);
       }
       //线
       else if ('path' in geometry) {
+        symbol =
+          (feature.symbol as IPolylineSymbol) ||
+          (defaultSymbol as IPolylineSymbol);
+        overlay = new AMap.Polyline({
+          path: (feature.geometry as IPolylineGeometry).path as any,
+          extData: {
+            clickfunc: this.showGisDeviceInfo,
+            attributes: fields,
+            infoTemplate: content,
+            type: 'polyline'
+          },
+          isOutline: symbol.isoutline || false,
+          outlineColor: symbol.outlineColor || '#ffffff',
+          borderWeight: symbol.borderWeight || 1,
+          strokeColor: symbol.color || '#000000',
+          strokeOpacity: symbol.opacity || 1,
+          strokeWeight: symbol.width || 3,
+          // 折线样式还支持 'dashed'
+          strokeStyle: symbol.style || 'solid',
+          // strokeStyle是dashed时有效
+          strokeDasharray: symbol.dashArray || [10, 5],
+          lineJoin: symbol.lineJoin || 'round',
+          lineCap: symbol.lineCap || 'round',
+          zIndex: symbol.zIndex || 1
+        });
       }
       //面
       else if ('ring' in geometry) {
+        symbol =
+          (feature.symbol as IPolygonSymbol) ||
+          (defaultSymbol as IPolygonSymbol);
+        overlay = new AMap.Polygon({
+          path: (feature.geometry as IPolygonGeometry).ring as any,
+          extData: {
+            clickfunc: this.showGisDeviceInfo,
+            attributes: fields,
+            infoTemplate: content,
+            type: 'polygon'
+          },
+          strokeColor: (symbol.outline && symbol.outline.color) || '#000000',
+          strokeOpacity: (symbol.outline && symbol.outline.opacity) || 1,
+          strokeWeight: (symbol.outline && symbol.outline.width) || 1,
+          // 线样式还支持 'dashed'
+          strokeStyle: (symbol.outline && symbol.outline.style) || 'solid',
+          // strokeStyle是dashed时有效
+          strokeDasharray: (symbol.outline && symbol.outline.dashArray) || [
+            10,
+            5
+          ],
+          fillColor: symbol.color || '#000000',
+          fillOpacity: symbol.opacity || 1,
+          zIndex: symbol.zIndex || 1
+        });
+      } else if (
+        'xmin' in geometry &&
+        'ymin' in geometry &&
+        'xmax' in geometry &&
+        'ymax' in geometry
+      ) {
+        let geo = feature.geometry as any;
+        symbol =
+          (feature.symbol as IPolygonSymbol) ||
+          (defaultSymbol as IPolygonSymbol);
+        overlay = new AMap.Polygon({
+          path: (feature.geometry as IPolygonGeometry).ring as any,
+          extData: {
+            clickfunc: this.showGisDeviceInfo,
+            attributes: fields,
+            infoTemplate: content,
+            type: 'extent'
+          },
+          strokeColor: (symbol.outline && symbol.outline.color) || '#000000',
+          strokeOpacity: (symbol.outline && symbol.outline.opacity) || 1,
+          strokeWeight: (symbol.outline && symbol.outline.width) || 1,
+          // 线样式还支持 'dashed'
+          strokeStyle: (symbol.outline && symbol.outline.style) || 'solid',
+          // strokeStyle是dashed时有效
+          strokeDasharray: (symbol.outline && symbol.outline.dashArray) || [
+            10,
+            5
+          ],
+          fillColor: symbol.color || '#000000',
+          fillOpacity: symbol.opacity || 1,
+          zIndex: symbol.zIndex || 1
+        });
+      } else if ('center' in geometry && 'radius' in geometry) {
+        symbol =
+          (feature.symbol as IPolygonSymbol) ||
+          (defaultSymbol as IPolygonSymbol);
+        overlay = new AMap.Circle({
+          center: (feature.geometry as any).center,
+          radius: (feature.geometry as any).radius || 10, //半径
+          extData: {
+            clickfunc: this.showGisDeviceInfo,
+            attributes: fields,
+            infoTemplate: content,
+            type: 'circle'
+          },
+          strokeColor: (symbol.outline && symbol.outline.color) || '#000000',
+          strokeOpacity: (symbol.outline && symbol.outline.opacity) || 1,
+          strokeWeight: (symbol.outline && symbol.outline.width) || 1,
+          // 线样式还支持 'dashed'
+          strokeStyle: (symbol.outline && symbol.outline.style) || 'solid',
+          // strokeStyle是dashed时有效
+          strokeDasharray: (symbol.outline && symbol.outline.dashArray) || [
+            10,
+            5
+          ],
+          fillColor: symbol.color || '#000000',
+          fillOpacity: symbol.opacity || 1,
+          zIndex: symbol.zIndex || 1
+        });
+      }
+      if (overlay) {
+        group.addOverlay(overlay);
+        overlay.on('click', this.onOverlayClick);
       }
     });
-
-    // let graphic = this.getMarker(overlay, symbol);
-    // (graphic as any).attributes = fields;
-    // (graphic as any).id = overlay.id;
-    // (graphic as any).ptype = overlay.type || defaultType;
-    // (graphic as any).buttons = buttons;
-
-    // let title;
-    // let content = "";
-
-    // if (showPopup) {
-    //   if (defaultInfoTemplate === undefined) {
-    //     content = this.getInfoWindowContent(graphic);
-    //   } else {
-    //     title = defaultInfoTemplate.title;
-    //     content = this.getPopUpHtml(graphic, defaultInfoTemplate.content);
-    //   }
-    //   if (autoPopup) {
-    //     let infoWindow = new AMap.InfoWindow({
-    //       anchor: "bottom-center",
-    //       content: content,
-    //     });
-    //     infoWindow.open(this.view, [
-    //       (graphic as any).getPosition().lng,
-    //       (graphic as any).getPosition().lat,
-    //     ],10);
-    //   }
-    // }
-    // this.onMarkerClick(graphic, content, symbol);
-    // if (!this.overlayGroup) {
-    //   this.createOverlayLayer([graphic]);
-    // } else {
-    //   this.overlayGroup.addOverlay(graphic);
-    // }
-    // if (showToolTip) {
-    //   if (geoType == "point") {
-    //     // 创建纯文本标记
-    //     let xoffset = 0; //toolTipOption.xoffset || 0;
-    //     let yoffset = -6; //toolTipOption.yoffset || -6;
-    //     (graphic as any).setLabel({
-    //       offset: new AMap.Pixel(xoffset, yoffset), //设置文本标注偏移量
-    //       content: this.getPopUpHtml(graphic, toolTipContent), //设置文本标注内容
-    //       direction: "center", //设置文本标注方位
-    //     });
-    //   }
-    // }
-    // addCount++;
-    // }
     return {
       status: 0,
       message: 'ok',
@@ -362,7 +289,16 @@ export class OverlayGaode {
     let mark = event.target;
     let fields = event.target.getExtData().attributes;
     let content = event.target.getExtData().infoTemplate || '';
-    let yoffset = 0 - mark.getIcon().getImageSize().height / 2;
+    let geotype = event.target.getExtData().type || 'point';
+    let yoffset = 0;
+    if (geotype === 'point') {
+      let size = mark.getIcon().getImageSize();
+      if ('height' in size) {
+        yoffset = 0 - size.height / 2;
+      } else {
+        yoffset = 0 - size[1] / 2;
+      }
+    }
     if (content != '') {
       let infoWindow = new AMap.InfoWindow({
         anchor: 'bottom-center',
@@ -370,7 +306,7 @@ export class OverlayGaode {
         offset: new AMap.Pixel(0, yoffset)
       }); // 创建信息窗口对象
       let center;
-      if (event.target.getPosition) {
+      if (geotype === 'point') {
         center = event.target.getPosition();
       } else {
         center = [event.lnglat.lng, event.lnglat.lat];
@@ -381,48 +317,6 @@ export class OverlayGaode {
     if (event.target.getExtData().clickfunc) {
       event.target.getExtData().clickfunc(fields.type, fields.id, fields);
     }
-  }
-
-  //创建点击事件
-  private onMarkerClick(mark: any, content: any, symbol: any) {
-    const _this = this;
-    mark.on('click', (e: any) => {
-      if (content != '') {
-        let infoWindow = new AMap.InfoWindow({
-          anchor: 'bottom-center',
-          content: content,
-          offset: new AMap.Pixel(0, symbol.yoffset || 0)
-        }); // 创建信息窗口对象
-        let center;
-        if (e.target.getPosition) {
-          center = e.target.getPosition();
-        } else {
-          center = [e.lnglat.lng, e.lnglat.lat];
-        }
-        mark.isOpenInfo = true;
-        infoWindow.open(_this.view, center, 10);
-      }
-      if (_this.showGisDeviceInfo) {
-        _this.showGisDeviceInfo(e.target.ptype, e.target.id);
-      }
-    });
-  }
-  getSymbolType(geometry: any) {
-    var type = 'point';
-    if (geometry.ring) {
-      type = 'polygon';
-    }
-    if (geometry.path) {
-      type = 'polyline';
-    }
-    if (geometry.xmin) {
-      type = 'extent';
-    }
-    if (geometry.radius) {
-      type = 'circle';
-    }
-    geometry.type = type;
-    return type;
   }
 
   public async deleteOverlays(params: IOverlayDelete): Promise<IResult> {
@@ -539,6 +433,13 @@ export class OverlayGaode {
           size = [
             this.makePixelSize(pointSymbol.size),
             this.makePixelSize(pointSymbol.size)
+          ];
+        }
+
+        if (pointSymbol.width && pointSymbol.height) {
+          size = [
+            this.makePixelSize(pointSymbol.width),
+            this.makePixelSize(pointSymbol.height)
           ];
         }
         return new AMap.Icon({

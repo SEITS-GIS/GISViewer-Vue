@@ -7,7 +7,7 @@ import {
   IOverlayClusterParameter,
   IOverlayDelete,
   IFindParameter
-} from "@/types/map";
+} from '@/types/map';
 declare let BMap: any;
 declare let BMapLib: any;
 
@@ -30,7 +30,7 @@ export class OverlayBaidu {
     return OverlayBaidu.overlayBD;
   }
 
-  private async createOverlayLayer() { }
+  private async createOverlayLayer() {}
   private getMarker(overlay: any, symbol: any): any {
     let marker: any;
     let geometry = overlay.geometry;
@@ -39,22 +39,22 @@ export class OverlayBaidu {
       type = symbol.type;
     }
     switch (type) {
-      case "polyline":
+      case 'polyline':
         marker = new BMap.Polyline(this.getGeometry(geometry.paths[0]), symbol);
         break;
-      case "polygon":
+      case 'polygon':
         marker = new BMap.Polygon(this.getGeometry(geometry.rings[0]), symbol);
         break;
-      case "extent":
+      case 'extent':
         break;
-      case "circle":
+      case 'circle':
         marker = new BMap.Circle(
           new BMap.Point(geometry.x, geometry.y),
           geometry.radius,
-          { strokeColor: "blue", strokeWeight: 2, strokeOpacity: 0.5 }
+          {strokeColor: 'blue', strokeWeight: 2, strokeOpacity: 0.5}
         ); //创建圆
         break;
-      case "point":
+      case 'point':
       default:
         marker = new BMap.Marker(
           new BMap.Point(geometry.x, geometry.y),
@@ -83,10 +83,10 @@ export class OverlayBaidu {
     let yoffset;
 
     switch (symbol.type) {
-      case "polyline":
-        marker = { strokeColor: symbol.color, strokeWeight: symbol.size };
+      case 'polyline':
+        marker = {strokeColor: symbol.color, strokeWeight: symbol.size};
         break;
-      case "polygon" || "extent" || "circle":
+      case 'polygon' || 'extent' || 'circle':
         if (!symbol.outline) return undefined;
         marker = {
           strokeColor: symbol.outline.color,
@@ -94,7 +94,7 @@ export class OverlayBaidu {
           fillColor: symbol.color
         };
         break;
-      case "point":
+      case 'point':
       default:
         if (symbol.size) {
           size = new BMap.Size(
@@ -111,39 +111,37 @@ export class OverlayBaidu {
         myIcon = new BMap.Icon(symbol.url, size, {
           imageSize: size
         });
-        marker = { icon: myIcon, offset: new BMap.Size(xoffset, yoffset) };
+        marker = {icon: myIcon, offset: new BMap.Size(xoffset, yoffset)};
         break;
     }
     return marker;
   }
   /**根据graphic的属性生成弹出框*/
   private getInfoWindowContent(graphic: any): any {
-    let content = "";
+    let content = '';
     //键值对
     for (let fieldName in graphic.attributes) {
       if (graphic.attributes.hasOwnProperty(fieldName)) {
         content +=
-          "<b>" + fieldName + ": </b>" + graphic.attributes[fieldName] + "<br>";
+          '<b>' + fieldName + ': </b>' + graphic.attributes[fieldName] + '<br>';
       }
     }
     //去掉最后的<br>
-    content = content.substring(0, content.lastIndexOf("<br>"));
+    content = content.substring(0, content.lastIndexOf('<br>'));
     if (graphic.buttons !== undefined) {
-      content += "<hr>";
-      graphic.buttons.forEach(
-        (buttonConfig: { type: string; label: string }) => {
-          content +=
-            "<button type='button' class='btn btn-primary btn-sm' onclick='mapFeatureClicked(" +
-            '"' +
-            buttonConfig.type +
-            '", "' +
-            graphic.id +
-            '"' +
-            ")'>" +
-            buttonConfig.label +
-            "</button>  ";
-        }
-      );
+      content += '<hr>';
+      graphic.buttons.forEach((buttonConfig: {type: string; label: string}) => {
+        content +=
+          "<button type='button' class='btn btn-primary btn-sm' onclick='mapFeatureClicked(" +
+          '"' +
+          buttonConfig.type +
+          '", "' +
+          graphic.id +
+          '"' +
+          ")'>" +
+          buttonConfig.label +
+          '</button>  ';
+      });
     }
     return content;
   }
@@ -153,7 +151,7 @@ export class OverlayBaidu {
     for (let fieldName in graphic.attributes) {
       if (graphic.attributes.hasOwnProperty(fieldName)) {
         tipContent = tipContent.replace(
-          new RegExp("{" + fieldName + "}", "g"),
+          new RegExp('{' + fieldName + '}', 'g'),
           graphic.attributes[fieldName]
         );
       }
@@ -197,7 +195,7 @@ export class OverlayBaidu {
 
       let mapView = this.view;
       let title: any;
-      let content: string = "";
+      let content: string = '';
 
       if (showPopup) {
         if (defaultInfoTemplate === undefined) {
@@ -212,18 +210,18 @@ export class OverlayBaidu {
             //height: 50,     // 信息窗口高度
             title: title, // 信息窗口标题
             enableMessage: true, //设置允许信息窗发送短息
-            message: ""
+            message: ''
           });
           graphic.isOpenInfo = true;
           this.view.openInfoWindow(infoWindow, graphic.point);
         }
-        graphic.addEventListener("click", function (e: any) {
+        graphic.addEventListener('click', function(e: any) {
           let infoWindow = new BMap.InfoWindow(content, {
             width: 0, // 信息窗口宽度
             height: 0, // 信息窗口高度
             title: title, // 信息窗口标题
             enableMessage: true, //设置允许信息窗发送短息
-            message: ""
+            message: ''
           }); // 创建信息窗口对象
           e.target.isOpenInfo = true;
           mapView.openInfoWindow(infoWindow, e.point);
@@ -240,7 +238,7 @@ export class OverlayBaidu {
     }
     return {
       status: 0,
-      message: "ok",
+      message: 'ok',
       result: `成功添加${params.overlays.length}中的${addCount}个覆盖物`
     };
   }
@@ -250,7 +248,7 @@ export class OverlayBaidu {
     let level = params.level || this.view.getZoom();
     let overlays = this.overlayers;
     let centerResult = params.centerResult;
-    overlays.forEach(overlay => {
+    overlays.forEach((overlay) => {
       if (type == overlay.type && ids.indexOf(overlay.id) >= 0) {
         if (centerResult) {
           let center = overlay.getPosition();
@@ -259,7 +257,7 @@ export class OverlayBaidu {
           }
         }
         overlay.setAnimation(2);
-        setTimeout(function () {
+        setTimeout(function() {
           overlay.setAnimation(0);
         }, 3600);
       }
@@ -280,7 +278,7 @@ export class OverlayBaidu {
     const clusterSymbol = params.clusterSymbol;
     const clusterImage = clusterSymbol
       ? clusterSymbol.url
-      : "assets/image/m0.png";
+      : 'assets/image/m0.png';
     const clusterSize =
       clusterSymbol && clusterSymbol.width
         ? new BMap.Size(clusterSymbol.width, clusterSymbol.height)
@@ -302,13 +300,13 @@ export class OverlayBaidu {
       graphic.type = overlay.type || defaultType;
       let content = this.getPopUpHtml(graphic, defaultTooltip);
 
-      graphic.addEventListener("click", function (e: any) {
+      graphic.addEventListener('click', function(e: any) {
         let infoWindow = new BMap.InfoWindow(content, {
           width: 0, // 信息窗口宽度
           height: 0, // 信息窗口高度
-          title: "", // 信息窗口标题
+          title: '', // 信息窗口标题
           enableMessage: true, //设置允许信息窗发送短息
-          message: ""
+          message: ''
         }); // 创建信息窗口对象
         mapView.openInfoWindow(infoWindow, e.point);
         _this._showGisDeviceInfo(e.target.type, e.target.id);
@@ -319,7 +317,7 @@ export class OverlayBaidu {
 
     let markerClusterer = new BMapLib.MarkerClusterer(this.view, {
       markers: markers,
-      styles: [{ url: clusterImage, size: clusterSize }],
+      styles: [{url: clusterImage, size: clusterSize}],
       maxZoom: zoom,
       gridSize: distance
     });
@@ -327,7 +325,7 @@ export class OverlayBaidu {
     this.markerClustererLayer.push(markerClusterer);
     return {
       status: 0,
-      message: "ok"
+      message: 'ok'
     };
   }
   public async deleteAllOverlays() {
@@ -342,7 +340,7 @@ export class OverlayBaidu {
   public async deleteOverlays(params: IOverlayDelete) {
     let types = params.types || [];
     let ids = params.ids || [];
-    this.overlayers = this.overlayers.filter(graphic => {
+    this.overlayers = this.overlayers.filter((graphic) => {
       if (
         //只判断type
         (types.length > 0 &&
@@ -370,7 +368,7 @@ export class OverlayBaidu {
   public async deleteOverlaysCluster(params: IOverlayDelete) {
     let types = params.types || [];
     if (this.markerClustererLayer && this.markerClustererLayer.length > 0) {
-      this.markerClustererLayer.forEach(layer => {
+      this.markerClustererLayer.forEach((layer) => {
         if (types.indexOf(layer.type) >= 0) {
           layer.clearMarkers();
         }
@@ -380,7 +378,7 @@ export class OverlayBaidu {
   }
   public async deleteAllOverlaysCluster() {
     if (this.markerClustererLayer && this.markerClustererLayer.length > 0) {
-      this.markerClustererLayer.forEach(layer => {
+      this.markerClustererLayer.forEach((layer) => {
         layer.clearMarkers();
       });
     }

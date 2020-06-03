@@ -16,6 +16,7 @@ import {OverlayGaode} from '@/plugin/gis-viewer/widgets/OverlayGaode';
 import {JurisdictionPoliceGD} from './widgets/GD/JurisdictionPoliceGD';
 import {HeatMap} from './widgets/GD/HeatMap';
 import '@amap/amap-jsapi-types';
+import {ClusterGD} from './widgets/GD/ClusterGD';
 
 export default class MapAppGaode implements IMapContainer {
   public view!: AMap.Map;
@@ -25,16 +26,20 @@ export default class MapAppGaode implements IMapContainer {
   public async initialize(mapConfig: any, mapContainer: string) {
     let apiUrl = mapConfig.arcgis_api || mapConfig.api_url;
     let plugins =
-      '&plugin=AMap.DistrictSearch,AMap.Heatmap,AMap.CustomLayer,AMap.ControlBar';
+      '&plugin=AMap.DistrictSearch,AMap.CustomLayer,AMap.ControlBar,AMap.MarkerClusterer';
+    let version = '1.0';
     if (apiUrl.indexOf('v=2') > -1) {
-      plugins =
-        '&plugin=AMap.DistrictSearch,AMap.HeatMap,AMap.CustomLayer,AMap.ControlBar';
+      plugins += ',AMap.HeatMap';
+      version = '2.0';
+    } else {
+      plugins += ',AMap.Heatmap';
     }
     apiUrl = apiUrl + plugins;
     await loadScript({
       url: apiUrl
     });
     this.view = new AMap.Map(mapContainer, mapConfig.options);
+    (this.view as any).version = version;
     return new Promise((resole) => {
       this.view.on('complete', () => {
         if (mapConfig.baseLayers) {
@@ -52,7 +57,7 @@ export default class MapAppGaode implements IMapContainer {
       case 'traffic':
         let trafficlayer = new AMap.TileLayer.Traffic({
           autoRefresh: true, //是否自动刷新，默认为false
-          interval: 60 //刷新间隔，默认180s
+          interval: layer.interval || 60 //刷新间隔，默认180s
         });
         if (layer.visible !== false) {
           view.add(trafficlayer);
@@ -77,11 +82,15 @@ export default class MapAppGaode implements IMapContainer {
     return await overlay.findFeature(params);
   }
 
-  public async addOverlaysCluster(params: IOverlayClusterParameter) {}
+  public async addOverlaysCluster(params: IOverlayClusterParameter) {
+    const cluster = ClusterGD.getInstance(this.view);
+    cluster.showGisDeviceInfo = this.showGisDeviceInfo;
+    await cluster.addOverlaysCluster(params);
+  }
 
   public async addHeatMap(params: IHeatParameter) {
-    const overlay = HeatMap.getInstance(this.view);
-    await overlay.addHeatMap(params);
+    const heatmap = HeatMap.getInstance(this.view);
+    await heatmap.addHeatMap(params);
   }
 
   public async deleteOverlays(params: IOverlayDelete) {
@@ -89,14 +98,20 @@ export default class MapAppGaode implements IMapContainer {
     await overlay.deleteOverlays(params);
   }
 
-  public async deleteOverlaysCluster(params: IOverlayDelete) {}
+  public async deleteOverlaysCluster(params: IOverlayDelete) {
+    const cluster = ClusterGD.getInstance(this.view);
+    await cluster.deleteOverlaysCluster(params);
+  }
 
   public async deleteAllOverlays() {
     const overlay = OverlayGaode.getInstance(this.view);
     await overlay.deleteAllOverlays();
   }
 
-  public async deleteAllOverlaysCluster() {}
+  public async deleteAllOverlaysCluster() {
+    const cluster = ClusterGD.getInstance(this.view);
+    await cluster.deleteAllOverlaysCluster();
+  }
   public async deleteHeatMap() {
     const overlay = HeatMap.getInstance(this.view);
     await overlay.deleteHeatMap();

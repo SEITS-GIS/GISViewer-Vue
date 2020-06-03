@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Emit, Prop } from "vue-property-decorator";
-import MapApp from "@/plugin/gis-viewer/MapAppGaode";
+import {Vue, Component, Emit, Prop} from 'vue-property-decorator';
+import MapApp from '@/plugin/gis-viewer/MapAppGaode';
 import {
   IMapContainer,
   IOverlayParameter,
@@ -17,26 +17,26 @@ import {
   IFindParameter,
   IResult,
   IDistrictParameter
-} from "@/types/map";
+} from '@/types/map';
 
 @Component({
-  name: "MapContainerGaode"
+  name: 'MapContainerGaode'
 })
 export default class MapContainerGd extends Vue implements IMapContainer {
   private mapApp!: MapApp;
 
   //地图配置
-  @Prop({ type: Object }) readonly mapConfig!: Object;
+  @Prop({type: Object}) readonly mapConfig!: Object;
 
-  @Emit("map-loaded")
+  @Emit('map-loaded')
   async mounted() {
     this.mapApp = new MapApp();
-    await this.mapApp.initialize(this.mapConfig, "divAMap");
+    await this.mapApp.initialize(this.mapConfig, 'divAMap');
 
     this.mapApp.showGisDeviceInfo = this.showGisDeviceInfo;
   }
 
-  @Emit("marker-click")
+  @Emit('marker-click')
   public showGisDeviceInfo(type: string, id: string) {}
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
@@ -45,19 +45,25 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   public addHeatMap(params: IHeatParameter) {
     this.mapApp.addHeatMap(params);
   }
-  public addOverlaysCluster(params: IOverlayClusterParameter) {}
+  public addOverlaysCluster(params: IOverlayClusterParameter) {
+    this.mapApp.addOverlaysCluster(params);
+  }
 
   public deleteOverlays(params: IOverlayDelete) {
     this.mapApp.deleteOverlays(params);
   }
 
-  public deleteOverlaysCluster(params: IOverlayDelete) {}
+  public deleteOverlaysCluster(params: IOverlayDelete) {
+    this.mapApp.deleteOverlaysCluster(params);
+  }
 
   public deleteAllOverlays() {
     this.mapApp.deleteAllOverlays();
   }
 
-  public deleteAllOverlaysCluster() {}
+  public deleteAllOverlaysCluster() {
+    this.mapApp.deleteAllOverlaysCluster();
+  }
   public deleteHeatMap() {
     this.mapApp.deleteHeatMap();
   }
