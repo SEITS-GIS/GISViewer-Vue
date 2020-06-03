@@ -5,8 +5,6 @@ import {
   IOverlayDelete,
   IOverlayClusterParameter
 } from '@/types/map';
-import {OverlayGaode} from '../OverlayGaode';
-import {IconSymbol3DLayer} from 'esri/symbols';
 declare let AMap: any;
 
 export class ClusterGD {
