@@ -15,6 +15,7 @@ import {
 import {OverlayGaode} from '@/plugin/gis-viewer/widgets/OverlayGaode';
 import {JurisdictionPoliceGD} from './widgets/GD/JurisdictionPoliceGD';
 import {HeatMap} from './widgets/GD/HeatMap';
+import {ClusterGD} from './widgets/GD/ClusterGD';
 import '@amap/amap-jsapi-types';
 
 export default class MapAppGaode implements IMapContainer {
@@ -82,9 +83,9 @@ export default class MapAppGaode implements IMapContainer {
   }
 
   public async addOverlaysCluster(params: IOverlayClusterParameter) {
-    // const cluster = ClusterGD.getInstance(this.view);
-    // cluster.showGisDeviceInfo = this.showGisDeviceInfo;
-    // await cluster.addOverlaysCluster(params);
+    const cluster = ClusterGD.getInstance(this.view);
+    cluster.showGisDeviceInfo = this.showGisDeviceInfo;
+    await cluster.addOverlaysCluster(params);
   }
 
   public async addHeatMap(params: IHeatParameter) {
@@ -98,8 +99,8 @@ export default class MapAppGaode implements IMapContainer {
   }
 
   public async deleteOverlaysCluster(params: IOverlayDelete) {
-    // const cluster = ClusterGD.getInstance(this.view);
-    // await cluster.deleteOverlaysCluster(params);
+    const cluster = ClusterGD.getInstance(this.view);
+    await cluster.deleteOverlaysCluster(params);
   }
 
   public async deleteAllOverlays() {
@@ -108,8 +109,8 @@ export default class MapAppGaode implements IMapContainer {
   }
 
   public async deleteAllOverlaysCluster() {
-    // const cluster = ClusterGD.getInstance(this.view);
-    // await cluster.deleteAllOverlaysCluster();
+    const cluster = ClusterGD.getInstance(this.view);
+    await cluster.deleteAllOverlaysCluster();
   }
   public async deleteHeatMap() {
     const overlay = HeatMap.getInstance(this.view);
