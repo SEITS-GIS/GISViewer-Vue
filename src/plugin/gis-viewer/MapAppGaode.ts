@@ -57,7 +57,10 @@ export default class MapAppGaode implements IMapContainer {
       case 'traffic':
         let trafficlayer = new AMap.TileLayer.Traffic({
           autoRefresh: true, //是否自动刷新，默认为false
-          interval: layer.interval || 60 //刷新间隔，默认180s
+          interval: layer.interval || 60, //刷新间隔，默认180s
+          zooms: layer.zooms || [3, 17],
+          opacity: layer.opacity || 1,
+          zIndex: layer.zIndex || 4
         });
         if (layer.visible !== false) {
           view.add(trafficlayer);
