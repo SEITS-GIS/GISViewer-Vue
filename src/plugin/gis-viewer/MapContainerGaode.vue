@@ -75,9 +75,13 @@ export default class MapContainerGd extends Vue implements IMapContainer {
     this.mapApp.hideLayer(params);
   }
 
-  public setMapCenter(params: IPointGeometry) {}
+  public setMapCenter(params: IPointGeometry) {
+    this.mapApp.setMapCenter(params);
+  }
 
-  public setMapCenterAndLevel(params: ICenterLevel) {}
+  public setMapCenterAndLevel(params: ICenterLevel) {
+    this.mapApp.setMapCenterAndLevel(params);
+  }
 
   public showJurisdiction() {}
 

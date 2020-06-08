@@ -3,7 +3,8 @@ import {
   IResult,
   IHeatParameter,
   IOverlayDelete,
-  IOverlayClusterParameter
+  IOverlayClusterParameter,
+  IPointSymbol
 } from '@/types/map';
 declare let AMap: any;
 
@@ -70,19 +71,19 @@ export class ClusterGD {
         let mark = new AMap.Marker({
           anchor: 'center',
           icon: new AMap.Icon({
-            image: defaultSymbol?.url,
+            image: (defaultSymbol as IPointSymbol).url,
             size: new AMap.Size(
-              Number(defaultSymbol?.width),
-              Number(defaultSymbol?.height)
+              Number((defaultSymbol as IPointSymbol).width),
+              Number((defaultSymbol as IPointSymbol).height)
             ),
             imageSize: new AMap.Size(
-              Number(defaultSymbol?.width),
-              Number(defaultSymbol?.height)
+              Number((defaultSymbol as IPointSymbol).width),
+              Number((defaultSymbol as IPointSymbol).height)
             )
           }),
           offset: new AMap.Pixel(
-            Number(defaultSymbol?.xoffset) || 0,
-            Number(defaultSymbol?.yoffset) || 0
+            Number((defaultSymbol as IPointSymbol).xoffset) || 0,
+            Number((defaultSymbol as IPointSymbol).yoffset) || 0
           ),
           position: [Number(point.geometry.x), Number(point.geometry.y)]
         });
@@ -110,21 +111,21 @@ export class ClusterGD {
       renderMarker: (opt: any) => {
         opt.marker.setIcon(
           new AMap.Icon({
-            image: defaultSymbol?.url,
+            image: (defaultSymbol as IPointSymbol).url,
             size: new AMap.Size(
-              Number(defaultSymbol?.width),
-              Number(defaultSymbol?.height)
+              Number((defaultSymbol as IPointSymbol).width),
+              Number((defaultSymbol as IPointSymbol).height)
             ),
             imageSize: new AMap.Size(
-              Number(defaultSymbol?.width),
-              Number(defaultSymbol?.height)
+              Number((defaultSymbol as IPointSymbol).width),
+              Number((defaultSymbol as IPointSymbol).height)
             )
           })
         );
         opt.marker.setOffset(
           new AMap.Pixel(
-            Number(defaultSymbol?.xoffset) || 0,
-            Number(defaultSymbol?.yoffset) || 0
+            Number((defaultSymbol as IPointSymbol).xoffset) || 0,
+            Number((defaultSymbol as IPointSymbol).yoffset) || 0
           )
         );
       } // 自定义非聚合点样式

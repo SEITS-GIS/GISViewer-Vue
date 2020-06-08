@@ -29,7 +29,7 @@ export default class PluginTest extends Vue {
     baseLayers: [
       {
         type: 'traffic',
-        visible: false,
+        visible: true,
         interval: 10
       }
     ],
@@ -279,12 +279,12 @@ export default class PluginTest extends Vue {
     //  console.log(res.data);
     //});
     //map.showJurisdiction();
-    // map.findFeature({
-    //   layerName: 'police',
-    //   level: 18,
-    //   ids: ['test001'],
-    //   centerResult: true
-    // });
+    map.findFeature({
+      layerName: 'police',
+      level: 18,
+      ids: ['test001'],
+      centerResult: true
+    });
   }
   private async btn_test2() {
     let map = this.$refs.gisViewer as any;
@@ -378,7 +378,7 @@ export default class PluginTest extends Vue {
       },
       defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
     });
-    //(this.$refs.gisViewer as any).showLayer({type: 'traffic'});
+    (this.$refs.gisViewer as any).hideLayer({type: 'traffic'});
     // (this.$refs.gisViewer as any).showDistrictMask({
     //   name: '徐汇区',
     //   showMask: true
