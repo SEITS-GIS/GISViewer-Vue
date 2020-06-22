@@ -1,5 +1,5 @@
-import { IOverlayParameter, IResult, IHeatParameter } from "@/types/map";
-import axios from "axios";
+import {IOverlayParameter, IResult, IHeatParameter} from '@/types/map';
+import axios from 'axios';
 declare let BMap: any;
 
 export class JurisdictionPolice {
@@ -23,30 +23,38 @@ export class JurisdictionPolice {
     let geometry = overlay.geometry;
     let type = overlay.geometry.type;
     let colorRamps = [
-      "#9575cd",
-      "#7986cb",
-      "#64b5f6",
-      "#4dd0e1",
-      "#4db6ac",
-      "#81c784",
-      "#aed581",
-      "#dce775",
-      "#fff176",
-      "#ffd54f",
-      "#ffb74d",
-      "#ff8a65"
+      '#aed581',
+      '#dce775',
+      '#1E90FF',
+      '#4db6ac',
+      '#81c784',
+      '#fff176',
+      '#ff8a65',
+      '#9370DB',
+      '#ffd54f',
+      '#ffb74d',
+      '#9575cd',
+      '#7986cb',
+      '#64b5f6',
+      '#4dd0e1',
+      '#87CEFA',
+      '#00CED1',
+      '#40E0D0',
+      '#BDB76B',
+      '#40E0D0'
     ];
     switch (type.toLowerCase()) {
-      case "polyline":
-      case "linestring":
+      case 'polyline':
+      case 'linestring':
         marker = new BMap.Polyline(this.getGeometry(geometry.coordinates), {
-          strokeColor: "rgba(0,0,0,255)",
+          strokeColor: 'rgba(0,0,0,255)',
           strokeWeight: 2
         });
         break;
-      case "polygon":
+      case 'polygon':
+        console.log(overlay, index);
         marker = new BMap.Polygon(this.getGeometry(geometry.coordinates[0]), {
-          strokeColor: "#3f51b5",
+          strokeColor: '#3f51b5',
           strokeWeight: 1,
           fillColor: colorRamps[index % colorRamps.length],
           fillOpacity: 0.4
@@ -59,27 +67,27 @@ export class JurisdictionPolice {
   private async translate(overlay: any): Promise<any> {
     let _this = this;
     let queryLen = 50; //坐标转换最大数
-    let features = "";
+    let features = '';
     let promises = new Array();
     let points: number[][] =
-      overlay.geometry.type == "Polygon"
+      overlay.geometry.type == 'Polygon'
         ? overlay.geometry.coordinates[0]
         : overlay.geometry.coordinates;
     let count = 0;
     let featuresArr = Array();
-    let feaureStr = "";
+    let feaureStr = '';
     for (let i = 0; i < points.length; i++) {
       if (count == queryLen) {
         featuresArr.push(feaureStr);
-        feaureStr = "";
+        feaureStr = '';
         count = 0;
       } else {
         let pt: number[] = points[i];
-        feaureStr = feaureStr + pt[0] + "," + pt[1] + ";";
+        feaureStr = feaureStr + pt[0] + ',' + pt[1] + ';';
         count++;
       }
     }
-    if (feaureStr != "") {
+    if (feaureStr != '') {
       featuresArr.push(feaureStr);
     }
     for (let j = 0; j < featuresArr.length; j++) {
@@ -88,9 +96,9 @@ export class JurisdictionPolice {
         axios
           .get(
             _this.view.gisServer +
-            "/geoconv?coords=" +
-            features +
-            "&from=3&to=5&output=json"
+              '/geoconv?coords=' +
+              features +
+              '&from=3&to=5&output=json'
           )
           .then((res: any) => {
             resolve(res.data.results);
@@ -98,8 +106,8 @@ export class JurisdictionPolice {
       });
       promises.push(promise);
     }
-    return new Promise(resloveAll => {
-      Promise.all(promises).then(e => {
+    return new Promise((resloveAll) => {
+      Promise.all(promises).then((e) => {
         //console.log(e);
         resloveAll(e);
       });
@@ -118,23 +126,23 @@ export class JurisdictionPolice {
     this.hideJurisdiction();
     this.overlayers = [];
     let _this = this;
-    axios.get("config/Jurisdiction/bsga_v2.bd.json").then((res: any) => {
+    axios.get('config/Jurisdiction/bsga_v2.bd.json').then((res: any) => {
       let data = res.data;
       for (let i = 0; i < data.features.length; i++) {
         let overlay = data.features[i];
         let graphic = this.getGraphic(overlay, i);
-        graphic.id = overlay.id || "";
-        graphic.type = "Jurisdiction";
+        graphic.id = overlay.id || '';
+        graphic.type = 'Jurisdiction';
 
-        graphic.addEventListener("click", function (e: any) {
+        graphic.addEventListener('click', function(e: any) {
           if (_this.clickOverlay) {
             _this.view.removeOverlay(_this.clickOverlay);
           }
           let polygon = e.currentTarget;
           _this.clickOverlay = new BMap.Polyline(polygon.getPath(), {
-            strokeColor: "red",
+            strokeColor: 'red',
             strokeWeight: 3,
-            strokeStyle: "dashed"
+            strokeStyle: 'dashed'
           });
           _this.view.addOverlay(_this.clickOverlay);
         });
@@ -143,7 +151,7 @@ export class JurisdictionPolice {
         this.overlayers.push(graphic);
         let name = overlay.properties.name;
         let cp: any;
-        if (overlay.geometry.type == "Polygon") {
+        if (overlay.geometry.type == 'Polygon') {
           cp = new BMap.Point(
             overlay.properties.cp[0],
             overlay.properties.cp[1]
@@ -156,12 +164,12 @@ export class JurisdictionPolice {
           };
           var label = new BMap.Label(name, opts); // 创建文本标注对象
           label.setStyle({
-            backgroundColor: "rgba(0,0,0,0)",
+            backgroundColor: 'rgba(0,0,0,0)',
             border: 0,
-            color: "#45526e",
-            fontWeight: "bold",
-            fontSize: "13px",
-            pointerEvents: "none"
+            color: '#45526e',
+            fontWeight: 'bold',
+            fontSize: '13px',
+            pointerEvents: 'none'
           });
           this.view.addOverlay(label);
           this.overlayers.push(label);
@@ -213,7 +221,7 @@ export class JurisdictionPolice {
     });
     return {
       status: 0,
-      message: "ok"
+      message: 'ok'
     };
   }
   public async hideJurisdiction() {
