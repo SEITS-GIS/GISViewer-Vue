@@ -1,6 +1,14 @@
-import { IOverlayParameter, IPointSymbol, IResult } from "@/types/map";
-import { loadModules } from "esri-loader";
-import ToolTip from "./ToolTip";
+import {
+  IOverlayParameter,
+  IPointSymbol,
+  IResult,
+  IOverlayDelete,
+  IFindParameter
+} from '@/types/map';
+import {loadModules} from 'esri-loader';
+import ToolTip from './ToolTip';
+import HighFeauture from '../HighFeauture3D';
+import HighFeauture2D from '../HighFeauture2D';
 
 export class OverlayArcgis2D {
   private static overlayArcgis2D: OverlayArcgis2D;
@@ -9,12 +17,12 @@ export class OverlayArcgis2D {
   private view!: __esri.MapView;
 
   private primitive2D = [
-    "circle",
-    "cross",
-    "diamond",
-    "square",
-    "triangle",
-    "x"
+    'circle',
+    'cross',
+    'diamond',
+    'square',
+    'triangle',
+    'x'
   ];
 
   private constructor(view: __esri.MapView) {
@@ -30,16 +38,16 @@ export class OverlayArcgis2D {
   }
 
   private async createOverlayLayer() {
-    type MapModules = [typeof import("esri/layers/GraphicsLayer")];
+    type MapModules = [typeof import('esri/layers/GraphicsLayer')];
     const [GraphicsLayer] = await (loadModules([
-      "esri/layers/GraphicsLayer"
+      'esri/layers/GraphicsLayer'
     ]) as Promise<MapModules>);
     this.overlayLayer = new GraphicsLayer();
     this.view.map.add(this.overlayLayer);
   }
 
   private makeSymbol(symbol: IPointSymbol | undefined): Object | undefined {
-    if (!symbol || symbol.type.toLowerCase() !== "point-2d") return undefined;
+    if (!symbol || symbol.type.toLowerCase() !== 'point-2d') return undefined;
 
     let result;
 
@@ -49,7 +57,7 @@ export class OverlayArcgis2D {
       }
 
       result = {
-        type: "simple-marker",
+        type: 'simple-marker',
         style: symbol.primitive,
         color: symbol.color,
         size: symbol.size,
@@ -60,11 +68,10 @@ export class OverlayArcgis2D {
           color: symbol.outline?.color,
           width: symbol.outline?.size
         }
-      }
-    }
-    else if (symbol.url) {
+      };
+    } else if (symbol.url) {
       result = {
-        type: "picture-marker",
+        type: 'picture-marker',
         url: symbol.url,
         width: symbol.size instanceof Array ? symbol.size[0] : null,
         height: symbol.size instanceof Array ? symbol.size[1] : null,
@@ -75,39 +82,35 @@ export class OverlayArcgis2D {
     }
 
     return result;
-
-
   }
   /**根据graphic的属性生成弹出框*/
   private getInfoWindowContent(graphic: any): any {
-    let content = "";
+    let content = '';
     //键值对
     for (let fieldName in graphic.attributes) {
       if (graphic.attributes.hasOwnProperty(fieldName)) {
         content +=
-          "<b>" + fieldName + ": </b>" + graphic.attributes[fieldName] + "<br>";
+          '<b>' + fieldName + ': </b>' + graphic.attributes[fieldName] + '<br>';
       }
     }
     //去掉最后的<br>
-    content = content.substring(0, content.lastIndexOf("<br>"));
+    content = content.substring(0, content.lastIndexOf('<br>'));
     if (graphic.buttons !== undefined) {
-      content += "<hr>";
-      graphic.buttons.forEach(
-        (buttonConfig: { type: string; label: string }) => {
-          content +=
-            "<button type='button' class='btn btn-primary btn-sm' onclick='mapFeatureClicked(" +
-            '"' +
-            buttonConfig.type +
-            '", "' +
-            graphic.id +
-            '"' +
-            ")'>" +
-            buttonConfig.label +
-            "</button>  ";
-        }
-      );
+      content += '<hr>';
+      graphic.buttons.forEach((buttonConfig: {type: string; label: string}) => {
+        content +=
+          "<button type='button' class='btn btn-primary btn-sm' onclick='mapFeatureClicked(" +
+          '"' +
+          buttonConfig.type +
+          '", "' +
+          graphic.id +
+          '"' +
+          ")'>" +
+          buttonConfig.label +
+          '</button>  ';
+      });
     }
-    let divContent = document.createElement("div");
+    let divContent = document.createElement('div');
     divContent.innerHTML = content;
     return divContent;
   }
@@ -117,12 +120,12 @@ export class OverlayArcgis2D {
     for (let fieldName in graphic.attributes) {
       if (graphic.attributes.hasOwnProperty(fieldName)) {
         tipContent = tipContent.replace(
-          "{" + fieldName + "}",
+          '{' + fieldName + '}',
           graphic.attributes[fieldName]
         );
       }
     }
-    let divContent = document.createElement("div");
+    let divContent = document.createElement('div');
     divContent.innerHTML = tipContent;
     return divContent;
   }
@@ -134,7 +137,7 @@ export class OverlayArcgis2D {
       for (let fieldName in graphic.attributes) {
         if (graphic.attributes.hasOwnProperty(fieldName)) {
           tipContent = tipContent.replace(
-            "{" + fieldName + "}",
+            '{' + fieldName + '}',
             graphic.attributes[fieldName]
           );
         }
@@ -151,9 +154,9 @@ export class OverlayArcgis2D {
     }
 
     const [Graphic, geometryJsonUtils, PopupTemplate] = await loadModules([
-      "esri/Graphic",
-      "esri/geometry/support/jsonUtils",
-      "esri/PopupTemplate"
+      'esri/Graphic',
+      'esri/geometry/support/jsonUtils',
+      'esri/PopupTemplate'
     ]);
 
     const defaultSymbol = this.makeSymbol(params.defaultSymbol);
@@ -181,6 +184,8 @@ export class OverlayArcgis2D {
         symbol: overlaySymbol || defaultSymbol,
         attributes: fields || {}
       });
+      graphic.type = params.type;
+      graphic.id = overlay.id;
       graphic.buttons = buttons || defaultButtons;
       if (showPopup) {
         if (defaultInfoTemplate === undefined) {
@@ -195,13 +200,13 @@ export class OverlayArcgis2D {
         }
         if (autoPopup) {
           this.view.popup.open({
-            title: "",
+            title: '',
             content: this.getInfoWindowContent(graphic),
             location: geometry
           });
           this.view.popup.dockOptions = {
             buttonEnabled: false,
-            breakpoint: { width: 400, height: 30 }
+            breakpoint: {width: 400, height: 30}
           };
         }
       }
@@ -211,8 +216,70 @@ export class OverlayArcgis2D {
     }
     return {
       status: 0,
-      message: "ok",
+      message: 'ok',
       result: `成功添加${params.overlays.length}中的${addCount}个覆盖物`
     };
+  }
+  public async deleteOverlays(params: IOverlayDelete): Promise<IResult> {
+    let types = params.types || [];
+    let ids = params.ids || [];
+    let delcount = 0;
+    for (let i = 0; i < this.overlayLayer.graphics.length; i++) {
+      let graphic: any = this.overlayLayer.graphics.getItemAt(i);
+      if (
+        //只判断type
+        (types.length > 0 &&
+          ids.length === 0 &&
+          types.indexOf(graphic.type) >= 0) ||
+        //只判断id
+        (types.length === 0 &&
+          ids.length > 0 &&
+          ids.indexOf(graphic.id) >= 0) ||
+        //type和id都要判断
+        (types.length > 0 &&
+          ids.length > 0 &&
+          types.indexOf(graphic.type) >= 0 &&
+          ids.indexOf(graphic.id) >= 0)
+      ) {
+        this.overlayLayer.remove(graphic);
+        delcount++;
+        i--;
+      }
+    }
+    return {
+      status: 0,
+      message: 'ok',
+      result: `成功删除${delcount}个覆盖物`
+    };
+  }
+  public async deleteAllOverlays(): Promise<IResult> {
+    this.overlayLayer.removeAll();
+    return {
+      status: 0,
+      message: 'ok'
+    };
+  }
+  public async findFeature(params: IFindParameter): Promise<IResult> {
+    let type = params.layerName;
+    let ids = params.ids || [];
+    let level = params.level || this.view.zoom;
+    let overlays = this.overlayLayer.graphics;
+    let centerResult = params.centerResult !== false;
+    overlays.forEach((overlay: any) => {
+      if (type == overlay.type && ids.indexOf(overlay.id) >= 0) {
+        if (centerResult) {
+          this.view.goTo({target: overlay.geometry, zoom: level});
+        }
+        this.startJumpPoint([overlay]);
+      }
+    });
+    return {
+      status: 0,
+      message: 'ok'
+    };
+  }
+  private async startJumpPoint(graphics: any[]) {
+    let high = HighFeauture2D.getInstance(this.view, graphics);
+    high.startup();
   }
 }

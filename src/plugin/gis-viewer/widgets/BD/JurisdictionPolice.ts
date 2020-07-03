@@ -77,12 +77,12 @@ export class JurisdictionPolice {
     let featuresArr = Array();
     let feaureStr = '';
     for (let i = 0; i < points.length; i++) {
+      let pt: number[] = points[i];
       if (count == queryLen) {
         featuresArr.push(feaureStr);
-        feaureStr = '';
-        count = 0;
+        feaureStr = pt[0] + ',' + pt[1] + ';';
+        count = 1;
       } else {
-        let pt: number[] = points[i];
         feaureStr = feaureStr + pt[0] + ',' + pt[1] + ';';
         count++;
       }

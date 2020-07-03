@@ -19,6 +19,7 @@ export interface ILayerConfig {
   label?: string;
   url?: string;
   visible?: boolean;
+  subDomains?: Array<string>;
 }
 
 export interface IPointSymbol {
@@ -149,6 +150,8 @@ export interface IMapContainer {
   showDistrictMask: (param: IDistrictParameter) => void;
   hideDistrictMask: () => void;
   findFeature: (param: IFindParameter) => void;
+  showRoad: () => void;
+  hideRoad: () => void;
 }
 export interface IPopUpTemplate {
   title?: string;

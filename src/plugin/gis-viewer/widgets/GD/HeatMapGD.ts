@@ -2,8 +2,8 @@ import {IOverlayParameter, IResult, IHeatParameter} from '@/types/map';
 import {OverlayGaode} from '../OverlayGaode';
 declare let AMap: any;
 
-export class HeatMap {
-  private static heatMap: HeatMap;
+export class HeatMapGD {
+  private static heatMap: HeatMapGD;
   private view!: any;
   private heatmapOverlay: any;
   private _state: string = 'nomal';
@@ -14,10 +14,10 @@ export class HeatMap {
     this.view = view;
   }
   public static getInstance(view: any) {
-    if (!HeatMap.heatMap) {
-      HeatMap.heatMap = new HeatMap(view);
+    if (!HeatMapGD.heatMap) {
+      HeatMapGD.heatMap = new HeatMapGD(view);
     }
-    return HeatMap.heatMap;
+    return HeatMapGD.heatMap;
   }
   public isSupportCanvas() {
     var elem = document.createElement('canvas');

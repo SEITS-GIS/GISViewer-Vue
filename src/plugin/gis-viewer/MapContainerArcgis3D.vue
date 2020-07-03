@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Emit, Prop } from "vue-property-decorator";
-import MapApp from "@/plugin/gis-viewer/MapAppArcgis3D";
+import {Vue, Component, Emit, Prop} from 'vue-property-decorator';
+import MapApp from '@/plugin/gis-viewer/MapAppArcgis3D';
 import {
   IMapContainer,
   IOverlayParameter,
@@ -17,22 +17,25 @@ import {
   IFindParameter,
   IResult,
   IDistrictParameter
-} from "@/types/map";
+} from '@/types/map';
 
 @Component({
-  name: "MapContainerArcgisThreeD"
+  name: 'MapContainerArcgisThreeD'
 })
 export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   private mapApp!: MapApp;
 
   //地图配置
-  @Prop({ type: Object }) readonly mapConfig!: Object;
+  @Prop({type: Object}) readonly mapConfig!: Object;
 
-  @Emit("map-loaded")
+  @Emit('map-loaded')
   async mounted() {
     this.mapApp = new MapApp();
-    await this.mapApp.initialize(this.mapConfig, "divArcGISMap3D");
+    await this.mapApp.initialize(this.mapConfig, 'divArcGISMap3D');
+    this.mapApp.showGisDeviceInfo = this.showGisDeviceInfo;
   }
+  @Emit('marker-click')
+  public showGisDeviceInfo(type: string, id: string, detail: any) {}
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     return await this.mapApp.addOverlays(params);
@@ -40,20 +43,36 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
 
   public addHeatMap(params: IHeatParameter) {}
   public addOverlaysCluster(params: IOverlayClusterParameter) {}
-  public deleteOverlays(params: IOverlayDelete) {}
+  public deleteOverlays(params: IOverlayDelete) {
+    this.mapApp.deleteOverlays(params);
+  }
   public deleteOverlaysCluster(params: IOverlayDelete) {}
-  public deleteAllOverlays() {}
+  public deleteAllOverlays() {
+    this.mapApp.deleteAllOverlays();
+  }
   public deleteAllOverlaysCluster() {}
   public deleteHeatMap() {}
-  public showLayer(params: ILayerConfig) {}
-  public hideLayer(params: ILayerConfig) {}
-  public setMapCenter(params: IPointGeometry) {}
-  public setMapCenterAndLevel(params: ICenterLevel) {}
+  public showLayer(params: ILayerConfig) {
+    this.mapApp.showLayer(params);
+  }
+  public hideLayer(params: ILayerConfig) {
+    this.mapApp.hideLayer(params);
+  }
+  public setMapCenter(params: IPointGeometry) {
+    this.mapApp.setMapCenter(params);
+  }
+  public setMapCenterAndLevel(params: ICenterLevel) {
+    this.mapApp.setMapCenterAndLevel(params);
+  }
   public showJurisdiction() {}
   public hideJurisdiction() {}
   public showDistrictMask(param: IDistrictParameter) {}
   public hideDistrictMask() {}
-  public findFeature(params: IFindParameter) {}
+  public findFeature(params: IFindParameter) {
+    this.mapApp.findFeature(params);
+  }
+  public showRoad() {}
+  public hideRoad() {}
 }
 </script>
 

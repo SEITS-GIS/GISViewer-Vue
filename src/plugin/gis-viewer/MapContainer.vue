@@ -32,11 +32,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Ref, Emit } from "vue-property-decorator";
-import MapContainerArcgisThreeD from "@/plugin/gis-viewer/MapContainerArcgis3D.vue";
-import MapContainerArcgisTwoD from "@/plugin/gis-viewer/MapContainerArcgis2D.vue";
-import MapContainerBaidu from "@/plugin/gis-viewer/MapContainerBaidu.vue";
-import MapContainerGaode from "@/plugin/gis-viewer/MapContainerGaode.vue";
+import {Vue, Component, Prop, Ref, Emit} from 'vue-property-decorator';
+import MapContainerArcgisThreeD from '@/plugin/gis-viewer/MapContainerArcgis3D.vue';
+import MapContainerArcgisTwoD from '@/plugin/gis-viewer/MapContainerArcgis2D.vue';
+import MapContainerBaidu from '@/plugin/gis-viewer/MapContainerBaidu.vue';
+import MapContainerGaode from '@/plugin/gis-viewer/MapContainerGaode.vue';
 import {
   Platforms,
   IMapContainer,
@@ -50,7 +50,7 @@ import {
   IFindParameter,
   IResult,
   IDistrictParameter
-} from "@/types/map";
+} from '@/types/map';
 
 @Component({
   components: {
@@ -62,11 +62,11 @@ import {
 })
 export default class MapContainer extends Vue implements IMapContainer {
   //平台类型 高德/百度/arcgis
-  @Prop({ default: Platforms.ArcGIS3D, type: String })
+  @Prop({default: Platforms.ArcGIS3D, type: String})
   readonly platform!: string;
 
   //地图配置
-  @Prop({ type: Object }) readonly mapConfig!: Object;
+  @Prop({type: Object}) readonly mapConfig!: Object;
 
   @Ref() readonly containerArcgis3D!: MapContainerArcgisThreeD;
   @Ref() readonly containerArcgis2D!: MapContainerArcgisTwoD;
@@ -89,10 +89,10 @@ export default class MapContainer extends Vue implements IMapContainer {
     }
   }
 
-  @Emit("map-loaded")
+  @Emit('map-loaded')
   private mapLoaded() {}
 
-  @Emit("marker-click")
+  @Emit('marker-click')
   private showGisDeviceInfo(type: string, id: string) {}
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
@@ -147,6 +147,12 @@ export default class MapContainer extends Vue implements IMapContainer {
   }
   public findFeature(params: IFindParameter) {
     this.mapContainer.findFeature(params);
+  }
+  public showRoad() {
+    this.mapContainer.showRoad();
+  }
+  public hideRoad() {
+    this.mapContainer.hideRoad();
   }
 }
 </script>

@@ -2,8 +2,8 @@
   <div id="divBMap" />
 </template>
 <script lang="ts">
-import { Vue, Component, Emit, Prop } from "vue-property-decorator";
-import MapApp from "@/plugin/gis-viewer/MapAppBaidu";
+import {Vue, Component, Emit, Prop} from 'vue-property-decorator';
+import MapApp from '@/plugin/gis-viewer/MapAppBaidu';
 import {
   IMapContainer,
   IOverlayParameter,
@@ -16,25 +16,25 @@ import {
   IFindParameter,
   IResult,
   IDistrictParameter
-} from "@/types/map";
+} from '@/types/map';
 @Component({
-  name: "MapAppBaidu"
+  name: 'MapAppBaidu'
 })
 export default class MapContainerArcgis extends Vue implements IMapContainer {
   private mapApp!: MapApp;
 
   //地图配置
-  @Prop({ type: Object }) readonly mapConfig!: Object;
+  @Prop({type: Object}) readonly mapConfig!: Object;
 
-  @Emit("map-loaded")
+  @Emit('map-loaded')
   async mounted() {
     this.mapApp = new MapApp();
-    await this.mapApp.initialize(this.mapConfig, "divBMap");
+    await this.mapApp.initialize(this.mapConfig, 'divBMap');
     this.mapApp.showGisDeviceInfo = this.showGisDeviceInfo;
   }
 
-  @Emit("marker-click")
-  public showGisDeviceInfo(type: string, id: string) {}
+  @Emit('marker-click')
+  public showGisDeviceInfo(type: string, id: string, detail: any) {}
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     return await this.mapApp.addOverlays(params);
@@ -83,6 +83,8 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public findFeature(params: IFindParameter) {
     this.mapApp.findFeature(params);
   }
+  public showRoad() {}
+  public hideRoad() {}
 }
 </script>
 

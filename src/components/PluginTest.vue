@@ -7,7 +7,7 @@
     </div>
     <gis-viewer
       ref="gisViewer"
-      platform="bd"
+      platform="arcgis3d"
       :map-config="mapConfig"
       @map-loaded="mapLoaded"
       @marker-click="showGisDeviceInfo"
@@ -20,17 +20,138 @@ import axios from 'axios';
 @Component
 export default class PluginTest extends Vue {
   private mapConfig = {
+    arcgis_api: 'http://localhost:8090/arcgis_js_api/library/4.14',
     //arcgis_api:
-    //'https://webapi.amap.com/maps?v=1.4.15&key=29dd04daa39aa33a7e2cdffa37ebec4d',
-    arcgis_api: 'http://128.64.130.247:8219/baidumap/jsapi/api.js',
+    //  'https://webapi.amap.com/maps?v=1.4.15&key=29dd04daa39aa33a7e2cdffa37ebec4d',
+    //arcgis_api: 'http://128.64.130.247:8219/baidumap/jsapi/api.js',
     //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
     theme: 'light', //dark,vec
     baseLayers: [
+      // {
+      //   type: 'traffic',
+      //   visible: true,
+      //   interval: 10
+      // }
       {
-        type: 'traffic',
-        visible: true,
-        interval: 10
+        type: 'tiled',
+        url:
+          'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
+        visible: true
+      }
+    ],
+    operationallayers: [
+      {
+        label: '地铁',
+        url:
+          'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/ShangHai_transportation/MapServer',
+        type: 'dynamic',
+        visible: false
+      },
+      {
+        label: '发布段',
+        url:
+          'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/shanghai_xzqh_simple/MapServer/0',
+        type: 'feature',
+        visible: false,
+        outFields: ['*'],
+        renderer: {
+          type: 'unique-value',
+          field: 'Name',
+          defaultSymbol: {
+            type: 'simple-fill',
+            style: 'solid',
+            color: [255, 0, 0, 0.5],
+            outline: {
+              type: 'simple-line',
+              style: 'solid',
+              color: [110, 110, 110, 255],
+              width: 2
+            }
+          },
+          uniqueValueInfos: [
+            {
+              value: '闵行区',
+              symbol: {
+                type: 'simple-fill',
+                style: 'solid',
+                color: [0, 255, 51, 0.3],
+                outline: {
+                  type: 'simple-line',
+                  style: 'solid',
+                  color: [110, 110, 110, 0.5],
+                  width: 2
+                }
+              }
+            },
+            {
+              value: '普陀区',
+              symbol: {
+                type: 'simple-fill',
+                style: 'solid',
+                color: [34, 255, 122, 0.6],
+                outline: {
+                  type: 'simple-line',
+                  style: 'solid',
+                  color: [110, 110, 110, 255],
+                  width: 2
+                }
+              }
+            },
+            {
+              value: '奉贤区',
+              symbol: {
+                type: 'simple-fill',
+                style: 'solid',
+                color: [0, 0, 68, 0.4],
+                outline: {
+                  type: 'simple-line',
+                  style: 'solid',
+                  color: [110, 110, 110, 255],
+                  width: 2
+                }
+              }
+            }
+          ]
+        },
+        labelingInfo: [
+          {
+            labelExpressionInfo: {expression: '$feature.Name'},
+            useCodedValues: true,
+            labelPlacement: 'always-horizontal',
+            symbol: {
+              type: 'text',
+              rightToLeft: false,
+              color: [0, 0, 0, 255],
+              verticalAlignment: 'baseline',
+              horizontalAlignment: 'left',
+              font: {
+                size: 10,
+                weight: 'bold'
+              }
+            }
+          }
+        ]
+      },
+      {
+        label: '匝道灯',
+        url:
+          'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/KuaiSuLu_device/MapServer/0',
+        type: 'feature',
+        visible: false,
+        refreshInterval: 0.5,
+        outFields: ['*'],
+        maxScale: 98001,
+        renderer: {
+          type: 'simple',
+          symbol: {
+            type: 'picture-marker',
+            url: 'assets/image/Anchor.png',
+            width: 18,
+            height: 24,
+            yoffset: 12
+          }
+        }
       }
     ],
     gisServer: 'http://128.64.151.245:8019',
@@ -223,7 +344,7 @@ export default class PluginTest extends Vue {
         type: 'point-2d',
         // primitive: "square",
         url: 'assets/image/Anchor.png',
-        size: [50, 100],
+        size: [50, 50],
         anchor: 'center'
         // color: "red",
         // outline: {
@@ -264,6 +385,10 @@ export default class PluginTest extends Vue {
       },
       defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
     });
+    (this.$refs.gisViewer as any).showDistrictMask({
+      name: '徐汇区',
+      showMask: false
+    });
   }
   private btn_test1() {
     let map = this.$refs.gisViewer as any;
@@ -278,13 +403,14 @@ export default class PluginTest extends Vue {
     //map.addOverlaysCluster(res.data);
     //  console.log(res.data);
     //});
-    map.showJurisdiction();
-    // map.findFeature({
-    //   layerName: 'police',
-    //   level: 18,
-    //   ids: ['test001'],
-    //   centerResult: true
-    // });
+    //map.hideLayer({label: '匝道灯'});
+    map.findFeature({
+      layerName: 'police',
+      level: 16,
+      ids: ['test003'],
+      centerResult: true
+    });
+    //map.showRoad();
   }
   private async btn_test2() {
     let map = this.$refs.gisViewer as any;
@@ -385,13 +511,24 @@ export default class PluginTest extends Vue {
     // });
   }
   private btn_test3() {
+    (this.$refs.gisViewer as any).findFeature({
+      layerName: 'police',
+      level: 16,
+      ids: ['test002'],
+      centerResult: false
+    });
+    (this.$refs.gisViewer as any).hideLayer({label: '匝道灯'});
     //(this.$refs.gisViewer as any).deleteHeatMap();
-    (this.$refs.gisViewer as any).deleteOverlaysCluster({types: ['sxj1']});
+    //(this.$refs.gisViewer as any).deleteOverlaysCluster({types: ['sxj1']});
     //(this.$refs.gisViewer as any).deleteAllOverlays();
-    //(this.$refs.gisViewer as any).deleteOverlays({ids: ['test001']});
+    (this.$refs.gisViewer as any).deleteOverlays({ids: ['test001']});
     //(this.$refs.gisViewer as any).hideLayer({ type: "traffic" });
-    //(this.$refs.gisViewer as any).setMapCenter({x:121.12,y:31.23});
-    //(this.$refs.gisViewer as any).setMapCenterAndLevel({x:121.12,y:31.23,level:15});
+    //(this.$refs.gisViewer as any).setMapCenter({x: 121.12, y: 31.23});
+    // (this.$refs.gisViewer as any).setMapCenterAndLevel({
+    //   x: 121.12,
+    //   y: 31.23,
+    //   level: 15
+    // });
     //(this.$refs.gisViewer as any).hideJurisdiction();
     //(this.$refs.gisViewer as any).hideDistrictMask();
     // (this.$refs.gisViewer as any).addOverlays({

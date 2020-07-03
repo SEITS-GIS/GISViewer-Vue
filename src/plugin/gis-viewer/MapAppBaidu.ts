@@ -1,4 +1,4 @@
-import { loadScript, ILoadScriptOptions } from "esri-loader";
+import {loadScript, ILoadScriptOptions} from 'esri-loader';
 import {
   IMapContainer,
   IOverlayParameter,
@@ -11,10 +11,10 @@ import {
   IFindParameter,
   IResult,
   IDistrictParameter
-} from "@/types/map";
-import { OverlayBaidu } from "@/plugin/gis-viewer/widgets/OverlayBaidu";
-import { HeatMapBD } from "./widgets/BD/HeatMapBD";
-import { JurisdictionPolice } from "./widgets/BD/JurisdictionPolice";
+} from '@/types/map';
+import {OverlayBaidu} from '@/plugin/gis-viewer/widgets/OverlayBaidu';
+import {HeatMapBD} from './widgets/BD/HeatMapBD';
+import {JurisdictionPolice} from './widgets/BD/JurisdictionPolice';
 declare let BMap: any;
 
 export default class MapAppBaidu implements IMapContainer {
@@ -28,12 +28,12 @@ export default class MapAppBaidu implements IMapContainer {
     await loadScript({
       url: `${apiUrl}`
     });
-    const apiRoot = mapConfig.arcgis_api.substring(0, apiUrl.lastIndexOf("/"));
+    const apiRoot = mapConfig.arcgis_api.substring(0, apiUrl.lastIndexOf('/'));
 
     await this.loadOtherScripts([
-      apiRoot + "/library/Heatmap/Heatmap_min.js",
-      apiRoot + "/library/TextIconOverlay/TextIconOverlay_min.js",
-      apiRoot + "/library/MarkerClusterer/MarkerClusterer_min.js"
+      apiRoot + '/library/Heatmap/Heatmap_min.js',
+      apiRoot + '/library/TextIconOverlay/TextIconOverlay_min.js',
+      apiRoot + '/library/MarkerClusterer/MarkerClusterer_min.js'
     ]).then(function(e: any) {
       //console.log("Load Scripts");
     });
@@ -42,8 +42,8 @@ export default class MapAppBaidu implements IMapContainer {
     let gisUrl = mapConfig.gisServer
       ? mapConfig.gisServer
       : this.getIpPort(apiUrl);
-    if (mapConfig.theme === "dark") {
-      view.setMapStyle({ style: "midnight" });
+    if (mapConfig.theme === 'dark') {
+      view.setMapStyle({style: 'midnight'});
     }
     if (mapConfig.baseLayers) {
       mapConfig.baseLayers.forEach((element: any) => {
@@ -69,45 +69,45 @@ export default class MapAppBaidu implements IMapContainer {
   }
 
   private async loadOtherScripts(scriptUrls: string[]): Promise<any> {
-    let promises = scriptUrls.map(url => {
+    let promises = scriptUrls.map((url) => {
       return new Promise((resolve, reject) => {
-        const scriptElement = document.createElement("script");
+        const scriptElement = document.createElement('script');
         scriptElement.src = url;
         scriptElement.onload = resolve;
         document.body.appendChild(scriptElement);
       });
     });
-    return new Promise(resolve => {
-      Promise.all(promises).then(e => {
+    return new Promise((resolve) => {
+      Promise.all(promises).then((e) => {
         resolve(e);
       });
     });
   }
   //得到url中的ip和port
   private getIpPort(url: string): string {
-    let urls = url.split("/");
-    let ip: string = "";
+    let urls = url.split('/');
+    let ip: string = '';
     for (let el in urls) {
-      if (el.indexOf(":") > 0 || el.indexOf(".") > 0) {
+      if (el.indexOf(':') > 0 || el.indexOf('.') > 0) {
         ip = el;
         break;
       }
     }
-    if (ip === "") {
+    if (ip === '') {
       ip = urls[2];
     }
     return ip;
   }
   public createLayer(view: any, layer: any) {
     switch (layer.type) {
-      case "traffic":
+      case 'traffic':
         let trafficlayer = new BMap.TrafficLayer();
         if (layer.visible !== false) {
           view.addTileLayer(trafficlayer);
         }
         this.baseLayers.push({
-          label: layer.label || "",
-          type: layer.type || "",
+          label: layer.label || '',
+          type: layer.type || '',
           layer: trafficlayer,
           visible: layer.visible !== false
         });
@@ -172,7 +172,7 @@ export default class MapAppBaidu implements IMapContainer {
   }
 
   public showLayer(params: ILayerConfig) {
-    this.baseLayers.forEach(baselayer => {
+    this.baseLayers.forEach((baselayer) => {
       if (
         (params.label && baselayer.label === params.label) ||
         (params.type && baselayer.type === params.type)
@@ -185,7 +185,7 @@ export default class MapAppBaidu implements IMapContainer {
     });
   }
   public hideLayer(params: ILayerConfig) {
-    this.baseLayers.forEach(baselayer => {
+    this.baseLayers.forEach((baselayer) => {
       if (
         (params.label && baselayer.label === params.label) ||
         (params.type && baselayer.type === params.type)
@@ -208,4 +208,6 @@ export default class MapAppBaidu implements IMapContainer {
   }
   public async showDistrictMask(param: IDistrictParameter) {}
   public async hideDistrictMask() {}
+  public async showRoad() {}
+  public async hideRoad() {}
 }

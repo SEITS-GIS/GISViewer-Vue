@@ -14,9 +14,10 @@ import {
 } from '@/types/map';
 import {OverlayGaode} from '@/plugin/gis-viewer/widgets/OverlayGaode';
 import {JurisdictionPoliceGD} from './widgets/GD/JurisdictionPoliceGD';
-import {HeatMap} from './widgets/GD/HeatMap';
+import {HeatMapGD} from './widgets/GD/HeatMapGD';
 import {ClusterGD} from './widgets/GD/ClusterGD';
 import '@amap/amap-jsapi-types';
+import {DrawSteet} from './widgets/GD/DrawStreet';
 
 export default class MapAppGaode implements IMapContainer {
   public view!: AMap.Map;
@@ -92,7 +93,7 @@ export default class MapAppGaode implements IMapContainer {
   }
 
   public async addHeatMap(params: IHeatParameter) {
-    const heatmap = HeatMap.getInstance(this.view);
+    const heatmap = HeatMapGD.getInstance(this.view);
     await heatmap.addHeatMap(params);
   }
 
@@ -116,7 +117,7 @@ export default class MapAppGaode implements IMapContainer {
     await cluster.deleteAllOverlaysCluster();
   }
   public async deleteHeatMap() {
-    const overlay = HeatMap.getInstance(this.view);
+    const overlay = HeatMapGD.getInstance(this.view);
     await overlay.deleteHeatMap();
   }
   public async setMapCenter(params: IPointGeometry) {
@@ -172,5 +173,13 @@ export default class MapAppGaode implements IMapContainer {
   public async hideDistrictMask() {
     const jurisdiction = JurisdictionPoliceGD.getInstance(this.view);
     await jurisdiction.hideDistrictMask();
+  }
+  public async showRoad() {
+    const road = DrawSteet.getInstance(this.view);
+    await road.showRoad();
+  }
+  public async hideRoad() {
+    const road = DrawSteet.getInstance(this.view);
+    await road.hideRoad();
   }
 }

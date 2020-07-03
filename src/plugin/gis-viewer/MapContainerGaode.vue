@@ -37,7 +37,7 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   }
 
   @Emit('marker-click')
-  public showGisDeviceInfo(type: string, id: string) {}
+  public showGisDeviceInfo(type: string, id: string, detail: any) {}
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     return await this.mapApp.addOverlays(params);
@@ -94,6 +94,12 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   }
   public findFeature(params: IFindParameter) {
     this.mapApp.findFeature(params);
+  }
+  public showRoad() {
+    this.mapApp.showRoad();
+  }
+  public hideRoad() {
+    this.mapApp.hideRoad();
   }
 }
 </script>
