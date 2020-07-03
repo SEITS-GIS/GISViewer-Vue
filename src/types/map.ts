@@ -150,7 +150,7 @@ export interface IMapContainer {
   showDistrictMask: (param: IDistrictParameter) => void;
   hideDistrictMask: () => void;
   findFeature: (param: IFindParameter) => void;
-  showRoad: () => void;
+  showRoad: (param: {ids: string[]}) => void;
   hideRoad: () => void;
 }
 export interface IPopUpTemplate {

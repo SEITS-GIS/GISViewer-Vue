@@ -174,9 +174,9 @@ export default class MapAppGaode implements IMapContainer {
     const jurisdiction = JurisdictionPoliceGD.getInstance(this.view);
     await jurisdiction.hideDistrictMask();
   }
-  public async showRoad() {
+  public async showRoad(param: {ids: string[]}) {
     const road = DrawSteet.getInstance(this.view);
-    await road.showRoad();
+    await road.showRoad(param);
   }
   public async hideRoad() {
     const road = DrawSteet.getInstance(this.view);

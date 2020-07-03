@@ -22,35 +22,37 @@ export class DrawSteet {
   public async hideRoad() {
     this.overlayGroup.clearOverlays();
   }
-  public async showRoad() {
+  public async showRoad(param: {ids: string[]}) {
     this.overlayGroup.clearOverlays();
+    let ids = (param && param.ids) || [];
     let _this = this;
     if (this.streets) {
-      this.drawStreet();
+      this.drawStreet(ids);
     } else {
       axios.get('config/street_xh.json').then((res: any) => {
         _this.streets = res.data;
-        _this.drawStreet();
+        _this.drawStreet(ids);
       });
     }
   }
-  private drawStreet() {
+  private drawStreet(ids: any[]) {
     let allLines: any[] = [];
     this.streets.forEach((road: any) => {
-      let paths = road.geometry.path;
-      let newPaths = this.splitPath(paths);
-      console.log(newPaths);
-      for (let i = 0; i < newPaths.length; i++) {
-        let sPath = newPaths[i];
-        let polyline = new AMap.Polyline({
-          path: sPath,
-          strokeColor: this.getColor(),
-          strokeOpacity: 1,
-          strokeWeight: 3,
-          strokeStyle: 'solid'
-        });
-        this.overlayGroup.addOverlay(polyline);
-        allLines.push(polyline);
+      if (ids.length == 0 || (ids.length > 0 && ids.indexOf(road.id) > -1)) {
+        let paths = road.geometry.path;
+        let newPaths = this.splitPath(paths);
+        for (let i = 0; i < newPaths.length; i++) {
+          let sPath = newPaths[i];
+          let polyline = new AMap.Polyline({
+            path: sPath,
+            strokeColor: this.getColor(),
+            strokeOpacity: 1,
+            strokeWeight: 3,
+            strokeStyle: 'solid'
+          });
+          this.overlayGroup.addOverlay(polyline);
+          allLines.push(polyline);
+        }
       }
     }, this);
 
