@@ -6,15 +6,14 @@ export default class HighFeauture2D {
   private customLayer: any;
   private overlayer: any;
 
-  private constructor(view: __esri.MapView, graphics: any[]) {
+  private constructor(view: __esri.MapView) {
     // Geometrical transformations that must be recomputed
     // from scratch at every frame.
     this.view = view;
-    this.graphics = graphics;
   }
-  public static getInstance(view: __esri.MapView, graphics: any[]) {
+  public static getInstance(view: __esri.MapView) {
     if (!HighFeauture2D.highfeature) {
-      HighFeauture2D.highfeature = new HighFeauture2D(view, graphics);
+      HighFeauture2D.highfeature = new HighFeauture2D(view);
     }
     return HighFeauture2D.highfeature;
   }
@@ -44,8 +43,9 @@ export default class HighFeauture2D {
       this.view.map.remove(this.customLayer);
     }
   }
-  public async startup() {
+  public async startup(graphics: any[]) {
     this.clear();
+    this.graphics = graphics;
     let _that = this;
     await loadModules([
       'esri/views/2d/layers/BaseLayerViewGL2D',
@@ -67,7 +67,7 @@ export default class HighFeauture2D {
           this.graphicsClone = [];
         },
         attach: function() {
-          _that.graphics.forEach((graphic: any, index: number) => {
+          graphics.forEach((graphic: any, index: number) => {
             graphic.visible = false;
             this.upDis = Math.min(Math.round(graphic.symbol.height / 1.2), 45);
             var g = new Graphic({
@@ -89,7 +89,7 @@ export default class HighFeauture2D {
               _that.overlayer.removeAll();
               _that.view.map.remove(_that.overlayer);
             }
-            _that.graphics.forEach((graphic: any) => {
+            graphics.forEach((graphic: any) => {
               graphic.visible = true;
             }, this);
             _that.view.map.remove(_that.customLayer);

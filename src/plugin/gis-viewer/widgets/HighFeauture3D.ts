@@ -2,21 +2,19 @@ import {loadModules} from 'esri-loader';
 export default class HighFeauture3D {
   private view: any;
   private static highfeature: HighFeauture3D;
-  private graphics: any;
   private jumpRender: any;
-  private constructor(view: __esri.SceneView, graphics: any[]) {
+  private constructor(view: __esri.SceneView) {
     // Geometrical transformations that must be recomputed
     // from scratch at every frame.
     this.view = view;
-    this.graphics = graphics;
   }
-  public static getInstance(view: __esri.SceneView, graphics: any[]) {
+  public static getInstance(view: __esri.SceneView) {
     if (!HighFeauture3D.highfeature) {
-      HighFeauture3D.highfeature = new HighFeauture3D(view, graphics);
+      HighFeauture3D.highfeature = new HighFeauture3D(view);
     }
     return HighFeauture3D.highfeature;
   }
-  public async startup() {
+  public async startup(graphics: any[]) {
     let that = this;
     loadModules(['esri/views/3d/externalRenderers']).then(
       ([externalRenderers]) => {
@@ -25,7 +23,7 @@ export default class HighFeauture3D {
           that.jumpRender.clear();
           that.jumpRender = null;
         }
-        that.jumpRender = new HighFeautureRender(that.view, that.graphics);
+        that.jumpRender = new HighFeautureRender(that.view, graphics);
         externalRenderers.add(this.view, this.jumpRender);
       }
     );

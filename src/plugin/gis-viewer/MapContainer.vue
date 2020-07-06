@@ -49,7 +49,8 @@ import {
   ICenterLevel,
   IFindParameter,
   IResult,
-  IDistrictParameter
+  IDistrictParameter,
+  IStreetParameter
 } from '@/types/map';
 
 @Component({
@@ -153,6 +154,15 @@ export default class MapContainer extends Vue implements IMapContainer {
   }
   public hideRoad() {
     this.mapContainer.hideRoad();
+  }
+  public showStreet() {
+    this.mapContainer.showStreet();
+  }
+  public hideStreet() {
+    this.mapContainer.hideStreet();
+  }
+  public locateStreet(param: IStreetParameter) {
+    this.mapContainer.locateStreet(param);
   }
 }
 </script>

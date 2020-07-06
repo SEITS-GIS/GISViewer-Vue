@@ -10,7 +10,8 @@ import {
   ICenterLevel,
   IFindParameter,
   IResult,
-  IDistrictParameter
+  IDistrictParameter,
+  IStreetParameter
 } from '@/types/map';
 import {OverlayBaidu} from '@/plugin/gis-viewer/widgets/OverlayBaidu';
 import {HeatMapBD} from './widgets/BD/HeatMapBD';
@@ -210,4 +211,7 @@ export default class MapAppBaidu implements IMapContainer {
   public async hideDistrictMask() {}
   public async showRoad() {}
   public async hideRoad() {}
+  public async showStreet() {}
+  public async hideStreet() {}
+  public async locateStreet(param: IStreetParameter) {}
 }

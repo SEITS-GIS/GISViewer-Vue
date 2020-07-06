@@ -152,6 +152,9 @@ export interface IMapContainer {
   findFeature: (param: IFindParameter) => void;
   showRoad: (param: {ids: string[]}) => void;
   hideRoad: () => void;
+  showStreet: () => void;
+  hideStreet: () => void;
+  locateStreet: (param: IStreetParameter) => void;
 }
 export interface IPopUpTemplate {
   title?: string;
@@ -187,4 +190,10 @@ export interface IDistrictParameter {
   name: string;
   city?: string;
   showMask?: boolean;
+}
+export interface IStreetParameter {
+  id: string;
+  name: string;
+  hideStreet: boolean; //是否隐藏其他街道
+  reset: boolean; //重置,清除选择
 }

@@ -2,7 +2,8 @@ import {
   IOverlayParameter,
   IResult,
   IHeatParameter,
-  IDistrictParameter
+  IDistrictParameter,
+  IStreetParameter
 } from '@/types/map';
 import axios from 'axios';
 declare let AMap: any;
@@ -10,11 +11,18 @@ declare let AMap: any;
 export class JurisdictionPoliceGD {
   private static jurisdictionPolice: JurisdictionPoliceGD;
   private overlayGroups: any;
+  private streetGroup: any;
   private clickOverlay: any;
   private view!: any;
 
   private constructor(view: any) {
     this.view = view;
+
+    this.overlayGroups = new AMap.OverlayGroup();
+    this.view.add(this.overlayGroups);
+
+    this.streetGroup = new AMap.OverlayGroup();
+    this.view.add(this.streetGroup);
   }
 
   public static getInstance(view: any) {
@@ -79,14 +87,13 @@ export class JurisdictionPoliceGD {
               var polygon = new AMap.Polygon({
                 strokeWeight: 3,
                 path: area,
-                fillOpacity: 0.3,
-                fillColor: 'rgb(255,255,255)',
+                fillOpacity: 1,
+                fillColor: 'rgb(0,0,0)',
                 strokeColor: '#0091ea'
               });
               polygons.push(polygon);
             }
-            _this.overlayGroups = new AMap.OverlayGroup(polygons);
-            _this.view.add(_this.overlayGroups);
+            _this.overlayGroups.addOverlays(polygons);
           }
         });
         /**从边界里扣除***/
@@ -100,15 +107,101 @@ export class JurisdictionPoliceGD {
         });
         polygons.push(polygon);
 
-        _this.overlayGroups = new AMap.OverlayGroup(polygons);
-        _this.view.add(_this.overlayGroups);
+        _this.overlayGroups.addOverlays(polygons);
       }
       _this.view.setFitView(centerArea); //视口自适应
     });
   }
   public async hideDistrictMask() {
     if (this.overlayGroups) {
-      this.view.remove(this.overlayGroups);
+      this.overlayGroups.clearOverlays();
+    }
+  }
+  public async showStreet() {
+    this.hideStreet();
+
+    let _this = this;
+    axios.get('config/Jurisdiction/Street.json').then((res: any) => {
+      let data = res.data;
+      for (let i = 0; i < data.features.length; i++) {
+        let overlay = data.features[i];
+        let graphic = new AMap.Polygon({
+          strokeWeight: 2,
+          path: overlay.geometry.rings,
+          fillOpacity: 0.3,
+          fillColor: 'rgb(255,0,255)',
+          strokeColor: '#0091ea'
+        });
+        graphic.extData = {
+          id: overlay.attributes.FEATUREID,
+          name: overlay.attributes.SHOWNAME,
+          type: 'street'
+        };
+
+        // graphic.on('click', function(e: any) {
+        //   if (_this.clickOverlay) {
+        //     _this.streetGroup.removeOverlay(_this.clickOverlay);
+        //   }
+        //   let polygon = e.target;
+        //   _this.clickOverlay = new AMap.Polygon({
+        //     path: polygon.getPath(),
+        //     strokeColor: 'red',
+        //     strokeWeight: 3,
+        //     fillOpacity: 0,
+        //     strokeStyle: 'dashed'
+        //   });
+        //   _this.streetGroup.addOverlay(_this.clickOverlay);
+        // });
+        this.streetGroup.addOverlay(graphic);
+
+        let name = overlay.attributes.SHOWNAME;
+        let cp: any = graphic.getBounds().getCenter();
+        if (cp) {
+          var text = new AMap.Text({
+            text: name,
+            anchor: 'center', // 设置文本标记锚点
+            draggable: false,
+            style: {
+              border: '0',
+              'font-size': '12px',
+              'background-color': 'rgba(0, 0, 0, 0)',
+              color: '#1252fe'
+            },
+            position: cp
+          });
+          this.streetGroup.addOverlay(text);
+        }
+      }
+    });
+    return {
+      status: 0,
+      message: 'ok'
+    };
+  }
+  public async hideStreet() {
+    if (this.streetGroup) {
+      this.streetGroup.clearOverlays();
+    }
+  }
+  public async locateStreet(params: IStreetParameter) {
+    let id: string = params.id || '';
+    let hideStreet: boolean = params.hideStreet == true;
+    let name: string = params.name || '';
+    let overlays: any = this.streetGroup.getOverlays();
+    let localOverlay: any;
+    for (let i = 0; i < overlays.length; i++) {
+      let overlay = overlays[i];
+      let extData = overlay.extData;
+      if (
+        (id && extData.id == id) ||
+        (name && extData.name.indexOf(name) > -1)
+      ) {
+        localOverlay = overlay;
+        break;
+      }
+    }
+    if (localOverlay) {
+      this.view.setFitView(localOverlay);
     }
   }
 }

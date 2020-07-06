@@ -6,7 +6,8 @@ import {
   IPointGeometry,
   ICenterLevel,
   IOverlayDelete,
-  IFindParameter
+  IFindParameter,
+  IStreetParameter
 } from '@/types/map';
 import {OverlayArcgis2D} from '@/plugin/gis-viewer/widgets/OverlayArcgis2D';
 
@@ -210,4 +211,7 @@ export default class MapAppArcGIS2D {
   }
   public async showRoad() {}
   public async hideRoad() {}
+  public async showStreet() {}
+  public async hideStreet() {}
+  public async locateStreet(param: IStreetParameter) {}
 }

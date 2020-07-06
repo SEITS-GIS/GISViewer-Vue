@@ -15,7 +15,7 @@
   </div>
 </template>
 <script lang="ts">
-import {Vue, Component} from 'vue-property-decorator';
+import {Vue, Component, Prop} from 'vue-property-decorator';
 import axios from 'axios';
 @Component
 export default class PluginTest extends Vue {
@@ -158,9 +158,9 @@ export default class PluginTest extends Vue {
     options: {
       //for arcgis-2d
       center: [121.441, 31.159],
-      zoom: 13,
-      viewMode: '3D',
-      mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
+      zoom: 13
+      //viewMode: '3D'
+      //mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
       //for arcgis-3d
       // camera: {
       //   heading: 0,
@@ -190,7 +190,7 @@ export default class PluginTest extends Vue {
   private async mapLoaded() {
     console.log('Map Loaded.');
     let map = this.$refs.gisViewer as any;
-
+    map.showStreet();
     // map.showJurisdiction();
     /* (this.$refs.gisViewer as any).addOverlays({
       type: "police",
@@ -387,7 +387,7 @@ export default class PluginTest extends Vue {
     });
     (this.$refs.gisViewer as any).showDistrictMask({
       name: '徐汇区',
-      showMask: false
+      showMask: true
     });
   }
   private btn_test1() {
@@ -411,6 +411,10 @@ export default class PluginTest extends Vue {
     //   centerResult: true
     // });
     map.showRoad({ids: [1]});
+    // map.showDistrictMask({
+    //   name: '徐汇区',
+    //   showMask: true
+    // });
   }
   private async btn_test2() {
     let map = this.$refs.gisViewer as any;
@@ -509,19 +513,20 @@ export default class PluginTest extends Vue {
     //   name: '徐汇区',
     //   showMask: true
     // });
+    (this.$refs.gisViewer as any).locateStreet({id: '10003'});
   }
   private btn_test3() {
     (this.$refs.gisViewer as any).findFeature({
       layerName: 'police',
       level: 16,
       ids: ['test002'],
-      centerResult: false
+      centerResult: true
     });
-    (this.$refs.gisViewer as any).hideLayer({label: '匝道灯'});
+    //(this.$refs.gisViewer as any).hideLayer({label: '匝道灯'});
     //(this.$refs.gisViewer as any).deleteHeatMap();
     //(this.$refs.gisViewer as any).deleteOverlaysCluster({types: ['sxj1']});
     //(this.$refs.gisViewer as any).deleteAllOverlays();
-    (this.$refs.gisViewer as any).deleteOverlays({ids: ['test001']});
+    //(this.$refs.gisViewer as any).deleteOverlays({ids: ['test001']});
     //(this.$refs.gisViewer as any).hideLayer({ type: "traffic" });
     //(this.$refs.gisViewer as any).setMapCenter({x: 121.12, y: 31.23});
     // (this.$refs.gisViewer as any).setMapCenterAndLevel({
@@ -530,7 +535,7 @@ export default class PluginTest extends Vue {
     //   level: 15
     // });
     //(this.$refs.gisViewer as any).hideJurisdiction();
-    //(this.$refs.gisViewer as any).hideDistrictMask();
+    (this.$refs.gisViewer as any).hideDistrictMask();
     // (this.$refs.gisViewer as any).addOverlays({
     //   type: 'police',
     //   defaultSymbol: {

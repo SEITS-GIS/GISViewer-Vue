@@ -16,7 +16,8 @@ import {
   ICenterLevel,
   IFindParameter,
   IResult,
-  IDistrictParameter
+  IDistrictParameter,
+  IStreetParameter
 } from '@/types/map';
 
 @Component({
@@ -73,6 +74,9 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   }
   public showRoad() {}
   public hideRoad() {}
+  public showStreet() {}
+  public hideStreet() {}
+  public locateStreet(param: IStreetParameter) {}
 }
 </script>
 

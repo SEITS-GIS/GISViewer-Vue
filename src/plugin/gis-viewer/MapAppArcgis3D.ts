@@ -11,7 +11,8 @@ import {
   ICenterLevel,
   IFindParameter,
   IResult,
-  IDistrictParameter
+  IDistrictParameter,
+  IStreetParameter
 } from '@/types/map';
 import {OverlayArcgis3D} from '@/plugin/gis-viewer/widgets/OverlayArcgis3D';
 import {RasterStretchRenderer} from 'esri/rasterRenderers';
@@ -218,4 +219,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
   public async hideDistrictMask() {}
   public async showRoad() {}
   public async hideRoad() {}
+  public async showStreet() {}
+  public async hideStreet() {}
+  public async locateStreet(param: IStreetParameter) {}
 }

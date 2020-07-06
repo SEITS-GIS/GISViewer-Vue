@@ -7,8 +7,8 @@ import {
 } from '@/types/map';
 import {loadModules} from 'esri-loader';
 import ToolTip from './ToolTip';
-import HighFeauture from '../HighFeauture3D';
-import HighFeauture2D from '../HighFeauture2D';
+import HighFeauture from './HighFeauture3D';
+import HighFeauture2D from './HighFeauture2D';
 
 export class OverlayArcgis2D {
   private static overlayArcgis2D: OverlayArcgis2D;
@@ -279,7 +279,7 @@ export class OverlayArcgis2D {
     };
   }
   private async startJumpPoint(graphics: any[]) {
-    let high = HighFeauture2D.getInstance(this.view, graphics);
-    high.startup();
+    let high = HighFeauture2D.getInstance(this.view);
+    high.startup(graphics);
   }
 }

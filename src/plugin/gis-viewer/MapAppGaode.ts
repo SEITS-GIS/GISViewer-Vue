@@ -10,7 +10,8 @@ import {
   ICenterLevel,
   IFindParameter,
   IResult,
-  IDistrictParameter
+  IDistrictParameter,
+  IStreetParameter
 } from '@/types/map';
 import {OverlayGaode} from '@/plugin/gis-viewer/widgets/OverlayGaode';
 import {JurisdictionPoliceGD} from './widgets/GD/JurisdictionPoliceGD';
@@ -181,5 +182,17 @@ export default class MapAppGaode implements IMapContainer {
   public async hideRoad() {
     const road = DrawSteet.getInstance(this.view);
     await road.hideRoad();
+  }
+  public async showStreet() {
+    const jurisdiction = JurisdictionPoliceGD.getInstance(this.view);
+    await jurisdiction.showStreet();
+  }
+  public async hideStreet() {
+    const jurisdiction = JurisdictionPoliceGD.getInstance(this.view);
+    await jurisdiction.hideStreet();
+  }
+  public async locateStreet(param: IStreetParameter) {
+    const jurisdiction = JurisdictionPoliceGD.getInstance(this.view);
+    await jurisdiction.locateStreet(param);
   }
 }

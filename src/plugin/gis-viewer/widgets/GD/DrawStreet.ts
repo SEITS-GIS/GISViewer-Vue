@@ -29,7 +29,7 @@ export class DrawSteet {
     if (this.streets) {
       this.drawStreet(ids);
     } else {
-      axios.get('config/street_xh.json').then((res: any) => {
+      axios.get('./config/street_xh.json').then((res: any) => {
         _this.streets = res.data;
         _this.drawStreet(ids);
       });
