@@ -28,11 +28,11 @@ export default class PluginTest extends Vue {
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
     theme: 'light', //dark,vec
     baseLayers: [
-      // {
-      //   type: 'traffic',
-      //   visible: true,
-      //   interval: 10
-      // }
+      {
+        type: 'traffic',
+        visible: false,
+        interval: 10
+      },
       {
         type: 'tiled',
         url:
@@ -337,54 +337,54 @@ export default class PluginTest extends Vue {
     //       '<div class="jq_table">\n    <div class="jq-msg">\n        <div>警情描述:</div>\n        <div>{jqDescription}</div>\n    </div>\n    <div class="jq-msg">\n        <div>警情类型:</div>\n        <div>{jqTypeDesc}</div>\n    </div>\n    <div class="jq-msg">\n        <div>警情地址:</div>\n        <div>{jqAddress}</div>\n    </div>\n    <div class="jq-msg">\n        <div>发生时间:</div>\n        <div>{jqTime}</div>\n    </div>\n    <div class="jq-msg">\n        <div>报警人:</div>\n        <div>{informer}</div>\n    </div>\n    <div class="jq-msg">\n        <div>联系方式:</div>\n        <div>{informerPhone}</div>\n    </div>\n    <div class="jq-msg">\n        <div>处置描述:</div>\n        <div>{handleDescription}</div>\n    </div>\n    <div class="jq-msg">\n        <div>警情状态:</div>\n        <div>{jqStatus}</div>\n    </div>\n</div>',
     //   },
     // });
-    const result = await map.addOverlays({
-      type: 'police',
-      defaultSymbol: {
-        //symbol for 2d
-        type: 'point-2d',
-        // primitive: "square",
-        url: 'assets/image/Anchor.png',
-        size: [50, 50],
-        anchor: 'center'
-        // color: "red",
-        // outline: {
-        //   color: "white",
-        //   size: 4
-        // },
-        // anchor: "top"
+    // const result = await map.addOverlays({
+    //   type: 'police',
+    //   defaultSymbol: {
+    //     //symbol for 2d
+    //     type: 'point-2d',
+    //     // primitive: "square",
+    //     url: 'assets/image/Anchor.png',
+    //     size: [50, 50],
+    //     anchor: 'center'
+    //     // color: "red",
+    //     // outline: {
+    //     //   color: "white",
+    //     //   size: 4
+    //     // },
+    //     // anchor: "top"
 
-        //symbol for 3d
-        //type: "point-3d",
-        //primitive: "cube",
-        //color: "red",
-        //size: 20000,
-        //anchor: "bottom",
-      },
-      overlays: [
-        {
-          id: 'test001',
-          geometry: {x: 121.418924, y: 31.157101},
-          fields: {name: '测试2', featureid: '0002'}
-        },
-        {
-          id: 'test002',
-          geometry: {x: 121.318924, y: 31.157101},
-          fields: {name: '测试3', featureid: '0003'}
-        },
-        {
-          id: 'test003',
-          geometry: {x: 121.418924, y: 31.257101},
-          fields: {name: '测试4', featureid: '0001'}
-        }
-      ],
-      showPopup: true,
-      autoPopup: false,
-      defaultInfoTemplate: {
-        title: '1212',
-        content: '<div>name:{name}<br/><button>{name}</button></div>'
-      },
-      defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
-    });
+    //     //symbol for 3d
+    //     //type: "point-3d",
+    //     //primitive: "cube",
+    //     //color: "red",
+    //     //size: 20000,
+    //     //anchor: "bottom",
+    //   },
+    //   overlays: [
+    //     {
+    //       id: 'test001',
+    //       geometry: {x: 121.418924, y: 31.157101},
+    //       fields: {name: '测试2', featureid: '0002'}
+    //     },
+    //     {
+    //       id: 'test002',
+    //       geometry: {x: 121.318924, y: 31.157101},
+    //       fields: {name: '测试3', featureid: '0003'}
+    //     },
+    //     {
+    //       id: 'test003',
+    //       geometry: {x: 121.418924, y: 31.257101},
+    //       fields: {name: '测试4', featureid: '0001'}
+    //     }
+    //   ],
+    //   showPopup: true,
+    //   autoPopup: false,
+    //   defaultInfoTemplate: {
+    //     title: '1212',
+    //     content: '<div>name:{name}<br/><button>{name}</button></div>'
+    //   },
+    //   defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
+    // });
     (this.$refs.gisViewer as any).showDistrictMask({
       name: '徐汇区',
       showMask: true
@@ -410,6 +410,7 @@ export default class PluginTest extends Vue {
     //   ids: ['test003'],
     //   centerResult: true
     // });
+    map.hideLayer({type: 'traffic'});
     map.showRoad({ids: [1]});
     // map.showDistrictMask({
     //   name: '徐汇区',
@@ -516,12 +517,14 @@ export default class PluginTest extends Vue {
     (this.$refs.gisViewer as any).locateStreet({id: '10003'});
   }
   private btn_test3() {
-    (this.$refs.gisViewer as any).findFeature({
-      layerName: 'police',
-      level: 16,
-      ids: ['test002'],
-      centerResult: true
-    });
+    (this.$refs.gisViewer as any).locateStreet({id: '10013'});
+    // (this.$refs.gisViewer as any).showLayer({type: 'traffic'});
+    // (this.$refs.gisViewer as any).findFeature({
+    //   layerName: 'police',
+    //   level: 16,
+    //   ids: ['test002'],
+    //   centerResult: true
+    // });
     //(this.$refs.gisViewer as any).hideLayer({label: '匝道灯'});
     //(this.$refs.gisViewer as any).deleteHeatMap();
     //(this.$refs.gisViewer as any).deleteOverlaysCluster({types: ['sxj1']});
@@ -535,7 +538,7 @@ export default class PluginTest extends Vue {
     //   level: 15
     // });
     //(this.$refs.gisViewer as any).hideJurisdiction();
-    (this.$refs.gisViewer as any).hideDistrictMask();
+    //(this.$refs.gisViewer as any).hideDistrictMask();
     // (this.$refs.gisViewer as any).addOverlays({
     //   type: 'police',
     //   defaultSymbol: {

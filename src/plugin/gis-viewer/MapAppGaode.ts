@@ -42,6 +42,7 @@ export default class MapAppGaode implements IMapContainer {
     });
     this.view = new AMap.Map(mapContainer, mapConfig.options);
     (this.view as any).version = version;
+    (this.view as any).mapOptions = mapConfig.options;
     return new Promise((resole) => {
       this.view.on('complete', () => {
         if (mapConfig.baseLayers) {
@@ -53,7 +54,6 @@ export default class MapAppGaode implements IMapContainer {
       });
     });
   }
-
   public createLayer(view: any, layer: any) {
     switch (layer.type) {
       case 'traffic':

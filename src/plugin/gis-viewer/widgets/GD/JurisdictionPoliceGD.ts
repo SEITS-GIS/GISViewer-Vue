@@ -85,11 +85,11 @@ export class JurisdictionPoliceGD {
                 area = [bounds[i]].concat(inner);
               }
               var polygon = new AMap.Polygon({
-                strokeWeight: 3,
+                strokeWeight: 0,
                 path: area,
                 fillOpacity: 1,
                 fillColor: 'rgb(0,0,0)',
-                strokeColor: '#0091ea'
+                strokeColor: '#000000'
               });
               polygons.push(polygon);
             }
@@ -129,8 +129,8 @@ export class JurisdictionPoliceGD {
           strokeWeight: 2,
           path: overlay.geometry.rings,
           fillOpacity: 0.3,
-          fillColor: 'rgb(255,0,255)',
-          strokeColor: '#0091ea'
+          fillColor: 'rgb(.0,125,255)',
+          strokeColor: '#FFD700'
         });
         graphic.extData = {
           id: overlay.attributes.FEATUREID,
@@ -163,9 +163,9 @@ export class JurisdictionPoliceGD {
             draggable: false,
             style: {
               border: '0',
-              'font-size': '12px',
+              'font-size': '15px',
               'background-color': 'rgba(0, 0, 0, 0)',
-              color: '#1252fe'
+              color: '#ff0000'
             },
             position: cp
           });
@@ -191,16 +191,30 @@ export class JurisdictionPoliceGD {
     let localOverlay: any;
     for (let i = 0; i < overlays.length; i++) {
       let overlay = overlays[i];
-      let extData = overlay.extData;
-      if (
-        (id && extData.id == id) ||
-        (name && extData.name.indexOf(name) > -1)
-      ) {
-        localOverlay = overlay;
-        break;
+      if (overlay.CLASS_NAME == 'AMap.Polygon') {
+        let extData = overlay.extData;
+        if (
+          (id && extData.id == id) ||
+          (name && extData.name.indexOf(name) > -1)
+        ) {
+          localOverlay = overlay;
+        } else {
+          overlay.setOptions({
+            strokeWeight: 2,
+            fillOpacity: 0.3,
+            fillColor: 'rgb(.0,125,255)',
+            strokeColor: '#FFD700'
+          });
+        }
       }
     }
     if (localOverlay) {
+      localOverlay.setOptions({
+        strokeColor: 'red',
+        strokeWeight: 5,
+        fillOpacity: 0,
+        strokeStyle: 'dashed'
+      });
       this.view.setFitView(localOverlay);
     }
   }
