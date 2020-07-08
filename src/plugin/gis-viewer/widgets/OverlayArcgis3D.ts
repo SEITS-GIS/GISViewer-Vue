@@ -326,6 +326,12 @@ export class OverlayArcgis3D {
     };
   }
   public async findFeature(params: IFindParameter): Promise<IResult> {
+    if (!this.overlayLayer) {
+      return {
+        status: 0,
+        message: 'ok'
+      };
+    }
     let type = params.layerName;
     let ids = params.ids || [];
     let level = params.level || this.view.zoom;

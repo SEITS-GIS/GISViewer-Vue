@@ -1,4 +1,4 @@
-import {loadScript, ILoadScriptOptions} from 'esri-loader';
+import {loadScript, getScript, ILoadScriptOptions} from 'esri-loader';
 import {
   IMapContainer,
   IOverlayParameter,
@@ -37,9 +37,7 @@ export default class MapAppGaode implements IMapContainer {
       plugins += ',AMap.Heatmap';
     }
     apiUrl = apiUrl + plugins;
-    await loadScript({
-      url: apiUrl
-    });
+    await this.loadScripts([apiUrl]);
     this.view = new AMap.Map(mapContainer, mapConfig.options);
     (this.view as any).version = version;
     (this.view as any).mapOptions = mapConfig.options;
@@ -51,6 +49,21 @@ export default class MapAppGaode implements IMapContainer {
           });
         }
         resole();
+      });
+    });
+  }
+  private async loadScripts(scriptUrls: string[]): Promise<any> {
+    let promises = scriptUrls.map((url) => {
+      return new Promise((resolve, reject) => {
+        const scriptElement = document.createElement('script');
+        scriptElement.src = url;
+        scriptElement.onload = resolve;
+        document.body.appendChild(scriptElement);
+      });
+    });
+    return new Promise((resolve) => {
+      Promise.all(promises).then((e) => {
+        resolve(e);
       });
     });
   }
@@ -86,7 +99,7 @@ export default class MapAppGaode implements IMapContainer {
     const overlay = OverlayGaode.getInstance(this.view);
     return await overlay.findFeature(params);
   }
-
+  public async findLayerFeature(params: IFindParameter) {}
   public async addOverlaysCluster(params: IOverlayClusterParameter) {
     const cluster = ClusterGD.getInstance(this.view);
     cluster.showGisDeviceInfo = this.showGisDeviceInfo;

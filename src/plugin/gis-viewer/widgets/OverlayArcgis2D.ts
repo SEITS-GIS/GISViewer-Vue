@@ -3,7 +3,9 @@ import {
   IPointSymbol,
   IResult,
   IOverlayDelete,
-  IFindParameter
+  IFindParameter,
+  IPolylineSymbol,
+  IPolygonSymbol
 } from '@/types/map';
 import {loadModules} from 'esri-loader';
 import ToolTip from './ToolTip';
@@ -48,7 +50,6 @@ export class OverlayArcgis2D {
 
   private makeSymbol(symbol: IPointSymbol | undefined): Object | undefined {
     if (!symbol || symbol.type.toLowerCase() !== 'point-2d') return undefined;
-
     let result;
 
     if (symbol.primitive) {
@@ -260,6 +261,12 @@ export class OverlayArcgis2D {
     };
   }
   public async findFeature(params: IFindParameter): Promise<IResult> {
+    if (!this.overlayLayer) {
+      return {
+        status: 0,
+        message: 'ok'
+      };
+    }
     let type = params.layerName;
     let ids = params.ids || [];
     let level = params.level || this.view.zoom;

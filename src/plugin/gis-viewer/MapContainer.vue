@@ -149,6 +149,9 @@ export default class MapContainer extends Vue implements IMapContainer {
   public findFeature(params: IFindParameter) {
     this.mapContainer.findFeature(params);
   }
+  public findLayerFeature(params: IFindParameter) {
+    this.mapContainer.findLayerFeature(params);
+  }
   public showRoad(param: {ids: string[]}) {
     this.mapContainer.showRoad(param);
   }

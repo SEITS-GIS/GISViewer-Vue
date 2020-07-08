@@ -41,6 +41,7 @@ class HighFeautureRender {
   private GraphicsLayer: any;
   private Graphic: any;
   private overlayer: any;
+  private symboltype = '3d';
 
   public constructor(view: __esri.SceneView, graphics: any[]) {
     // Geometrical transformations that must be recomputed
@@ -62,10 +63,15 @@ class HighFeautureRender {
       this.overlayer = new GraphicsLayer();
       this.graphics.forEach((graphic: any, index: number) => {
         graphic.visible = false;
-        this.upDis = Math.min(
-          Math.round(graphic.symbol.symbolLayers.getItemAt(0).size / 2.0),
-          25
-        );
+        if (graphic.symbol.type == 'point-3d') {
+          this.upDis = Math.min(
+            Math.round(graphic.symbol.symbolLayers.getItemAt(0).size / 2.0),
+            25
+          );
+        } else {
+          this.symboltype = '2d';
+          this.upDis = Math.min(Math.round(graphic.symbol.height / 1.2), 45);
+        }
         var g = new this.Graphic({
           geometry: graphic.geometry,
           symbol: graphic.symbol.clone(),
@@ -95,24 +101,41 @@ class HighFeautureRender {
       return;
     }
     this.graphicsClone.forEach((graphic: any) => {
-      graphic.symbol.symbolLayers.getItemAt(0).anchor = 'relative';
+      if (this.symboltype == '3d') {
+        graphic.symbol.symbolLayers.getItemAt(0).anchor = 'relative';
+      }
       if (this.isUp) {
-        if (
-          graphic.symbol.symbolLayers.getItemAt(0).anchorPosition == undefined
-        ) {
-          graphic.symbol.symbolLayers.getItemAt(0).anchorPosition = {
-            x: 0,
-            y: 0
-          };
+        if (this.symboltype == '3d') {
+          if (
+            graphic.symbol.symbolLayers.getItemAt(0).anchorPosition == undefined
+          ) {
+            graphic.symbol.symbolLayers.getItemAt(0).anchorPosition = {
+              x: 0,
+              y: 0
+            };
+          }
+
+          graphic.symbol.symbolLayers.getItemAt(0).anchorPosition.y += 0.1;
+        } else {
+          if (
+            graphic.symbol.yoffset == undefined ||
+            Number.isNaN(graphic.symbol.yoffset)
+          ) {
+            graphic.symbol.yoffset = 0;
+          }
+          graphic.symbol.yoffset++;
         }
-        graphic.symbol.symbolLayers.getItemAt(0).anchorPosition.y += 0.1;
         if (this.currentDis >= this.upDis) {
           //切换弹跳方向
           this.currentDis = 0;
           this.isUp = false;
         }
       } else {
-        graphic.symbol.symbolLayers.getItemAt(0).anchorPosition.y -= 0.1;
+        if (this.symboltype == '3d') {
+          graphic.symbol.symbolLayers.getItemAt(0).anchorPosition.y -= 0.1;
+        } else {
+          graphic.symbol.yoffset--;
+        }
         if (this.currentDis >= this.upDis) {
           //切换弹跳方向
           this.currentDis = 0;

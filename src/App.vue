@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <plugin-test />
+    <home></home>
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import PluginTest from "@/components/PluginTest.vue";
+import {Component, Vue} from 'vue-property-decorator';
+import Home from '@/components/Home.vue';
 
 @Component({
   components: {
-    PluginTest
+    Home
   }
 })
 export default class App extends Vue {}

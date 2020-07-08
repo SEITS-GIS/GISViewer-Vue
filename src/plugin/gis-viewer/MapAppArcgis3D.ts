@@ -16,6 +16,7 @@ import {
 } from '@/types/map';
 import {OverlayArcgis3D} from '@/plugin/gis-viewer/widgets/OverlayArcgis3D';
 import {RasterStretchRenderer} from 'esri/rasterRenderers';
+import {FindFeature} from './widgets/FindFeature';
 
 export default class MapAppArcGIS3D implements IMapContainer {
   public view!: __esri.SceneView;
@@ -214,6 +215,10 @@ export default class MapAppArcGIS3D implements IMapContainer {
   public async findFeature(params: IFindParameter) {
     const overlay = OverlayArcgis3D.getInstance(this.view);
     return await overlay.findFeature(params);
+  }
+  public async findLayerFeature(params: IFindParameter) {
+    const find = FindFeature.getInstance(this.view);
+    return await find.findLayerFeature(params);
   }
   public async showDistrictMask(param: IDistrictParameter) {}
   public async hideDistrictMask() {}

@@ -10,6 +10,7 @@ import {
   IStreetParameter
 } from '@/types/map';
 import {OverlayArcgis2D} from '@/plugin/gis-viewer/widgets/OverlayArcgis2D';
+import {FindFeature} from './widgets/FindFeature';
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
@@ -166,6 +167,10 @@ export default class MapAppArcGIS2D {
   public async findFeature(params: IFindParameter) {
     const overlay = OverlayArcgis2D.getInstance(this.view);
     return await overlay.findFeature(params);
+  }
+  public async findLayerFeature(params: IFindParameter) {
+    const find = FindFeature.getInstance(this.view);
+    return await find.findLayerFeature(params);
   }
   public async showLayer(params: ILayerConfig) {
     console.log(params);

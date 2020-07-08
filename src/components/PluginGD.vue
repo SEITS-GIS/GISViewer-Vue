@@ -7,7 +7,7 @@
     </div>
     <gis-viewer
       ref="gisViewer"
-      platform="arcgis3d"
+      platform="gd"
       :map-config="mapConfig"
       @map-loaded="mapLoaded"
       @marker-click="showGisDeviceInfo"
@@ -18,11 +18,11 @@
 import {Vue, Component, Prop} from 'vue-property-decorator';
 import axios from 'axios';
 @Component
-export default class PluginTest extends Vue {
+export default class PluginGD extends Vue {
   private mapConfig = {
-    arcgis_api: 'http://localhost:8090/arcgis_js_api/library/4.14',
-    //arcgis_api:
-    //  'https://webapi.amap.com/maps?v=1.4.15&key=29dd04daa39aa33a7e2cdffa37ebec4d',
+    //arcgis_api: 'http://localhost:8090/arcgis_js_api/library/4.14',
+    arcgis_api:
+      'https://webapi.amap.com/maps?v=1.4.15&key=29dd04daa39aa33a7e2cdffa37ebec4d',
     //arcgis_api: 'http://128.64.130.247:8219/baidumap/jsapi/api.js',
     //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",

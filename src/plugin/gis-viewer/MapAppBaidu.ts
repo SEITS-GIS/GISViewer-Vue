@@ -68,7 +68,6 @@ export default class MapAppBaidu implements IMapContainer {
     this.view = view;
     this.view.gisServer = gisUrl;
   }
-
   private async loadOtherScripts(scriptUrls: string[]): Promise<any> {
     let promises = scriptUrls.map((url) => {
       return new Promise((resolve, reject) => {
@@ -124,7 +123,7 @@ export default class MapAppBaidu implements IMapContainer {
     const overlay = OverlayBaidu.getInstance(this.view);
     await overlay.findFeature(params);
   }
-
+  public async findLayerFeature(params: IFindParameter) {}
   public async addOverlaysCluster(params: IOverlayClusterParameter) {
     const overlay = OverlayBaidu.getInstance(this.view);
     overlay.showGisDeviceInfo = this.showGisDeviceInfo;
