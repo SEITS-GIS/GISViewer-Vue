@@ -8,6 +8,7 @@ import GisViewer from './plugin/index';
 
 Vue.config.productionTip = false;
 Vue.use(GisViewer);
+
 Vue.use(VueRouter);
 //定义路由
 const routes = [
@@ -15,6 +16,7 @@ const routes = [
   {path: '/gd', component: gd},
   {path: '/arc', component: arc}
 ];
+
 //创建 router 实例，然后传 routes 配置
 const router = new VueRouter({
   mode: 'history',

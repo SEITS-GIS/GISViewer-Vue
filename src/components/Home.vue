@@ -22,9 +22,7 @@ export default class Home extends Vue {
 <style scoped>
 #home {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
+  right: 0px;
   z-index: 99999999;
 }
 #test {

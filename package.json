@@ -19,8 +19,7 @@
     "esri-loader": "^2.13.0",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
-    "vue-property-decorator": "^8.3.0",
-    "vue-router": "^3.3.4"
+    "vue-property-decorator": "^8.3.0"
   },
   "devDependencies": {
     "@types/arcgis-js-api": "^4.14.0",
@@ -35,6 +34,7 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",
     "typescript": "~3.7.5",
+    "vue-router": "^3.3.4",
     "vue-template-compiler": "^2.6.10"
   },
   "homepage": "https://github.com/herrshi/GISViewer-Vue",
