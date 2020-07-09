@@ -76,7 +76,6 @@ export default class MapContainer extends Vue implements IMapContainer {
 
   //当前的地图容器
   get mapContainer(): IMapContainer {
-    console.log(this.platform);
     switch (this.platform) {
       case Platforms.ArcGIS2D:
         return this.containerArcgis2D;
