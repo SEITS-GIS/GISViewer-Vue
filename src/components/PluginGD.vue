@@ -186,7 +186,7 @@ export default class PluginGD extends Vue {
     console.log('Map Loaded.');
     let map = this.$refs.gisViewer as any;
 
-    (this.$refs.gisViewer as any).showDistrictMask({
+    map.showDistrictMask({
       name: '徐汇区',
       showMask: true
     });

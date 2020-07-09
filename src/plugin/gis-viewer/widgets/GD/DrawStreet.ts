@@ -326,6 +326,9 @@ export class DrawSteet {
     }
     return DrawSteet.instance;
   }
+  public static destroy() {
+    (DrawSteet.instance as any) = null;
+  }
   public async hideRoad() {
     this.overlayGroup.clearOverlays();
   }

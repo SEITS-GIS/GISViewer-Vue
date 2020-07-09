@@ -41,6 +41,7 @@ export default class MapAppGaode implements IMapContainer {
     this.view = new AMap.Map(mapContainer, mapConfig.options);
     (this.view as any).version = version;
     (this.view as any).mapOptions = mapConfig.options;
+    this.destroy();
     return new Promise((resole) => {
       this.view.on('complete', () => {
         if (mapConfig.baseLayers) {
@@ -88,6 +89,13 @@ export default class MapAppGaode implements IMapContainer {
         });
         break;
     }
+  }
+  private destroy() {
+    OverlayGaode.destroy();
+    ClusterGD.destroy();
+    HeatMapGD.destroy();
+    JurisdictionPoliceGD.destroy();
+    DrawSteet.destroy();
   }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayGaode.getInstance(this.view);

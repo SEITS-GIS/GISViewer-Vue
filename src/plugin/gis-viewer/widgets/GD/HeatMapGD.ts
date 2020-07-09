@@ -19,6 +19,9 @@ export class HeatMapGD {
     }
     return HeatMapGD.heatMap;
   }
+  public static destroy() {
+    (HeatMapGD.heatMap as any) = null;
+  }
   public isSupportCanvas() {
     var elem = document.createElement('canvas');
     return !!(elem.getContext && elem.getContext('2d'));

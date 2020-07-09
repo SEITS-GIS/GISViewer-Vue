@@ -33,6 +33,9 @@ export class OverlayGaode {
     }
     return OverlayGaode.instance;
   }
+  public static destroy() {
+    (OverlayGaode.instance as any) = null;
+  }
   /**根据graphic的属性生成弹出框*/
   private getInfoWindowContent(graphic: any) {
     let content = '';

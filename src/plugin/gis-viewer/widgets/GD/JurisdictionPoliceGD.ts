@@ -31,6 +31,9 @@ export class JurisdictionPoliceGD {
     }
     return JurisdictionPoliceGD.jurisdictionPolice;
   }
+  public static destroy() {
+    (JurisdictionPoliceGD.jurisdictionPolice as any) = null;
+  }
   public async showDistrictMask(params: IDistrictParameter) {
     this.hideDistrictMask();
     let name = params.name;

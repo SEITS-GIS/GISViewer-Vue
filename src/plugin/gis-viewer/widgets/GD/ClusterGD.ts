@@ -23,6 +23,9 @@ export class ClusterGD {
     }
     return ClusterGD.cluster;
   }
+  public static destroy() {
+    (ClusterGD.cluster as any) = null;
+  }
   public async addOverlaysCluster(
     params: IOverlayClusterParameter
   ): Promise<IResult> {
