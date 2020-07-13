@@ -7,10 +7,12 @@ import {
   ICenterLevel,
   IOverlayDelete,
   IFindParameter,
-  IStreetParameter
+  IStreetParameter,
+  IHeatParameter
 } from '@/types/map';
 import {OverlayArcgis2D} from '@/plugin/gis-viewer/widgets/OverlayArcgis2D';
 import {FindFeature} from './widgets/FindFeature';
+import {HeatMap} from './widgets/HeatMap';
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
@@ -219,4 +221,12 @@ export default class MapAppArcGIS2D {
   public async showStreet() {}
   public async hideStreet() {}
   public async locateStreet(param: IStreetParameter) {}
+  public async addHeatMap(params: IHeatParameter) {
+    const heatmap = HeatMap.getInstance(this.view);
+    return await heatmap.addHeatMap(params);
+  }
+  public async deleteHeatMap() {
+    const heatmap = HeatMap.getInstance(this.view);
+    return await heatmap.deleteHeatMap();
+  }
 }

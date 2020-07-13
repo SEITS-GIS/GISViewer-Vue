@@ -20,6 +20,7 @@ export class OverlayGaode {
   private overlayGroup: any;
   private markerClustererLayer = new Array();
   public showGisDeviceInfo: any;
+  public mouseGisDeviceInfo: any;
 
   private overlayGroups: Map<string, AMap.OverlayGroup> = new Map();
 
@@ -139,6 +140,7 @@ export class OverlayGaode {
             position: [geometry.x, geometry.y],
             extData: {
               clickfunc: this.showGisDeviceInfo,
+              mousefunc: this.mouseGisDeviceInfo,
               attributes: fields,
               infoTemplate: content,
               type: 'point'
@@ -155,6 +157,7 @@ export class OverlayGaode {
             position: [geometry.x, geometry.y],
             extData: {
               clickfunc: this.showGisDeviceInfo,
+              mousefunc: this.mouseGisDeviceInfo,
               attributes: fields,
               infoTemplate: content
             }
@@ -170,6 +173,7 @@ export class OverlayGaode {
           path: (feature.geometry as IPolylineGeometry).path as any,
           extData: {
             clickfunc: this.showGisDeviceInfo,
+            mousefunc: this.mouseGisDeviceInfo,
             attributes: fields,
             infoTemplate: content,
             type: 'polyline'
@@ -198,6 +202,7 @@ export class OverlayGaode {
           path: (feature.geometry as IPolygonGeometry).ring as any,
           extData: {
             clickfunc: this.showGisDeviceInfo,
+            mousefunc: this.mouseGisDeviceInfo,
             attributes: fields,
             infoTemplate: content,
             type: 'polygon'
@@ -230,6 +235,7 @@ export class OverlayGaode {
           path: (feature.geometry as IPolygonGeometry).ring as any,
           extData: {
             clickfunc: this.showGisDeviceInfo,
+            mousefunc: this.mouseGisDeviceInfo,
             attributes: fields,
             infoTemplate: content,
             type: 'extent'
@@ -257,6 +263,7 @@ export class OverlayGaode {
           radius: (feature.geometry as any).radius || 10, //半径
           extData: {
             clickfunc: this.showGisDeviceInfo,
+            mousefunc: this.mouseGisDeviceInfo,
             attributes: fields,
             infoTemplate: content,
             type: 'circle'
@@ -279,6 +286,8 @@ export class OverlayGaode {
       if (overlay) {
         group.addOverlay(overlay);
         overlay.on('click', this.onOverlayClick);
+        overlay.on('mouseover', this.onOverlayMouse);
+        overlay.on('mouseout', this.onOverlayMouse);
       }
     });
     return {
@@ -287,7 +296,15 @@ export class OverlayGaode {
       result: `成功添加${params.overlays.length}中的${addCount}个覆盖物`
     };
   }
-
+  private onOverlayMouse(event: any) {
+    let mark = event.target;
+    let fields = event.target.getExtData().attributes;
+    if (event.target.getExtData().mousefunc) {
+      event.target
+        .getExtData()
+        .mousefunc(event.type, fields.type, fields.id, fields);
+    }
+  }
   private onOverlayClick(event: any) {
     let mark = event.target;
     let fields = event.target.getExtData().attributes;

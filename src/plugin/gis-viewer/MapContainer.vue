@@ -27,6 +27,7 @@
       :map-config="this.mapConfig"
       @map-loaded="mapLoaded"
       @marker-click="showGisDeviceInfo"
+      @marker-mouse="mouseGisDeviceInfo"
     />
   </div>
 </template>
@@ -95,6 +96,13 @@ export default class MapContainer extends Vue implements IMapContainer {
 
   @Emit('marker-click')
   private showGisDeviceInfo(type: string, id: string) {}
+  @Emit('marker-mouse')
+  public mouseGisDeviceInfo(
+    event: any,
+    type: string,
+    id: string,
+    detail: any
+  ) {}
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     return await this.mapContainer.addOverlays(params);

@@ -38,11 +38,20 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
 
   @Emit('marker-click')
   public showGisDeviceInfo(type: string, id: string, detail: any) {}
+  @Emit('marker-mouse')
+  public mouseGisDeviceInfo(
+    event: any,
+    type: string,
+    id: string,
+    detail: any
+  ) {}
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     return await this.mapApp.addOverlays(params);
   }
-  public addHeatMap(params: IHeatParameter) {}
+  public addHeatMap(params: IHeatParameter) {
+    this.mapApp.addHeatMap(params);
+  }
   public addOverlaysCluster(params: IOverlayClusterParameter) {}
   public deleteOverlays(params: IOverlayDelete) {
     this.mapApp.deleteOverlays(params);
@@ -52,7 +61,9 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
     this.mapApp.deleteAllOverlays();
   }
   public deleteAllOverlaysCluster() {}
-  public deleteHeatMap() {}
+  public deleteHeatMap() {
+    this.mapApp.deleteHeatMap();
+  }
   public showLayer(params: ILayerConfig) {
     this.mapApp.showLayer(params);
   }

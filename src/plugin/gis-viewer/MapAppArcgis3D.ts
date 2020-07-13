@@ -17,6 +17,7 @@ import {
 import {OverlayArcgis3D} from '@/plugin/gis-viewer/widgets/OverlayArcgis3D';
 import {RasterStretchRenderer} from 'esri/rasterRenderers';
 import {FindFeature} from './widgets/FindFeature';
+import {HeatMap} from './widgets/HeatMap';
 
 export default class MapAppArcGIS3D implements IMapContainer {
   public view!: __esri.SceneView;
@@ -156,13 +157,19 @@ export default class MapAppArcGIS3D implements IMapContainer {
     return await overlay.addOverlays(params);
   }
   public async addOverlaysCluster(params: IOverlayClusterParameter) {}
-  public async addHeatMap(params: IHeatParameter) {}
+  public async addHeatMap(params: IHeatParameter) {
+    const heatmap = HeatMap.getInstance(this.view);
+    return await heatmap.addHeatMap(params);
+  }
   public async deleteAllOverlays() {
     const overlay = OverlayArcgis3D.getInstance(this.view);
     return await overlay.deleteAllOverlays();
   }
   public async deleteAllOverlaysCluster() {}
-  public async deleteHeatMap() {}
+  public async deleteHeatMap() {
+    const heatmap = HeatMap.getInstance(this.view);
+    return await heatmap.deleteHeatMap();
+  }
   public async deleteOverlays(params: IOverlayDelete) {
     const overlay = OverlayArcgis3D.getInstance(this.view);
     return await overlay.deleteOverlays(params);

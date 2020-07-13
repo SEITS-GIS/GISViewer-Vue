@@ -24,6 +24,7 @@ export default class MapAppGaode implements IMapContainer {
   public view!: AMap.Map;
   public baseLayers: Array<any> = [];
   public showGisDeviceInfo: any;
+  public mouseGisDeviceInfo: any;
 
   public async initialize(mapConfig: any, mapContainer: string) {
     let apiUrl = mapConfig.arcgis_api || mapConfig.api_url;
@@ -100,6 +101,7 @@ export default class MapAppGaode implements IMapContainer {
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayGaode.getInstance(this.view);
     overlay.showGisDeviceInfo = this.showGisDeviceInfo;
+    overlay.mouseGisDeviceInfo = this.mouseGisDeviceInfo;
     return await overlay.addOverlays(params);
   }
 

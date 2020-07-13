@@ -36,6 +36,13 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
 
   @Emit('marker-click')
   public showGisDeviceInfo(type: string, id: string, detail: any) {}
+  @Emit('marker-mouse')
+  public mouseGisDeviceInfo(
+    event: any,
+    type: string,
+    id: string,
+    detail: any
+  ) {}
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     return await this.mapApp.addOverlays(params);

@@ -35,10 +35,18 @@ export default class MapContainerGd extends Vue implements IMapContainer {
     await this.mapApp.initialize(this.mapConfig, 'divAMap');
 
     this.mapApp.showGisDeviceInfo = this.showGisDeviceInfo;
+    this.mapApp.mouseGisDeviceInfo = this.mouseGisDeviceInfo;
   }
 
   @Emit('marker-click')
   public showGisDeviceInfo(type: string, id: string, detail: any) {}
+  @Emit('marker-mouse')
+  public mouseGisDeviceInfo(
+    event: any,
+    type: string,
+    id: string,
+    detail: any
+  ) {}
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     return await this.mapApp.addOverlays(params);

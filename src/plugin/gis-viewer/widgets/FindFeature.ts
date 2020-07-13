@@ -6,7 +6,7 @@ import {
   IFindParameter
 } from '@/types/map';
 import {loadModules} from 'esri-loader';
-import HighFeauture3D from './HighFeauture3D';
+import HighFeauture3D from './Render/HighFeauture3D';
 
 export class FindFeature {
   private static findFeature: FindFeature;
@@ -74,7 +74,7 @@ export class FindFeature {
       'esri/tasks/support/FindParameters'
     ]) as Promise<MapModules>);
     let ids = options.ids;
-    let symbol = options.layer.renderer.symbol;
+    let symbol = ''; //options.layer.renderer.symbol;
     let that = this;
     let promises = ids.map((searchText: string) => {
       return new Promise((resolve, reject) => {
@@ -99,8 +99,7 @@ export class FindFeature {
             graphics.push(gra);
             return item.feature.attributes;
           });
-
-          that.startJumpPoint(graphics);
+          //that.startJumpPoint(graphics);
           resolve(feats);
         });
       });
@@ -111,10 +110,5 @@ export class FindFeature {
       });
     });
   }
-  private async startJumpPoint(graphics: any[]) {
-    let geo = graphics[0].geometry;
-    this.view.goTo({target: geo});
-    let high = HighFeauture3D.getInstance(this.view as __esri.SceneView);
-    high.startup(graphics);
-  }
+  private async startJumpPoint(graphics: any[]) {}
 }
