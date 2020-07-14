@@ -1,5 +1,6 @@
 import {loadModules} from 'esri-loader';
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
+import {Utils} from '../../Utils';
 //import * as THREE from 'three';
 declare let h337: any;
 export default class HeatMap3DRender {
@@ -17,7 +18,27 @@ export default class HeatMap3DRender {
     }
     return HeatMap3DRender.instance;
   }
-  public async startup(graphics: any[]) {
+  public async startup(param: {graphics: any[]; options: any}) {
+    let that = this;
+    Utils.loadScripts(['libs/heatmap.min.js']).then(() => {
+      loadModules(['esri/views/3d/externalRenderers']).then(
+        ([externalRenderers]) => {
+          if (that.heatRender) {
+            externalRenderers.remove(this.view, this.heatRender);
+            that.heatRender.clear();
+            that.heatRender = null;
+          }
+          that.heatRender = new HeatMapRender(
+            that.view,
+            param.graphics,
+            param.options
+          );
+          externalRenderers.add(this.view, this.heatRender);
+        }
+      );
+    });
+  }
+  public async clear() {
     let that = this;
     loadModules(['esri/views/3d/externalRenderers']).then(
       ([externalRenderers]) => {
@@ -26,8 +47,6 @@ export default class HeatMap3DRender {
           that.heatRender.clear();
           that.heatRender = null;
         }
-        that.heatRender = new HeatMapRender(that.view, graphics, {});
-        externalRenderers.add(this.view, this.heatRender);
       }
     );
   }
@@ -42,11 +61,15 @@ class HeatMapRender {
   private heatmapInstance: any;
   private pointdata: any = [];
   private omax: any;
+  private options: any;
+  private graphics: any;
 
   public constructor(view: __esri.SceneView, graphics: any[], options: any) {
     // Geometrical transformations that must be recomputed
     // from scratch at every frame.
     this.view = view;
+    this.graphics = graphics;
+    this.options = options;
   }
 
   // Called once a custom layer is added to the map.layers collection and this layer view is instantiated.
@@ -79,37 +102,25 @@ class HeatMapRender {
     });
     var points = [];
     var max = 0;
-    var len = 100;
-
-    while (len--) {
-      var val = Math.floor(Math.random() * 120);
-      // now also with custom radius
-      var radius = Math.floor(Math.random() * 70);
-      let x = 121 + Math.random() * 1;
-      let y = 31 + Math.random() * 1;
-      let pp = new Point({
-        y: y,
-        x: x,
+    this.graphics.forEach((graphic: any) => {
+      let point = new Point({
+        x: graphic.geometry.x,
+        y: graphic.geometry.y,
         spatialReference: {wkid: 4326}
       });
-      pp = webMercatorUtils.geographicToWebMercator(pp);
-      let p = this.view.toScreen(pp);
-      max = Math.max(max, val);
-      var point = {
+      let p = this.view.toScreen(point);
+      let data = {
         x: Math.floor(p.x),
         y: Math.floor(p.y),
-        point: pp,
-        value: val,
-        // radius configuration on point basis
-        radius: radius
+        point: point
       };
-      this.pointdata.push(point);
-      points.push(point);
-    }
+      this.pointdata.push(data);
+    });
+
     this.omax = max;
     var data = {
       max: max,
-      data: points
+      data: this.pointdata
     };
     this.heatmapInstance.setData(data);
   }
@@ -120,9 +131,7 @@ class HeatMapRender {
       return {
         x: Math.floor(pp.x),
         y: Math.floor(pp.y),
-        value: point.value,
-        // radius configuration on point basis
-        radius: point.radius
+        value: point.value
       };
     });
     var data = {

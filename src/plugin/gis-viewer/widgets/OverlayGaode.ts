@@ -302,7 +302,7 @@ export class OverlayGaode {
     if (event.target.getExtData().mousefunc) {
       event.target
         .getExtData()
-        .mousefunc(event.type, fields.type, fields.id, fields);
+        .mousefunc(event, fields.type, fields.id, fields);
     }
   }
   private onOverlayClick(event: any) {

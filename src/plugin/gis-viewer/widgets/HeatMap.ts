@@ -94,7 +94,7 @@ export class HeatMap {
       field: options.field,
       colorStops: this.getHeatColor(colors),
       minPixelIntensity: 0,
-      maxPixelIntensity: 5000
+      maxPixelIntensity: options.maxValue
     } as any;
     layer.renderer =
       this.view.zoom > maxzoom ? simpleRenderer : heatmapRenderer;
