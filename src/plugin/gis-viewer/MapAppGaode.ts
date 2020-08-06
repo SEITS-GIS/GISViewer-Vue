@@ -18,6 +18,7 @@ import {JurisdictionPoliceGD} from './widgets/GD/JurisdictionPoliceGD';
 import {HeatMapGD} from './widgets/GD/HeatMapGD';
 import {ClusterGD} from './widgets/GD/ClusterGD';
 import '@amap/amap-jsapi-types';
+import AMapLoader from '@amap/amap-jsapi-loader';
 import {DrawSteet} from './widgets/GD/DrawStreet';
 
 export default class MapAppGaode implements IMapContainer {
@@ -28,17 +29,26 @@ export default class MapAppGaode implements IMapContainer {
 
   public async initialize(mapConfig: any, mapContainer: string) {
     let apiUrl = mapConfig.arcgis_api || mapConfig.api_url;
-    let plugins =
-      '&plugin=AMap.DistrictSearch,AMap.CustomLayer,AMap.ControlBar,AMap.MarkerClusterer';
+    let plugins = [
+      'AMap.DistrictSearch',
+      'AMap.CustomLayer',
+      'AMap.ControlBar',
+      'AMap.MarkerClusterer'
+    ];
     let version = '1.0';
     if (apiUrl.indexOf('v=2') > -1) {
-      plugins += ',AMap.HeatMap';
+      plugins.push('AMap.HeatMap');
       version = '2.0';
     } else {
-      plugins += ',AMap.Heatmap';
+      plugins.push('AMap.Heatmap');
     }
-    apiUrl = apiUrl + plugins;
-    await this.loadScripts([apiUrl]);
+    let key = this.getQueryString(apiUrl, 'key');
+    let v = this.getQueryString(apiUrl, 'v');
+    await AMapLoader.load({
+      key: key,
+      version: v,
+      plugins: plugins
+    });
     this.view = new AMap.Map(mapContainer, mapConfig.options);
     (this.view as any).version = version;
     (this.view as any).mapOptions = mapConfig.options;
@@ -54,20 +64,14 @@ export default class MapAppGaode implements IMapContainer {
       });
     });
   }
-  private async loadScripts(scriptUrls: string[]): Promise<any> {
-    let promises = scriptUrls.map((url) => {
-      return new Promise((resolve, reject) => {
-        const scriptElement = document.createElement('script');
-        scriptElement.src = url;
-        scriptElement.onload = resolve;
-        document.body.appendChild(scriptElement);
-      });
-    });
-    return new Promise((resolve) => {
-      Promise.all(promises).then((e) => {
-        resolve(e);
-      });
-    });
+  private getQueryString(url: string, name: string): string {
+    let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)'); //构造一个含有目标参数的正则表达式对象
+    let search = url.split('?')[1];
+    let r = search.match(reg); //匹配目标参数
+    if (r != null) {
+      return decodeURIComponent(r[2]);
+    }
+    return ''; //返回参数值
   }
   public createLayer(view: any, layer: any) {
     switch (layer.type) {
@@ -217,5 +221,8 @@ export default class MapAppGaode implements IMapContainer {
   public async locateStreet(param: IStreetParameter) {
     const jurisdiction = JurisdictionPoliceGD.getInstance(this.view);
     await jurisdiction.locateStreet(param);
+  }
+  public setMapStyle(param: string) {
+    this.view.setMapStyle(param);
   }
 }

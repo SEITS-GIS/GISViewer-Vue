@@ -87,29 +87,151 @@ export default class MapAppArcGIS2D {
     if (mapConfig.operationallayers) {
       this.createLayer(view.map, mapConfig.operationallayers);
     }
+
     view.on('click', async (event) => {
       const response = await view.hitTest(event);
-      response.results.forEach((result) => {
-        const graphic = result.graphic;
-        let {type, id} = graphic.attributes;
-        if (graphic.layer.declaredClass.indexOf('FeatureLayer') > -1) {
-          id =
-            graphic.attributes['DEVICEID'] ||
-            graphic.attributes['FEATUREID'] ||
-            undefined;
-          type =
-            graphic.attributes['DEVICETYPE'] ||
-            graphic.attributes['FEATURETYPE'] ||
-            graphic.attributes['FEATURETYP'] ||
-            undefined;
-        }
-        if (type && id) {
-          this.showGisDeviceInfo(type, id, graphic.toJSON());
-        }
-      });
+      if (response.results.length > 0) {
+        response.results.forEach((result) => {
+          const graphic = result.graphic;
+          let {type, id} = graphic.attributes;
+          if (graphic.layer.type == 'feature') {
+            id =
+              graphic.attributes['DEVICEID'] ||
+              graphic.attributes['FEATUREID'] ||
+              undefined;
+            type =
+              graphic.attributes['DEVICETYPE'] ||
+              graphic.attributes['FEATURETYPE'] ||
+              graphic.attributes['FEATURETYP'] ||
+              undefined;
+          }
+          if (type && id) {
+            this.showGisDeviceInfo(type, id, graphic.toJSON());
+          }
+        });
+      } else {
+        this.doIdentifyTask(event.mapPoint).then((results: any) => {
+          if (results.length > 0) {
+            let result = results[0];
+            let type = result.layerName;
+            let layerid = result.layerId;
+            let id =
+              result.feature.attributes['DEVICEID'] ||
+              result.feature.attributes['FEATUREID'] ||
+              result.feature.attributes[result.displayFieldName];
+            this.showGisDeviceInfo(type, id, result.feature.attributes);
+            let selectLayer = this.getLayerByName(type);
+            if (selectLayer.popupTemplates) {
+              let popup = selectLayer.popupTemplates[layerid];
+              if (popup) {
+                this.view.popup.open({
+                  title: popup.title,
+                  content: this.getContent(
+                    result.feature.attributes,
+                    popup.content
+                  ),
+                  location: event.mapPoint
+                });
+              }
+            }
+          }
+        });
+      }
     });
     await view.when();
     this.view = view;
+  }
+  //使toolTip中支持{字段}的形式
+  private getContent(attr: any, content: string): string {
+    let tipContent = content;
+    if (content) {
+      //键值对
+      for (let fieldName in attr) {
+        if (attr.hasOwnProperty(fieldName)) {
+          tipContent = tipContent.replace(
+            '{' + fieldName + '}',
+            attr[fieldName]
+          );
+        }
+      }
+    }
+    return tipContent;
+  }
+  private getLayerIds(layer: any): any[] {
+    let layerids = [];
+    if (layer.type == 'feature') {
+      //featurelayer查询
+      layerids.push(layer.layerId);
+    } else if (layer.type == 'map-image') {
+      let sublayers = (layer as __esri.MapImageLayer).sublayers;
+      sublayers.forEach((sublayer) => {
+        if (sublayer.visible) {
+          layerids.push(sublayer.id);
+        }
+      });
+    }
+    return layerids.reverse();
+  }
+  private getLayerByName(layername: string): any {
+    let selLayer;
+    let layers = this.view.map.allLayers.toArray().forEach((layer: any) => {
+      if (layer.type == 'imagery' || layer.type == 'map-image') {
+        let sublayers = (layer as __esri.MapImageLayer).sublayers;
+        sublayers.forEach((sublayer) => {
+          if (sublayer.title == layername) {
+            selLayer = layer;
+          }
+        });
+      }
+      return false;
+    });
+    return selLayer;
+  }
+  private async doIdentifyTask(clickpoint: any) {
+    console.log(clickpoint);
+    let layers = this.view.map.allLayers.filter((layer: any) => {
+      if (layer.type == 'imagery' || layer.type == 'map-image') {
+        return true;
+      }
+      return false;
+    });
+    let that = this;
+    type MapModules = [
+      typeof import('esri/Graphic'),
+      typeof import('esri/tasks/IdentifyTask'),
+      typeof import('esri/tasks/support/IdentifyParameters')
+    ];
+    const [Graphic, IdentifyTask, IdentifyParameters] = await (loadModules([
+      'esri/Graphic',
+      'esri/tasks/IdentifyTask',
+      'esri/tasks/support/IdentifyParameters'
+    ]) as Promise<MapModules>);
+    let promises: any = layers.toArray().map((layer: any) => {
+      return new Promise((resolve, reject) => {
+        let identify = new IdentifyTask(layer.url); //创建属性查询对象
+
+        let identifyParams = new IdentifyParameters(); //创建属性查询参数
+        identifyParams.tolerance = 3;
+        identifyParams.layerIds = that.getLayerIds(layer);
+        identifyParams.layerOption = 'top'; //"top"|"visible"|"all"
+        identifyParams.width = that.view.width;
+        identifyParams.height = that.view.height;
+        identifyParams.geometry = clickpoint;
+        identifyParams.mapExtent = that.view.extent;
+
+        // 执行查询对象
+        identify.execute(identifyParams).then((data: any) => {
+          let results = data.results;
+          if (results.length < 1) return [];
+          resolve(results[0]);
+        });
+      });
+    });
+    return new Promise((resolve) => {
+      Promise.all(promises).then((e: any) => {
+        resolve(e);
+      });
+    });
   }
   private async createLayer(map: __esri.Map, layers: any) {
     type MapModules = [
@@ -229,4 +351,5 @@ export default class MapAppArcGIS2D {
     const heatmap = HeatMap.getInstance(this.view);
     return await heatmap.deleteHeatMap();
   }
+  public setMapStyle(param: string) {}
 }

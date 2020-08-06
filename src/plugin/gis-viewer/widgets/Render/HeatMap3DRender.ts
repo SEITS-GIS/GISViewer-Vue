@@ -1,8 +1,4 @@
 import {loadModules} from 'esri-loader';
-import GraphicsLayer from 'esri/layers/GraphicsLayer';
-import {Utils} from '../../Utils';
-//import * as THREE from 'three';
-declare let h337: any;
 export default class HeatMap3DRender {
   private view: any;
   private static instance: HeatMap3DRender;
@@ -20,23 +16,21 @@ export default class HeatMap3DRender {
   }
   public async startup(param: {graphics: any[]; options: any}) {
     let that = this;
-    Utils.loadScripts(['libs/heatmap.min.js']).then(() => {
-      loadModules(['esri/views/3d/externalRenderers']).then(
-        ([externalRenderers]) => {
-          if (that.heatRender) {
-            externalRenderers.remove(this.view, this.heatRender);
-            that.heatRender.clear();
-            that.heatRender = null;
-          }
-          that.heatRender = new HeatMapRender(
-            that.view,
-            param.graphics,
-            param.options
-          );
-          externalRenderers.add(this.view, this.heatRender);
+    loadModules(['esri/views/3d/externalRenderers']).then(
+      ([externalRenderers]) => {
+        if (that.heatRender) {
+          externalRenderers.remove(this.view, this.heatRender);
+          that.heatRender.clear();
+          that.heatRender = null;
         }
-      );
-    });
+        that.heatRender = new HeatMapRender(
+          that.view,
+          param.graphics,
+          param.options
+        );
+        externalRenderers.add(this.view, this.heatRender);
+      }
+    );
   }
   public async clear() {
     let that = this;
@@ -76,11 +70,9 @@ class HeatMapRender {
   public async setup(context: any) {
     this.aClass = await loadModules([
       'esri/geometry/Point',
-      'esri/geometry/support/webMercatorUtils',
-      'esri/geometry/SpatialReference'
+      'libs/heatmap.min.js'
     ]);
-    const [Point, webMercatorUtils, SpatialReference] = this.aClass;
-
+    const [Point, h337] = this.aClass;
     let canvas = document.createElement('div');
     canvas.style.width = this.view.width + 'px';
     canvas.style.height = this.view.height + 'px';
@@ -95,13 +87,14 @@ class HeatMapRender {
     this.heatmapInstance = h337.create({
       // only container is required, the rest will be defaults
       container: this.canvas,
-      radius: 10,
+      radius: this.options.radius,
+      gradient: this.options.colors,
       maxOpacity: 0.5,
       minOpacity: 0,
       blur: 0.75
     });
-    var points = [];
-    var max = 0;
+    let points = [];
+    let fieldName = this.options.field;
     this.graphics.forEach((graphic: any) => {
       let point = new Point({
         x: graphic.geometry.x,
@@ -112,14 +105,15 @@ class HeatMapRender {
       let data = {
         x: Math.floor(p.x),
         y: Math.floor(p.y),
-        point: point
+        point: point,
+        value: graphic.fields[fieldName] || 0
       };
       this.pointdata.push(data);
     });
 
-    this.omax = max;
     var data = {
-      max: max,
+      max: this.options.maxValue,
+      min: this.options.minValue,
       data: this.pointdata
     };
     this.heatmapInstance.setData(data);
@@ -135,18 +129,23 @@ class HeatMapRender {
       };
     });
     var data = {
-      max: this.omax,
+      max: this.options.maxValue,
+      min: this.options.minValue,
       data: points
     };
     this.heatmapInstance.setData(data);
   }
   // Called every time a frame is rendered.
   private async render(context: any) {
-    this.refreshLayer();
+    if (this.heatmapInstance) {
+      this.refreshLayer();
+    }
     context.resetWebGLState();
   }
   // Called internally from render().
   public async clear() {
-    (document.getElementById('heatmapdiv') as any).innerHTML = '';
+    if (this.canvas) {
+      this.canvas.parentNode.removeChild(this.canvas);
+    }
   }
 }

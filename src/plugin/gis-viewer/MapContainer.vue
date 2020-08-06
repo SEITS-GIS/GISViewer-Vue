@@ -175,6 +175,9 @@ export default class MapContainer extends Vue implements IMapContainer {
   public locateStreet(param: IStreetParameter) {
     this.mapContainer.locateStreet(param);
   }
+  public setMapStyle(param: string) {
+    this.mapContainer.setMapStyle(param);
+  }
 }
 </script>
 

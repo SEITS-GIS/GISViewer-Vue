@@ -91,10 +91,12 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public showStreet() {}
   public hideStreet() {}
   public locateStreet(param: IStreetParameter) {}
+  public setMapStyle(param: string) {}
 }
 </script>
 
 <style scoped>
+@import './styles/map.css';
 #divArcGISMap2D {
   padding: 0;
   margin: 0;

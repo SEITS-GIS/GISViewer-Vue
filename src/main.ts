@@ -12,7 +12,7 @@ Vue.use(GisViewer);
 Vue.use(VueRouter);
 //定义路由
 const routes = [
-  {path: '', component: gd},
+  {path: '', component: arc},
   {path: '/gd', component: gd},
   {path: '/arc', component: arc}
 ];

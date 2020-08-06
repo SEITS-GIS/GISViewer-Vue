@@ -165,12 +165,15 @@ export class OverlayGaode {
         }
       }
       //线
-      else if ('path' in geometry) {
+      else if ('paths' in geometry || 'path' in geometry) {
+        let path =
+          (feature.geometry as IPolylineGeometry).path ||
+          (feature.geometry as any).paths[0];
         symbol =
           (feature.symbol as IPolylineSymbol) ||
           (defaultSymbol as IPolylineSymbol);
         overlay = new AMap.Polyline({
-          path: (feature.geometry as IPolylineGeometry).path as any,
+          path: path as any,
           extData: {
             clickfunc: this.showGisDeviceInfo,
             mousefunc: this.mouseGisDeviceInfo,
@@ -194,12 +197,15 @@ export class OverlayGaode {
         });
       }
       //面
-      else if ('ring' in geometry) {
+      else if ('rings' in geometry || 'ring' in geometry) {
+        let ring =
+          (feature.geometry as IPolygonGeometry).ring ||
+          (feature.geometry as any).rings;
         symbol =
           (feature.symbol as IPolygonSymbol) ||
           (defaultSymbol as IPolygonSymbol);
         overlay = new AMap.Polygon({
-          path: (feature.geometry as IPolygonGeometry).ring as any,
+          path: ring as any,
           extData: {
             clickfunc: this.showGisDeviceInfo,
             mousefunc: this.mouseGisDeviceInfo,
@@ -231,8 +237,11 @@ export class OverlayGaode {
         symbol =
           (feature.symbol as IPolygonSymbol) ||
           (defaultSymbol as IPolygonSymbol);
-        overlay = new AMap.Polygon({
-          path: (feature.geometry as IPolygonGeometry).ring as any,
+        overlay = new AMap.Rectangle({
+          bounds: new AMap.Bounds(
+            new AMap.LngLat(geo.xmin, geo.ymin),
+            new AMap.LngLat(geo.xmax, geo.ymax)
+          ),
           extData: {
             clickfunc: this.showGisDeviceInfo,
             mousefunc: this.mouseGisDeviceInfo,

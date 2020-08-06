@@ -54,6 +54,7 @@ export class OverlayArcgis3D {
     let result;
     switch (symbol.type.toLowerCase()) {
       case 'point-2d':
+      case 'point':
         //图元类型不匹配
         if (symbol.primitive && !this.primitive2D.includes(symbol.primitive)) {
           // console.error(`Wrong primitive: ${symbol.primitive}`);
@@ -106,6 +107,32 @@ export class OverlayArcgis3D {
               anchor: symbol.anchor
             }
           ]
+        };
+        break;
+      case 'line':
+      case 'polyline':
+        result = {
+          type: 'simple-line', // autocasts as new SimpleLineSymbol()
+          color: (symbol as any).color || 'red',
+          width: (symbol as any).width || 1,
+          style: (symbol as any).style || 'solid'
+        };
+        break;
+      case 'fill':
+      case 'polygon':
+        result = {
+          type: 'simple-fill', // autocasts as new SimpleFillSymbol()
+          color: (symbol as any).color || 'rgba(255,0,0,0.5)',
+          style: (symbol as any).style || 'solid',
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: (symbol as any).outline
+              ? (symbol as any).outline.color || 'green'
+              : 'green',
+            width: (symbol as any).outline
+              ? (symbol as any).outline.width || 0.4
+              : 0.4
+          }
         };
         break;
     }
@@ -233,12 +260,15 @@ export class OverlayArcgis3D {
     let addCount = 0;
     for (let i = 0; i < params.overlays.length; i++) {
       const overlay = params.overlays[i];
+      const geometry = geometryJsonUtils.fromJSON(overlay.geometry);
+      if (overlay.symbol && !overlay.symbol.type) {
+        overlay.symbol.type = geometry.type;
+      }
       const overlaySymbol = this.makeSymbol(overlay.symbol);
       //TODO: 加入更详细的参数是否合法判断
       if (!defaultSymbol && !overlaySymbol) {
         continue;
       }
-      const geometry = geometryJsonUtils.fromJSON(overlay.geometry);
       const fields = overlay.fields;
       fields.type = params.type;
       fields.id = overlay.id;

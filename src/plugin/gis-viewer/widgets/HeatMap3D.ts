@@ -7,9 +7,13 @@ import {
 import {loadModules} from 'esri-loader';
 import {Point} from 'esri/geometry';
 import HeatMap3DRender from './Render/HeatMap3DRender';
+import {OverlayArcgis3D} from './OverlayArcgis3D';
 export class HeatMap3D {
   private static heatMap: HeatMap3D;
   private view!: any;
+  private overlays: any;
+  private handle: any;
+  private state: string = 'heat';
 
   private constructor(view: any) {
     this.view = view;
@@ -26,16 +30,49 @@ export class HeatMap3D {
 
   public async deleteHeatMap() {
     this.clear();
+
+    if (this.handle) {
+      this.handle.remove();
+    }
   }
-  private clear() {}
+  private clear() {
+    let heatmapRenderer = HeatMap3DRender.getInstance(this.view);
+    heatmapRenderer.clear();
+    if (this.overlays) {
+      this.overlays.deleteOverlays({types: ['heatpoint']});
+    }
+  }
   public async addHeatMap(params: IHeatParameter) {
     // Create featurelayer from client-side graphics
-    this.clear();
 
+    let options = params.options;
+    let maxzoom = options.zoom || 0;
+    if (this.view.zoom > maxzoom) {
+      this.addOverlays(params);
+    } else {
+      this.showHeatMap(params);
+    }
+    let that = this;
+    this.handle = this.view.watch('zoom', (newValue: number) => {
+      if (newValue > maxzoom) {
+        //显示point
+        if (that.state == 'heat') {
+          this.addOverlays(params);
+        }
+      } else {
+        //显示heat
+        if (that.state == 'point') {
+          this.showHeatMap(params);
+        }
+      }
+    });
+  }
+  private showHeatMap(params: IHeatParameter) {
+    this.state = 'heat';
+    this.clear();
     let points = params.points;
     let options = params.options;
 
-    let maxzoom = options.zoom || 0;
     let colors = params.options.colors || [
       'rgb(255, 255, 255)',
       'rgb(255, 140, 0)',
@@ -46,7 +83,6 @@ export class HeatMap3D {
     heatmapRenderer.startup({
       graphics: points,
       options: {
-        zoom: maxzoom,
         colors: this.getHeatColor(colors),
         minValue: 0,
         maxValue: options.maxValue,
@@ -54,27 +90,43 @@ export class HeatMap3D {
         field: options.field
       }
     });
-    this.view.watch('zoom', (newValue: number) => {});
   }
   public getHeatColor(colors: string[] | undefined): any[] {
-    let obj: any = [
-      {ratio: 0, color: 'rgba(255, 255, 255, 0)'},
-      {ratio: 0.2, color: 'rgba(255, 255, 255, 1)'},
-      {ratio: 0.5, color: 'rgba(255, 140, 0, 1)'},
-      {ratio: 0.8, color: 'rgba(255, 140, 0, 1)'},
-      {ratio: 1, color: 'rgba(255, 0, 0, 1)'}
-    ]; //默认值
+    let obj: any = {};
     if (colors && colors.length >= 4) {
       //"rgba(30,144,255,0)","rgba(30,144,255)","rgb(0, 255, 0)","rgb(255, 255, 0)", "rgb(254,89,0)"
-      let steps = [0.2, 0.5, 0.8, 1];
-      let colorStops: any[] = [{ratio: 0, color: 'rgba(255, 255, 255, 0)'}];
-      steps.forEach((element: number, index: number) => {
-        colorStops.push({ratio: element, color: colors[index]});
+      let steps = ['0.2', '0.5', '0.8', '1'];
+      let colorStops: any = {};
+      steps.forEach((element: string, index: number) => {
+        colorStops[element] = colors[index];
       });
-      console.log(colorStops);
       return colorStops;
     }
     return obj;
   }
-  public async addOverlays(params: IHeatParameter) {}
+  public async addOverlays(params: IHeatParameter) {
+    this.state = 'point';
+    this.clear();
+    const points = params.points;
+    const options = params.options;
+    const renderer = options.renderer;
+    let symbol;
+    if (options.renderer) {
+      symbol = {
+        type: 'point-2d',
+        url: renderer.symbol.url,
+        width: renderer.symbol.width,
+        height: renderer.symbol.height,
+        xoffset: renderer.symbol.xoffset || 0,
+        yoffset: renderer.symbol.yoffset || 0
+      };
+    }
+    let overlayparams = {
+      defaultSymbol: symbol,
+      overlays: points,
+      type: 'heatpoint'
+    };
+    this.overlays = OverlayArcgis3D.getInstance(this.view);
+    await this.overlays.addOverlays(overlayparams);
+  }
 }

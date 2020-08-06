@@ -49,7 +49,8 @@ export class OverlayArcgis2D {
   }
 
   private makeSymbol(symbol: IPointSymbol | undefined): Object | undefined {
-    if (!symbol || symbol.type.toLowerCase() !== 'point-2d') return undefined;
+    if (!symbol || (symbol.type && symbol.type.toLowerCase() == 'point-3d'))
+      return undefined;
     let result;
 
     if (symbol.primitive) {
@@ -79,6 +80,28 @@ export class OverlayArcgis2D {
         xoffset: symbol.xoffset ? symbol.xoffset : null,
         yoffset: symbol.yoffset ? symbol.yoffset : null,
         angle: symbol.rotation ? symbol.rotation : null
+      };
+    } else if (symbol.type == 'line' || symbol.type == 'polyline') {
+      result = {
+        type: 'simple-line', // autocasts as new SimpleLineSymbol()
+        color: (symbol as any).color || 'red',
+        width: (symbol as any).width || 1,
+        style: (symbol as any).style || 'solid'
+      };
+    } else if (symbol.type == 'fill' || symbol.type == 'polygon') {
+      result = {
+        type: 'simple-fill', // autocasts as new SimpleFillSymbol()
+        color: (symbol as any).color || 'rgba(255,0,0,0.5)',
+        style: (symbol as any).style || 'solid',
+        outline: {
+          // autocasts as new SimpleLineSymbol()
+          color: (symbol as any).outline
+            ? (symbol as any).outline.color || 'green'
+            : 'green',
+          width: (symbol as any).outline
+            ? (symbol as any).outline.width || 0.4
+            : 0.4
+        }
       };
     }
 
@@ -169,12 +192,16 @@ export class OverlayArcgis2D {
     let addCount = 0;
     for (let i = 0; i < params.overlays.length; i++) {
       const overlay = params.overlays[i];
+
+      const geometry = geometryJsonUtils.fromJSON(overlay.geometry);
+      if (overlay.symbol && !overlay.symbol.type) {
+        overlay.symbol.type = geometry.type;
+      }
       const overlaySymbol = this.makeSymbol(overlay.symbol);
       //TODO: 加入更详细的参数是否合法判断
       if (!defaultSymbol && !overlaySymbol) {
         continue;
       }
-      const geometry = geometryJsonUtils.fromJSON(overlay.geometry);
       const fields = overlay.fields;
       fields.type = params.type;
       fields.id = overlay.id;

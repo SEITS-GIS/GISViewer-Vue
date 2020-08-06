@@ -1,0 +1,13 @@
+.esri-popup__content {
+  padding: 5px 15px 5px 15px;
+  min-width: auto;
+  background-color: #666666;
+  overflow: hidden;
+  line-height: 35px;
+  text-align: center;
+  min-height: 35px;
+  /* height: 30px; */
+}
+.esri-popup__pointer-direction {
+  background-color: #666666 !important;
+}

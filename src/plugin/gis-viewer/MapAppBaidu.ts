@@ -114,6 +114,9 @@ export default class MapAppBaidu implements IMapContainer {
         break;
     }
   }
+  public setMapStyle(param: string) {
+    //this.view.setMapStyle(param);
+  }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayBaidu.getInstance(this.view);
     overlay.showGisDeviceInfo = this.showGisDeviceInfo;
