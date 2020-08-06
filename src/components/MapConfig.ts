@@ -204,9 +204,9 @@ export default class MapConfig {
     baseLayers: [{type: 'traffic', label: '路况', visible: true}],
     options: {
       center: [121.441, 31.159],
-      zoom: 13,
+      zoom: 13
       //viewMode: '3D'
-      mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
+      //mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
     }
   };
   public async mapLoaded(map: any) {
@@ -553,6 +553,7 @@ export default class MapConfig {
     // map.locateStreet({id: '10003'});
   }
   public btn_test3(map: any) {
+    map.setMapStyle('amap://styles/darkblue');
     //map.locateStreet({id: '10013'});
     // map.showLayer({type: 'traffic'});
     // map.findLayerFeature({
