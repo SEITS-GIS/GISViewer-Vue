@@ -14,10 +14,17 @@ export default class MapConfig {
         type: 'tiled',
         url:
           'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
-        visible: true
+        visible: false
       }
     ],
     operationallayers: [
+      {
+        label: '地铁1',
+        url:
+          'http://localhost:8090/TGISViewer_v200/images/mapIcons/JiaoWeiZhiHui/gzzx.svg',
+        type: 'picture',
+        visible: true
+      },
       {
         label: '地铁',
         url:
@@ -203,8 +210,19 @@ export default class MapConfig {
       //for arcgis-2d
       center: [121.441, 31.159],
       zoom: 13,
+      viewingMode: 'local',
+      ground: {opacity: 0},
+      alphaCompositingEnabled: true,
+      environment: {
+        background: {
+          type: 'color',
+          color: [255, 0, 0, 0.5]
+        },
+        starsEnabled: false,
+        atmosphereEnabled: false
+      }
       //viewMode: '3D'
-      mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
+      //mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
       //for arcgis-3d
       // camera: {
       //   heading: 0,
@@ -235,21 +253,21 @@ export default class MapConfig {
     arcgis_api:
       'https://webapi.amap.com/maps?v=1.4.15&key=29dd04daa39aa33a7e2cdffa37ebec4d',
     theme: 'custom', //dark,vec
-    baseLayers: [{type: 'traffic', label: '路况', visible: true}],
+    baseLayers: [{type: 'traffic', label: '路况', visible: false}],
     options: {
       center: [121.441, 31.159],
-      zoom: 13
+      zoom: 13,
       //viewMode: '3D'
-      //mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
+      mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
     }
   };
   public async mapLoaded(map: any) {
     console.log('Map Loaded.');
 
-    map.showDistrictMask({
-      name: '徐汇区',
-      showMask: true
-    });
+    // map.showDistrictMask({
+    //   name: '徐汇区',
+    //   showMask: true
+    // });
     map.showStreet();
     // map.showJurisdiction();
     /* map.addOverlays({
@@ -477,10 +495,19 @@ export default class MapConfig {
     });
   }
   public btn_test1(map: any) {
+    map
+      .routeSearch({
+        start: [121.31, 31.46],
+        end: [121.65, 31.125],
+        model: 'car'
+      })
+      .then((e: any) => {
+        console.log(e);
+      });
     //let map = this.$refs.gisViewer as any;
-    axios.get('config/point1.json').then((res: any) => {
-      map.addOverlaysCluster(res.data);
-    });
+    // axios.get('config/point1.json').then((res: any) => {
+    //   map.addOverlaysCluster(res.data);
+    // });
     // axios.get('config/point2.json').then((res: any) => {
     //   map.addOverlaysCluster(res.data);
     // });
@@ -490,12 +517,12 @@ export default class MapConfig {
     //  console.log(res.data);
     //});
     //map.hideLayer({label: '匝道灯'});
-    map.findFeature({
-      layerName: 'police',
-      level: 16,
-      ids: ['test003'],
-      centerResult: true
-    });
+    // map.findFeature({
+    //   layerName: 'police',
+    //   level: 16,
+    //   ids: ['test003'],
+    //   centerResult: true
+    // });
     // map.hideLayer({type: 'traffic'});
     // map.showRoad({ids: [1]});
     // map.showDistrictMask({
@@ -544,7 +571,7 @@ export default class MapConfig {
         }
       }
     };
-    //map.addHeatMap(json);
+    map.addHeatMap(json);
     // map.addOverlays({
     //   type: 'police',
     //   defaultSymbol: {
@@ -609,6 +636,7 @@ export default class MapConfig {
     });
   }
   public btn_test3(map: any) {
+    map.clearRouteSearch();
     //map.setMapStyle('amap://styles/darkblue');
     //map.locateStreet({id: '10013'});
     // map.showLayer({type: 'traffic'});

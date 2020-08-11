@@ -16,7 +16,8 @@ import {
   IFindParameter,
   IResult,
   IDistrictParameter,
-  IStreetParameter
+  IStreetParameter,
+  routeParameter
 } from '@/types/map';
 @Component({
   name: 'MapAppBaidu'
@@ -99,6 +100,10 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public setMapStyle(param: string) {
     this.mapApp.setMapStyle(param);
   }
+  public async routeSearch(params: routeParameter): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public clearRouteSearch() {}
 }
 </script>
 

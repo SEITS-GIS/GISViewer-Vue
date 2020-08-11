@@ -156,6 +156,8 @@ export interface IMapContainer {
   hideStreet: () => void;
   locateStreet: (param: IStreetParameter) => void;
   setMapStyle: (style: string) => void;
+  routeSearch: (param: any) => Promise<IResult>;
+  clearRouteSearch: () => void;
 }
 export interface IPopUpTemplate {
   title?: string;
@@ -197,4 +199,10 @@ export interface IStreetParameter {
   name: string;
   hideStreet: boolean; //是否隐藏其他街道
   reset: boolean; //重置,清除选择
+}
+export interface routeParameter {
+  start: number[];
+  end: number[];
+  waypoints: number[][];
+  model: string; //"car","ride","walk"
 }

@@ -17,7 +17,8 @@ import {
   IFindParameter,
   IResult,
   IDistrictParameter,
-  IStreetParameter
+  IStreetParameter,
+  routeParameter
 } from '@/types/map';
 
 @Component({
@@ -121,6 +122,12 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   }
   public setMapStyle(param: string) {
     this.mapApp.setMapStyle(param);
+  }
+  public async routeSearch(params: routeParameter): Promise<IResult> {
+    return await this.mapApp.routeSearch(params);
+  }
+  public clearRouteSearch() {
+    this.mapApp.clearRouteSearch();
   }
 }
 </script>

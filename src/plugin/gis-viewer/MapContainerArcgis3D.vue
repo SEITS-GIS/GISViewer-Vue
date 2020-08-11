@@ -17,7 +17,8 @@ import {
   IFindParameter,
   IResult,
   IDistrictParameter,
-  IStreetParameter
+  IStreetParameter,
+  routeParameter
 } from '@/types/map';
 
 @Component({
@@ -95,6 +96,10 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   public hideStreet() {}
   public locateStreet(param: IStreetParameter) {}
   public setMapStyle(param: string) {}
+  public async routeSearch(params: routeParameter): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public clearRouteSearch() {}
 }
 </script>
 

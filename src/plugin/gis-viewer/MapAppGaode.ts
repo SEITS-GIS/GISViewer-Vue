@@ -11,7 +11,8 @@ import {
   IFindParameter,
   IResult,
   IDistrictParameter,
-  IStreetParameter
+  IStreetParameter,
+  routeParameter
 } from '@/types/map';
 import {OverlayGaode} from '@/plugin/gis-viewer/widgets/Overlays/gd/OverlayGaode';
 import {JurisdictionPoliceGD} from './widgets/JurisdictionPolice/gd/JurisdictionPoliceGD';
@@ -20,6 +21,7 @@ import {ClusterGD} from './widgets/Cluster/gd/ClusterGD';
 import '@amap/amap-jsapi-types';
 import AMapLoader from '@amap/amap-jsapi-loader';
 import {DrawSteet} from './widgets/DrawStreet/gd/DrawStreet';
+import Route from './widgets/Route/Route';
 
 export default class MapAppGaode implements IMapContainer {
   public view!: AMap.Map;
@@ -33,7 +35,10 @@ export default class MapAppGaode implements IMapContainer {
       'AMap.DistrictSearch',
       'AMap.CustomLayer',
       'AMap.ControlBar',
-      'AMap.MarkerClusterer'
+      'AMap.MarkerClusterer',
+      'AMap.Driving',
+      'AMap.Walking',
+      'AMap.Riding'
     ];
     let version = '1.0';
     if (apiUrl.indexOf('v=2') > -1) {
@@ -224,5 +229,13 @@ export default class MapAppGaode implements IMapContainer {
   }
   public setMapStyle(param: string) {
     this.view.setMapStyle(param);
+  }
+  public async routeSearch(params: routeParameter): Promise<IResult> {
+    const route = Route.getInstance(this.view);
+    return await route.routeSearch(params);
+  }
+  public clearRouteSearch() {
+    const route = Route.getInstance(this.view);
+    route.clearRouteSearch();
   }
 }

@@ -11,7 +11,8 @@ import {
   IFindParameter,
   IResult,
   IDistrictParameter,
-  IStreetParameter
+  IStreetParameter,
+  routeParameter
 } from '@/types/map';
 import {OverlayBaidu} from '@/plugin/gis-viewer/widgets/Overlays/bd/OverlayBaidu';
 import {HeatMapBD} from './widgets/HeatMap/bd/HeatMapBD';
@@ -216,4 +217,8 @@ export default class MapAppBaidu implements IMapContainer {
   public async showStreet() {}
   public async hideStreet() {}
   public async locateStreet(param: IStreetParameter) {}
+  public async routeSearch(params: routeParameter): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public clearRouteSearch() {}
 }

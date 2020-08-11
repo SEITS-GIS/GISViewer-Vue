@@ -9,7 +9,8 @@ import {
   IFindParameter,
   IStreetParameter,
   IHeatParameter,
-  IOverlayClusterParameter
+  IOverlayClusterParameter,
+  routeParameter
 } from '@/types/map';
 import {OverlayArcgis2D} from '@/plugin/gis-viewer/widgets/Overlays/arcgis/OverlayArcgis2D';
 import {FindFeature} from './widgets/FindFeature/arcgis/FindFeature';
@@ -262,7 +263,8 @@ export default class MapAppArcGIS2D {
       typeof import('esri/layers/support/LabelClass'),
       typeof import('esri/Color'),
       typeof import('esri/symbols/Font'),
-      typeof import('esri/symbols/TextSymbol')
+      typeof import('esri/symbols/TextSymbol'),
+      any
     ];
     const [
       FeatureLayer,
@@ -273,7 +275,8 @@ export default class MapAppArcGIS2D {
       LabelClass,
       Color,
       Font,
-      TextSymbol
+      TextSymbol,
+      PictureLayer
     ] = await (loadModules([
       'esri/layers/FeatureLayer',
       'esri/layers/WebTileLayer',
@@ -283,38 +286,54 @@ export default class MapAppArcGIS2D {
       'esri/layers/support/LabelClass',
       'esri/Color',
       'esri/symbols/Font',
-      'esri/symbols/TextSymbol'
+      'esri/symbols/TextSymbol',
+      'libs/PictureLayer.js'
     ]) as Promise<MapModules>);
-    //map.addMany(
-    layers.map((layerConfig: any) => {
-      let layer: any;
-      switch (layerConfig.type.toLowerCase()) {
-        case 'feature':
-          delete layerConfig.type;
-          layer = new FeatureLayer(layerConfig);
-          layer.labelingInfo = layerConfig.labelingInfo;
-          break;
-        case 'dynamic':
-          delete layerConfig.type;
-          layer = new MapImageLayer(layerConfig);
-          break;
-        case 'wms':
-          delete layerConfig.type;
-          layer = new WMSLayer(layerConfig);
-          break;
-        case 'webtiled':
-          delete layerConfig.type;
-          layer = new WebTileLayer({
-            urlTemplate: layerConfig.url,
-            subDomains: layerConfig.subDomains || undefined
-          });
-          break;
-      }
-      //layer.id = layerConfig.id || layerConfig.label;
-      map.add(layer);
-      return layer;
-    });
-    //);
+    map.addMany(
+      layers.map((layerConfig: any) => {
+        let layer: any;
+        let type = layerConfig.type.toLowerCase();
+        delete layerConfig.type;
+        switch (type) {
+          case 'feature':
+            layer = new FeatureLayer(layerConfig);
+            layer.labelingInfo = layerConfig.labelingInfo;
+            break;
+          case 'dynamic':
+            layer = new MapImageLayer(layerConfig);
+            break;
+          case 'wms':
+            layer = new WMSLayer(layerConfig);
+            break;
+          case 'webtiled':
+            layer = new WebTileLayer({
+              urlTemplate: layerConfig.url,
+              subDomains: layerConfig.subDomains || undefined
+            });
+            break;
+          case 'picture':
+            let extent = {
+              xmin: 1.3399331780261297e7,
+              ymin: 3642756.620312426,
+              xmax: 1.3661939778556328e7,
+              ymax: 3754658.9837650103
+            };
+            let spatialReference = {wkid: 102100, latestWkid: 3857};
+            let units = 'esriMeters';
+            layer = new PictureLayer({
+              visible: true,
+              url: layerConfig.url,
+              opacity: 0.75,
+              pictureExtent: extent,
+              units: units,
+              spatialReference: spatialReference
+            });
+            break;
+        }
+        layer.id = layerConfig.id || layerConfig.label;
+        return layer;
+      })
+    );
   }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayArcgis2D.getInstance(this.view);
@@ -403,4 +422,9 @@ export default class MapAppArcGIS2D {
     return await heatmap.deleteHeatMap();
   }
   public setMapStyle(param: string) {}
+
+  public async routeSearch(params: routeParameter): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public clearRouteSearch() {}
 }

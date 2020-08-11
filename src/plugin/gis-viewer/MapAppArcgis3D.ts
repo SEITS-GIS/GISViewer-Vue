@@ -12,7 +12,8 @@ import {
   IFindParameter,
   IResult,
   IDistrictParameter,
-  IStreetParameter
+  IStreetParameter,
+  routeParameter
 } from '@/types/map';
 import {OverlayArcgis3D} from '@/plugin/gis-viewer/widgets/Overlays/arcgis/OverlayArcgis3D';
 import {RasterStretchRenderer} from 'esri/rasterRenderers';
@@ -85,7 +86,8 @@ export default class MapAppArcGIS3D implements IMapContainer {
     });
     const view: __esri.SceneView = new SceneView({
       map: new Map({
-        basemap
+        basemap,
+        ground: mapConfig.options.ground
       }),
       container: mapContainer,
       ...mapConfig.options
@@ -255,42 +257,74 @@ export default class MapAppArcGIS3D implements IMapContainer {
       typeof import('esri/layers/WebTileLayer'),
       typeof import('esri/layers/MapImageLayer'),
       typeof import('esri/layers/WMSLayer'),
-      typeof import('esri/layers/Layer')
+      typeof import('esri/layers/Layer'),
+      typeof import('esri/layers/support/LabelClass'),
+      typeof import('esri/Color'),
+      typeof import('esri/symbols/Font'),
+      typeof import('esri/symbols/TextSymbol'),
+      any
     ];
     const [
       FeatureLayer,
       WebTileLayer,
       MapImageLayer,
       WMSLayer,
-      Layer
+      Layer,
+      LabelClass,
+      Color,
+      Font,
+      TextSymbol,
+      PictureLayer
     ] = await (loadModules([
       'esri/layers/FeatureLayer',
       'esri/layers/WebTileLayer',
       'esri/layers/MapImageLayer',
       'esri/layers/WMSLayer',
-      'esri/layers/Layer'
+      'esri/layers/Layer',
+      'esri/layers/support/LabelClass',
+      'esri/Color',
+      'esri/symbols/Font',
+      'esri/symbols/TextSymbol',
+      'libs/PictureLayer.js'
     ]) as Promise<MapModules>);
     map.addMany(
       layers.map((layerConfig: any) => {
         let layer: any;
-        switch (layerConfig.type.toLowerCase()) {
+        let type = layerConfig.type.toLowerCase();
+        delete layerConfig.type;
+        switch (type) {
           case 'feature':
-            delete layerConfig.type;
             layer = new FeatureLayer(layerConfig);
+            layer.labelingInfo = layerConfig.labelingInfo;
             break;
           case 'dynamic':
-            delete layerConfig.type;
             layer = new MapImageLayer(layerConfig);
             break;
           case 'wms':
-            delete layerConfig.type;
             layer = new WMSLayer(layerConfig);
             break;
           case 'webtiled':
-            delete layerConfig.type;
             layer = new WebTileLayer({
               urlTemplate: layerConfig.url,
               subDomains: layerConfig.subDomains || undefined
+            });
+            break;
+          case 'picture':
+            let extent = {
+              xmin: 1.3399331780261297e7,
+              ymin: 3642756.620312426,
+              xmax: 1.3661939778556328e7,
+              ymax: 3754658.9837650103
+            };
+            let spatialReference = {wkid: 102100, latestWkid: 3857};
+            let units = 'esriMeters';
+            layer = new PictureLayer({
+              visible: true,
+              url: layerConfig.url,
+              opacity: 1,
+              pictureExtent: extent,
+              units: units,
+              spatialReference: spatialReference
             });
             break;
         }
@@ -389,4 +423,9 @@ export default class MapAppArcGIS3D implements IMapContainer {
   public async hideStreet() {}
   public async locateStreet(param: IStreetParameter) {}
   public setMapStyle(param: string) {}
+
+  public async routeSearch(params: routeParameter): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public clearRouteSearch() {}
 }
