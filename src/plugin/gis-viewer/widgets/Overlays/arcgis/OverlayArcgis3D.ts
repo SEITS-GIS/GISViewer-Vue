@@ -7,7 +7,7 @@ import {
 } from '@/types/map';
 import {loadModules} from 'esri-loader';
 import ToolTip from './ToolTip';
-import HighFeauture3D from './Render/HighFeauture3D';
+import HighFeauture3D from './HighFeauture3D';
 
 export class OverlayArcgis3D {
   private static overlayArcgis3D: OverlayArcgis3D;

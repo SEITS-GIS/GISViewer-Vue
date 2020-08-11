@@ -6,7 +6,8 @@ import {
   IFindParameter
 } from '@/types/map';
 import {loadModules} from 'esri-loader';
-import HighFeauture3D from './Render/HighFeauture3D';
+import HighFeauture3D from '../../Overlays/arcgis/HighFeauture3D';
+import HighFeauture2D from '../../Overlays/arcgis/HighFeauture2D';
 
 export class FindFeature {
   private static findFeature: FindFeature;
@@ -28,17 +29,58 @@ export class FindFeature {
     let type = params.layerName;
     let ids = params.ids || [];
     let level = params.level || this.view.zoom;
+    let centerResult = params.centerResult !== false;
 
     this.view.map.allLayers.forEach((layer: any) => {
       if (params.layerName && layer.label === params.layerName) {
         if (layer.visible) {
-          console.log(layer);
-          this.doFindTask({
-            url: layer.url as string,
-            layer: layer,
-            layerIds: this.getLayerIds(layer),
-            ids: ids
-          });
+          //console.log(layer);
+          if (layer.type == 'feature' || layer.type == 'map-image') {
+            this.doFindTask({
+              url: layer.url as string,
+              layer: layer,
+              layerIds: this.getLayerIds(layer),
+              ids: ids
+            });
+          }
+        }
+      }
+      if (layer.type == 'graphics') {
+        if (layer.graphics) {
+          //addoverlay撒点图层
+          let overlays = layer.graphics;
+          overlays.forEach((overlay: any) => {
+            if (type == overlay.type && ids.indexOf(overlay.id) >= 0) {
+              if (centerResult) {
+                this.view.goTo({
+                  target: overlay.geometry,
+                  zoom: Math.max(this.view.zoom, level)
+                });
+              }
+              this.startJumpPoint([overlay]);
+            }
+          }, this);
+        }
+        if (layer.data) {
+          //cluster点聚合图层
+          let overlays = layer.data;
+          overlays.forEach((overlay: any) => {
+            if (type == overlay.type && ids.indexOf(overlay.id) >= 0) {
+              if (centerResult) {
+                this.view.goTo({
+                  center: [overlay.x, overlay.y],
+                  zoom: Math.max(this.view.zoom, level)
+                });
+              }
+              this.startJumpPoint([
+                {
+                  geometry: {type: 'point', x: overlay.x, y: overlay.y},
+                  symbol: layer.flareRenderer.defaultSymbol,
+                  attributes: overlays
+                }
+              ]);
+            }
+          }, this);
         }
       }
     });
@@ -110,5 +152,13 @@ export class FindFeature {
       });
     });
   }
-  private async startJumpPoint(graphics: any[]) {}
+  private async startJumpPoint(graphics: any[]) {
+    if (this.view.type == '3d') {
+      let high = HighFeauture3D.getInstance(this.view as __esri.SceneView);
+      high.startup(graphics);
+    } else {
+      let high = HighFeauture2D.getInstance(this.view as __esri.MapView);
+      high.startup(graphics);
+    }
+  }
 }

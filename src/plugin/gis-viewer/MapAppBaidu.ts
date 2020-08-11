@@ -13,9 +13,9 @@ import {
   IDistrictParameter,
   IStreetParameter
 } from '@/types/map';
-import {OverlayBaidu} from '@/plugin/gis-viewer/widgets/OverlayBaidu';
-import {HeatMapBD} from './widgets/BD/HeatMapBD';
-import {JurisdictionPolice} from './widgets/BD/JurisdictionPolice';
+import {OverlayBaidu} from '@/plugin/gis-viewer/widgets/Overlays/bd/OverlayBaidu';
+import {HeatMapBD} from './widgets/HeatMap/bd/HeatMapBD';
+import {JurisdictionPolice} from './widgets/JurisdictionPolice/bd/JurisdictionPolice';
 declare let BMap: any;
 
 export default class MapAppBaidu implements IMapContainer {

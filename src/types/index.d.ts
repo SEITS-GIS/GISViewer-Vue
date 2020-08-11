@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue from 'vue';
 
 declare function install(vue: typeof Vue): void;
 
@@ -7,4 +7,4 @@ declare const _default: {
 };
 
 export default _default;
-export * from "./gis-viewer";
+export * from './gis-viewer';

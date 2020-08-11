@@ -6,8 +6,8 @@ import {
 } from '@/types/map';
 import {loadModules} from 'esri-loader';
 import {Point} from 'esri/geometry';
-import HeatMap3DRender from './Render/HeatMap3DRender';
-import {OverlayArcgis3D} from './OverlayArcgis3D';
+import HeatMap3DRender from './HeatMap3DRender';
+import {OverlayArcgis3D} from '../../Overlays/arcgis/OverlayArcgis3D';
 export class HeatMap3D {
   private static heatMap: HeatMap3D;
   private view!: any;

@@ -13,13 +13,13 @@ import {
   IDistrictParameter,
   IStreetParameter
 } from '@/types/map';
-import {OverlayGaode} from '@/plugin/gis-viewer/widgets/OverlayGaode';
-import {JurisdictionPoliceGD} from './widgets/GD/JurisdictionPoliceGD';
-import {HeatMapGD} from './widgets/GD/HeatMapGD';
-import {ClusterGD} from './widgets/GD/ClusterGD';
+import {OverlayGaode} from '@/plugin/gis-viewer/widgets/Overlays/gd/OverlayGaode';
+import {JurisdictionPoliceGD} from './widgets/JurisdictionPolice/gd/JurisdictionPoliceGD';
+import {HeatMapGD} from './widgets/HeatMap/gd/HeatMapGD';
+import {ClusterGD} from './widgets/Cluster/gd/ClusterGD';
 import '@amap/amap-jsapi-types';
 import AMapLoader from '@amap/amap-jsapi-loader';
-import {DrawSteet} from './widgets/GD/DrawStreet';
+import {DrawSteet} from './widgets/DrawStreet/gd/DrawStreet';
 
 export default class MapAppGaode implements IMapContainer {
   public view!: AMap.Map;

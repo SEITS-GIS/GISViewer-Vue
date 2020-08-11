@@ -1,13 +1,14 @@
+import axios from 'axios';
 export default class MapConfig {
   public constructor() {}
   public mapConfig: any = {
-    arcgis_api: 'http://localhost:8090/arcgis_js_api/library/4.14',
+    arcgis_api: '',
     //arcgis_api:
     //  'https://webapi.amap.com/maps?v=1.4.15&key=29dd04daa39aa33a7e2cdffa37ebec4d',
     //arcgis_api: 'http://128.64.130.247:8219/baidumap/jsapi/api.js',
     //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
-    theme: 'custom', //dark,vec
+    theme: 'dark', //dark,vec
     baseLayers: [
       {
         type: 'tiled',
@@ -48,6 +49,7 @@ export default class MapConfig {
           'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/shanghai_xzqh_simple/MapServer/0',
         type: 'feature',
         visible: false,
+        labelsVisible: true,
         outFields: ['*'],
         renderer: {
           type: 'unique-value',
@@ -97,7 +99,7 @@ export default class MapConfig {
               symbol: {
                 type: 'simple-fill',
                 style: 'solid',
-                color: [0, 0, 68, 0.4],
+                color: [128, 0, 68, 0.4],
                 outline: {
                   type: 'simple-line',
                   style: 'solid',
@@ -110,59 +112,91 @@ export default class MapConfig {
         },
         labelingInfo: [
           {
-            labelExpressionInfo: {expression: '$feature.Name'},
+            //labelExpressionInfo: {expression: '$feature.Name'},
+            labelExpression: '[Name]',
             useCodedValues: true,
             labelPlacement: 'always-horizontal',
             symbol: {
               type: 'text',
               rightToLeft: false,
-              color: [0, 0, 0, 255],
+              color: [255, 255, 0, 0.85],
               verticalAlignment: 'baseline',
               horizontalAlignment: 'left',
               font: {
-                size: 10,
+                size: 100,
                 weight: 'bold'
               }
             }
           }
         ]
-      },
-      {
-        label: '匝道灯',
-        url:
-          'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/KuaiSuLu_device/MapServer/0',
-        type: 'feature',
-        visible: false,
-        refreshInterval: 0.5,
-        outFields: ['*'],
-        renderer: {
-          type: 'simple',
-          symbol: {
-            type: 'picture-marker',
-            url: 'assets/image/Anchor.png',
-            width: 18,
-            height: 24,
-            yoffset: 0
-          }
-        },
-        popupTemplate: {
-          title: '12',
-          content:
-            '<div><div class="acc">{BM_CODE}1212---{DEVICETYPE }</div></div>'
-        }
-      },
-      {
-        url: 'http://localhost:8888/geoserver/myMap/wms',
-        type: 'wms',
-        label: 'ceshi',
-        sublayers: [
-          {
-            name: 'myMap:zadao' // name of the sublayer
-          }
-        ],
-        imageFormat: 'image/png',
-        version: '1.1.1'
       }
+      // ,
+      // {
+      //   label: '匝道灯',
+      //   url:
+      //     'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/KuaiSuLu_device/MapServer/0',
+      //   type: 'feature',
+      //   visible: true,
+      //   refreshInterval: 0.5,
+      //   outFields: ['*'],
+
+      //   popupTemplate: {
+      //     title: '12',
+      //     content:
+      //       '<div><div class="acc">{BM_CODE}1212---{DEVICETYPE }</div></div>'
+      //   },
+      //   featureReduction: {
+      //     type: 'cluster',
+      //     clusterRadius: '100px',
+      //     // {cluster_count} is an aggregate field containing
+      //     // the number of features comprised by the cluster
+      //     popupTemplate: {
+      //       content: 'This cluster represents {cluster_count} earthquakes.',
+      //       fieldInfos: [
+      //         {
+      //           fieldName: 'cluster_count',
+      //           format: {
+      //             places: 0,
+      //             digitSeparator: true
+      //           }
+      //         }
+      //       ]
+      //     },
+      //     clusterMinSize: '24px',
+      //     clusterMaxSize: '60px',
+      //     labelingInfo: [
+      //       {
+      //         deconflictionStrategy: 'none',
+      //         labelExpressionInfo: {
+      //           expression: '$feature.cluster_count'
+      //         },
+      //         symbol: {
+      //           type: 'text',
+      //           color: '#004a5d',
+      //           font: {
+      //             weight: 'bold',
+      //             family: 'Noto Sans',
+      //             size: '12px'
+      //           }
+      //         },
+      //         labelPlacement: 'center-center'
+      //       }
+      //     ]
+      //   }
+      // }
+      //,
+      // {
+      //   url: 'http://localhost:8888/geoserver/myMap/wms',
+      //   type: 'wms',
+      //   label: 'ceshi',
+      //   sublayers: [
+      //     {
+      //       name: 'myMap:zadao' // name of the sublayer
+      //     }
+      //   ],
+      //   imageFormat: 'image/png',
+      //   version: '1.1.1'
+      // }
     ],
     gisServer: 'http://128.64.151.245:8019',
     options: {
@@ -413,6 +447,21 @@ export default class MapConfig {
           fields: {name: '测试222', featureid: '0003'}
         },
         {
+          id: '1113',
+          geometry: {
+            rings: [
+              [
+                [121.31, 31.01],
+                [121.2, 31.22],
+                [121.1, 31.33],
+                [121.45, 30.89]
+              ]
+            ]
+          },
+          symbol: {color: 'red'},
+          fields: {name: '测试222', featureid: '0003'}
+        },
+        {
           id: 'test003',
           geometry: {x: 121.418924, y: 31.257101},
           fields: {name: '测试4', featureid: '0001'}
@@ -429,10 +478,10 @@ export default class MapConfig {
   }
   public btn_test1(map: any) {
     //let map = this.$refs.gisViewer as any;
-    // axios.get('config/point1.json').then((res: any) => {
-    //   map.addOverlaysCluster(res.data);
-    // });
-    // axios.get("config/point2.json").then((res: any) => {
+    axios.get('config/point1.json').then((res: any) => {
+      map.addOverlaysCluster(res.data);
+    });
+    // axios.get('config/point2.json').then((res: any) => {
     //   map.addOverlaysCluster(res.data);
     // });
 
@@ -495,7 +544,7 @@ export default class MapConfig {
         }
       }
     };
-    map.addHeatMap(json);
+    //map.addHeatMap(json);
     // map.addOverlays({
     //   type: 'police',
     //   defaultSymbol: {
@@ -551,9 +600,16 @@ export default class MapConfig {
     // //   showMask: true
     // // });
     // map.locateStreet({id: '10003'});
+    //map.deleteAllOverlaysCluster();
+    map.findFeature({
+      layerName: 'sxj1',
+      level: 16,
+      ids: ['31011300001310000003'],
+      centerResult: true
+    });
   }
   public btn_test3(map: any) {
-    map.setMapStyle('amap://styles/darkblue');
+    //map.setMapStyle('amap://styles/darkblue');
     //map.locateStreet({id: '10013'});
     // map.showLayer({type: 'traffic'});
     // map.findLayerFeature({
@@ -564,12 +620,12 @@ export default class MapConfig {
     // });
     //map.hideLayer({label: '匝道灯'});
     //map.deleteHeatMap();
-    //map.deleteOverlaysCluster({types: ['sxj1']});
+    map.deleteOverlaysCluster({types: ['sxj1']});
     //map.deleteAllOverlays();
     //map.deleteOverlays({ids: ['test001']});
     //map.hideLayer({ type: "traffic" });
     //map.setMapCenter({x: 121.12, y: 31.23});
-    // map.setMapCenterAndLevel({
+    //map.setMapCenterAndLevel({
     //   x: 121.12,
     //   y: 31.23,
     //   level: 15

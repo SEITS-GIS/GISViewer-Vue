@@ -155,7 +155,6 @@ export interface IMapContainer {
   showStreet: () => void;
   hideStreet: () => void;
   locateStreet: (param: IStreetParameter) => void;
-  findLayerFeature: (param: IFindParameter) => void;
   setMapStyle: (style: string) => void;
 }
 export interface IPopUpTemplate {

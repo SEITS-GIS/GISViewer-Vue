@@ -1,9 +1,9 @@
 import {IOverlayParameter, IResult, IHeatParameter} from '@/types/map';
-import {OverlayGaode} from '../OverlayGaode';
-declare let AMap: any;
+import {OverlayBaidu} from '../../Overlays/bd/OverlayBaidu';
+declare let BMapLib: any;
 
-export class HeatMapGD {
-  private static heatMap: HeatMapGD;
+export class HeatMapBD {
+  private static heatMapBD: HeatMapBD;
   private view!: any;
   private heatmapOverlay: any;
   private _state: string = 'nomal';
@@ -14,13 +14,10 @@ export class HeatMapGD {
     this.view = view;
   }
   public static getInstance(view: any) {
-    if (!HeatMapGD.heatMap) {
-      HeatMapGD.heatMap = new HeatMapGD(view);
+    if (!HeatMapBD.heatMapBD) {
+      HeatMapBD.heatMapBD = new HeatMapBD(view);
     }
-    return HeatMapGD.heatMap;
-  }
-  public static destroy() {
-    (HeatMapGD.heatMap as any) = null;
+    return HeatMapBD.heatMapBD;
   }
   public isSupportCanvas() {
     var elem = document.createElement('canvas');
@@ -28,22 +25,18 @@ export class HeatMapGD {
   }
   public async deleteHeatMap() {
     this._clear();
-    this.view.off('zoomend', this.zoomEvent);
+    this.view.removeEventListener('zoomend', this.zoomEvent);
   }
   public _clear() {
-    //this.view.remove(this.heatmapOverlay);
-    if (this.heatmapOverlay) {
-      this.heatmapOverlay.hide();
-    }
+    this.view.removeOverlay(this.heatmapOverlay);
     if (this.overlays) {
       this.overlays.deleteOverlays({types: ['heatpoint']});
     }
   }
   public async addHeatLayer(params: IHeatParameter): Promise<IResult> {
-    this._clear();
     const options = params.options;
     const countField = options.field;
-    let radius = options.radius || undefined;
+    const radius = options.radius;
     const colors = options.colors || undefined;
     const maxValue = options.maxValue || 100;
 
@@ -58,36 +51,11 @@ export class HeatMapGD {
       });
     });
     let gradient = this.getHeatColor(colors);
-    if (this.view.getViewMode_() == '3D') {
-      radius = undefined;
-    }
-    if (AMap.HeatMap) {
-      this.heatmapOverlay = new AMap.HeatMap(this.view, {
-        //radius: radius,
-        opacity: [0, 1],
-        gradient: gradient,
-        '3d': {
-          //热度转高度的曲线控制参数，可以利用左侧的控制面板获取
-          heightBezier: [0.4, 0.2, 0.4, 0.8],
-          //取样精度，值越小，曲面效果越精细，但同时性能消耗越大
-          gridSize: 5,
-          heightScale: 1
-        }
-      });
-    } else {
-      this.heatmapOverlay = new AMap.Heatmap(this.view, {
-        //radius: radius,
-        opacity: [0, 1],
-        gradient: gradient,
-        '3d': {
-          //热度转高度的曲线控制参数，可以利用左侧的控制面板获取
-          heightBezier: [0.4, 0.2, 0.4, 0.8],
-          //取样精度，值越小，曲面效果越精细，但同时性能消耗越大
-          gridSize: 5,
-          heightScale: 1
-        }
-      });
-    }
+    this.heatmapOverlay = new BMapLib.HeatmapOverlay({
+      radius: radius,
+      gradient: gradient
+    });
+    this.view.addOverlay(this.heatmapOverlay);
     this.heatmapOverlay.setDataSet({data: heatPoints, max: maxValue});
 
     return {
@@ -114,11 +82,10 @@ export class HeatMapGD {
         this.addOverlays(params);
         this._state = 'nomal';
       }
-
-      this.view.on(
+      this.view.addEventListener(
         'zoomend',
-        (this.zoomEvent = (e: any) => {
-          if (_this.view.getZoom() <= zoom) {
+        (this.zoomEvent = function(e: any) {
+          if (e.target.getZoom() <= zoom) {
             if (_this._state == 'nomal') {
               _this._clear();
               _this.addHeatLayer(params);
@@ -146,13 +113,12 @@ export class HeatMapGD {
     };
     if (colors && colors.length >= 4) {
       //"rgba(30,144,255,0)","rgba(30,144,255)","rgb(0, 255, 0)","rgb(255, 255, 0)", "rgb(254,89,0)"
-      let step: string = (1 / colors.length).toFixed(2);
-      let colorObj: any = {};
-      colors.forEach((element: string, index: number) => {
-        let cur_step = parseFloat((Number(step) * (index + 1)).toFixed(2));
-        colorObj[cur_step] = element;
-      });
-      return colorObj;
+      return {
+        0.2: colors[0],
+        0.4: colors[1],
+        0.6: colors[2],
+        0.8: colors[3]
+      };
     }
     return obj;
   }
@@ -165,7 +131,8 @@ export class HeatMapGD {
       symbol = {
         type: 'point',
         url: renderer.symbol.url,
-        size: [renderer.symbol.width, renderer.symbol.height],
+        width: renderer.symbol.width,
+        height: renderer.symbol.height,
         xoffset: renderer.symbol.xoffset || 0,
         yoffset: renderer.symbol.yoffset || 0
       };
@@ -175,7 +142,7 @@ export class HeatMapGD {
       overlays: points,
       type: 'heatpoint'
     };
-    this.overlays = OverlayGaode.getInstance(this.view);
+    this.overlays = OverlayBaidu.getInstance(this.view);
     await this.overlays.addOverlays(overlayparams);
   }
 }

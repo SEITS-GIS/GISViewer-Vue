@@ -52,15 +52,21 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   public addHeatMap(params: IHeatParameter) {
     this.mapApp.addHeatMap(params);
   }
-  public addOverlaysCluster(params: IOverlayClusterParameter) {}
+  public addOverlaysCluster(params: IOverlayClusterParameter) {
+    this.mapApp.addOverlaysCluster(params);
+  }
   public deleteOverlays(params: IOverlayDelete) {
     this.mapApp.deleteOverlays(params);
   }
-  public deleteOverlaysCluster(params: IOverlayDelete) {}
+  public deleteOverlaysCluster(params: IOverlayDelete) {
+    this.mapApp.deleteOverlaysCluster(params);
+  }
   public deleteAllOverlays() {
     this.mapApp.deleteAllOverlays();
   }
-  public deleteAllOverlaysCluster() {}
+  public deleteAllOverlaysCluster() {
+    this.mapApp.deleteAllOverlaysCluster();
+  }
   public deleteHeatMap() {
     this.mapApp.deleteHeatMap();
   }
@@ -83,9 +89,6 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   public findFeature(params: IFindParameter) {
     this.mapApp.findFeature(params);
   }
-  public findLayerFeature(params: IFindParameter) {
-    this.mapApp.findLayerFeature(params);
-  }
   public showRoad() {}
   public hideRoad() {}
   public showStreet() {}
@@ -96,7 +99,7 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
 </script>
 
 <style scoped>
-@import './styles/map.css';
+/* @import './styles/map.css'; */
 #divArcGISMap3D {
   padding: 0;
   margin: 0;

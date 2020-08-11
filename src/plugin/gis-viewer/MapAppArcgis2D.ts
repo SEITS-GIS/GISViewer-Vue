@@ -8,11 +8,15 @@ import {
   IOverlayDelete,
   IFindParameter,
   IStreetParameter,
-  IHeatParameter
+  IHeatParameter,
+  IOverlayClusterParameter
 } from '@/types/map';
-import {OverlayArcgis2D} from '@/plugin/gis-viewer/widgets/OverlayArcgis2D';
-import {FindFeature} from './widgets/FindFeature';
-import {HeatMap} from './widgets/HeatMap';
+import {OverlayArcgis2D} from '@/plugin/gis-viewer/widgets/Overlays/arcgis/OverlayArcgis2D';
+import {FindFeature} from './widgets/FindFeature/arcgis/FindFeature';
+import {HeatMap} from './widgets/HeatMap/arcgis/HeatMap';
+import {blendColors} from 'esri/Color';
+import {TextSymbol} from 'esri/symbols';
+import {Cluster} from './widgets/Cluster/arcgis/Cluster';
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
@@ -94,15 +98,22 @@ export default class MapAppArcGIS2D {
         response.results.forEach((result) => {
           const graphic = result.graphic;
           let {type, id} = graphic.attributes;
-          if (graphic.layer.type == 'feature') {
+          if (
+            graphic.layer.type == 'feature' ||
+            graphic.layer.type == 'graphics'
+          ) {
             id =
               graphic.attributes['DEVICEID'] ||
               graphic.attributes['FEATUREID'] ||
+              graphic.attributes['id'] ||
+              graphic.attributes['ID'] ||
               undefined;
             type =
               graphic.attributes['DEVICETYPE'] ||
               graphic.attributes['FEATURETYPE'] ||
               graphic.attributes['FEATURETYP'] ||
+              graphic.attributes['type'] ||
+              graphic.attributes['TYPE'] ||
               undefined;
           }
           if (type && id) {
@@ -140,6 +151,11 @@ export default class MapAppArcGIS2D {
     });
     await view.when();
     this.view = view;
+
+    (this.view.popup as any).visibleElements = {
+      featureNavigation: false,
+      closeButton: false
+    };
   }
   //使toolTip中支持{字段}的形式
   private getContent(attr: any, content: string): string {
@@ -190,7 +206,10 @@ export default class MapAppArcGIS2D {
   private async doIdentifyTask(clickpoint: any) {
     console.log(clickpoint);
     let layers = this.view.map.allLayers.filter((layer: any) => {
-      if (layer.type == 'imagery' || layer.type == 'map-image') {
+      if (
+        layer.visible &&
+        (layer.type == 'imagery' || layer.type == 'map-image')
+      ) {
         return true;
       }
       return false;
@@ -213,7 +232,7 @@ export default class MapAppArcGIS2D {
         let identifyParams = new IdentifyParameters(); //创建属性查询参数
         identifyParams.tolerance = 3;
         identifyParams.layerIds = that.getLayerIds(layer);
-        identifyParams.layerOption = 'top'; //"top"|"visible"|"all"
+        identifyParams.layerOption = 'visible'; //"top"|"visible"|"all"
         identifyParams.width = that.view.width;
         identifyParams.height = that.view.height;
         identifyParams.geometry = clickpoint;
@@ -238,47 +257,73 @@ export default class MapAppArcGIS2D {
       typeof import('esri/layers/FeatureLayer'),
       typeof import('esri/layers/WebTileLayer'),
       typeof import('esri/layers/MapImageLayer'),
-      typeof import('esri/layers/Layer')
+      typeof import('esri/layers/WMSLayer'),
+      typeof import('esri/layers/Layer'),
+      typeof import('esri/layers/support/LabelClass'),
+      typeof import('esri/Color'),
+      typeof import('esri/symbols/Font'),
+      typeof import('esri/symbols/TextSymbol')
     ];
     const [
       FeatureLayer,
       WebTileLayer,
       MapImageLayer,
-      Layer
+      WMSLayer,
+      Layer,
+      LabelClass,
+      Color,
+      Font,
+      TextSymbol
     ] = await (loadModules([
       'esri/layers/FeatureLayer',
       'esri/layers/WebTileLayer',
       'esri/layers/MapImageLayer',
-      'esri/layers/Layer'
+      'esri/layers/WMSLayer',
+      'esri/layers/Layer',
+      'esri/layers/support/LabelClass',
+      'esri/Color',
+      'esri/symbols/Font',
+      'esri/symbols/TextSymbol'
     ]) as Promise<MapModules>);
-    map.addMany(
-      layers.map((layerConfig: any) => {
-        let layer: any;
-        switch (layerConfig.type.toLowerCase()) {
-          case 'feature':
-            delete layerConfig.type;
-            layer = new FeatureLayer(layerConfig);
-            break;
-          case 'dynamic':
-            delete layerConfig.type;
-            layer = new MapImageLayer(layerConfig);
-            break;
-          case 'webtiled':
-            delete layerConfig.type;
-            layer = new WebTileLayer({
-              urlTemplate: layerConfig.url,
-              subDomains: layerConfig.subDomains || undefined
-            });
-            break;
-        }
-        layer.id = layerConfig.id || layerConfig.label;
-        return layer;
-      })
-    );
+    //map.addMany(
+    layers.map((layerConfig: any) => {
+      let layer: any;
+      switch (layerConfig.type.toLowerCase()) {
+        case 'feature':
+          delete layerConfig.type;
+          layer = new FeatureLayer(layerConfig);
+          layer.labelingInfo = layerConfig.labelingInfo;
+          break;
+        case 'dynamic':
+          delete layerConfig.type;
+          layer = new MapImageLayer(layerConfig);
+          break;
+        case 'wms':
+          delete layerConfig.type;
+          layer = new WMSLayer(layerConfig);
+          break;
+        case 'webtiled':
+          delete layerConfig.type;
+          layer = new WebTileLayer({
+            urlTemplate: layerConfig.url,
+            subDomains: layerConfig.subDomains || undefined
+          });
+          break;
+      }
+      //layer.id = layerConfig.id || layerConfig.label;
+      map.add(layer);
+      return layer;
+    });
+    //);
   }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayArcgis2D.getInstance(this.view);
     return await overlay.addOverlays(params);
+  }
+  public async addOverlaysCluster(params: IOverlayClusterParameter) {
+    const cluster = Cluster.getInstance(this.view);
+    cluster.showGisDeviceInfo = this.showGisDeviceInfo;
+    await cluster.addOverlaysCluster(params);
   }
   public async deleteOverlays(params: IOverlayDelete) {
     const overlay = OverlayArcgis2D.getInstance(this.view);
@@ -288,13 +333,19 @@ export default class MapAppArcGIS2D {
     const overlay = OverlayArcgis2D.getInstance(this.view);
     return await overlay.deleteAllOverlays();
   }
-  public async findFeature(params: IFindParameter) {
-    const overlay = OverlayArcgis2D.getInstance(this.view);
-    return await overlay.findFeature(params);
+  public async deleteOverlaysCluster(params: IOverlayDelete) {
+    const cluster = Cluster.getInstance(this.view);
+    return await cluster.deleteOverlaysCluster(params);
   }
-  public async findLayerFeature(params: IFindParameter) {
-    const find = FindFeature.getInstance(this.view);
-    return await find.findLayerFeature(params);
+  public async deleteAllOverlaysCluster() {
+    const cluster = Cluster.getInstance(this.view);
+    return await cluster.deleteAllOverlaysCluster();
+  }
+  public async findFeature(params: IFindParameter) {
+    // const overlay = OverlayArcgis2D.getInstance(this.view);
+    // return await overlay.findFeature(params);
+    const findfeature = FindFeature.getInstance(this.view);
+    return await findfeature.findLayerFeature(params);
   }
   public async showLayer(params: ILayerConfig) {
     console.log(params);

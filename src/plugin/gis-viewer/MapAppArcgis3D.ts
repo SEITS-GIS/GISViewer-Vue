@@ -14,12 +14,13 @@ import {
   IDistrictParameter,
   IStreetParameter
 } from '@/types/map';
-import {OverlayArcgis3D} from '@/plugin/gis-viewer/widgets/OverlayArcgis3D';
+import {OverlayArcgis3D} from '@/plugin/gis-viewer/widgets/Overlays/arcgis/OverlayArcgis3D';
 import {RasterStretchRenderer} from 'esri/rasterRenderers';
-import {FindFeature} from './widgets/FindFeature';
-import {HeatMap} from './widgets/HeatMap';
-import {HeatMap3D} from './widgets/HeatMap3D';
-import ToolTip from './widgets/ToolTip';
+import {FindFeature} from './widgets/FindFeature/arcgis/FindFeature';
+import {HeatMap} from './widgets/HeatMap/arcgis/HeatMap';
+import {HeatMap3D} from './widgets/HeatMap/arcgis/HeatMap3D';
+import ToolTip from './widgets/Overlays/arcgis/ToolTip';
+import {Cluster} from './widgets/Cluster/arcgis/Cluster';
 
 export default class MapAppArcGIS3D implements IMapContainer {
   public view!: __esri.SceneView;
@@ -28,6 +29,11 @@ export default class MapAppArcGIS3D implements IMapContainer {
 
   public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
     const apiUrl = mapConfig.arcgis_api || 'https://js.arcgis.com/4.14/';
+
+    // await loadModules(['esri/config']).then(([esriConfig]) => {
+    //   esriConfig.workers.loaderConfig.baseUrl = apiUrl + '/dojo';
+    // });
+
     setDefaultOptions({url: `${apiUrl}/init.js`});
 
     const cssFile: string = mapConfig.theme
@@ -94,15 +100,22 @@ export default class MapAppArcGIS3D implements IMapContainer {
         response.results.forEach((result) => {
           const graphic = result.graphic;
           let {type, id} = graphic.attributes;
-          if (graphic.layer.type == 'feature') {
+          if (
+            graphic.layer.type == 'feature' ||
+            graphic.layer.type == 'graphics'
+          ) {
             id =
               graphic.attributes['DEVICEID'] ||
               graphic.attributes['FEATUREID'] ||
+              graphic.attributes['id'] ||
+              graphic.attributes['ID'] ||
               undefined;
             type =
               graphic.attributes['DEVICETYPE'] ||
               graphic.attributes['FEATURETYPE'] ||
               graphic.attributes['FEATURETYP'] ||
+              graphic.attributes['type'] ||
+              graphic.attributes['TYPE'] ||
               undefined;
           }
           if (type && id) {
@@ -216,7 +229,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
         let identifyParams = new IdentifyParameters(); //创建属性查询参数
         identifyParams.tolerance = 3;
         identifyParams.layerIds = that.getLayerIds(layer);
-        identifyParams.layerOption = 'top'; //"top"|"visible"|"all"
+        identifyParams.layerOption = 'visible'; //"top"|"visible"|"all"
         identifyParams.width = that.view.width;
         identifyParams.height = that.view.height;
         identifyParams.geometry = clickpoint;
@@ -290,7 +303,10 @@ export default class MapAppArcGIS3D implements IMapContainer {
     const overlay = OverlayArcgis3D.getInstance(this.view);
     return await overlay.addOverlays(params);
   }
-  public async addOverlaysCluster(params: IOverlayClusterParameter) {}
+  public async addOverlaysCluster(params: IOverlayClusterParameter) {
+    const cluster = Cluster.getInstance(this.view);
+    return await cluster.addOverlaysCluster(params);
+  }
   public async addHeatMap(params: IHeatParameter) {
     const heatmap = HeatMap3D.getInstance(this.view);
     return await heatmap.addHeatMap(params);
@@ -299,7 +315,10 @@ export default class MapAppArcGIS3D implements IMapContainer {
     const overlay = OverlayArcgis3D.getInstance(this.view);
     return await overlay.deleteAllOverlays();
   }
-  public async deleteAllOverlaysCluster() {}
+  public async deleteAllOverlaysCluster() {
+    const cluster = Cluster.getInstance(this.view);
+    return await cluster.deleteAllOverlaysCluster();
+  }
   public async deleteHeatMap() {
     const heatmap = HeatMap3D.getInstance(this.view);
     return await heatmap.deleteHeatMap();
@@ -308,7 +327,10 @@ export default class MapAppArcGIS3D implements IMapContainer {
     const overlay = OverlayArcgis3D.getInstance(this.view);
     return await overlay.deleteOverlays(params);
   }
-  public async deleteOverlaysCluster(params: IOverlayDelete) {}
+  public async deleteOverlaysCluster(params: IOverlayDelete) {
+    const cluster = Cluster.getInstance(this.view);
+    return await cluster.deleteOverlaysCluster(params);
+  }
   public async showLayer(params: ILayerConfig) {
     console.log(params);
     this.view.map.allLayers.forEach((baselayer: ILayerConfig) => {
@@ -354,10 +376,8 @@ export default class MapAppArcGIS3D implements IMapContainer {
   public async showJurisdiction() {}
   public async hideJurisdiction() {}
   public async findFeature(params: IFindParameter) {
-    const overlay = OverlayArcgis3D.getInstance(this.view);
-    return await overlay.findFeature(params);
-  }
-  public async findLayerFeature(params: IFindParameter) {
+    // const overlay = OverlayArcgis3D.getInstance(this.view);
+    // return await overlay.findFeature(params);
     const find = FindFeature.getInstance(this.view);
     return await find.findLayerFeature(params);
   }

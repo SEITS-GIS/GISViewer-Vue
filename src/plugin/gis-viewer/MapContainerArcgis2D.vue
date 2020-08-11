@@ -52,15 +52,21 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public addHeatMap(params: IHeatParameter) {
     this.mapApp.addHeatMap(params);
   }
-  public addOverlaysCluster(params: IOverlayClusterParameter) {}
+  public addOverlaysCluster(params: IOverlayClusterParameter) {
+    this.mapApp.addOverlaysCluster(params);
+  }
   public deleteOverlays(params: IOverlayDelete) {
     this.mapApp.deleteOverlays(params);
   }
-  public deleteOverlaysCluster(params: IOverlayDelete) {}
+  public deleteOverlaysCluster(params: IOverlayDelete) {
+    this.mapApp.deleteOverlaysCluster(params);
+  }
   public deleteAllOverlays() {
     this.mapApp.deleteAllOverlays();
   }
-  public deleteAllOverlaysCluster() {}
+  public deleteAllOverlaysCluster() {
+    this.mapApp.deleteAllOverlaysCluster();
+  }
   public deleteHeatMap() {
     this.mapApp.deleteHeatMap();
   }
@@ -83,9 +89,6 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public findFeature(params: IFindParameter) {
     this.mapApp.findFeature(params);
   }
-  public findLayerFeature(params: IFindParameter) {
-    this.mapApp.findLayerFeature(params);
-  }
   public showRoad() {}
   public hideRoad() {}
   public showStreet() {}
@@ -96,11 +99,28 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
 </script>
 
 <style scoped>
-@import './styles/map.css';
+/* @import './styles/map.css'; */
+@import './styles/cluter.css';
 #divArcGISMap2D {
   padding: 0;
   margin: 0;
   width: 100%;
   height: 100%;
+}
+
+.esri-view .esri-view-surface--inset-outline:focus::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  outline: auto 2px Highlight;
+  outline: auto 5px -webkit-focus-ring-color;
+  outline-offset: -9px;
+  pointer-events: none;
+  overflow: hidden;
 }
 </style>

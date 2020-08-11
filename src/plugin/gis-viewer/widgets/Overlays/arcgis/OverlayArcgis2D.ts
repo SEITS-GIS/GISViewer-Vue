@@ -9,8 +9,8 @@ import {
 } from '@/types/map';
 import {loadModules} from 'esri-loader';
 import ToolTip from './ToolTip';
-import HighFeauture from './Render/HighFeauture3D';
-import HighFeauture2D from './Render/HighFeauture2D';
+import HighFeauture from './HighFeauture3D';
+import HighFeauture2D from './HighFeauture2D';
 
 export class OverlayArcgis2D {
   private static overlayArcgis2D: OverlayArcgis2D;
