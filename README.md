@@ -159,3 +159,7 @@ export default {
 ### hideDistrictMask() 显示边界蒙层
 
 ### setMapStyle()高德设置地图样式
+
+### routeSearch()高德路径规划
+
+### clearRouteSearch()清除路径规划
