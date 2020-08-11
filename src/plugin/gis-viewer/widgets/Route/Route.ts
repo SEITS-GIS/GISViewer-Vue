@@ -55,8 +55,8 @@ export default class Route {
     return new Promise((resolve, reject) => {
       if (model === 'car') {
         route.search(
-          new AMap.LngLat(start[0], start[1]),
-          new AMap.LngLat(end[0], end[1]),
+          new AMap.LngLat(start.x, start.y),
+          new AMap.LngLat(end.x, end.y),
           {
             waypoints: waypoints
           },
@@ -75,8 +75,8 @@ export default class Route {
         );
       } else {
         route.search(
-          new AMap.LngLat(start[0], start[1]),
-          new AMap.LngLat(end[0], end[1]),
+          new AMap.LngLat(start.x, start.y),
+          new AMap.LngLat(end.x, end.y),
           (status: string, result: any) => {
             if (status === 'complete') {
               routeResult = result;

@@ -201,8 +201,8 @@ export interface IStreetParameter {
   reset: boolean; //重置,清除选择
 }
 export interface routeParameter {
-  start: number[];
-  end: number[];
-  waypoints: number[][];
+  start: IPointGeometry;
+  end: IPointGeometry;
+  waypoints: IPointGeometry[];
   model: string; //"car","ride","walk"
 }

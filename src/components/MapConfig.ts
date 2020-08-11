@@ -497,8 +497,8 @@ export default class MapConfig {
   public btn_test1(map: any) {
     map
       .routeSearch({
-        start: [121.31, 31.46],
-        end: [121.65, 31.125],
+        start: {x: 121.31, y: 31.46},
+        end: {x: 121.65, y: 31.125},
         model: 'car'
       })
       .then((e: any) => {
