@@ -38,7 +38,7 @@ export default class PluginGD extends Vue {
   private showGisDeviceInfo(type: string, id: string, detail: any) {
     console.log(type, id, detail);
   }
-  private moveGisDeviceInfo(type: string, id: string, detail: any) {
+  private mouseGisDeviceInfo(type: string, id: string, detail: any) {
     console.log(type, id, detail);
   }
 }

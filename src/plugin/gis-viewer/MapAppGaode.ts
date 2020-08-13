@@ -22,12 +22,14 @@ import '@amap/amap-jsapi-types';
 import AMapLoader from '@amap/amap-jsapi-loader';
 import {DrawSteet} from './widgets/DrawStreet/gd/DrawStreet';
 import Route from './widgets/Route/Route';
+import RoutePoint from './widgets/XinKong/RoutePoint';
 
 export default class MapAppGaode implements IMapContainer {
   public view!: AMap.Map;
   public baseLayers: Array<any> = [];
   public showGisDeviceInfo: any;
   public mouseGisDeviceInfo: any;
+  public mapClick: any;
 
   public async initialize(mapConfig: any, mapContainer: string) {
     let apiUrl = mapConfig.arcgis_api || mapConfig.api_url;
@@ -106,6 +108,7 @@ export default class MapAppGaode implements IMapContainer {
     HeatMapGD.destroy();
     JurisdictionPoliceGD.destroy();
     DrawSteet.destroy();
+    RoutePoint.destroy();
   }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayGaode.getInstance(this.view);
@@ -237,5 +240,13 @@ export default class MapAppGaode implements IMapContainer {
   public clearRouteSearch() {
     const route = Route.getInstance(this.view);
     route.clearRouteSearch();
+  }
+  public showRoutePoint(params: any) {
+    const rtp = RoutePoint.getInstance(this.view);
+    rtp.showRoutePoint(params);
+  }
+  public clearRoutePoint() {
+    const rtp = RoutePoint.getInstance(this.view);
+    rtp.clearRoutePoint();
   }
 }

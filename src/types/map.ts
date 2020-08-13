@@ -158,6 +158,8 @@ export interface IMapContainer {
   setMapStyle: (style: string) => void;
   routeSearch: (param: any) => Promise<IResult>;
   clearRouteSearch: () => void;
+  showRoutePoint: (params: any) => void;
+  clearRoutePoint: () => void;
 }
 export interface IPopUpTemplate {
   title?: string;
@@ -166,6 +168,16 @@ export interface IPopUpTemplate {
 export interface IHeatParameter {
   points: Array<IHeatPoint>;
   options: IHeatOptions;
+}
+export interface IHeatImageParameter {
+  points: Array<IHeatPoint>;
+  options: IHeatOptions;
+  images: {
+    url: string;
+    width: number;
+    heigth: number;
+    geometry: {x: number; y: number};
+  };
 }
 export interface IHeatOptions {
   field: string;

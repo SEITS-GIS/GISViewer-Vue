@@ -2,7 +2,7 @@ import axios from 'axios';
 export default class MapConfig {
   public constructor() {}
   public mapConfig: any = {
-    arcgis_api: '',
+    arcgis_api: 'http://localhost:8090/arcgis_js_api/library/4.14',
     //arcgis_api:
     //  'https://webapi.amap.com/maps?v=1.4.15&key=29dd04daa39aa33a7e2cdffa37ebec4d',
     //arcgis_api: 'http://128.64.130.247:8219/baidumap/jsapi/api.js',
@@ -14,129 +14,128 @@ export default class MapConfig {
         type: 'tiled',
         url:
           'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
-        visible: false
+        visible: true
       }
     ],
     operationallayers: [
-      {
-        label: '地铁1',
-        url:
-          'http://localhost:8090/TGISViewer_v200/images/mapIcons/JiaoWeiZhiHui/gzzx.svg',
-        type: 'picture',
-        visible: true
-      },
-      {
-        label: '地铁',
-        url:
-          'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/ShangHai_transportation/MapServer',
-        type: 'dynamic',
-        visible: false,
-        popupTemplates: {
-          2: {
-            title: '12',
-            content: '<div class="acc">{Name}1212---{SubwayName}</div>'
-          },
-          5: {
-            title: '12',
-            content: '<div class="acc">{Name}</div>'
-          },
-          10: {
-            title: '12',
-            content: '<div class="acc">{Name}</div>'
-          },
-          12: {
-            title: '12',
-            content: '<div class="acc">{Name}</div>'
-          }
-        }
-      },
-      {
-        label: '发布段',
-        url:
-          'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/shanghai_xzqh_simple/MapServer/0',
-        type: 'feature',
-        visible: false,
-        labelsVisible: true,
-        outFields: ['*'],
-        renderer: {
-          type: 'unique-value',
-          field: 'Name',
-          defaultSymbol: {
-            type: 'simple-fill',
-            style: 'solid',
-            color: [255, 0, 0, 0.5],
-            outline: {
-              type: 'simple-line',
-              style: 'solid',
-              color: [110, 110, 110, 255],
-              width: 2
-            }
-          },
-          uniqueValueInfos: [
-            {
-              value: '闵行区',
-              symbol: {
-                type: 'simple-fill',
-                style: 'solid',
-                color: [0, 255, 51, 0.3],
-                outline: {
-                  type: 'simple-line',
-                  style: 'solid',
-                  color: [110, 110, 110, 0.5],
-                  width: 2
-                }
-              }
-            },
-            {
-              value: '普陀区',
-              symbol: {
-                type: 'simple-fill',
-                style: 'solid',
-                color: [34, 255, 122, 0.6],
-                outline: {
-                  type: 'simple-line',
-                  style: 'solid',
-                  color: [110, 110, 110, 255],
-                  width: 2
-                }
-              }
-            },
-            {
-              value: '奉贤区',
-              symbol: {
-                type: 'simple-fill',
-                style: 'solid',
-                color: [128, 0, 68, 0.4],
-                outline: {
-                  type: 'simple-line',
-                  style: 'solid',
-                  color: [110, 110, 110, 255],
-                  width: 2
-                }
-              }
-            }
-          ]
-        },
-        labelingInfo: [
-          {
-            //labelExpressionInfo: {expression: '$feature.Name'},
-            labelExpression: '[Name]',
-            useCodedValues: true,
-            labelPlacement: 'always-horizontal',
-            symbol: {
-              type: 'text',
-              rightToLeft: false,
-              color: [255, 255, 0, 0.85],
-              verticalAlignment: 'baseline',
-              horizontalAlignment: 'left',
-              font: {
-                size: 100,
-                weight: 'bold'
-              }
-            }
-          }
-        ]
-      }
+      // {
+      //   label: '地铁1',
+      //   url: 'http://localhost:8090/TGISViewer_v200/images/guozhanzhongxin.svg',
+      //   type: 'picture',
+      //   visible: true
+      // },
+      // {
+      //   label: '地铁',
+      //   url:
+      //     'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/ShangHai_transportation/MapServer',
+      //   type: 'dynamic',
+      //   visible: false,
+      //   popupTemplates: {
+      //     2: {
+      //       title: '12',
+      //       content: '<div class="acc">{Name}1212---{SubwayName}</div>'
+      //     },
+      //     5: {
+      //       title: '12',
+      //       content: '<div class="acc">{Name}</div>'
+      //     },
+      //     10: {
+      //       title: '12',
+      //       content: '<div class="acc">{Name}</div>'
+      //     },
+      //     12: {
+      //       title: '12',
+      //       content: '<div class="acc">{Name}</div>'
+      //     }
+      //   }
+      // },
+      // {
+      //   label: '发布段',
+      //   url:
+      //     'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/shanghai_xzqh_simple/MapServer/0',
+      //   type: 'feature',
+      //   visible: false,
+      //   labelsVisible: true,
+      //   outFields: ['*'],
+      //   renderer: {
+      //     type: 'unique-value',
+      //     field: 'Name',
+      //     defaultSymbol: {
+      //       type: 'simple-fill',
+      //       style: 'solid',
+      //       color: [255, 0, 0, 0.5],
+      //       outline: {
+      //         type: 'simple-line',
+      //         style: 'solid',
+      //         color: [110, 110, 110, 255],
+      //         width: 2
+      //       }
+      //     },
+      //     uniqueValueInfos: [
+      //       {
+      //         value: '闵行区',
+      //         symbol: {
+      //           type: 'simple-fill',
+      //           style: 'solid',
+      //           color: [0, 255, 51, 0.3],
+      //           outline: {
+      //             type: 'simple-line',
+      //             style: 'solid',
+      //             color: [110, 110, 110, 0.5],
+      //             width: 2
+      //           }
+      //         }
+      //       },
+      //       {
+      //         value: '普陀区',
+      //         symbol: {
+      //           type: 'simple-fill',
+      //           style: 'solid',
+      //           color: [34, 255, 122, 0.6],
+      //           outline: {
+      //             type: 'simple-line',
+      //             style: 'solid',
+      //             color: [110, 110, 110, 255],
+      //             width: 2
+      //           }
+      //         }
+      //       },
+      //       {
+      //         value: '奉贤区',
+      //         symbol: {
+      //           type: 'simple-fill',
+      //           style: 'solid',
+      //           color: [128, 0, 68, 0.4],
+      //           outline: {
+      //             type: 'simple-line',
+      //             style: 'solid',
+      //             color: [110, 110, 110, 255],
+      //             width: 2
+      //           }
+      //         }
+      //       }
+      //     ]
+      //   },
+      //   labelingInfo: [
+      //     {
+      //       //labelExpressionInfo: {expression: '$feature.Name'},
+      //       labelExpression: '[Name]',
+      //       useCodedValues: true,
+      //       labelPlacement: 'always-horizontal',
+      //       symbol: {
+      //         type: 'text',
+      //         rightToLeft: false,
+      //         color: [255, 255, 0, 0.85],
+      //         verticalAlignment: 'baseline',
+      //         horizontalAlignment: 'left',
+      //         font: {
+      //           size: 100,
+      //           weight: 'bold'
+      //         }
+      //       }
+      //     }
+      //   ]
+      // }
       // ,
       // {
       //   label: '匝道灯',
@@ -146,7 +145,6 @@ export default class MapConfig {
       //   visible: true,
       //   refreshInterval: 0.5,
       //   outFields: ['*'],
-
       //   popupTemplate: {
       //     title: '12',
       //     content:
@@ -205,24 +203,24 @@ export default class MapConfig {
       //   version: '1.1.1'
       // }
     ],
-    gisServer: 'http://128.64.151.245:8019',
+    //gisServer: 'http://128.64.151.245:8019',
     options: {
       //for arcgis-2d
       center: [121.441, 31.159],
-      zoom: 13,
-      viewingMode: 'local',
-      ground: {opacity: 0},
-      alphaCompositingEnabled: true,
-      environment: {
-        background: {
-          type: 'color',
-          color: [255, 0, 0, 0.5]
-        },
-        starsEnabled: false,
-        atmosphereEnabled: false
-      }
+      zoom: 12,
+      //viewingMode: 'local'
+      // ground: {opacity: 0},
+      // alphaCompositingEnabled: true,
+      // environment: {
+      //   background: {
+      //     type: 'color',
+      //     color: [255, 0, 0, 0.5]
+      //   },
+      //   starsEnabled: false,
+      //   atmosphereEnabled: false
+      // }
       //viewMode: '3D'
-      //mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
+      mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
       //for arcgis-3d
       // camera: {
       //   heading: 0,
@@ -233,21 +231,7 @@ export default class MapConfig {
       //     z: 7000000
       //   }
       // }
-    },
-    bookmarks: [
-      {
-        name: 'china',
-        camera: {
-          heading: 0,
-          tilt: 9.15,
-          position: {
-            x: 105.508849,
-            y: 22.581284,
-            z: 7000000
-          }
-        }
-      }
-    ]
+    }
   };
   public gdConfig: any = {
     arcgis_api:
@@ -262,13 +246,12 @@ export default class MapConfig {
     }
   };
   public async mapLoaded(map: any) {
-    console.log('Map Loaded.');
-
+    // console.log('Map Loaded.');
     // map.showDistrictMask({
     //   name: '徐汇区',
     //   showMask: true
     // });
-    map.showStreet();
+    // map.showStreet();
     // map.showJurisdiction();
     /* map.addOverlays({
       type: "police",
@@ -430,7 +413,6 @@ export default class MapConfig {
         //   size: 4
         // },
         // anchor: "top"
-
         //symbol for 3d
         //type: "point-3d",
         //primitive: "cube",
@@ -495,15 +477,22 @@ export default class MapConfig {
     });
   }
   public btn_test1(map: any) {
-    map
-      .routeSearch({
-        start: {x: 121.31, y: 31.46},
-        end: {x: 121.65, y: 31.125},
-        model: 'car'
-      })
-      .then((e: any) => {
-        console.log(e);
-      });
+    // map
+    //   .routeSearch({
+    //     start: {x: 121.31, y: 31.46}, //开始坐标
+    //     end: {x: 121.65, y: 31.125}, //终点坐标
+    //     model: 'car' //'walk',行走，'ride',骑行，'car',驾车
+    //   })
+    //   .then((e: any) => {
+    //     console.log(e); //返回结果
+    //   });
+    // map.showRoutePoint({
+    //   points: [
+    //     {geometry: {x: 121.31, y: 31.223}, fields: {id: '001', name: '002'}},
+    //     {geometry: {x: 121.131, y: 31.12453}, fields: {id: '002', name: '002'}},
+    //     {geometry: {x: 121.331, y: 31.2713}, fields: {id: '003', name: '002'}}
+    //   ]
+    // });
     //let map = this.$refs.gisViewer as any;
     // axios.get('config/point1.json').then((res: any) => {
     //   map.addOverlaysCluster(res.data);
@@ -511,7 +500,6 @@ export default class MapConfig {
     // axios.get('config/point2.json').then((res: any) => {
     //   map.addOverlaysCluster(res.data);
     // });
-
     //axios.get("config/Jurisdiction/bsga_v2.geo.json").then((res: any) => {
     //map.addOverlaysCluster(res.data);
     //  console.log(res.data);
@@ -552,9 +540,9 @@ export default class MapConfig {
         radius: '20',
         colors: [
           'rgb(255, 255, 255)',
-          'rgb(206, 199, 25)',
-          'rgb(255, 140, 27)',
-          'rgb(246, 64, 64)'
+          'rgba(206, 199, 25,0.5)',
+          'rgba(255, 140, 27,0.5)',
+          'rgba(246, 64, 64,0.5)'
         ],
         maxValue: 1000,
         minValue: 1,
@@ -636,7 +624,7 @@ export default class MapConfig {
     });
   }
   public btn_test3(map: any) {
-    map.clearRouteSearch();
+    map.clearRouteSearch(); //清除
     //map.setMapStyle('amap://styles/darkblue');
     //map.locateStreet({id: '10013'});
     // map.showLayer({type: 'traffic'});

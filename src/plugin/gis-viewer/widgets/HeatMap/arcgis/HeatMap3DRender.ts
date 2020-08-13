@@ -93,6 +93,7 @@ class HeatMapRender {
       minOpacity: 0,
       blur: 0.75
     });
+
     let points = [];
     let fieldName = this.options.field;
     this.graphics.forEach((graphic: any) => {

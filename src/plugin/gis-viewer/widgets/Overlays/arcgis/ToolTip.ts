@@ -11,7 +11,6 @@ export default class ToolTip {
 
   public constructor(view: __esri.SceneView, content: Object, graphic: any) {
     this.view = view;
-    console.log(1);
     this.postion = graphic.geometry || graphic;
     this.create(content);
   }

@@ -1,0 +1,89 @@
+<template>
+  <div class="td-point">
+    <div :class="{'td-point-content': true, y: type == 1}">
+      <div :class="{'td-point-detail-wrap': true, y: type == 1}">
+        <div :class="{'td-point-detail-line': true, y: type == 1}">
+          <div :class="{'td-point-detail': true, y: type == 1}">
+            {{ content }}(
+            <span :class="{y: type == 1}">{{ count }}</span>
+            )
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import {Vue, Component, Emit, Prop, Ref} from 'vue-property-decorator';
+@Component
+export default class TdPoint extends Vue {
+  @Prop({type: String, default: '1'}) type!: String;
+  @Prop({type: Number, default: 0}) count!: Number;
+  @Prop({type: String, default: ''}) content!: String;
+}
+</script>
+
+<style lang="scss">
+.td-point {
+  .td-point-content {
+    width: 58px;
+    height: 65px;
+    background: url(../assets/images/td2.png) no-repeat;
+    background-size: 100% 100%;
+    .td-point-detail-wrap {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      .td-point-detail-line {
+        width: 1px;
+        height: 100px;
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 50%;
+        display: flex;
+        align-items: flex-start;
+        background: #00ffff;
+        .td-point-detail {
+          height: 31px;
+          padding: 0 7px;
+          display: inline-block;
+          border-left: 3px solid #00ffff;
+          background-image: linear-gradient(
+            to right,
+            rgba(0, 255, 255, 0.3),
+            rgba(0, 255, 255, 0)
+          );
+          line-height: 31px;
+          font-size: 17px;
+          color: #cfffff;
+          white-space: nowrap;
+          span {
+            color: #00ffff;
+          }
+          span.y {
+            color: #ffc12d;
+          }
+        }
+        .td-point-detail.y {
+          border-left: 3px solid #ffc12d;
+          background-image: linear-gradient(
+            to right,
+            rgba(255, 193, 45, 0.3),
+            rgba(255, 193, 45, 0)
+          );
+        }
+      }
+      .td-point-detail-line.y {
+        background: #ffc12d;
+      }
+    }
+  }
+  .td-point-content.y {
+    background: url(../assets/images/td1.png) no-repeat;
+    background-size: 100% 100%;
+  }
+}
+</style>

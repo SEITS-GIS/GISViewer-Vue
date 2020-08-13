@@ -7,11 +7,11 @@
     </div>
     <gis-viewer
       ref="gisViewer"
-      platform="arcgis3d"
+      platform="arcgis2d"
       :map-config="mapConfig"
       @map-loaded="mapLoaded"
       @marker-click="showGisDeviceInfo"
-      @marker-over="moveGisDeviceInfo"
+      @map-click="mapClick"
     />
   </div>
 </template>
@@ -38,8 +38,8 @@ export default class PluginTest extends Vue {
   private showGisDeviceInfo(type: string, id: string, detail: any) {
     console.log(type, id, detail);
   }
-  private moveGisDeviceInfo(type: string, id: string, detail: any) {
-    console.log(type, id, detail);
+  private mapClick(pt: object) {
+    console.log(pt);
   }
 }
 </script>

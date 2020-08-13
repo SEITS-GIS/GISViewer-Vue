@@ -22,6 +22,7 @@ import {Cluster} from './widgets/Cluster/arcgis/Cluster';
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
   public showGisDeviceInfo: any;
+  public mapClick: any;
 
   public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
     const apiUrl =
@@ -76,7 +77,7 @@ export default class MapAppArcGIS2D {
         }
       })
     );
-
+    this.destroy();
     const basemap: __esri.Basemap = new Basemap({
       baseLayers
     });
@@ -94,6 +95,18 @@ export default class MapAppArcGIS2D {
     }
 
     view.on('click', async (event) => {
+      if (event.mapPoint) {
+        let mp = event.mapPoint;
+        this.mapClick({
+          x: mp.longitude,
+          y: mp.latitude,
+          lat: mp.x,
+          lnt: mp.y,
+          wkid: mp.spatialReference.wkid
+        });
+      } else {
+        this.mapClick(event);
+      }
       const response = await view.hitTest(event);
       if (response.results.length > 0) {
         response.results.forEach((result) => {
@@ -158,6 +171,12 @@ export default class MapAppArcGIS2D {
       closeButton: false
     };
   }
+  private destroy() {
+    OverlayArcgis2D.destroy();
+    Cluster.destroy();
+    HeatMap.destroy();
+    FindFeature.destroy();
+  }
   //使toolTip中支持{字段}的形式
   private getContent(attr: any, content: string): string {
     let tipContent = content;
@@ -205,7 +224,6 @@ export default class MapAppArcGIS2D {
     return selLayer;
   }
   private async doIdentifyTask(clickpoint: any) {
-    console.log(clickpoint);
     let layers = this.view.map.allLayers.filter((layer: any) => {
       if (
         layer.visible &&
@@ -427,4 +445,6 @@ export default class MapAppArcGIS2D {
     return {status: 0, message: ''};
   }
   public clearRouteSearch() {}
+  public showRoutePoint(params: any) {}
+  public clearRoutePoint() {}
 }

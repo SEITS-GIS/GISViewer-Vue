@@ -38,7 +38,9 @@ export class OverlayArcgis2D {
 
     return OverlayArcgis2D.overlayArcgis2D;
   }
-
+  public static destroy() {
+    (OverlayArcgis2D.overlayArcgis2D as any) = null;
+  }
   private async createOverlayLayer() {
     type MapModules = [typeof import('esri/layers/GraphicsLayer')];
     const [GraphicsLayer] = await (loadModules([

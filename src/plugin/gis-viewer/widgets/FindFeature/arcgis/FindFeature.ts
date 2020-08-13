@@ -25,6 +25,9 @@ export class FindFeature {
     }
     return FindFeature.findFeature;
   }
+  public static destroy() {
+    (FindFeature.findFeature as any) = null;
+  }
   public async findLayerFeature(params: IFindParameter): Promise<IResult> {
     let type = params.layerName;
     let ids = params.ids || [];

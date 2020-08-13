@@ -5,6 +5,7 @@
       v-if="this.platform === 'arcgis3d'"
       :map-config="this.mapConfig"
       @map-loaded="mapLoaded"
+      @map-click="mapClick"
       @marker-click="showGisDeviceInfo"
     />
     <map-container-arcgis-two-d
@@ -12,6 +13,7 @@
       v-if="this.platform === 'arcgis2d'"
       :map-config="this.mapConfig"
       @map-loaded="mapLoaded"
+      @map-click="mapClick"
       @marker-click="showGisDeviceInfo"
     />
     <map-container-baidu
@@ -19,6 +21,7 @@
       v-if="this.platform === 'bd'"
       :map-config="this.mapConfig"
       @map-loaded="mapLoaded"
+      @map-click="mapClick"
       @marker-click="showGisDeviceInfo"
     />
     <map-container-gaode
@@ -27,6 +30,7 @@
       :map-config="this.mapConfig"
       @map-loaded="mapLoaded"
       @marker-click="showGisDeviceInfo"
+      @map-click="mapClick"
       @marker-mouse="mouseGisDeviceInfo"
     />
   </div>
@@ -94,7 +98,8 @@ export default class MapContainer extends Vue implements IMapContainer {
 
   @Emit('map-loaded')
   private mapLoaded() {}
-
+  @Emit('map-click')
+  public mapClick(point: object) {}
   @Emit('marker-click')
   private showGisDeviceInfo(type: string, id: string) {}
   @Emit('marker-mouse')
@@ -181,6 +186,12 @@ export default class MapContainer extends Vue implements IMapContainer {
   }
   public clearRouteSearch() {
     this.mapContainer.clearRouteSearch();
+  }
+  public showRoutePoint(params: any) {
+    this.mapContainer.showRoutePoint(params);
+  }
+  public clearRoutePoint() {
+    this.mapContainer.clearRoutePoint();
   }
 }
 </script>
