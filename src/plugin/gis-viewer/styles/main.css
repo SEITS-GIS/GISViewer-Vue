@@ -41,7 +41,7 @@
   color: #cfffff;
   white-space: nowrap;
 }
-td-point
+.td-point
   .td-point-content
   .td-point-detail-wrap
   .td-point-detail-line
@@ -49,7 +49,7 @@ td-point
   span {
   color: #00ffff;
 }
-td-point
+.td-point
   .td-point-content
   .td-point-detail-wrap
   .td-point-detail-line

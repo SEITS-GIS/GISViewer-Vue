@@ -160,6 +160,10 @@ export interface IMapContainer {
   clearRouteSearch: () => void;
   showRoutePoint: (params: any) => void;
   clearRoutePoint: () => void;
+  addDrawLayer: (params: any) => Promise<IResult>;
+  clearDrawLayer: (params: ILayerConfig) => void;
+  showMigrateChart: (params: any) => void;
+  hideMigrateChart: () => void;
 }
 export interface IPopUpTemplate {
   title?: string;

@@ -12,6 +12,7 @@
       @map-loaded="mapLoaded"
       @marker-click="showGisDeviceInfo"
       @marker-mouse="mouseGisDeviceInfo"
+      @map-click="mapClick"
     />
   </div>
 </template>
@@ -38,8 +39,8 @@ export default class PluginGD extends Vue {
   private showGisDeviceInfo(type: string, id: string, detail: any) {
     console.log(type, id, detail);
   }
-  private mouseGisDeviceInfo(type: string, id: string, detail: any) {
-    console.log(type, id, detail);
+  private mapClick(detail: any) {
+    console.log(detail);
   }
 }
 </script>

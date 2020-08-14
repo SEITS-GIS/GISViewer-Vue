@@ -225,4 +225,11 @@ export default class MapAppBaidu implements IMapContainer {
 
   public showRoutePoint(params: any) {}
   public clearRoutePoint() {}
+  public async addDrawLayer(params: any): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public clearDrawLayer(params: ILayerConfig) {}
+
+  public showMigrateChart(params: any) {}
+  public hideMigrateChart() {}
 }

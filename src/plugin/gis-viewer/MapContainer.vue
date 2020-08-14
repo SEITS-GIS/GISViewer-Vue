@@ -193,6 +193,18 @@ export default class MapContainer extends Vue implements IMapContainer {
   public clearRoutePoint() {
     this.mapContainer.clearRoutePoint();
   }
+  public async addDrawLayer(params: any): Promise<IResult> {
+    return await this.mapContainer.addDrawLayer(params);
+  }
+  public clearDrawLayer(params: ILayerConfig) {
+    this.mapContainer.clearDrawLayer(params);
+  }
+  public showMigrateChart(params: any) {
+    this.mapContainer.showMigrateChart(params);
+  }
+  public hideMigrateChart() {
+    this.mapContainer.hideMigrateChart();
+  }
 }
 </script>
 

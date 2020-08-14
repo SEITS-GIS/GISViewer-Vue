@@ -17,6 +17,8 @@
     "@amap/amap-jsapi-loader": "0.0.3",
     "@amap/amap-jsapi-types": "0.0.4",
     "core-js": "^3.4.4",
+    "echarts": "^4.8.0",
+    "echarts-gl": "^1.1.1",
     "esri-loader": "^2.13.0",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",

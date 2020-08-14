@@ -22,6 +22,8 @@ import {HeatMap} from './widgets/HeatMap/arcgis/HeatMap';
 import {HeatMap3D} from './widgets/HeatMap/arcgis/HeatMap3D';
 import ToolTip from './widgets/Overlays/arcgis/ToolTip';
 import {Cluster} from './widgets/Cluster/arcgis/Cluster';
+import {DrawLayer} from './widgets/DrawLayer/arcgis/DrawLayer';
+import {MigrateChart} from './widgets/MigrateChart/arcgis/MigrateChart';
 
 export default class MapAppArcGIS3D implements IMapContainer {
   public view!: __esri.SceneView;
@@ -97,6 +99,9 @@ export default class MapAppArcGIS3D implements IMapContainer {
       this.createLayer(view.map, mapConfig.operationallayers);
     }
     view.ui.remove('attribution');
+    view.ui.remove('zoom');
+    view.ui.remove('compass');
+    view.ui.remove('navigation-toggle');
     view.on('click', async (event) => {
       if (event.mapPoint) {
         let mp = event.mapPoint;
@@ -174,6 +179,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
     Cluster.destroy();
     HeatMap3D.destroy();
     FindFeature.destroy();
+    MigrateChart.destroy();
   }
   //使toolTip中支持{字段}的形式
   private getContent(attr: any, content: string): string {
@@ -279,8 +285,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
       typeof import('esri/layers/support/LabelClass'),
       typeof import('esri/Color'),
       typeof import('esri/symbols/Font'),
-      typeof import('esri/symbols/TextSymbol'),
-      any
+      typeof import('esri/symbols/TextSymbol')
     ];
     const [
       FeatureLayer,
@@ -291,8 +296,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
       LabelClass,
       Color,
       Font,
-      TextSymbol,
-      PictureLayer
+      TextSymbol
     ] = await (loadModules([
       'esri/layers/FeatureLayer',
       'esri/layers/WebTileLayer',
@@ -302,8 +306,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
       'esri/layers/support/LabelClass',
       'esri/Color',
       'esri/symbols/Font',
-      'esri/symbols/TextSymbol',
-      'libs/PictureLayer.js'
+      'esri/symbols/TextSymbol'
     ]) as Promise<MapModules>);
     map.addMany(
       layers.map((layerConfig: any) => {
@@ -325,24 +328,6 @@ export default class MapAppArcGIS3D implements IMapContainer {
             layer = new WebTileLayer({
               urlTemplate: layerConfig.url,
               subDomains: layerConfig.subDomains || undefined
-            });
-            break;
-          case 'picture':
-            let extent = {
-              xmin: 1.3399331780261297e7,
-              ymin: 3642756.620312426,
-              xmax: 1.3661939778556328e7,
-              ymax: 3754658.9837650103
-            };
-            let spatialReference = {wkid: 102100, latestWkid: 3857};
-            let units = 'esriMeters';
-            layer = new PictureLayer({
-              visible: true,
-              url: layerConfig.url,
-              opacity: 1,
-              pictureExtent: extent,
-              units: units,
-              spatialReference: spatialReference
             });
             break;
         }
@@ -449,4 +434,21 @@ export default class MapAppArcGIS3D implements IMapContainer {
 
   public showRoutePoint(params: any) {}
   public clearRoutePoint() {}
+
+  public async addDrawLayer(params: any): Promise<IResult> {
+    const drawlayer = DrawLayer.getInstance(this.view);
+    return await drawlayer.addDrawLayer(params);
+  }
+  public clearDrawLayer(params: any) {
+    const drawlayer = DrawLayer.getInstance(this.view);
+    drawlayer.clearDrawLayer(params);
+  }
+  public showMigrateChart(params: any) {
+    const chart = MigrateChart.getInstance(this.view);
+    chart.showMigrateChart(params);
+  }
+  public hideMigrateChart() {
+    const chart = MigrateChart.getInstance(this.view);
+    chart.hideMigrateChart();
+  }
 }

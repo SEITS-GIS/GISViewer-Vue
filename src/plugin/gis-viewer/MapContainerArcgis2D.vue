@@ -104,6 +104,18 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public clearRouteSearch() {}
   public showRoutePoint(params: any) {}
   public clearRoutePoint() {}
+  public async addDrawLayer(params: any): Promise<IResult> {
+    return await this.mapApp.addDrawLayer(params);
+  }
+  public clearDrawLayer(params: any) {
+    this.mapApp.clearDrawLayer(params);
+  }
+  public showMigrateChart(params: any) {
+    this.mapApp.showMigrateChart(params);
+  }
+  public hideMigrateChart() {
+    this.mapApp.hideMigrateChart();
+  }
 }
 </script>
 

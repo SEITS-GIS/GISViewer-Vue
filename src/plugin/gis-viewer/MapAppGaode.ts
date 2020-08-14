@@ -56,10 +56,14 @@ export default class MapAppGaode implements IMapContainer {
       version: v,
       plugins: plugins
     });
+    this.destroy();
     this.view = new AMap.Map(mapContainer, mapConfig.options);
     (this.view as any).version = version;
     (this.view as any).mapOptions = mapConfig.options;
-    this.destroy();
+    this.view.on('click', async (evt) => {
+      let mp = evt.lnglat;
+      this.mapClick({x: mp.lng, y: mp.lat, lng: mp.lng, lat: mp.lat});
+    });
     return new Promise((resole) => {
       this.view.on('complete', () => {
         if (mapConfig.baseLayers) {
@@ -249,4 +253,12 @@ export default class MapAppGaode implements IMapContainer {
     const rtp = RoutePoint.getInstance(this.view);
     rtp.clearRoutePoint();
   }
+
+  public async addDrawLayer(params: any): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public clearDrawLayer(params: ILayerConfig) {}
+
+  public showMigrateChart(params: any) {}
+  public hideMigrateChart() {}
 }

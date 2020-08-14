@@ -18,6 +18,8 @@ import {HeatMap} from './widgets/HeatMap/arcgis/HeatMap';
 import {blendColors} from 'esri/Color';
 import {TextSymbol} from 'esri/symbols';
 import {Cluster} from './widgets/Cluster/arcgis/Cluster';
+import {DrawLayer} from './widgets/DrawLayer/arcgis/DrawLayer';
+import {MigrateChart} from './widgets/MigrateChart/arcgis/MigrateChart';
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
@@ -90,6 +92,8 @@ export default class MapAppArcGIS2D {
       ...mapConfig.options
     });
     view.ui.remove('attribution');
+    view.ui.remove('zoom');
+    view.ui.remove('compass');
     if (mapConfig.operationallayers) {
       this.createLayer(view.map, mapConfig.operationallayers);
     }
@@ -176,6 +180,7 @@ export default class MapAppArcGIS2D {
     Cluster.destroy();
     HeatMap.destroy();
     FindFeature.destroy();
+    MigrateChart.destroy();
   }
   //使toolTip中支持{字段}的形式
   private getContent(attr: any, content: string): string {
@@ -281,8 +286,7 @@ export default class MapAppArcGIS2D {
       typeof import('esri/layers/support/LabelClass'),
       typeof import('esri/Color'),
       typeof import('esri/symbols/Font'),
-      typeof import('esri/symbols/TextSymbol'),
-      any
+      typeof import('esri/symbols/TextSymbol')
     ];
     const [
       FeatureLayer,
@@ -293,8 +297,7 @@ export default class MapAppArcGIS2D {
       LabelClass,
       Color,
       Font,
-      TextSymbol,
-      PictureLayer
+      TextSymbol
     ] = await (loadModules([
       'esri/layers/FeatureLayer',
       'esri/layers/WebTileLayer',
@@ -304,8 +307,7 @@ export default class MapAppArcGIS2D {
       'esri/layers/support/LabelClass',
       'esri/Color',
       'esri/symbols/Font',
-      'esri/symbols/TextSymbol',
-      'libs/PictureLayer.js'
+      'esri/symbols/TextSymbol'
     ]) as Promise<MapModules>);
     map.addMany(
       layers.map((layerConfig: any) => {
@@ -327,24 +329,6 @@ export default class MapAppArcGIS2D {
             layer = new WebTileLayer({
               urlTemplate: layerConfig.url,
               subDomains: layerConfig.subDomains || undefined
-            });
-            break;
-          case 'picture':
-            let extent = {
-              xmin: 1.3399331780261297e7,
-              ymin: 3642756.620312426,
-              xmax: 1.3661939778556328e7,
-              ymax: 3754658.9837650103
-            };
-            let spatialReference = {wkid: 102100, latestWkid: 3857};
-            let units = 'esriMeters';
-            layer = new PictureLayer({
-              visible: true,
-              url: layerConfig.url,
-              opacity: 0.75,
-              pictureExtent: extent,
-              units: units,
-              spatialReference: spatialReference
             });
             break;
         }
@@ -447,4 +431,20 @@ export default class MapAppArcGIS2D {
   public clearRouteSearch() {}
   public showRoutePoint(params: any) {}
   public clearRoutePoint() {}
+  public async addDrawLayer(params: any): Promise<IResult> {
+    const drawlayer = DrawLayer.getInstance(this.view);
+    return await drawlayer.addDrawLayer(params);
+  }
+  public clearDrawLayer(params: any) {
+    const drawlayer = DrawLayer.getInstance(this.view);
+    drawlayer.clearDrawLayer(params);
+  }
+  public showMigrateChart(params: any) {
+    const chart = MigrateChart.getInstance(this.view);
+    chart.showMigrateChart(params);
+  }
+  public hideMigrateChart() {
+    const chart = MigrateChart.getInstance(this.view);
+    chart.hideMigrateChart();
+  }
 }
