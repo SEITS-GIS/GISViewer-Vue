@@ -56,7 +56,8 @@ import {
   IResult,
   IDistrictParameter,
   IStreetParameter,
-  routeParameter
+  routeParameter,
+  IHeatImageParameter
 } from '@/types/map';
 
 @Component({
@@ -198,6 +199,12 @@ export default class MapContainer extends Vue implements IMapContainer {
   }
   public clearDrawLayer(params: ILayerConfig) {
     this.mapContainer.clearDrawLayer(params);
+  }
+  public addHeatImage(params: IHeatImageParameter) {
+    this.mapContainer.addHeatImage(params);
+  }
+  public deleteHeatImage() {
+    this.mapContainer.deleteHeatImage();
   }
   public showMigrateChart(params: any) {
     this.mapContainer.showMigrateChart(params);

@@ -12,7 +12,8 @@ import {
   IResult,
   IDistrictParameter,
   IStreetParameter,
-  routeParameter
+  routeParameter,
+  IHeatImageParameter
 } from '@/types/map';
 import {OverlayBaidu} from '@/plugin/gis-viewer/widgets/Overlays/bd/OverlayBaidu';
 import {HeatMapBD} from './widgets/HeatMap/bd/HeatMapBD';
@@ -232,4 +233,6 @@ export default class MapAppBaidu implements IMapContainer {
 
   public showMigrateChart(params: any) {}
   public hideMigrateChart() {}
+  public addHeatImage(params: IHeatImageParameter) {}
+  public deleteHeatImage() {}
 }

@@ -12,7 +12,8 @@ import {
   IResult,
   IDistrictParameter,
   IStreetParameter,
-  routeParameter
+  routeParameter,
+  IHeatImageParameter
 } from '@/types/map';
 import {OverlayGaode} from '@/plugin/gis-viewer/widgets/Overlays/gd/OverlayGaode';
 import {JurisdictionPoliceGD} from './widgets/JurisdictionPolice/gd/JurisdictionPoliceGD';
@@ -261,4 +262,6 @@ export default class MapAppGaode implements IMapContainer {
 
   public showMigrateChart(params: any) {}
   public hideMigrateChart() {}
+  public addHeatImage(params: IHeatImageParameter) {}
+  public deleteHeatImage() {}
 }

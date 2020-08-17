@@ -1,5 +1,5 @@
 <template>
-  <div id="divArcGISMap3D" />
+  <div :id="mapId" class="my-map-div" />
 </template>
 
 <script lang="ts">
@@ -18,7 +18,8 @@ import {
   IResult,
   IDistrictParameter,
   IStreetParameter,
-  routeParameter
+  routeParameter,
+  IHeatImageParameter
 } from '@/types/map';
 
 @Component({
@@ -27,6 +28,8 @@ import {
 export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   private mapApp!: MapApp;
 
+  @Prop({type: String, default: 'divArcGISMap3D'}) mapId: string =
+    'divArcGISMap3D' + (Math.random() * 10000).toFixed(0);
   //地图配置
   @Prop({type: Object}) readonly mapConfig!: Object;
 
@@ -112,6 +115,8 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   public clearDrawLayer(params: any) {
     this.mapApp.clearDrawLayer(params);
   }
+  public addHeatImage(params: IHeatImageParameter) {}
+  public deleteHeatImage() {}
   public showMigrateChart(params: any) {
     this.mapApp.showMigrateChart(params);
   }
@@ -123,7 +128,7 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
 
 <style scoped>
 /* @import './styles/map.css'; */
-#divArcGISMap3D {
+.my-map-div {
   padding: 0;
   margin: 0;
   width: 100%;

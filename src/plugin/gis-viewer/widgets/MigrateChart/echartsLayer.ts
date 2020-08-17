@@ -11,12 +11,8 @@ export default class echartsLayer {
   private visible = true;
   private moudles: any;
 
-  private map_DragStart_Listener: any;
-  private map_DragEnd_Listener: any;
-  private map_ZoomStart_Listener: any;
-  private map_ZoomEnd_Listener: any;
-  private map_ExtentChange_Listener: any;
-  private map_click_Listener: any;
+  private map_rotationChange_Listener: any;
+  private map_extentChange_Listener: any;
 
   public constructor(view: any, option?: any) {
     //如果在服务器上使用该代码  可以将echart对象传入到option中
@@ -97,7 +93,8 @@ export default class echartsLayer {
     box.style.position = 'absolute';
     box.style.top = '0px';
     box.style.left = '0px';
-    let parent = document.getElementsByClassName('esri-view-surface')[0];
+    box.style.zIndex = '99';
+    let parent = document.getElementsByClassName('esri-overlay-surface')[0];
     parent.appendChild(box);
     this.chart = echarts.init(box);
     this.setCharts();
@@ -110,23 +107,20 @@ export default class echartsLayer {
     this.box = null;
     this.chart = null;
     this.chartOption = null;
-    this.map_DragStart_Listener.remove();
-    this.map_DragEnd_Listener.remove();
-    this.map_ZoomStart_Listener.remove();
-    this.map_ZoomEnd_Listener.remove();
-    this.map_ExtentChange_Listener.remove();
+    this.map_rotationChange_Listener.remove();
+    this.map_extentChange_Listener.remove();
   }
   /*监听地图事件，根据图层是否显示，判断是否重绘echarts*/
   private startMapEventListeners() {
     let view = this.view;
     let _this = this;
-    view.watch('extent', (e: any) => {
+    this.map_extentChange_Listener = view.watch('extent', (e: any) => {
       if (!_this.visible) return;
       _this.setCharts();
       _this.chart.resize();
       _this.box.hidden = false;
     });
-    view.watch('rotation', (e: any) => {
+    this.map_rotationChange_Listener = view.watch('rotation', (e: any) => {
       if (!this.visible) return;
       _this.setCharts();
       _this.chart.resize();

@@ -206,8 +206,8 @@ export default class MapConfig {
     //gisServer: 'http://128.64.151.245:8019',
     options: {
       //for arcgis-2d
-      center: [121.441, 31.159],
-      zoom: 12,
+      center: [121.415, 31.174],
+      zoom: 14,
       //viewingMode: 'local'
       // ground: {opacity: 0},
       // alphaCompositingEnabled: true,
@@ -333,6 +333,48 @@ export default class MapConfig {
     //const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
+    var points = [];
+    var x = 121.43;
+    var y = 31.15;
+    for (var i = 0; i < 400; i++) {
+      var x1 = x + (Math.random() * 2 - 1) / 20;
+      var y1 = y + (Math.random() * 2 - 1) / 20;
+      var value = Math.floor(600 * Math.random() + 1);
+      var a = i % 2 == 0 ? '1' : '0';
+      points.push({
+        geometry: {x: x1, y: y1},
+        fields: {desc: '上海体育馆停车场', totalSpace: value, type: a}
+      });
+    }
+    var json = {
+      points: points,
+      images: {geometry: {x: x - 0.1, y: y + 0.1}, width: 500, height: 500},
+      options: {
+        field: 'totalSpace',
+        radius: '20',
+        colors: [
+          'rgb(255, 255, 255)',
+          'rgba(206, 199, 25,0.5)',
+          'rgba(255, 140, 27,0.5)',
+          'rgba(246, 64, 64,0.5)'
+        ],
+        maxValue: 1000,
+        minValue: 1,
+        zoom: 15,
+        renderer: {
+          type: 'simple',
+          symbol: {
+            type: 'esriPMS',
+            url: 'assets/image/Anchor.png',
+            width: 64,
+            height: 66,
+            yoffset: 16
+          }
+        }
+      }
+    };
+    map.addHeatImage(json);
+
     map.showMigrateChart();
     //map.addDrawLayer({});
     // map
@@ -476,7 +518,9 @@ export default class MapConfig {
     });
   }
   public btn_test3(map: any) {
-    map.clearRouteSearch(); //清除
+    map.deleteHeatImage();
+    map.hideMigrateChart();
+    //map.clearRouteSearch(); //清除
     //map.setMapStyle('amap://styles/darkblue');
     //map.locateStreet({id: '10013'});
     // map.showLayer({type: 'traffic'});

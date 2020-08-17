@@ -1,5 +1,5 @@
 <template>
-  <div id="divAMap" />
+  <div :id="mapId" class="my-map-div" />
 </template>
 
 <script lang="ts">
@@ -18,7 +18,8 @@ import {
   IResult,
   IDistrictParameter,
   IStreetParameter,
-  routeParameter
+  routeParameter,
+  IHeatImageParameter
 } from '@/types/map';
 
 @Component({
@@ -27,6 +28,8 @@ import {
 export default class MapContainerGd extends Vue implements IMapContainer {
   private mapApp!: MapApp;
 
+  @Prop({type: String, default: 'divAMap'}) mapId: string =
+    'divAMap' + (Math.random() * 10000).toFixed(0);
   //地图配置
   @Prop({type: Object}) readonly mapConfig!: Object;
 
@@ -141,7 +144,8 @@ export default class MapContainerGd extends Vue implements IMapContainer {
     return {status: 0, message: ''};
   }
   public clearDrawLayer(params: ILayerConfig) {}
-
+  public addHeatImage(params: IHeatImageParameter) {}
+  public deleteHeatImage() {}
   public showMigrateChart(params: any) {}
   public hideMigrateChart() {}
 }
@@ -149,7 +153,7 @@ export default class MapContainerGd extends Vue implements IMapContainer {
 
 <style scoped>
 @import 'styles/main.css';
-#divAMap {
+.my-map-div {
   padding: 0;
   margin: 0;
   width: 100%;

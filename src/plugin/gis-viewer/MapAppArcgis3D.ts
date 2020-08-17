@@ -13,7 +13,8 @@ import {
   IResult,
   IDistrictParameter,
   IStreetParameter,
-  routeParameter
+  routeParameter,
+  IHeatImageParameter
 } from '@/types/map';
 import {OverlayArcgis3D} from '@/plugin/gis-viewer/widgets/Overlays/arcgis/OverlayArcgis3D';
 import {RasterStretchRenderer} from 'esri/rasterRenderers';
@@ -179,6 +180,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
     Cluster.destroy();
     HeatMap3D.destroy();
     FindFeature.destroy();
+    DrawLayer.destroy();
     MigrateChart.destroy();
   }
   //使toolTip中支持{字段}的形式
@@ -451,4 +453,6 @@ export default class MapAppArcGIS3D implements IMapContainer {
     const chart = MigrateChart.getInstance(this.view);
     chart.hideMigrateChart();
   }
+  public addHeatImage(params: IHeatImageParameter) {}
+  public deleteHeatImage() {}
 }

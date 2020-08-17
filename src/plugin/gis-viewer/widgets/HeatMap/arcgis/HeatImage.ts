@@ -1,6 +1,6 @@
 import {IHeatImageParameter} from '@/types/map';
 import {loadModules} from 'esri-loader';
-import {getThumbnailUrl} from 'esri/widgets/BasemapToggle/BasemapToggleViewModel';
+
 export class HeatImage {
   private static intance: HeatImage;
   private view!: any;
@@ -31,12 +31,13 @@ export class HeatImage {
     (HeatImage.intance as any) = null;
   }
 
-  public async deleteHeatMap() {
+  public async deleteHeatImage() {
     this.clear();
   }
   private clear() {
     if (this.canvas) {
       this.canvas.parentNode.removeChild(this.canvas);
+      this.canvas = null;
     }
     if (this.centerwatchHandle) {
       this.centerwatchHandle.remove();
@@ -45,7 +46,7 @@ export class HeatImage {
       this.scalewatchHandle = null;
     }
   }
-  public async addHeatMap(params: IHeatImageParameter) {
+  public async addHeatImage(params: IHeatImageParameter) {
     // Create featurelayer from client-side graphics
     this.clear();
     let options = params.options;
@@ -70,7 +71,7 @@ export class HeatImage {
     parent.appendChild(canvas);
     this.canvas = canvas;
     this.image = new Image();
-    this.image.src = 'http://localhost/gz.svg';
+    this.image.src = imageOpt.url || 'http://localhost/gz.svg';
     this.image.width = this.imageOpt.width;
     this.image.heigth = this.imageOpt.height;
     let that = this;

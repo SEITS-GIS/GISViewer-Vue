@@ -23,6 +23,7 @@ import MapConfig from './MapConfig';
 export default class PluginTest extends Vue {
   private cg = new MapConfig();
   private mapConfig = this.cg.mapConfig;
+  private mapConfig2 = this.cg.mapConfig;
   private async mapLoaded() {
     this.cg.mapLoaded(this.$refs.gisViewer);
   }

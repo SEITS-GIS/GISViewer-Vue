@@ -1,5 +1,5 @@
 <template>
-  <div id="divBMap" />
+  <div :id="mapId" class="my-map-div" />
 </template>
 <script lang="ts">
 import {Vue, Component, Emit, Prop} from 'vue-property-decorator';
@@ -17,7 +17,8 @@ import {
   IResult,
   IDistrictParameter,
   IStreetParameter,
-  routeParameter
+  routeParameter,
+  IHeatImageParameter
 } from '@/types/map';
 @Component({
   name: 'MapAppBaidu'
@@ -25,6 +26,8 @@ import {
 export default class MapContainerArcgis extends Vue implements IMapContainer {
   private mapApp!: MapApp;
 
+  @Prop({type: String, default: 'divBMap'}) mapId: string =
+    'divBMap' + (Math.random() * 10000).toFixed(0);
   //地图配置
   @Prop({type: Object}) readonly mapConfig!: Object;
 
@@ -111,13 +114,15 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
     return {status: 0, message: ''};
   }
   public clearDrawLayer(params: ILayerConfig) {}
+  public addHeatImage(params: IHeatImageParameter) {}
+  public deleteHeatImage() {}
   public showMigrateChart(params: any) {}
   public hideMigrateChart() {}
 }
 </script>
 
 <style scoped>
-#divBMap {
+.my-map-div {
   padding: 0;
   margin: 0;
   width: 100%;

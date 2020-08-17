@@ -8,10 +8,14 @@
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
 import Home from '@/components/Home.vue';
+import PluginTest from '@/components/PluginTest.vue';
+import PluginGD from '@/components/PluginGD.vue';
 
 @Component({
   components: {
-    Home
+    Home,
+    PluginTest,
+    PluginGD
   }
 })
 export default class App extends Vue {}
