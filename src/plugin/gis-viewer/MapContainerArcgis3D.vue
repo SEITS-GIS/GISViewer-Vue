@@ -36,7 +36,7 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   @Emit('map-loaded')
   async mounted() {
     this.mapApp = new MapApp();
-    await this.mapApp.initialize(this.mapConfig, 'divArcGISMap3D');
+    await this.mapApp.initialize(this.mapConfig, this.mapId);
     this.mapApp.showGisDeviceInfo = this.showGisDeviceInfo;
     this.mapApp.mapClick = this.mapClick;
   }
