@@ -113,6 +113,7 @@ export default class MapAppGaode implements IMapContainer {
     HeatMapGD.destroy();
     JurisdictionPoliceGD.destroy();
     DrawSteet.destroy();
+    Route.destroy();
     RoutePoint.destroy();
   }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {

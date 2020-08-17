@@ -71,9 +71,9 @@ export class HeatImage {
     parent.appendChild(canvas);
     this.canvas = canvas;
     this.image = new Image();
-    this.image.src = imageOpt.url || 'http://localhost/gz.svg';
-    this.image.width = this.imageOpt.width;
-    this.image.heigth = this.imageOpt.height;
+    this.image.src = imageOpt.url || 'http://localhost/vc.png';
+    this.image.width = this.imageOpt.width || 1133;
+    this.image.heigth = this.imageOpt.height || 713;
     let that = this;
     this.image.onload = (e: any) => {
       var ctx = that.canvas.firstChild.getContext('2d');
@@ -101,9 +101,9 @@ export class HeatImage {
       container: this.canvas,
       radius: rad,
       gradient: this.getHeatColor(options.colors),
-      maxOpacity: 0.5,
+      maxOpacity: 1,
       minOpacity: 0,
-      blur: 0.75
+      blur: 1
     });
     let fieldName = this.options.field;
     this.pointdata = [];
@@ -166,9 +166,9 @@ export class HeatImage {
       container: this.canvas,
       radius: rad,
       gradient: this.getHeatColor(this.options.colors),
-      maxOpacity: 0.5,
+      maxOpacity: 1,
       minOpacity: 0,
-      blur: 0.75
+      blur: 1
     });
     this.heatmapInstance.setData(data);
     let p = this.view.toScreen(this.imagePos);

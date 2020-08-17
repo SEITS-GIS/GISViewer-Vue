@@ -10,14 +10,27 @@ export default class MapConfig {
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
     theme: 'dark', //dark,vec
     baseLayers: [
+      // {
+      //   type: 'tiled',
+      //   url:
+      //     'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
+      //   visible: true
+      // },
       {
         type: 'tiled',
         url:
-          'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
+          'https://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
         visible: true
       }
     ],
     operationallayers: [
+      // {
+      //   label: 'fbd',
+      //   url:
+      //     'http://172.30.30.1:6080/arcgis/rest/services/ShangHai/FBD_GD/MapServer',
+      //   type: 'dynamic',
+      //   visible: true
+      // },
       // {
       //   label: '地铁1',
       //   url: 'http://localhost:8090/TGISViewer_v200/images/guozhanzhongxin.svg',
@@ -336,10 +349,10 @@ export default class MapConfig {
     var points = [];
     var x = 121.43;
     var y = 31.15;
-    for (var i = 0; i < 400; i++) {
-      var x1 = x + (Math.random() * 2 - 1) / 20;
-      var y1 = y + (Math.random() * 2 - 1) / 20;
-      var value = Math.floor(600 * Math.random() + 1);
+    for (var i = 0; i < 1000; i++) {
+      var x1 = x + (Math.random() * 2 - 1) / 10;
+      var y1 = y + (Math.random() * 2 - 1) / 10;
+      var value = Math.floor(1000 * Math.random() + 1);
       var a = i % 2 == 0 ? '1' : '0';
       points.push({
         geometry: {x: x1, y: y1},
@@ -354,9 +367,9 @@ export default class MapConfig {
         radius: '20',
         colors: [
           'rgb(255, 255, 255)',
-          'rgba(206, 199, 25,0.5)',
-          'rgba(255, 140, 27,0.5)',
-          'rgba(246, 64, 64,0.5)'
+          'rgba(206, 199, 25,0.9)',
+          'rgba(255, 140, 27,0.9)',
+          'rgba(246, 64, 64,0.9)'
         ],
         maxValue: 1000,
         minValue: 1,
@@ -373,10 +386,17 @@ export default class MapConfig {
         }
       }
     };
-    map.addHeatImage(json);
+    //map.addHeatImage(json);
 
-    map.showMigrateChart();
-    //map.addDrawLayer({});
+    // map.showMigrateChart();
+    map.addDrawLayer({
+      layerUrls: './config/fbd/morph_ksl.json',
+      label: '快速路'
+    });
+    map.addDrawLayer({
+      layerUrls: './config/fbd/morph_fbd.json',
+      label: '发布段'
+    });
     // map
     //   .routeSearch({
     //     start: {x: 121.31, y: 31.46}, //开始坐标
@@ -386,7 +406,7 @@ export default class MapConfig {
     //   .then((e: any) => {
     //     console.log(e); //返回结果
     //   });
-    map.showRoutePoint();
+    //map.showRoutePoint();
     //let map = this.$refs.gisViewer as any;
     // axios.get('config/point1.json').then((res: any) => {
     //   map.addOverlaysCluster(res.data);
@@ -532,10 +552,10 @@ export default class MapConfig {
     // });
     //map.hideLayer({label: '匝道灯'});
     //map.deleteHeatMap();
-    map.deleteOverlaysCluster({types: ['sxj1']});
+    //map.deleteOverlaysCluster({types: ['sxj1']});
     //map.deleteAllOverlays();
     //map.deleteOverlays({ids: ['test001']});
-    //map.hideLayer({ type: "traffic" });
+    map.hideLayer({label: '发布段'});
     //map.setMapCenter({x: 121.12, y: 31.23});
     //map.setMapCenterAndLevel({
     //   x: 121.12,

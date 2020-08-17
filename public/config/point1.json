@@ -4,7 +4,7 @@
   "defaultVisible": true,
   "defaultTooltip": "{roadName}",
   "defaultSymbol": {
-    "url": "http://localhost:8090/TGISViewer_v200/images/mapIcons/JiaoWei/event.png",
+    "url": "http://localhost:8090/TGISViewer_v200/images/mapIcons/JiaoTong/baojing.gif",
     "height": 29,
     "width": 29
   },

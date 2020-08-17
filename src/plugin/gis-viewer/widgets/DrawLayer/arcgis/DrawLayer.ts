@@ -31,13 +31,14 @@ export class DrawLayer {
   }
   public clearDrawLayer(params: ILayerConfig) {}
   public addDrawLayer(params: any): Promise<IResult> {
-    let url = params.layerUrl || './config/Jurisdiction/Street.json';
+    let label = params.label;
+    let url = params.layerUrls;
     let dataUrl = params.dataUrl;
 
     return new Promise((resolve, reject) => {
       axios.get(url).then((res: any) => {
         //todo
-        this.getFeature(res.data);
+        this.getFeature(label, res.data);
         resolve({
           status: 0,
           message: '',
@@ -46,7 +47,7 @@ export class DrawLayer {
       });
     });
   }
-  public async getFeature(res: any) {
+  public async getFeature(label: string, res: any) {
     type MapModules = [
       typeof import('esri/geometry/support/jsonUtils'),
       typeof import('esri/Graphic'),
@@ -84,13 +85,20 @@ export class DrawLayer {
       geometryType: res.geometryType.replace('esriGeometry', '').toLowerCase(),
       renderer: this.getRender()
     });
+    if (label) {
+      (drawlayer as any).label = label;
+    }
     this.view.map.add(drawlayer);
   }
   public getRender(): object {
     let renderer = {
       type: 'unique-value', // autocasts as new UniqueValueRenderer()
       field: 'Name',
-      defaultSymbol: {type: 'simple-fill', color: 'orange'}, // autocasts as new SimpleFillSymbol()
+      defaultSymbol: {
+        type: 'simple-fill',
+        color: 'rgba(100, 210, 121, 255)',
+        outline: undefined
+      }, // autocasts as new SimpleFillSymbol()
       uniqueValueInfos: [
         {
           // All features with value of "North" will be blue
