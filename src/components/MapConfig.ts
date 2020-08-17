@@ -386,7 +386,7 @@ export default class MapConfig {
     //   .then((e: any) => {
     //     console.log(e); //返回结果
     //   });
-    //map.showRoutePoint();
+    map.showRoutePoint();
     //let map = this.$refs.gisViewer as any;
     // axios.get('config/point1.json').then((res: any) => {
     //   map.addOverlaysCluster(res.data);

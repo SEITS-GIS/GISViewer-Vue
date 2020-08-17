@@ -7,7 +7,7 @@
     </div>
     <gis-viewer
       ref="gisViewer"
-      platform="arcgis2d"
+      platform="gd"
       :map-config="mapConfig"
       @map-loaded="mapLoaded"
       @marker-click="showGisDeviceInfo"
@@ -23,15 +23,12 @@ import MapConfig from './MapConfig';
 @Component
 export default class PluginGD extends Vue {
   private cg = new MapConfig();
-  private mapConfig = this.cg.mapConfig;
+  private mapConfig = this.cg.gdConfig;
   private async mapLoaded() {
     this.cg.mapLoaded(this.$refs.gisViewer);
   }
   private btn_test1() {
-    let map = this.$refs.gisViewer as any;
-    axios.get('config/point1.json').then((res: any) => {
-      map.addOverlaysCluster(res.data);
-    });
+    this.cg.btn_test1(this.$refs.gisViewer);
   }
   private async btn_test2() {
     this.cg.btn_test2(this.$refs.gisViewer);
