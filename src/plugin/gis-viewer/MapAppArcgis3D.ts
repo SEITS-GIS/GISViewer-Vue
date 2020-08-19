@@ -97,7 +97,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
       ...mapConfig.options
     });
     if (mapConfig.operationallayers) {
-      this.createLayer(view.map, mapConfig.operationallayers);
+      this.createLayer(view, mapConfig.operationallayers);
     }
     view.ui.remove('attribution');
     view.ui.remove('zoom');
@@ -121,6 +121,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
         response.results.forEach((result) => {
           const graphic = result.graphic;
           let {type, id} = graphic.attributes;
+          let label = (graphic.layer as any).label;
           if (
             graphic.layer.type == 'feature' ||
             graphic.layer.type == 'graphics'
@@ -128,6 +129,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
             id =
               graphic.attributes['DEVICEID'] ||
               graphic.attributes['FEATUREID'] ||
+              graphic.attributes['SECTIONID'] ||
               graphic.attributes['id'] ||
               graphic.attributes['ID'] ||
               undefined;
@@ -137,9 +139,10 @@ export default class MapAppArcGIS3D implements IMapContainer {
               graphic.attributes['FEATURETYP'] ||
               graphic.attributes['type'] ||
               graphic.attributes['TYPE'] ||
+              label ||
               undefined;
           }
-          if (type && id) {
+          if (id) {
             this.showGisDeviceInfo(type, id, graphic.toJSON());
           }
         });
@@ -277,7 +280,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
       });
     });
   }
-  private async createLayer(map: __esri.Map, layers: any) {
+  private async createLayer(view: __esri.SceneView, layers: any) {
     type MapModules = [
       typeof import('esri/layers/FeatureLayer'),
       typeof import('esri/layers/WebTileLayer'),
@@ -310,32 +313,43 @@ export default class MapAppArcGIS3D implements IMapContainer {
       'esri/symbols/Font',
       'esri/symbols/TextSymbol'
     ]) as Promise<MapModules>);
+    let map = view.map;
     map.addMany(
-      layers.map((layerConfig: any) => {
-        let layer: any;
-        let type = layerConfig.type.toLowerCase();
-        delete layerConfig.type;
-        switch (type) {
-          case 'feature':
-            layer = new FeatureLayer(layerConfig);
-            layer.labelingInfo = layerConfig.labelingInfo;
-            break;
-          case 'dynamic':
-            layer = new MapImageLayer(layerConfig);
-            break;
-          case 'wms':
-            layer = new WMSLayer(layerConfig);
-            break;
-          case 'webtiled':
-            layer = new WebTileLayer({
-              urlTemplate: layerConfig.url,
-              subDomains: layerConfig.subDomains || undefined
-            });
-            break;
-        }
-        layer.id = layerConfig.id || layerConfig.label;
-        return layer;
-      })
+      layers
+        .map((layerConfig: any) => {
+          let layer: any;
+          let type = layerConfig.type.toLowerCase();
+          delete layerConfig.type;
+          switch (type) {
+            case 'feature':
+              layer = new FeatureLayer(layerConfig);
+              layer.labelingInfo = layerConfig.labelingInfo;
+              break;
+            case 'dynamic':
+              layer = new MapImageLayer(layerConfig);
+              break;
+            case 'wms':
+              layer = new WMSLayer(layerConfig);
+              break;
+            case 'webtiled':
+              layer = new WebTileLayer({
+                urlTemplate: layerConfig.url,
+                subDomains: layerConfig.subDomains || undefined
+              });
+              break;
+            case 'json':
+              const drawlayer = DrawLayer.getInstance(view);
+              drawlayer.addDrawLayer(layerConfig);
+              break;
+          }
+          // if (layer) {
+          //   layer.id = layerConfig.id || layerConfig.label;
+          // }
+          return layer;
+        })
+        .filter((layer: any) => {
+          return layer !== undefined;
+        })
     );
   }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {

@@ -28,8 +28,7 @@ import {
 export default class MapContainerGd extends Vue implements IMapContainer {
   private mapApp!: MapApp;
 
-  @Prop({type: String, default: 'divAMap'}) mapId: string =
-    'divAMap' + (Math.random() * 10000).toFixed(0);
+  private mapId: string = 'divAMap' + (Math.random() * 10000).toFixed(0);
   //地图配置
   @Prop({type: Object}) readonly mapConfig!: Object;
 

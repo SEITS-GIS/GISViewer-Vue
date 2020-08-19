@@ -28,8 +28,7 @@ import {
 export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   private mapApp!: MapApp;
 
-  @Prop({type: String, default: 'divArcGISMap3D'}) mapId: string =
-    'divArcGISMap3D' + (Math.random() * 10000).toFixed(0);
+  private mapId: string = 'divArcGISMap3D' + (Math.random() * 10000).toFixed(0);
   //地图配置
   @Prop({type: Object}) readonly mapConfig!: Object;
 

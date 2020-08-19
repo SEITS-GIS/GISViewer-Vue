@@ -26,8 +26,7 @@ import {
 export default class MapContainerArcgis extends Vue implements IMapContainer {
   private mapApp!: MapApp;
 
-  @Prop({type: String, default: 'divBMap'}) mapId: string =
-    'divBMap' + (Math.random() * 10000).toFixed(0);
+  private mapId: string = 'divBMap' + (Math.random() * 10000).toFixed(0);
   //地图配置
   @Prop({type: Object}) readonly mapConfig!: Object;
 

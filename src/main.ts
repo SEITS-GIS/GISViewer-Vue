@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 import gd from './components/PluginGD.vue';
 import arc from './components/PluginTest.vue';
+import arc3d from './components/PluginTest3D.vue';
 import App from './App.vue';
 import GisViewer from './plugin/index';
 
@@ -14,7 +15,8 @@ Vue.use(VueRouter);
 const routes = [
   {path: '', component: arc},
   {path: '/gd', component: gd},
-  {path: '/arc', component: arc}
+  {path: '/arc', component: arc},
+  {path: '/arc3d', component: arc3d}
 ];
 
 //创建 router 实例，然后传 routes 配置

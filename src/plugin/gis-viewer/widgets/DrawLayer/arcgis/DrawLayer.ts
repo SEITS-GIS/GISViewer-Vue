@@ -15,6 +15,7 @@ export class DrawLayer {
 
   private drawlayer!: any;
   private view!: __esri.MapView | __esri.SceneView;
+  private dataJsonMap: Map<string, any> = new Map();
 
   private constructor(view: __esri.MapView | __esri.SceneView) {
     this.view = view;
@@ -29,25 +30,135 @@ export class DrawLayer {
   public static destroy() {
     (DrawLayer.instance as any) = null;
   }
-  public clearDrawLayer(params: ILayerConfig) {}
+  public clearDrawLayer(params: ILayerConfig) {
+    this.clear(params.label as string);
+    this.dataJsonMap.delete(params.label as string);
+  }
+  public clear(label: string) {
+    let layer = this.view.map.allLayers.find((baselayer: any) => {
+      return baselayer.label === label;
+    });
+    this.view.map.remove(layer);
+  }
   public addDrawLayer(params: any): Promise<IResult> {
     let label = params.label;
-    let url = params.layerUrls;
+    let url = params.layerUrls || params.url;
     let dataUrl = params.dataUrl;
+    let defaultVisible = params.visible !== false;
+    let renderer = params.renderer || this.getRender();
+    let refreshInterval = params.refreshInterval || 0;
 
-    return new Promise((resolve, reject) => {
-      axios.get(url).then((res: any) => {
-        //todo
-        this.getFeature(label, res.data);
-        resolve({
-          status: 0,
-          message: '',
-          result: {}
+    let layer = this.view.map.allLayers.find((baselayer: any) => {
+      return baselayer.label === label;
+    });
+    if (refreshInterval > 0) {
+      let _this = this;
+      setTimeout(() => {
+        let getlayer = this.view.map.allLayers.find((baselayer: any) => {
+          return baselayer.label === label;
         });
+        params.visible = getlayer.visible;
+        _this.addDrawLayer(params);
+      }, refreshInterval * 1000 * 60);
+    }
+    if (layer) {
+      this.view.map.remove(layer);
+    }
+
+    // return new Promise((resolve, reject) => {
+    //   axios.get(url).then((res: any) => {
+    //     //todo
+    //     this.getFeature({
+    //       data: res.data,
+    //       label: label,
+    //       renderer: renderer,
+    //       visible: defaultVisible
+    //     });
+    //     resolve({
+    //       status: 0,
+    //       message: '添加图层' + label,
+    //       result: {}
+    //     });
+    //   });
+    // });
+    return new Promise((resolve) => {
+      Promise.all([
+        this.getLayerData(label, url),
+        this.queryLayerData(dataUrl)
+      ]).then((e: any) => {
+        //更新graphic中状态;
+        //console.log(e);
+        if (e.length > 1) {
+          this.getFeature({
+            data: e[0],
+            label: label,
+            renderer: renderer,
+            visible: defaultVisible,
+            states: e[1]
+          });
+        }
       });
     });
   }
-  public async getFeature(label: string, res: any) {
+  public getLayerData(label: string, url: string): Promise<any> {
+    let _this = this;
+    return new Promise((resolve, reject) => {
+      if (url) {
+        let result = _this.dataJsonMap.get(label);
+        if (result) {
+          resolve(result);
+        } else {
+          axios.get(url).then((res: any) => {
+            //todo
+            resolve(res.data);
+            _this.dataJsonMap.set(label, res.data);
+          });
+        }
+      } else {
+        resolve({data: []});
+      }
+    });
+  }
+  public queryLayerData(url: string): Promise<any> {
+    let dataStates: {
+      free: string[];
+      jam: string[];
+      crowd: string[];
+      other: string[];
+      state: boolean;
+      num: number;
+    } = {
+      free: [],
+      jam: [],
+      crowd: [],
+      other: [],
+      state: true,
+      num: 12
+    };
+    return new Promise((resolve, reject) => {
+      if (url) {
+        axios.get(url).then((res: any) => {
+          //todo
+          dataStates.state = true;
+          res.data.forEach((item: any) => {
+            if (item.STATE == 'free') {
+              dataStates.free.push(item.SECTIONID);
+            } else if (item.STATE == 'jam') {
+              dataStates.jam.push(item.SECTIONID);
+            } else if (item.STATE == 'crowd') {
+              dataStates.crowd.push(item.SECTIONID);
+            } else {
+              dataStates.other.push(item.SECTIONID);
+            }
+          });
+          resolve(dataStates);
+        });
+      } else {
+        resolve(dataStates);
+      }
+    });
+  }
+  public async getFeature(param: any) {
     type MapModules = [
       typeof import('esri/geometry/support/jsonUtils'),
       typeof import('esri/Graphic'),
@@ -68,6 +179,8 @@ export class DrawLayer {
       'esri/layers/FeatureLayer',
       'esri/renderers/HeatmapRenderer'
     ]) as Promise<MapModules>);
+    let res = param.data;
+    let states = param.states;
     res.fields.forEach((field: any) => {
       field.type = field.type.replace('esriFieldType', '').toLowerCase();
     });
@@ -76,6 +189,17 @@ export class DrawLayer {
       //   geometry: jsonUtils.fromJSON(graphic.geometry),
       //   attributes: graphic.attributes
       // };
+      if (states.state) {
+        if (states.free.indexOf(graphic.attributes.SECTIONID) > -1) {
+          graphic.attributes.STATE = 'free';
+        } else if (states.jam.indexOf(graphic.attributes.SECTIONID) > -1) {
+          graphic.attributes.STATE = 'jam';
+        } else if (states.crowd.indexOf(graphic.attributes.SECTIONID) > -1) {
+          graphic.attributes.STATE = 'crowd';
+        } else {
+          //graphic.attributes.STATE = 'other';
+        }
+      }
       return Graphic.fromJSON(graphic);
     });
     let drawlayer = new FeatureLayer({
@@ -83,10 +207,12 @@ export class DrawLayer {
       fields: res.fields,
       objectIdField: 'FID',
       geometryType: res.geometryType.replace('esriGeometry', '').toLowerCase(),
-      renderer: this.getRender()
+      renderer: param.renderer,
+      visible: param.visible,
+      outFields: ['*']
     });
-    if (label) {
-      (drawlayer as any).label = label;
+    if (param.label) {
+      (drawlayer as any).label = param.label;
     }
     this.view.map.add(drawlayer);
   }

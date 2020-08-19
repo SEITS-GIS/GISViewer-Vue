@@ -3,6 +3,7 @@
     <div style="float:right">
       <button @click="btn_test1">高德</button>
       <button @click="btn_test2">arcgis</button>
+      <button @click="btn_test3">arcgis3d</button>
     </div>
   </div>
 </template>
@@ -15,6 +16,9 @@ export default class Home extends Vue {
   }
   private btn_test2() {
     this.$router.replace('arc');
+  }
+  private btn_test3() {
+    this.$router.replace('arc3d');
   }
 }
 </script>

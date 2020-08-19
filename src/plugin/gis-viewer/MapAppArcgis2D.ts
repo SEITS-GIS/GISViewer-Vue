@@ -96,9 +96,6 @@ export default class MapAppArcGIS2D {
     view.ui.remove('attribution');
     view.ui.remove('zoom');
     view.ui.remove('compass');
-    if (mapConfig.operationallayers) {
-      this.createLayer(view.map, mapConfig.operationallayers);
-    }
 
     view.on('click', async (event) => {
       if (event.mapPoint) {
@@ -118,6 +115,7 @@ export default class MapAppArcGIS2D {
         response.results.forEach((result) => {
           const graphic = result.graphic;
           let {type, id} = graphic.attributes;
+          let label = (graphic.layer as any).label;
           if (
             graphic.layer.type == 'feature' ||
             graphic.layer.type == 'graphics'
@@ -125,6 +123,7 @@ export default class MapAppArcGIS2D {
             id =
               graphic.attributes['DEVICEID'] ||
               graphic.attributes['FEATUREID'] ||
+              graphic.attributes['SECTIONID'] ||
               graphic.attributes['id'] ||
               graphic.attributes['ID'] ||
               undefined;
@@ -134,9 +133,10 @@ export default class MapAppArcGIS2D {
               graphic.attributes['FEATURETYP'] ||
               graphic.attributes['type'] ||
               graphic.attributes['TYPE'] ||
+              label ||
               undefined;
           }
-          if (type && id) {
+          if (id) {
             this.showGisDeviceInfo(type, id, graphic.toJSON());
           }
         });
@@ -149,6 +149,7 @@ export default class MapAppArcGIS2D {
             let id =
               result.feature.attributes['DEVICEID'] ||
               result.feature.attributes['FEATUREID'] ||
+              result.feature.attributes['SECTIONID'] ||
               result.feature.attributes[result.displayFieldName];
             this.showGisDeviceInfo(type, id, result.feature.attributes);
             let selectLayer = this.getLayerByName(type);
@@ -170,6 +171,9 @@ export default class MapAppArcGIS2D {
       }
     });
     await view.when();
+    if (mapConfig.operationallayers) {
+      this.createLayer(view, mapConfig.operationallayers);
+    }
     this.view = view;
 
     (this.view.popup as any).visibleElements = {
@@ -280,7 +284,7 @@ export default class MapAppArcGIS2D {
       });
     });
   }
-  private async createLayer(map: __esri.Map, layers: any) {
+  private async createLayer(view: __esri.MapView, layers: any) {
     type MapModules = [
       typeof import('esri/layers/FeatureLayer'),
       typeof import('esri/layers/WebTileLayer'),
@@ -313,32 +317,44 @@ export default class MapAppArcGIS2D {
       'esri/symbols/Font',
       'esri/symbols/TextSymbol'
     ]) as Promise<MapModules>);
+    let map = view.map;
+
     map.addMany(
-      layers.map((layerConfig: any) => {
-        let layer: any;
-        let type = layerConfig.type.toLowerCase();
-        delete layerConfig.type;
-        switch (type) {
-          case 'feature':
-            layer = new FeatureLayer(layerConfig);
-            layer.labelingInfo = layerConfig.labelingInfo;
-            break;
-          case 'dynamic':
-            layer = new MapImageLayer(layerConfig);
-            break;
-          case 'wms':
-            layer = new WMSLayer(layerConfig);
-            break;
-          case 'webtiled':
-            layer = new WebTileLayer({
-              urlTemplate: layerConfig.url,
-              subDomains: layerConfig.subDomains || undefined
-            });
-            break;
-        }
-        layer.id = layerConfig.id || layerConfig.label;
-        return layer;
-      })
+      layers
+        .map((layerConfig: any) => {
+          let layer: any;
+          let type = layerConfig.type.toLowerCase();
+          delete layerConfig.type;
+          switch (type) {
+            case 'feature':
+              layer = new FeatureLayer(layerConfig);
+              layer.labelingInfo = layerConfig.labelingInfo;
+              break;
+            case 'dynamic':
+              layer = new MapImageLayer(layerConfig);
+              break;
+            case 'wms':
+              layer = new WMSLayer(layerConfig);
+              break;
+            case 'webtiled':
+              layer = new WebTileLayer({
+                urlTemplate: layerConfig.url,
+                subDomains: layerConfig.subDomains || undefined
+              });
+              break;
+            case 'json':
+              const drawlayer = DrawLayer.getInstance(view);
+              drawlayer.addDrawLayer(layerConfig);
+              break;
+          }
+          // if (layer) {
+          //   layer.id = layerConfig.id || layerConfig.label;
+          // }
+          return layer;
+        })
+        .filter((layer: any) => {
+          return layer !== undefined;
+        })
     );
   }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {

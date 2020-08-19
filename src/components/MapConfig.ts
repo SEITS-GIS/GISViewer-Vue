@@ -19,11 +19,57 @@ export default class MapConfig {
       {
         type: 'tiled',
         url:
-          'https://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
+          'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
         visible: true
       }
     ],
     operationallayers: [
+      {
+        label: 'fbd1333',
+        url: './config/fbd/morph_fbd.json',
+        type: 'json',
+        visible: true
+      },
+      {
+        label: 'fbd123',
+        url: './config/fbd/morph_ksl.json',
+        type: 'json',
+        visible: true,
+        refreshInterval: 1,
+        renderer: {
+          type: 'unique-value', // autocasts as new UniqueValueRenderer()
+          field: 'STATE',
+          defaultSymbol: {
+            type: 'simple-fill',
+            color: 'rgba(100, 210, 121, 255)',
+            outline: {color: '#696969', width: 1}
+          }, // autocasts as new SimpleFillSymbol()
+          uniqueValueInfos: [
+            {
+              value: 'free',
+              symbol: {
+                type: 'simple-fill', // autocasts as new SimpleFillSymbol()
+                color: 'rgba(100, 210, 121, 255)'
+              }
+            },
+            {
+              // All features with value of "East" will be green
+              value: 'jam',
+              symbol: {
+                type: 'simple-fill', // autocasts as new SimpleFillSymbol()
+                color: 'red'
+              }
+            },
+            {
+              value: 'crowd',
+              symbol: {
+                type: 'simple-fill', // autocasts as new SimpleFillSymbol()
+                color: 'yellow'
+              }
+            }
+          ]
+        }
+      }
       // {
       //   label: 'fbd',
       //   url:
@@ -62,93 +108,93 @@ export default class MapConfig {
       //     }
       //   }
       // },
-      {
-        label: '发布段',
-        url:
-          'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/shanghai_xzqh_simple/MapServer/0',
-        type: 'feature',
-        visible: false,
-        labelsVisible: true,
-        outFields: ['*'],
-        renderer: {
-          type: 'unique-value',
-          field: 'Name',
-          defaultSymbol: {
-            type: 'simple-fill',
-            style: 'solid',
-            color: [255, 0, 0, 0.5],
-            outline: {
-              type: 'simple-line',
-              style: 'solid',
-              color: [110, 110, 110, 255],
-              width: 2
-            }
-          },
-          uniqueValueInfos: [
-            {
-              value: '闵行区',
-              symbol: {
-                type: 'simple-fill',
-                style: 'solid',
-                color: [0, 255, 51, 0.3],
-                outline: {
-                  type: 'simple-line',
-                  style: 'solid',
-                  color: [110, 110, 110, 0.5],
-                  width: 2
-                }
-              }
-            },
-            {
-              value: '普陀区',
-              symbol: {
-                type: 'simple-fill',
-                style: 'solid',
-                color: [34, 255, 122, 0.6],
-                outline: {
-                  type: 'simple-line',
-                  style: 'solid',
-                  color: [110, 110, 110, 255],
-                  width: 2
-                }
-              }
-            },
-            {
-              value: '奉贤区',
-              symbol: {
-                type: 'simple-fill',
-                style: 'solid',
-                color: [128, 0, 68, 0.4],
-                outline: {
-                  type: 'simple-line',
-                  style: 'solid',
-                  color: [110, 110, 110, 255],
-                  width: 2
-                }
-              }
-            }
-          ]
-        },
-        labelingInfo: [
-          {
-            //labelExpressionInfo: {expression: '$feature.Name'},
-            labelExpression: '[Name]',
-            useCodedValues: true,
-            labelPlacement: 'always-horizontal',
-            symbol: {
-              type: 'text',
-              rightToLeft: false,
-              color: [255, 255, 0, 0.85],
-              verticalAlignment: 'baseline',
-              horizontalAlignment: 'left',
-              font: {
-                size: 100,
-                weight: 'bold'
-              }
-            }
-          }
-        ]
-      }
+      // {
+      //   label: '发布段0000',
+      //   url:
+      //     'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/shanghai_xzqh_simple/MapServer/0',
+      //   type: 'feature',
+      //   visible: false,
+      //   labelsVisible: true,
+      //   outFields: ['*'],
+      //   renderer: {
+      //     type: 'unique-value',
+      //     field: 'Name',
+      //     defaultSymbol: {
+      //       type: 'simple-fill',
+      //       style: 'solid',
+      //       color: [255, 0, 0, 0.5],
+      //       outline: {
+      //         type: 'simple-line',
+      //         style: 'solid',
+      //         color: [110, 110, 110, 255],
+      //         width: 2
+      //       }
+      //     },
+      //     uniqueValueInfos: [
+      //       {
+      //         value: '闵行区',
+      //         symbol: {
+      //           type: 'simple-fill',
+      //           style: 'solid',
+      //           color: [0, 255, 51, 0.3],
+      //           outline: {
+      //             type: 'simple-line',
+      //             style: 'solid',
+      //             color: [110, 110, 110, 0.5],
+      //             width: 2
+      //           }
+      //         }
+      //       },
+      //       {
+      //         value: '普陀区',
+      //         symbol: {
+      //           type: 'simple-fill',
+      //           style: 'solid',
+      //           color: [34, 255, 122, 0.6],
+      //           outline: {
+      //             type: 'simple-line',
+      //             style: 'solid',
+      //             color: [110, 110, 110, 255],
+      //             width: 2
+      //           }
+      //         }
+      //       },
+      //       {
+      //         value: '奉贤区',
+      //         symbol: {
+      //           type: 'simple-fill',
+      //           style: 'solid',
+      //           color: [128, 0, 68, 0.4],
+      //           outline: {
+      //             type: 'simple-line',
+      //             style: 'solid',
+      //             color: [110, 110, 110, 255],
+      //             width: 2
+      //           }
+      //         }
+      //       }
+      //     ]
+      //   },
+      //   labelingInfo: [
+      //     {
+      //       //labelExpressionInfo: {expression: '$feature.Name'},
+      //       labelExpression: '[Name]',
+      //       useCodedValues: true,
+      //       labelPlacement: 'always-horizontal',
+      //       symbol: {
+      //         type: 'text',
+      //         rightToLeft: false,
+      //         color: [255, 255, 0, 0.85],
+      //         verticalAlignment: 'baseline',
+      //         horizontalAlignment: 'left',
+      //         font: {
+      //           size: 100,
+      //           weight: 'bold'
+      //         }
+      //       }
+      //     }
+      //   ]
+      // }
       // ,
       // {
       //   label: '匝道灯',
@@ -232,7 +278,10 @@ export default class MapConfig {
       //   starsEnabled: false,
       //   atmosphereEnabled: false
       // }
-      //viewMode: '3D'
+      //viewMode: '3D',
+      constraints: {
+        rotationEnabled: false
+      },
       mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
       //for arcgis-3d
       // camera: {
@@ -386,17 +435,17 @@ export default class MapConfig {
         }
       }
     };
-    //map.addHeatImage(json);
+    map.addHeatImage(json);
 
-    // map.showMigrateChart();
-    map.addDrawLayer({
-      layerUrls: './config/fbd/morph_ksl.json',
-      label: '快速路'
-    });
-    map.addDrawLayer({
-      layerUrls: './config/fbd/morph_fbd.json',
-      label: '发布段'
-    });
+    map.showMigrateChart();
+    // map.addDrawLayer({
+    //   layerUrls: './config/fbd/morph_ksl.json',
+    //   label: '快速路'
+    // });
+    // map.addDrawLayer({
+    //   layerUrls: './config/fbd/morph_fbd.json',
+    //   label: '发布段'
+    // });
     // map
     //   .routeSearch({
     //     start: {x: 121.31, y: 31.46}, //开始坐标
@@ -433,6 +482,7 @@ export default class MapConfig {
     // });
   }
   public btn_test2(map: any) {
+    map.showLayer({label: 'fbd123'});
     //let map = this.$refs.gisViewer as any;
     var points = [];
     var x = 121.43;
@@ -473,7 +523,7 @@ export default class MapConfig {
         }
       }
     };
-    map.addHeatMap(json);
+    //map.addHeatMap(json);
     // map.addOverlays({
     //   type: 'police',
     //   defaultSymbol: {
@@ -530,12 +580,12 @@ export default class MapConfig {
     // // });
     // map.locateStreet({id: '10003'});
     //map.deleteAllOverlaysCluster();
-    map.findFeature({
-      layerName: 'sxj1',
-      level: 16,
-      ids: ['31011300001310000003'],
-      centerResult: true
-    });
+    // map.findFeature({
+    //   layerName: 'sxj1',
+    //   level: 16,
+    //   ids: ['31011300001310000003'],
+    //   centerResult: true
+    // });
   }
   public btn_test3(map: any) {
     map.deleteHeatImage();
@@ -555,7 +605,7 @@ export default class MapConfig {
     //map.deleteOverlaysCluster({types: ['sxj1']});
     //map.deleteAllOverlays();
     //map.deleteOverlays({ids: ['test001']});
-    map.hideLayer({label: '发布段'});
+    map.hideLayer({label: 'fbd123'});
     //map.setMapCenter({x: 121.12, y: 31.23});
     //map.setMapCenterAndLevel({
     //   x: 121.12,

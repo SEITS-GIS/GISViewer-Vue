@@ -136,7 +136,7 @@ export class MigrateChart {
               color: color[i],
               width: 0.5,
               opacity: 0.1,
-              curveness: 0.1
+              curveness: 0.0
             }
           },
           data: convertData(item[1])
@@ -160,7 +160,7 @@ export class MigrateChart {
               color: color[i],
               width: 0.1,
               opacity: 0.6,
-              curveness: 0.1
+              curveness: 0.0
             }
           },
           data: convertData(item[1])
