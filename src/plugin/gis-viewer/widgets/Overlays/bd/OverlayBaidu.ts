@@ -12,7 +12,7 @@ declare let BMap: any;
 declare let BMapLib: any;
 
 export class OverlayBaidu {
-  private static overlayBD: OverlayBaidu;
+  private static intances: Map<string, any>;
   private view!: any;
   private overlayers = new Array();
   private markerClustererLayer = new Array();
@@ -22,14 +22,21 @@ export class OverlayBaidu {
     this.view = view;
   }
 
-  public static getInstance(view: __esri.SceneView) {
-    if (!OverlayBaidu.overlayBD) {
-      OverlayBaidu.overlayBD = new OverlayBaidu(view);
+  public static getInstance(view: any) {
+    let id = view.getContainer().id;
+    if (!OverlayBaidu.intances) {
+      OverlayBaidu.intances = new Map();
     }
-
-    return OverlayBaidu.overlayBD;
+    let intance = OverlayBaidu.intances.get(id);
+    if (!intance) {
+      intance = new OverlayBaidu(view);
+      OverlayBaidu.intances.set(id, intance);
+    }
+    return intance;
   }
-
+  public static destroy() {
+    (OverlayBaidu.intances as any) = null;
+  }
   private async createOverlayLayer() {}
   private getMarker(overlay: any, symbol: any): any {
     let marker: any;

@@ -9,7 +9,7 @@ import {Point} from 'esri/geometry';
 import HeatMap3DRender from './HeatMap3DRender';
 import {OverlayArcgis3D} from '../../Overlays/arcgis/OverlayArcgis3D';
 export class HeatMap3D {
-  private static heatMap: HeatMap3D;
+  private static intances: Map<string, any>;
   private view!: any;
   private overlays: any;
   private handle: any;
@@ -18,14 +18,20 @@ export class HeatMap3D {
   private constructor(view: any) {
     this.view = view;
   }
-  public static getInstance(view: any) {
-    if (!HeatMap3D.heatMap) {
-      HeatMap3D.heatMap = new HeatMap3D(view);
+  public static getInstance(view: __esri.SceneView) {
+    let id = view.container.id;
+    if (!HeatMap3D.intances) {
+      HeatMap3D.intances = new Map();
     }
-    return HeatMap3D.heatMap;
+    let intance = HeatMap3D.intances.get(id);
+    if (!intance) {
+      intance = new HeatMap3D(view);
+      HeatMap3D.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (HeatMap3D.heatMap as any) = null;
+    (HeatMap3D.intances as any) = null;
   }
 
   public async deleteHeatMap() {

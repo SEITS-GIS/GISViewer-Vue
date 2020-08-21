@@ -14,7 +14,7 @@ import {
 import '@amap/amap-jsapi-types';
 
 export class OverlayGaode {
-  private static instance: OverlayGaode;
+  private static intances: Map<string, any>;
   private view!: AMap.Map;
   private overlayers = new Array();
   private overlayGroup: any;
@@ -29,13 +29,19 @@ export class OverlayGaode {
   }
 
   public static getInstance(view: AMap.Map) {
-    if (!OverlayGaode.instance) {
-      OverlayGaode.instance = new OverlayGaode(view);
+    let id = view.getContainer().id;
+    if (!OverlayGaode.intances) {
+      OverlayGaode.intances = new Map();
     }
-    return OverlayGaode.instance;
+    let intance = OverlayGaode.intances.get(id);
+    if (!intance) {
+      intance = new OverlayGaode(view);
+      OverlayGaode.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (OverlayGaode.instance as any) = null;
+    (OverlayGaode.intances as any) = null;
   }
   /**根据graphic的属性生成弹出框*/
   private getInfoWindowContent(graphic: any) {

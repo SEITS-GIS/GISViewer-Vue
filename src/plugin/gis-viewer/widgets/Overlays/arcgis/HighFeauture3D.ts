@@ -1,7 +1,7 @@
 import {loadModules} from 'esri-loader';
 export default class HighFeauture3D {
   private view: any;
-  private static highfeature: HighFeauture3D;
+  private static intances: Map<string, any>;
   private jumpRender: any;
   private constructor(view: __esri.SceneView) {
     // Geometrical transformations that must be recomputed
@@ -9,10 +9,19 @@ export default class HighFeauture3D {
     this.view = view;
   }
   public static getInstance(view: __esri.SceneView) {
-    if (!HighFeauture3D.highfeature) {
-      HighFeauture3D.highfeature = new HighFeauture3D(view);
+    let id = view.container.id;
+    if (!HighFeauture3D.intances) {
+      HighFeauture3D.intances = new Map();
     }
-    return HighFeauture3D.highfeature;
+    let intance = HighFeauture3D.intances.get(id);
+    if (!intance) {
+      intance = new HighFeauture3D(view);
+      HighFeauture3D.intances.set(id, intance);
+    }
+    return intance;
+  }
+  public static destroy() {
+    (HighFeauture3D.intances as any) = null;
   }
   public async startup(graphics: any[]) {
     let that = this;

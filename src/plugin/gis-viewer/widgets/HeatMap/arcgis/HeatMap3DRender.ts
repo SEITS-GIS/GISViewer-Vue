@@ -1,18 +1,27 @@
 import {loadModules} from 'esri-loader';
 export default class HeatMap3DRender {
   private view: any;
-  private static instance: HeatMap3DRender;
+  private static intances: Map<string, any>;
   private heatRender: any;
   private constructor(view: __esri.SceneView) {
     // Geometrical transformations that must be recomputed
     // from scratch at every frame.
     this.view = view;
   }
-  public static getInstance(view: __esri.SceneView) {
-    if (!HeatMap3DRender.instance) {
-      HeatMap3DRender.instance = new HeatMap3DRender(view);
+  public static getInstance(view: any) {
+    let id = view.container.id;
+    if (!HeatMap3DRender.intances) {
+      HeatMap3DRender.intances = new Map();
     }
-    return HeatMap3DRender.instance;
+    let intance = HeatMap3DRender.intances.get(id);
+    if (!intance) {
+      intance = new HeatMap3DRender(view);
+      HeatMap3DRender.intances.set(id, intance);
+    }
+    return intance;
+  }
+  public static destroy() {
+    (HeatMap3DRender.intances as any) = null;
   }
   public async startup(param: {graphics: any[]; options: any}) {
     let that = this;

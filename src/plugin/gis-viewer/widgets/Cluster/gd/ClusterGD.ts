@@ -9,7 +9,7 @@ import {
 declare let AMap: any;
 
 export class ClusterGD {
-  private static cluster: ClusterGD;
+  private static intances: Map<string, any>;
   private view!: any;
   private markerClustererLayer = new Array();
   public showGisDeviceInfo: any;
@@ -17,14 +17,20 @@ export class ClusterGD {
   private constructor(view: any) {
     this.view = view;
   }
-  public static getInstance(view: any) {
-    if (!ClusterGD.cluster) {
-      ClusterGD.cluster = new ClusterGD(view);
+  public static getInstance(view: AMap.Map) {
+    let id = view.getContainer().id;
+    if (!ClusterGD.intances) {
+      ClusterGD.intances = new Map();
     }
-    return ClusterGD.cluster;
+    let intance = ClusterGD.intances.get(id);
+    if (!intance) {
+      intance = new ClusterGD(view);
+      ClusterGD.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (ClusterGD.cluster as any) = null;
+    (ClusterGD.intances as any) = null;
   }
   public async addOverlaysCluster(
     params: IOverlayClusterParameter

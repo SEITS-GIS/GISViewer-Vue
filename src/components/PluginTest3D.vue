@@ -7,7 +7,7 @@
     </div>
     <gis-viewer
       ref="gisViewer"
-      platform="arcgis3d"
+      platform="arcgis2d"
       :map-config="mapConfig"
       @map-loaded="mapLoaded"
       @marker-click="showGisDeviceInfo"
@@ -50,6 +50,7 @@ export default class PluginTest3D extends Vue {
   position: relative;
   width: 100%;
   height: 100%;
+  float: right;
   margin: 0 auto;
 }
 #test {

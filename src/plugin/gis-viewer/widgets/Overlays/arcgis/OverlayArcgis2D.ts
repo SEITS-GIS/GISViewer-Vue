@@ -13,7 +13,7 @@ import HighFeauture from './HighFeauture3D';
 import HighFeauture2D from './HighFeauture2D';
 
 export class OverlayArcgis2D {
-  private static overlayArcgis2D: OverlayArcgis2D;
+  private static intances: Map<string, any>;
 
   private overlayLayer!: __esri.GraphicsLayer;
   private view!: __esri.MapView;
@@ -32,14 +32,20 @@ export class OverlayArcgis2D {
   }
 
   public static getInstance(view: __esri.MapView) {
-    if (!OverlayArcgis2D.overlayArcgis2D) {
-      OverlayArcgis2D.overlayArcgis2D = new OverlayArcgis2D(view);
+    let id = view.container.id;
+    if (!OverlayArcgis2D.intances) {
+      OverlayArcgis2D.intances = new Map();
     }
-
-    return OverlayArcgis2D.overlayArcgis2D;
+    let intance = OverlayArcgis2D.intances.get(id);
+    if (!intance) {
+      intance = new OverlayArcgis2D(view);
+      OverlayArcgis2D.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (OverlayArcgis2D.overlayArcgis2D as any) = null;
+    console.log('destry');
+    (OverlayArcgis2D.intances as any) = null;
   }
   private async createOverlayLayer() {
     type MapModules = [typeof import('esri/layers/GraphicsLayer')];

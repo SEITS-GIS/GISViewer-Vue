@@ -3,7 +3,7 @@ import {IResult, routeParameter} from '@/types/map';
 
 declare let AMap: any;
 export default class Route {
-  private static instance: Route;
+  private static intances: Map<string, any>;
   private view!: AMap.Map;
   private routeLayer: any;
 
@@ -12,13 +12,19 @@ export default class Route {
   }
 
   public static getInstance(view: AMap.Map) {
-    if (!Route.instance) {
-      Route.instance = new Route(view);
+    let id = view.getContainer().id;
+    if (!Route.intances) {
+      Route.intances = new Map();
     }
-    return Route.instance;
+    let intance = Route.intances.get(id);
+    if (!intance) {
+      intance = new Route(view);
+      Route.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (Route.instance as any) = null;
+    (Route.intances as any) = null;
   }
   public async clearRouteSearch() {
     if (this.routeLayer) {

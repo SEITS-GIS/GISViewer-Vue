@@ -3,7 +3,7 @@ import {OverlayBaidu} from '../../Overlays/bd/OverlayBaidu';
 declare let BMapLib: any;
 
 export class HeatMapBD {
-  private static heatMapBD: HeatMapBD;
+  private static intances: Map<string, any>;
   private view!: any;
   private heatmapOverlay: any;
   private _state: string = 'nomal';
@@ -14,10 +14,19 @@ export class HeatMapBD {
     this.view = view;
   }
   public static getInstance(view: any) {
-    if (!HeatMapBD.heatMapBD) {
-      HeatMapBD.heatMapBD = new HeatMapBD(view);
+    let id = view.getContainer().id;
+    if (!HeatMapBD.intances) {
+      HeatMapBD.intances = new Map();
     }
-    return HeatMapBD.heatMapBD;
+    let intance = HeatMapBD.intances.get(id);
+    if (!intance) {
+      intance = new HeatMapBD(view);
+      HeatMapBD.intances.set(id, intance);
+    }
+    return intance;
+  }
+  public static destroy() {
+    (HeatMapBD.intances as any) = null;
   }
   public isSupportCanvas() {
     var elem = document.createElement('canvas');

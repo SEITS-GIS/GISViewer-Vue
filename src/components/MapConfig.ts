@@ -10,12 +10,6 @@ export default class MapConfig {
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
     theme: 'dark', //dark,vec
     baseLayers: [
-      // {
-      //   type: 'tiled',
-      //   url:
-      //     'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
-      //   visible: true
-      // },
       {
         type: 'tiled',
         url:
@@ -24,52 +18,52 @@ export default class MapConfig {
       }
     ],
     operationallayers: [
-      {
-        label: 'fbd1333',
-        url: './config/fbd/morph_fbd.json',
-        type: 'json',
-        visible: true
-      },
-      {
-        label: 'fbd123',
-        url: './config/fbd/morph_ksl.json',
-        type: 'json',
-        visible: true,
-        refreshInterval: 1,
-        renderer: {
-          type: 'unique-value', // autocasts as new UniqueValueRenderer()
-          field: 'STATE',
-          defaultSymbol: {
-            type: 'simple-fill',
-            color: 'rgba(100, 210, 121, 255)',
-            outline: {color: '#696969', width: 1}
-          }, // autocasts as new SimpleFillSymbol()
-          uniqueValueInfos: [
-            {
-              value: 'free',
-              symbol: {
-                type: 'simple-fill', // autocasts as new SimpleFillSymbol()
-                color: 'rgba(100, 210, 121, 255)'
-              }
-            },
-            {
-              // All features with value of "East" will be green
-              value: 'jam',
-              symbol: {
-                type: 'simple-fill', // autocasts as new SimpleFillSymbol()
-                color: 'red'
-              }
-            },
-            {
-              value: 'crowd',
-              symbol: {
-                type: 'simple-fill', // autocasts as new SimpleFillSymbol()
-                color: 'yellow'
-              }
-            }
-          ]
-        }
-      }
+      // {
+      //   label: 'fbd1333',
+      //   url: './config/fbd/morph_fbd.json',
+      //   type: 'json',
+      //   visible: true
+      // }
+      // {
+      //   label: 'fbd123',
+      //   url: './config/fbd/morph_ksl.json',
+      //   type: 'json',
+      //   visible: true,
+      //   refreshInterval: 1,
+      //   renderer: {
+      //     type: 'unique-value', // autocasts as new UniqueValueRenderer()
+      //     field: 'STATE',
+      //     defaultSymbol: {
+      //       type: 'simple-fill',
+      //       color: 'rgba(100, 210, 121, 255)',
+      //       outline: {color: '#696969', width: 1}
+      //     }, // autocasts as new SimpleFillSymbol()
+      //     uniqueValueInfos: [
+      //       {
+      //         value: 'free',
+      //         symbol: {
+      //           type: 'simple-fill', // autocasts as new SimpleFillSymbol()
+      //           color: 'rgba(100, 210, 121, 255)'
+      //         }
+      //       },
+      //       {
+      //         // All features with value of "East" will be green
+      //         value: 'jam',
+      //         symbol: {
+      //           type: 'simple-fill', // autocasts as new SimpleFillSymbol()
+      //           color: 'red'
+      //         }
+      //       },
+      //       {
+      //         value: 'crowd',
+      //         symbol: {
+      //           type: 'simple-fill', // autocasts as new SimpleFillSymbol()
+      //           color: 'yellow'
+      //         }
+      //       }
+      //     ]
+      //   }
+      // }
       // {
       //   label: 'fbd',
       //   url:
@@ -280,7 +274,8 @@ export default class MapConfig {
       // }
       //viewMode: '3D',
       constraints: {
-        rotationEnabled: false
+        rotationEnabled: false,
+        maxzoom: 16
       },
       mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
       //for arcgis-3d
@@ -340,12 +335,12 @@ export default class MapConfig {
       overlays: [
         {
           id: 'test001',
-          geometry: {x: 121.418924, y: 31.157101},
+          geometry: {x: 121.448924, y: 31.157101},
           fields: {name: '测试2', featureid: '0002'}
         },
         {
           id: 'test002',
-          geometry: {x: 121.318924, y: 31.157101},
+          geometry: {x: 121.418924, y: 31.157101},
           fields: {name: '测试3', featureid: '0003'}
         },
         {
@@ -392,7 +387,7 @@ export default class MapConfig {
       },
       defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
     };
-    //const result = await map.addOverlays(points);
+    const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
     var points = [];
@@ -437,7 +432,7 @@ export default class MapConfig {
     };
     map.addHeatImage(json);
 
-    map.showMigrateChart();
+    //map.showMigrateChart();
     // map.addDrawLayer({
     //   layerUrls: './config/fbd/morph_ksl.json',
     //   label: '快速路'
@@ -482,7 +477,7 @@ export default class MapConfig {
     // });
   }
   public btn_test2(map: any) {
-    map.showLayer({label: 'fbd123'});
+    //map.showLayer({label: 'fbd123'});
     //let map = this.$refs.gisViewer as any;
     var points = [];
     var x = 121.43;
@@ -524,55 +519,43 @@ export default class MapConfig {
       }
     };
     //map.addHeatMap(json);
-    // map.addOverlays({
-    //   type: 'police',
-    //   defaultSymbol: {
-    //     //symbol for 2d
-    //     type: 'point-2d',
-    //     // primitive: "square",
-    //     url: 'assets/image/Anchor.png',
-    //     width: 80,
-    //     height: 90
-    //     // color: "red",
-    //     // outline: {
-    //     //   color: "white",
-    //     //   size: 4
-    //     // },
-    //     // anchor: "top"
-
-    //     //symbol for 3d
-    //     //type: "point-3d",
-    //     //primitive: "cube",
-    //     //color: "red",
-    //     //size: 20000,
-    //     //anchor: "bottom",
-    //   },
-    //   defaultZooms: [10, 20],
-    //   overlays: [
-    //     {
-    //       id: 'test001',
-    //       {geometry: {x: 121.418924, y: 31.157101},
-    //       fields: {name: '测试2', featureid: '0002'}
-    //     },
-    //     {
-    //       id: 'test002',
-    //       {geometry: {x: 121.318924, y: 31.157101},
-    //       fields: {name: '测试3', featureid: '0003'}
-    //     },
-    //     {
-    //       id: 'test003',
-    //       {geometry: {x: 121.418924, y: 31.257101},
-    //       fields: {name: '测试4', featureid: '0001'}
-    //     }
-    //   ],
-    //   showPopup: true,
-    //   autoPopup: false,
-    //   defaultInfoTemplate: {
-    //     title: '1212',
-    //     content: '<div>name:{name}<br/><button>{name}</button></div>'
-    //   },
-    //   defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
-    // });
+    map.addOverlays({
+      type: 'police',
+      defaultSymbol: {
+        //symbol for 2d
+        type: 'point-2d',
+        // primitive: "square",
+        url: 'assets/image/Anchor.png',
+        size: [50, 50],
+        anchor: 'center'
+      },
+      defaultZooms: [10, 20],
+      overlays: [
+        {
+          id: 'test001',
+          geometry: {x: 121.448924, y: 31.137101},
+          fields: {name: '测试2', featureid: '0002'}
+        },
+        {
+          id: 'test002',
+          geometry: {x: 121.318924, y: 31.157101},
+          fields: {name: '测试3', featureid: '0003'}
+        },
+        {
+          id: 'test003',
+          geometry: {x: 121.418924, y: 31.257101},
+          fields: {name: '测试4', featureid: '0001'}
+        }
+      ],
+      showPopup: true,
+      autoPopup: false,
+      defaultInfoTemplate: {
+        title: '1212',
+        content: '<div>name:{name}<br/><button>{name}</button></div>'
+      },
+      defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
+    });
+    //map.showLayer({label: 'ceshi'});
     // map.hideLayer({type: 'traffic'});
     // // map.showDistrictMask({
     // //   name: '徐汇区',
@@ -588,8 +571,8 @@ export default class MapConfig {
     // });
   }
   public btn_test3(map: any) {
-    map.deleteHeatImage();
-    map.hideMigrateChart();
+    //map.deleteHeatImage();
+    //map.hideMigrateChart();
     //map.clearRouteSearch(); //清除
     //map.setMapStyle('amap://styles/darkblue');
     //map.locateStreet({id: '10013'});
@@ -604,8 +587,8 @@ export default class MapConfig {
     //map.deleteHeatMap();
     //map.deleteOverlaysCluster({types: ['sxj1']});
     //map.deleteAllOverlays();
-    //map.deleteOverlays({ids: ['test001']});
-    map.hideLayer({label: 'fbd123'});
+    map.deleteOverlays({ids: ['test001']});
+    //map.hideLayer({label: 'ceshi'});
     //map.setMapCenter({x: 121.12, y: 31.23});
     //map.setMapCenterAndLevel({
     //   x: 121.12,

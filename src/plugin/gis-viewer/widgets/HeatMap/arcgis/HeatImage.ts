@@ -2,7 +2,7 @@ import {IHeatImageParameter} from '@/types/map';
 import {loadModules} from 'esri-loader';
 
 export class HeatImage {
-  private static intance: HeatImage;
+  private static intances: Map<string, any>;
   private view!: any;
   private heatlayer: any;
   private image: any;
@@ -22,13 +22,19 @@ export class HeatImage {
     this.view = view;
   }
   public static getInstance(view: any) {
-    if (!HeatImage.intance) {
-      HeatImage.intance = new HeatImage(view);
+    let id = view.container.id;
+    if (!HeatImage.intances) {
+      HeatImage.intances = new Map();
     }
-    return HeatImage.intance;
+    let intance = HeatImage.intances.get(id);
+    if (!intance) {
+      intance = new HeatImage(view);
+      HeatImage.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (HeatImage.intance as any) = null;
+    (HeatImage.intances as any) = null;
   }
 
   public async deleteHeatImage() {
@@ -73,7 +79,7 @@ export class HeatImage {
     this.image = new Image();
     this.image.src = imageOpt.url || 'http://localhost/vc.png';
     this.image.width = this.imageOpt.width || 1133;
-    this.image.heigth = this.imageOpt.height || 713;
+    this.image.height = this.imageOpt.height || 713;
     let that = this;
     this.image.onload = (e: any) => {
       var ctx = that.canvas.firstChild.getContext('2d');

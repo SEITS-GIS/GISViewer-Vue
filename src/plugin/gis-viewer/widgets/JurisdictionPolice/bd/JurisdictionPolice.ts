@@ -3,7 +3,7 @@ import axios from 'axios';
 declare let BMap: any;
 
 export class JurisdictionPolice {
-  private static jurisdictionPolice: JurisdictionPolice;
+  private static intances: Map<string, any>;
   private overlayers = new Array();
   private clickOverlay: any;
   private view!: any;
@@ -13,10 +13,19 @@ export class JurisdictionPolice {
   }
 
   public static getInstance(view: any) {
-    if (!JurisdictionPolice.jurisdictionPolice) {
-      JurisdictionPolice.jurisdictionPolice = new JurisdictionPolice(view);
+    let id = view.getContainer().id;
+    if (!JurisdictionPolice.intances) {
+      JurisdictionPolice.intances = new Map();
     }
-    return JurisdictionPolice.jurisdictionPolice;
+    let intance = JurisdictionPolice.intances.get(id);
+    if (!intance) {
+      intance = new JurisdictionPolice(view);
+      JurisdictionPolice.intances.set(id, intance);
+    }
+    return intance;
+  }
+  public static destroy() {
+    (JurisdictionPolice.intances as any) = null;
   }
   private getGraphic(overlay: any, index: number): any {
     let marker: any;

@@ -22,6 +22,8 @@ import {Cluster} from './widgets/Cluster/arcgis/Cluster';
 import {DrawLayer} from './widgets/DrawLayer/arcgis/DrawLayer';
 import {MigrateChart} from './widgets/MigrateChart/arcgis/MigrateChart';
 import {HeatImage} from './widgets/HeatMap/arcgis/HeatImage';
+import HeatImage2D from './widgets/HeatMap/arcgis/HeatImage2D';
+import HeatImageGL from './widgets/HeatMap/arcgis/HeatImageGL';
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
@@ -468,8 +470,10 @@ export default class MapAppArcGIS2D {
     chart.hideMigrateChart();
   }
   public addHeatImage(params: IHeatImageParameter) {
-    const heat = HeatImage.getInstance(this.view);
-    heat.addHeatImage(params);
+    // const heat = HeatImage.getInstance(this.view);
+    // heat.addHeatImage(params);
+    const heat = HeatImageGL.getInstance(this.view);
+    heat.startup();
   }
   public deleteHeatImage() {
     const heat = HeatImage.getInstance(this.view);

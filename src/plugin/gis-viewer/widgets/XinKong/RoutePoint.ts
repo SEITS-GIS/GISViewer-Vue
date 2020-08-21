@@ -3,7 +3,7 @@ import {IResult} from '@/types/map';
 import TdPoint from './td-point.vue';
 
 export default class RoutePoint {
-  private static instance: RoutePoint;
+  private static intances: Map<string, any>;
   private view!: AMap.Map;
   private routeGroup: any;
 
@@ -12,13 +12,19 @@ export default class RoutePoint {
   }
 
   public static getInstance(view: AMap.Map) {
-    if (!RoutePoint.instance) {
-      RoutePoint.instance = new RoutePoint(view);
+    let id = view.getContainer().id;
+    if (!RoutePoint.intances) {
+      RoutePoint.intances = new Map();
     }
-    return RoutePoint.instance;
+    let intance = RoutePoint.intances.get(id);
+    if (!intance) {
+      intance = new RoutePoint(view);
+      RoutePoint.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (RoutePoint.instance as any) = null;
+    (RoutePoint.intances as any) = null;
   }
   public async clearRoutePoint() {
     if (this.routeGroup) {

@@ -2,7 +2,7 @@ import '@amap/amap-jsapi-types';
 import axios from 'axios';
 
 export class DrawSteet {
-  private static instance: DrawSteet;
+  private static intances: Map<string, any>;
   private view!: AMap.Map;
   private overlayGroup: AMap.OverlayGroup = new AMap.OverlayGroup();
   private streets: any;
@@ -14,13 +14,19 @@ export class DrawSteet {
   }
 
   public static getInstance(view: AMap.Map) {
-    if (!DrawSteet.instance) {
-      DrawSteet.instance = new DrawSteet(view);
+    let id = view.getContainer().id;
+    if (!DrawSteet.intances) {
+      DrawSteet.intances = new Map();
     }
-    return DrawSteet.instance;
+    let intance = DrawSteet.intances.get(id);
+    if (!intance) {
+      intance = new DrawSteet(view);
+      DrawSteet.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (DrawSteet.instance as any) = null;
+    (DrawSteet.intances as any) = null;
   }
   public async hideRoad() {
     this.overlayGroup.clearOverlays();

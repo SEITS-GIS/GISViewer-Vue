@@ -7,21 +7,27 @@ import {
 import {loadModules} from 'esri-loader';
 import {Point} from 'esri/geometry';
 export class HeatMap {
-  private static heatMap: HeatMap;
+  private static intances: Map<string, any>;
   private view!: any;
   private heatlayer: any;
 
   private constructor(view: any) {
     this.view = view;
   }
-  public static getInstance(view: any) {
-    if (!HeatMap.heatMap) {
-      HeatMap.heatMap = new HeatMap(view);
+  public static getInstance(view: __esri.MapView) {
+    let id = view.container.id;
+    if (!HeatMap.intances) {
+      HeatMap.intances = new Map();
     }
-    return HeatMap.heatMap;
+    let intance = HeatMap.intances.get(id);
+    if (!intance) {
+      intance = new HeatMap(view);
+      HeatMap.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (HeatMap.heatMap as any) = null;
+    (HeatMap.intances as any) = null;
   }
 
   public async deleteHeatMap() {

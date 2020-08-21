@@ -114,8 +114,12 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   public clearDrawLayer(params: any) {
     this.mapApp.clearDrawLayer(params);
   }
-  public addHeatImage(params: IHeatImageParameter) {}
-  public deleteHeatImage() {}
+  public addHeatImage(params: IHeatImageParameter) {
+    this.mapApp.addHeatImage(params);
+  }
+  public deleteHeatImage() {
+    this.mapApp.deleteHeatImage();
+  }
   public showMigrateChart(params: any) {
     this.mapApp.showMigrateChart(params);
   }

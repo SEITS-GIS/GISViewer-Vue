@@ -9,7 +9,7 @@ import axios from 'axios';
 declare let AMap: any;
 
 export class JurisdictionPoliceGD {
-  private static jurisdictionPolice: JurisdictionPoliceGD;
+  private static intances: Map<string, any>;
   private overlayGroups: any;
   private streetGroup: any;
   private clickOverlay: any;
@@ -26,13 +26,19 @@ export class JurisdictionPoliceGD {
   }
 
   public static getInstance(view: any) {
-    if (!JurisdictionPoliceGD.jurisdictionPolice) {
-      JurisdictionPoliceGD.jurisdictionPolice = new JurisdictionPoliceGD(view);
+    let id = view.getContainer().id;
+    if (!JurisdictionPoliceGD.intances) {
+      JurisdictionPoliceGD.intances = new Map();
     }
-    return JurisdictionPoliceGD.jurisdictionPolice;
+    let intance = JurisdictionPoliceGD.intances.get(id);
+    if (!intance) {
+      intance = new JurisdictionPoliceGD(view);
+      JurisdictionPoliceGD.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (JurisdictionPoliceGD.jurisdictionPolice as any) = null;
+    (JurisdictionPoliceGD.intances as any) = null;
   }
   public async showDistrictMask(params: IDistrictParameter) {
     this.hideDistrictMask();

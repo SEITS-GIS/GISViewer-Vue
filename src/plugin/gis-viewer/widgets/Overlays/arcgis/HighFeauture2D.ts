@@ -1,6 +1,6 @@
 import {loadModules} from 'esri-loader';
 export default class HighFeauture2D {
-  private static highfeature: HighFeauture2D;
+  private static intances: Map<string, any>;
   public view: any;
   private graphics: any;
   private customLayer: any;
@@ -12,10 +12,19 @@ export default class HighFeauture2D {
     this.view = view;
   }
   public static getInstance(view: __esri.MapView) {
-    if (!HighFeauture2D.highfeature) {
-      HighFeauture2D.highfeature = new HighFeauture2D(view);
+    let id = view.container.id;
+    if (!HighFeauture2D.intances) {
+      HighFeauture2D.intances = new Map();
     }
-    return HighFeauture2D.highfeature;
+    let intance = HighFeauture2D.intances.get(id);
+    if (!intance) {
+      intance = new HighFeauture2D(view);
+      HighFeauture2D.intances.set(id, intance);
+    }
+    return intance;
+  }
+  public static destroy() {
+    (HighFeauture2D.intances as any) = null;
   }
   private removeGraphic(id: number) {
     if (this.overlayer && this.overlayer.graphics.length > 0) {

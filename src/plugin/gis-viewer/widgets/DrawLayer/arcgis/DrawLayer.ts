@@ -11,7 +11,7 @@ import {loadModules} from 'esri-loader';
 import {reject} from 'esri/core/promiseUtils';
 
 export class DrawLayer {
-  private static instance: DrawLayer;
+  private static intances: Map<string, any>;
 
   private drawlayer!: any;
   private view!: __esri.MapView | __esri.SceneView;
@@ -22,13 +22,19 @@ export class DrawLayer {
   }
 
   public static getInstance(view: __esri.MapView | __esri.SceneView) {
-    if (!DrawLayer.instance) {
-      DrawLayer.instance = new DrawLayer(view);
+    let id = view.container.id;
+    if (!DrawLayer.intances) {
+      DrawLayer.intances = new Map();
     }
-    return DrawLayer.instance;
+    let intance = DrawLayer.intances.get(id);
+    if (!intance) {
+      intance = new DrawLayer(view);
+      DrawLayer.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (DrawLayer.instance as any) = null;
+    (DrawLayer.intances as any) = null;
   }
   public clearDrawLayer(params: ILayerConfig) {
     this.clear(params.label as string);

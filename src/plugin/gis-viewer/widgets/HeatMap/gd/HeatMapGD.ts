@@ -3,7 +3,7 @@ import {OverlayGaode} from '../../Overlays/gd/OverlayGaode';
 declare let AMap: any;
 
 export class HeatMapGD {
-  private static heatMap: HeatMapGD;
+  private static intances: Map<string, any>;
   private view!: any;
   private heatmapOverlay: any;
   private _state: string = 'nomal';
@@ -13,14 +13,20 @@ export class HeatMapGD {
   private constructor(view: any) {
     this.view = view;
   }
-  public static getInstance(view: any) {
-    if (!HeatMapGD.heatMap) {
-      HeatMapGD.heatMap = new HeatMapGD(view);
+  public static getInstance(view: AMap.Map) {
+    let id = view.getContainer().id;
+    if (!HeatMapGD.intances) {
+      HeatMapGD.intances = new Map();
     }
-    return HeatMapGD.heatMap;
+    let intance = HeatMapGD.intances.get(id);
+    if (!intance) {
+      intance = new HeatMapGD(view);
+      HeatMapGD.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (HeatMapGD.heatMap as any) = null;
+    (HeatMapGD.intances as any) = null;
   }
   public isSupportCanvas() {
     var elem = document.createElement('canvas');

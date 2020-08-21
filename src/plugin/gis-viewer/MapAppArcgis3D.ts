@@ -25,6 +25,8 @@ import ToolTip from './widgets/Overlays/arcgis/ToolTip';
 import {Cluster} from './widgets/Cluster/arcgis/Cluster';
 import {DrawLayer} from './widgets/DrawLayer/arcgis/DrawLayer';
 import {MigrateChart} from './widgets/MigrateChart/arcgis/MigrateChart';
+import {HeatImage} from './widgets/HeatMap/arcgis/HeatImage';
+import HeatImage2D from './widgets/HeatMap/arcgis/HeatImage2D';
 
 export default class MapAppArcGIS3D implements IMapContainer {
   public view!: __esri.SceneView;
@@ -185,6 +187,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
     FindFeature.destroy();
     DrawLayer.destroy();
     MigrateChart.destroy();
+    HeatImage.destroy();
   }
   //使toolTip中支持{字段}的形式
   private getContent(attr: any, content: string): string {
@@ -467,6 +470,14 @@ export default class MapAppArcGIS3D implements IMapContainer {
     const chart = MigrateChart.getInstance(this.view);
     chart.hideMigrateChart();
   }
-  public addHeatImage(params: IHeatImageParameter) {}
-  public deleteHeatImage() {}
+  public addHeatImage(params: IHeatImageParameter) {
+    // const heat = HeatImage.getInstance(this.view);
+    // heat.addHeatImage(params);
+    const heat = HeatImage2D.getInstance(this.view);
+    heat.startup();
+  }
+  public deleteHeatImage() {
+    const heat = HeatImage.getInstance(this.view);
+    heat.deleteHeatImage();
+  }
 }

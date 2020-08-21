@@ -10,7 +10,7 @@ import ToolTip from './ToolTip';
 import HighFeauture3D from './HighFeauture3D';
 
 export class OverlayArcgis3D {
-  private static overlayArcgis3D: OverlayArcgis3D;
+  private static intances: Map<string, any>;
 
   private overlayLayer!: __esri.GraphicsLayer;
   private view!: __esri.SceneView;
@@ -32,14 +32,19 @@ export class OverlayArcgis3D {
   }
 
   public static getInstance(view: __esri.SceneView) {
-    if (!OverlayArcgis3D.overlayArcgis3D) {
-      OverlayArcgis3D.overlayArcgis3D = new OverlayArcgis3D(view);
+    let id = view.container.id;
+    if (!OverlayArcgis3D.intances) {
+      OverlayArcgis3D.intances = new Map();
     }
-
-    return OverlayArcgis3D.overlayArcgis3D;
+    let intance = OverlayArcgis3D.intances.get(id);
+    if (!intance) {
+      intance = new OverlayArcgis3D(view);
+      OverlayArcgis3D.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (OverlayArcgis3D.overlayArcgis3D as any) = null;
+    (OverlayArcgis3D.intances as any) = null;
   }
   private async createOverlayLayer() {
     type MapModules = [typeof import('esri/layers/GraphicsLayer')];

@@ -11,7 +11,7 @@ import {loadModules} from 'esri-loader';
 //declare let FlareClusterLayer: any;
 //import FlareClusterLayer from './Render/FlareClusterLayer_v4';
 export class Cluster {
-  private static instance: Cluster;
+  private static intances: Map<string, any>;
   private view!: any;
   private clusterLayer: any;
   public showGisDeviceInfo: any;
@@ -23,13 +23,19 @@ export class Cluster {
     this.view = view;
   }
   public static getInstance(view: any) {
-    if (!Cluster.instance) {
-      Cluster.instance = new Cluster(view);
+    let id = view.container.id;
+    if (!Cluster.intances) {
+      Cluster.intances = new Map();
     }
-    return Cluster.instance;
+    let intance = Cluster.intances.get(id);
+    if (!intance) {
+      intance = new Cluster(view);
+      Cluster.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (Cluster.instance as any) = null;
+    (Cluster.intances as any) = null;
   }
   public async deleteAllOverlaysCluster() {
     this.clearLayer(undefined);

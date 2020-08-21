@@ -7,21 +7,27 @@ import {
 import {loadModules} from 'esri-loader';
 import echartsLayer from '../echartsLayer';
 export class MigrateChart {
-  private static intance: MigrateChart;
+  private static intances: Map<string, any>;
   private view!: any;
   private echartlayer: any;
 
   private constructor(view: any) {
     this.view = view;
   }
-  public static getInstance(view: any) {
-    if (!MigrateChart.intance) {
-      MigrateChart.intance = new MigrateChart(view);
+  public static getInstance(view: __esri.MapView | __esri.SceneView) {
+    let id = view.container.id;
+    if (!MigrateChart.intances) {
+      MigrateChart.intances = new Map();
     }
-    return MigrateChart.intance;
+    let intance = MigrateChart.intances.get(id);
+    if (!intance) {
+      intance = new MigrateChart(view);
+      MigrateChart.intances.set(id, intance);
+    }
+    return intance;
   }
   public static destroy() {
-    (MigrateChart.intance as any) = null;
+    (MigrateChart.intances as any) = null;
   }
 
   public async hideMigrateChart() {
