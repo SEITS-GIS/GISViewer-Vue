@@ -120,6 +120,7 @@ export interface IOverlayParameter {
   defaultButtons?: Object[];
   showToolTip?: boolean; //鼠标移到该点位是，是否显示悬浮窗
   toolTipContent?: string; //悬浮窗内容
+  defaultVisible?: boolean;
 }
 export interface IOverlayClusterParameter {
   points: Array<IOverlay>;
@@ -166,6 +167,8 @@ export interface IMapContainer {
   hideMigrateChart: () => void;
   addHeatImage: (params: IHeatImageParameter) => void;
   deleteHeatImage: () => void;
+  startGeometrySearch: (params: IGeometrySearchParameter) => Promise<IResult>;
+  clearGeometrySearch: () => void;
 }
 export interface IPopUpTemplate {
   title?: string;
@@ -223,4 +226,13 @@ export interface routeParameter {
   end: IPointGeometry;
   waypoints: IPointGeometry[];
   model: string; //"car","ride","walk"
+}
+export interface IGeometrySearchParameter {
+  radius: number; //搜索半径,单位米
+  center?: Array<number>; //搜索中心
+  types?: Array<string>; //搜索点位类型,默认搜索全部
+  showResult?: boolean; //是否显示搜索结果
+  showGeometry?: boolean; //是否显示搜素区域
+  clickHandle?: any; //点击回调方法
+  repeat?: boolean; //是否重复点击画圆
 }

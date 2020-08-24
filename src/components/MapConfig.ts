@@ -18,12 +18,24 @@ export default class MapConfig {
       }
     ],
     operationallayers: [
-      // {
-      //   label: 'fbd1333',
-      //   url: './config/fbd/morph_fbd.json',
-      //   type: 'json',
-      //   visible: true
-      // }
+      {
+        label: 'fbd1333',
+        url: './config/fbd/六大队.json',
+        type: 'json',
+        visible: true,
+        renderer: {
+          type: 'simple', // autocasts as new SimpleRenderer()
+          symbol: {
+            type: 'simple-fill', // autocasts as new SimpleMarkerSymbol()
+            color: 'rgba(12,12,255,0.5)',
+            outline: {
+              // autocasts as new SimpleLineSymbol()
+              width: 2,
+              color: 'red'
+            }
+          }
+        }
+      }
       // {
       //   label: 'fbd123',
       //   url: './config/fbd/morph_ksl.json',
@@ -312,6 +324,7 @@ export default class MapConfig {
     // map.showJurisdiction();
     let points = {
       type: 'police',
+      defaultVisible: true,
       defaultSymbol: {
         //symbol for 2d
         type: 'point-2d',
@@ -388,6 +401,86 @@ export default class MapConfig {
       defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
     };
     const result = await map.addOverlays(points);
+
+    let points2 = {
+      type: 'police2',
+      defaultVisible: true,
+      defaultSymbol: {
+        //symbol for 2d
+        type: 'point-2d',
+        // primitive: "square",
+        url: 'assets/image/Anchor.png',
+        size: [50, 50],
+        anchor: 'center'
+        // color: "red",
+        // outline: {
+        //   color: "white",
+        //   size: 4
+        // },
+        // anchor: "top"
+        //symbol for 3d
+        //type: "point-3d",
+        //primitive: "cube",
+        //color: "red",
+        //size: 20000,
+        //anchor: "bottom",
+      },
+      overlays: [
+        {
+          id: 'test001',
+          geometry: {x: 121.548924, y: 31.157101},
+          fields: {name: '测试2', featureid: '0002'}
+        },
+        {
+          id: 'test002',
+          geometry: {x: 121.518924, y: 31.157101},
+          fields: {name: '测试3', featureid: '0003'}
+        },
+        {
+          id: '1111',
+          geometry: {
+            paths: [
+              [
+                [121.31, 31.01],
+                [121.2, 31.22],
+                [121.1, 31.33],
+                [121.45, 30.89]
+              ]
+            ]
+          },
+          symbol: {color: 'red'},
+          fields: {name: '测试222', featureid: '0003'}
+        },
+        {
+          id: '1113',
+          geometry: {
+            rings: [
+              [
+                [121.31, 31.01],
+                [121.2, 31.22],
+                [121.1, 31.33],
+                [121.45, 30.89]
+              ]
+            ]
+          },
+          symbol: {color: 'red'},
+          fields: {name: '测试222', featureid: '0003'}
+        },
+        {
+          id: 'test003',
+          geometry: {x: 121.518924, y: 31.257101},
+          fields: {name: '测试4', featureid: '0001'}
+        }
+      ],
+      showPopup: true,
+      autoPopup: false,
+      defaultInfoTemplate: {
+        title: '1212',
+        content: '<div class="accc">name:{name}</div>'
+      },
+      defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
+    };
+    const result2 = await map.addOverlays(points2);
   }
   public btn_test1(map: any) {
     var points = [];
@@ -430,8 +523,18 @@ export default class MapConfig {
         }
       }
     };
-    map.addHeatImage(json);
-
+    //map.addHeatImage(json);
+    map
+      .startGeometrySearch({
+        radius: 12000,
+        showResult: true,
+        clickHandle: (e: any) => {
+          console.log(e);
+        }
+      })
+      .then((res: any) => {
+        //console.log(res.result);
+      });
     //map.showMigrateChart();
     // map.addDrawLayer({
     //   layerUrls: './config/fbd/morph_ksl.json',
@@ -519,42 +622,42 @@ export default class MapConfig {
       }
     };
     //map.addHeatMap(json);
-    map.addOverlays({
-      type: 'police',
-      defaultSymbol: {
-        //symbol for 2d
-        type: 'point-2d',
-        // primitive: "square",
-        url: 'assets/image/Anchor.png',
-        size: [50, 50],
-        anchor: 'center'
-      },
-      defaultZooms: [10, 20],
-      overlays: [
-        {
-          id: 'test001',
-          geometry: {x: 121.448924, y: 31.137101},
-          fields: {name: '测试2', featureid: '0002'}
-        },
-        {
-          id: 'test002',
-          geometry: {x: 121.318924, y: 31.157101},
-          fields: {name: '测试3', featureid: '0003'}
-        },
-        {
-          id: 'test003',
-          geometry: {x: 121.418924, y: 31.257101},
-          fields: {name: '测试4', featureid: '0001'}
-        }
-      ],
-      showPopup: true,
-      autoPopup: false,
-      defaultInfoTemplate: {
-        title: '1212',
-        content: '<div>name:{name}<br/><button>{name}</button></div>'
-      },
-      defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
-    });
+    // map.addOverlays({
+    //   type: 'police',
+    //   defaultSymbol: {
+    //     //symbol for 2d
+    //     type: 'point-2d',
+    //     // primitive: "square",
+    //     url: 'assets/image/Anchor.png',
+    //     size: [50, 50],
+    //     anchor: 'center'
+    //   },
+    //   defaultZooms: [10, 20],
+    //   overlays: [
+    //     {
+    //       id: 'test001',
+    //       geometry: {x: 121.448924, y: 31.137101},
+    //       fields: {name: '测试2', featureid: '0002'}
+    //     },
+    //     {
+    //       id: 'test002',
+    //       geometry: {x: 121.318924, y: 31.157101},
+    //       fields: {name: '测试3', featureid: '0003'}
+    //     },
+    //     {
+    //       id: 'test003',
+    //       geometry: {x: 121.418924, y: 31.257101},
+    //       fields: {name: '测试4', featureid: '0001'}
+    //     }
+    //   ],
+    //   showPopup: true,
+    //   autoPopup: false,
+    //   defaultInfoTemplate: {
+    //     title: '1212',
+    //     content: '<div>name:{name}<br/><button>{name}</button></div>'
+    //   },
+    //   defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
+    // });
     //map.showLayer({label: 'ceshi'});
     // map.hideLayer({type: 'traffic'});
     // // map.showDistrictMask({
@@ -569,8 +672,21 @@ export default class MapConfig {
     //   ids: ['31011300001310000003'],
     //   centerResult: true
     // });
+
+    map
+      .startGeometrySearch({
+        radius: 5000,
+        showResult: true,
+        clickHandle: (e: any) => {
+          console.log(e);
+        }
+      })
+      .then((res: any) => {
+        console.log(res.result);
+      });
   }
   public btn_test3(map: any) {
+    map.clearGeometrySearch();
     //map.deleteHeatImage();
     //map.hideMigrateChart();
     //map.clearRouteSearch(); //清除
@@ -587,7 +703,7 @@ export default class MapConfig {
     //map.deleteHeatMap();
     //map.deleteOverlaysCluster({types: ['sxj1']});
     //map.deleteAllOverlays();
-    map.deleteOverlays({ids: ['test001']});
+    // map.deleteOverlays({ids: ['test001']});
     //map.hideLayer({label: 'ceshi'});
     //map.setMapCenter({x: 121.12, y: 31.23});
     //map.setMapCenterAndLevel({

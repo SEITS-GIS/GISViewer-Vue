@@ -98,6 +98,7 @@ export class OverlayGaode {
     const showPopup = params.showPopup;
     const defaultInfoTemplate = params.defaultInfoTemplate;
     const autoPopup = params.autoPopup;
+    const defaultVisible = params.defaultVisible !== false;
 
     let addCount = 0;
 
@@ -154,6 +155,7 @@ export class OverlayGaode {
             icon: (symbol || defaultSymbol) as AMap.Icon,
             zooms: feature.zooms || params.defaultZooms,
             offset: new AMap.Pixel(xoffset as number, yoffset as number),
+            visible: defaultVisible,
             anchor: feature.symbol
               ? (feature.symbol as IPointSymbol).anchor || 'center'
               : (params.defaultSymbol as IPointSymbol).anchor || 'center'
@@ -166,7 +168,8 @@ export class OverlayGaode {
               mousefunc: this.mouseGisDeviceInfo,
               attributes: fields,
               infoTemplate: content
-            }
+            },
+            visible: defaultVisible
           });
         }
       }

@@ -11,7 +11,8 @@ import {
   IHeatParameter,
   IOverlayClusterParameter,
   routeParameter,
-  IHeatImageParameter
+  IHeatImageParameter,
+  IGeometrySearchParameter
 } from '@/types/map';
 import {OverlayArcgis2D} from '@/plugin/gis-viewer/widgets/Overlays/arcgis/OverlayArcgis2D';
 import {FindFeature} from './widgets/FindFeature/arcgis/FindFeature';
@@ -479,4 +480,10 @@ export default class MapAppArcGIS2D {
     const heat = HeatImage.getInstance(this.view);
     heat.deleteHeatImage();
   }
+  public async startGeometrySearch(
+    params: IGeometrySearchParameter
+  ): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public clearGeometrySearch() {}
 }

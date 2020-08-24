@@ -259,6 +259,7 @@ export class OverlayArcgis3D {
     const showToolTip = params.showToolTip;
     const toolTipContent = params.toolTipContent;
     const defaultButtons = params.defaultButtons;
+    const defaultVisible = params.defaultVisible !== false;
 
     if (showToolTip && toolTipContent) {
       this.MoveToolTip(toolTipContent);
@@ -286,6 +287,7 @@ export class OverlayArcgis3D {
         symbol: overlaySymbol || defaultSymbol,
         attributes: fields || {}
       });
+      graphic.visible = defaultVisible;
       graphic.type = params.type;
       graphic.id = overlay.id;
       graphic.buttons = buttons || defaultButtons;

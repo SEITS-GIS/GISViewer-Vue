@@ -13,7 +13,8 @@ import {
   IDistrictParameter,
   IStreetParameter,
   routeParameter,
-  IHeatImageParameter
+  IHeatImageParameter,
+  IGeometrySearchParameter
 } from '@/types/map';
 import {OverlayGaode} from '@/plugin/gis-viewer/widgets/Overlays/gd/OverlayGaode';
 import {JurisdictionPoliceGD} from './widgets/JurisdictionPolice/gd/JurisdictionPoliceGD';
@@ -24,6 +25,7 @@ import AMapLoader from '@amap/amap-jsapi-loader';
 import {DrawSteet} from './widgets/DrawStreet/gd/DrawStreet';
 import Route from './widgets/Route/Route';
 import RoutePoint from './widgets/XinKong/RoutePoint';
+import {GeometrySearchGD} from './widgets/GeometrySearch/gd/GeometrySearchGD';
 
 export default class MapAppGaode implements IMapContainer {
   public view!: AMap.Map;
@@ -76,6 +78,7 @@ export default class MapAppGaode implements IMapContainer {
       });
     });
   }
+
   private getQueryString(url: string, name: string): string {
     let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)'); //构造一个含有目标参数的正则表达式对象
     let search = url.split('?')[1];
@@ -265,4 +268,15 @@ export default class MapAppGaode implements IMapContainer {
   public hideMigrateChart() {}
   public addHeatImage(params: IHeatImageParameter) {}
   public deleteHeatImage() {}
+
+  public async startGeometrySearch(
+    params: IGeometrySearchParameter
+  ): Promise<IResult> {
+    let geometrySearch = GeometrySearchGD.getInstance(this.view);
+    return await geometrySearch.startGeometrySearch(params);
+  }
+  public clearGeometrySearch() {
+    let geometrySearch = GeometrySearchGD.getInstance(this.view);
+    geometrySearch.clearGeometrySearch();
+  }
 }

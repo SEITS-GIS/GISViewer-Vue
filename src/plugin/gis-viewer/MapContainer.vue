@@ -57,7 +57,8 @@ import {
   IDistrictParameter,
   IStreetParameter,
   routeParameter,
-  IHeatImageParameter
+  IHeatImageParameter,
+  IGeometrySearchParameter
 } from '@/types/map';
 
 @Component({
@@ -211,6 +212,14 @@ export default class MapContainer extends Vue implements IMapContainer {
   }
   public hideMigrateChart() {
     this.mapContainer.hideMigrateChart();
+  }
+  public async startGeometrySearch(
+    params: IGeometrySearchParameter
+  ): Promise<IResult> {
+    return await this.mapContainer.startGeometrySearch(params);
+  }
+  public clearGeometrySearch() {
+    this.mapContainer.clearGeometrySearch();
   }
 }
 </script>

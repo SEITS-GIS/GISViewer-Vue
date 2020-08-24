@@ -19,7 +19,8 @@ import {
   IDistrictParameter,
   IStreetParameter,
   routeParameter,
-  IHeatImageParameter
+  IHeatImageParameter,
+  IGeometrySearchParameter
 } from '@/types/map';
 
 @Component({
@@ -126,6 +127,12 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   public hideMigrateChart() {
     this.mapApp.hideMigrateChart();
   }
+  public async startGeometrySearch(
+    params: IGeometrySearchParameter
+  ): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public clearGeometrySearch() {}
 }
 </script>
 

@@ -14,7 +14,8 @@ import {
   IDistrictParameter,
   IStreetParameter,
   routeParameter,
-  IHeatImageParameter
+  IHeatImageParameter,
+  IGeometrySearchParameter
 } from '@/types/map';
 import {OverlayArcgis3D} from '@/plugin/gis-viewer/widgets/Overlays/arcgis/OverlayArcgis3D';
 import {RasterStretchRenderer} from 'esri/rasterRenderers';
@@ -480,4 +481,10 @@ export default class MapAppArcGIS3D implements IMapContainer {
     const heat = HeatImage.getInstance(this.view);
     heat.deleteHeatImage();
   }
+  public async startGeometrySearch(
+    params: IGeometrySearchParameter
+  ): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public clearGeometrySearch() {}
 }
