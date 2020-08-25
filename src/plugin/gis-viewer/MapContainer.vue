@@ -97,7 +97,25 @@ export default class MapContainer extends Vue implements IMapContainer {
         return this.containerArcgis3D;
     }
   }
-
+  async mounted() {
+    console.log(this.mapConfig);
+    if ((this.mapConfig as any).arcgis_api.indexOf('arcgis') > -1) {
+      (window as any).dojoConfig = {
+        async: true,
+        tlmSiblingOfDojo: false,
+        baseUrl: (this.mapConfig as any).arcgis_api + '/dojo/',
+        packages: [
+          {
+            name: 'libs',
+            location: 'libs'
+          }
+        ],
+        has: {
+          'esri-promise-compatibility': 1
+        }
+      };
+    }
+  }
   @Emit('map-loaded')
   private mapLoaded() {}
   @Emit('map-click')

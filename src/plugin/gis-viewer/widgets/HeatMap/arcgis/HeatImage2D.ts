@@ -78,7 +78,7 @@ export default class HeatImage2D {
     };
   }
   public async adds() {
-    this.clear();
+    //this.clear();
     //this.graphics = graphics;
     let _that = this;
     let pt = [121.43, 31.15];
@@ -109,9 +109,6 @@ export default class HeatImage2D {
           },
           load: (signal: any) => {
             console.log(signal);
-          },
-          refresh: () => {
-            //this.fetchImage();
           },
           fetchImage: (extent: any, width: any, height: any): Promise<any> => {
             // generate the URL for the map image
@@ -220,14 +217,6 @@ export default class HeatImage2D {
         });
         _that.customLayer = wmsLayer;
         _that.view.map.layers.add(wmsLayer);
-        watchUtils.watch(
-          _that.view,
-          'extent',
-          (newValue: any, oldValue: any) => {
-            //console.log(_that.customLayer);
-            _that.customLayer.refresh();
-          }
-        );
       }
     );
   }

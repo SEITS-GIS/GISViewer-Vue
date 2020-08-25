@@ -475,6 +475,8 @@ export default class MapAppArcGIS2D {
     // heat.addHeatImage(params);
     const heat = HeatImageGL.getInstance(this.view);
     heat.startup();
+    // const heat2 = HeatImage2D.getInstance(this.view);
+    // heat2.startup();
   }
   public deleteHeatImage() {
     const heat = HeatImage.getInstance(this.view);
