@@ -481,7 +481,11 @@ export default class MapAppArcGIS3D implements IMapContainer {
   public async startGeometrySearch(
     params: IGeometrySearchParameter
   ): Promise<IResult> {
-    return {status: 0, message: ''};
+    let geometrySearch = GeometrySearch.getInstance(this.view);
+    return await geometrySearch.startGeometrySearch(params);
   }
-  public clearGeometrySearch() {}
+  public clearGeometrySearch() {
+    let geometrySearch = GeometrySearch.getInstance(this.view);
+    geometrySearch.clearGeometrySearch();
+  }
 }

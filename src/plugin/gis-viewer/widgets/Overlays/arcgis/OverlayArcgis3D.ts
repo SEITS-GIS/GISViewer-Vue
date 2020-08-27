@@ -268,6 +268,11 @@ export class OverlayArcgis3D {
     let addCount = 0;
     for (let i = 0; i < params.overlays.length; i++) {
       const overlay = params.overlays[i];
+
+      if ((overlay.geometry as any).x) {
+        (overlay.geometry as any).x = Number((overlay.geometry as any).x);
+        (overlay.geometry as any).y = Number((overlay.geometry as any).y);
+      }
       const geometry = geometryJsonUtils.fromJSON(overlay.geometry);
       if (overlay.symbol && !overlay.symbol.type) {
         overlay.symbol.type = geometry.type;
