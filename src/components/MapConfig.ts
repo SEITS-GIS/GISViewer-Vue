@@ -272,7 +272,7 @@ export default class MapConfig {
     options: {
       //for arcgis-2d
       center: [121.415, 31.174],
-      zoom: 14,
+      zoom: 11,
       //viewingMode: 'local'
       // ground: {opacity: 0},
       // alphaCompositingEnabled: true,
@@ -323,93 +323,93 @@ export default class MapConfig {
     // });
     // map.showStreet();
     // map.showJurisdiction();
-    // let points = {
-    //   type: 'police',
-    //   defaultVisible: true,
-    //   defaultSymbol: {
-    //     //symbol for 2d
-    //     type: 'point-2d',
-    //     // primitive: "square",
-    //     url: 'assets/image/Anchor.png',
-    //     size: [50, 50],
-    //     anchor: 'center'
-    //     // color: "red",
-    //     // outline: {
-    //     //   color: "white",
-    //     //   size: 4
-    //     // },
-    //     // anchor: "top"
-    //     //symbol for 3d
-    //     //type: "point-3d",
-    //     //primitive: "cube",
-    //     //color: "red",
-    //     //size: 20000,
-    //     //anchor: "bottom",
-    //   },
-    //   overlays: [
-    //     {
-    //       id: 'test001',
-    //       geometry: {x: 121.448924, y: 31.157101},
-    //       fields: {name: '测试2', featureid: '0002'}
-    //     },
-    //     {
-    //       id: 'test002',
-    //       geometry: {x: 121.418924, y: 31.157101},
-    //       fields: {name: '测试3', featureid: '0003'}
-    //     },
-    //     {
-    //       id: '1111',
-    //       geometry: {
-    //         paths: [
-    //           [
-    //             [121.31, 31.01],
-    //             [121.2, 31.22],
-    //             [121.1, 31.33],
-    //             [121.45, 30.89]
-    //           ]
-    //         ]
-    //       },
-    //       symbol: {color: 'red'},
-    //       fields: {name: '测试222', featureid: '0003'}
-    //     },
-    //     {
-    //       id: '1113',
-    //       geometry: {
-    //         rings: [
-    //           [
-    //             [121.31, 31.01],
-    //             [121.2, 31.22],
-    //             [121.1, 31.33],
-    //             [121.45, 30.89]
-    //           ]
-    //         ]
-    //       },
-    //       symbol: {color: 'red'},
-    //       fields: {name: '测试222', featureid: '0003'}
-    //     },
-    //     {
-    //       id: 'test003',
-    //       geometry: {x: 121.418924, y: 31.257101},
-    //       fields: {name: '测试4', featureid: '0001'}
-    //     }
-    //   ],
-    //   showPopup: true,
-    //   autoPopup: false,
-    //   defaultInfoTemplate: {
-    //     title: '1212',
-    //     content: '<div class="accc">name:{name}</div>'
-    //   },
-    //   defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
-    // };
-    // const result = await map.addOverlays(points);
+    let points = {
+      type: 'police',
+      defaultVisible: true,
+      defaultSymbol: {
+        //symbol for 2d
+        type: 'point-2d',
+        // primitive: "square",
+        url: 'assets/image/Anchor.png',
+        size: [50, 50],
+        anchor: 'center'
+        // color: "red",
+        // outline: {
+        //   color: "white",
+        //   size: 4
+        // },
+        // anchor: "top"
+        //symbol for 3d
+        //type: "point-3d",
+        //primitive: "cube",
+        //color: "red",
+        //size: 20000,
+        //anchor: "bottom",
+      },
+      overlays: [
+        {
+          id: 'test001',
+          geometry: {x: 121.448924, y: 31.157101},
+          fields: {name: '测试2', featureid: '0002'}
+        },
+        {
+          id: 'test002',
+          geometry: {x: 121.418924, y: 31.157101},
+          fields: {name: '测试3', featureid: '0003'}
+        },
+        {
+          id: '1111',
+          geometry: {
+            paths: [
+              [
+                [121.31, 31.01],
+                [121.2, 31.22],
+                [121.1, 31.33],
+                [121.45, 30.89]
+              ]
+            ]
+          },
+          symbol: {color: 'red'},
+          fields: {name: '测试222', featureid: '0003'}
+        },
+        {
+          id: '1113',
+          geometry: {
+            rings: [
+              [
+                [121.31, 31.01],
+                [121.2, 31.22],
+                [121.1, 31.33],
+                [121.45, 30.89]
+              ]
+            ]
+          },
+          symbol: {color: 'red'},
+          fields: {name: '测试222', featureid: '0003'}
+        },
+        {
+          id: 'test003',
+          geometry: {x: 121.418924, y: 31.257101},
+          fields: {name: '测试4', featureid: '0001'}
+        }
+      ],
+      showPopup: true,
+      autoPopup: false,
+      defaultInfoTemplate: {
+        title: '1212',
+        content: '<div class="accc">name:{name}</div>'
+      },
+      defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
+    };
+    //const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
     var points = [];
-    var x = 121.43;
-    var y = 31.15;
+    var x = 0;
+    var y = 0;
     for (var i = 0; i < 1000; i++) {
-      var x1 = x + (Math.random() * 2 - 1) / 10;
-      var y1 = y + (Math.random() * 2 - 1) / 10;
+      var x1 = x + (Math.random() * 100 - 1);
+      var y1 = y + (Math.random() * 100 - 1);
       var value = Math.floor(1000 * Math.random() + 1);
       var a = i % 2 == 0 ? '1' : '0';
       points.push({
@@ -419,29 +419,17 @@ export default class MapConfig {
     }
     var json = {
       points: points,
-      images: {geometry: {x: x - 0.1, y: y + 0.1}, width: 500, height: 500},
+      images: {
+        geometry: {x: 121.3226, y: 31.19456},
+        width: 100,
+        height: 100,
+        url: 'http://localhost/gz.svg'
+      },
       options: {
         field: 'totalSpace',
-        radius: '20',
-        colors: [
-          'rgb(255, 255, 255)',
-          'rgba(206, 199, 25,0.9)',
-          'rgba(255, 140, 27,0.9)',
-          'rgba(246, 64, 64,0.9)'
-        ],
+        radius: 3,
         maxValue: 1000,
-        minValue: 1,
-        zoom: 15,
-        renderer: {
-          type: 'simple',
-          symbol: {
-            type: 'esriPMS',
-            url: 'assets/image/Anchor.png',
-            width: 64,
-            height: 66,
-            yoffset: 16
-          }
-        }
+        minValue: 1
       }
     };
     map.addHeatImage(json);
@@ -603,7 +591,7 @@ export default class MapConfig {
       });
   }
   public btn_test3(map: any) {
-    map.showLayer({label: 'fbd1333'});
+    //map.showLayer({label: 'fbd1333'});
     //map.clearGeometrySearch();
     //map.deleteHeatImage();
     //map.hideMigrateChart();
@@ -624,11 +612,11 @@ export default class MapConfig {
     // map.deleteOverlays({ids: ['test001']});
     //map.hideLayer({label: 'ceshi'});
     //map.setMapCenter({x: 121.12, y: 31.23});
-    //map.setMapCenterAndLevel({
-    //   x: 121.12,
-    //   y: 31.23,
-    //   level: 15
-    // });
+    map.setMapCenterAndLevel({
+      x: 121.12,
+      y: 31.23,
+      level: 15
+    });
     //map.hideJurisdiction();
     //map.hideDistrictMask();
     // map.addOverlays({

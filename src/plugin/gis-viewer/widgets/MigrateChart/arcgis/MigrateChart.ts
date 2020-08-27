@@ -210,4 +210,66 @@ export class MigrateChart {
     };
     this.echartlayer.setChartOption(option);
   }
+
+  public async showPathChart(params: IHeatParameter) {
+    this.clear();
+    let busLines = [
+      {
+        coords: [
+          [121.131, 31.125],
+          [121.311, 31.215],
+          [121.311, 31.225],
+          [121.311, 31.235]
+        ],
+        lineStyle: {normal: {color: 'rgba(223,90,90,1)'}}
+      },
+      {
+        coords: [
+          [121.321, 31.275],
+          [121.131, 31.225],
+          [121.321, 31.265],
+          [121.351, 31.215]
+        ],
+        lineStyle: {normal: {color: 'rgba(12,12,255,1)'}}
+      }
+    ];
+    let series = [
+      {
+        type: 'lines',
+        coordinateSystem: 'arcgis',
+        polyline: true,
+        data: busLines,
+        silent: true,
+        lineStyle: {
+          // color: '#c23531',
+          // color: 'rgb(200, 35, 45)',
+          opacity: 0.5,
+          width: 3
+        },
+        progressiveThreshold: 500,
+        progressive: 200
+      },
+      {
+        type: 'lines',
+        coordinateSystem: 'arcgis',
+        polyline: true,
+        data: busLines,
+        lineStyle: {
+          width: 0
+        },
+        effect: {
+          constantSpeed: 60,
+          show: true,
+          trailLength: 0.4,
+          symbolSize: 4.5
+        },
+        zlevel: 1
+      }
+    ];
+    this.echartlayer = new echartsLayer(this.view);
+    var option = {
+      series: series
+    };
+    this.echartlayer.setChartOption(option);
+  }
 }

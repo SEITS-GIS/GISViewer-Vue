@@ -28,6 +28,8 @@ import {DrawLayer} from './widgets/DrawLayer/arcgis/DrawLayer';
 import {MigrateChart} from './widgets/MigrateChart/arcgis/MigrateChart';
 import {HeatImage} from './widgets/HeatMap/arcgis/HeatImage';
 import HeatImage2D from './widgets/HeatMap/arcgis/HeatImage2D';
+import HeatImageGL from './widgets/HeatMap/arcgis/HeatImageGL';
+import HeatImage3D from './widgets/HeatMap/arcgis/HeatImage3D';
 
 export default class MapAppArcGIS3D implements IMapContainer {
   public view!: __esri.SceneView;
@@ -426,7 +428,9 @@ export default class MapAppArcGIS3D implements IMapContainer {
     if (!isNaN(x) && !isNaN(y) && !isNaN(level) && level >= 0) {
       this.view.goTo({
         zoom: level,
-        center: [x, y]
+        center: [x, y],
+        heading: 90, // set the heading to point South
+        tilt: 76 // maintain tilt value
       });
     }
   }
@@ -471,16 +475,8 @@ export default class MapAppArcGIS3D implements IMapContainer {
     const chart = MigrateChart.getInstance(this.view);
     chart.hideMigrateChart();
   }
-  public addHeatImage(params: IHeatImageParameter) {
-    // const heat = HeatImage.getInstance(this.view);
-    // heat.addHeatImage(params);
-    const heat = HeatImage2D.getInstance(this.view);
-    heat.startup();
-  }
-  public deleteHeatImage() {
-    const heat = HeatImage.getInstance(this.view);
-    heat.deleteHeatImage();
-  }
+  public addHeatImage(params: IHeatImageParameter) {}
+  public deleteHeatImage() {}
   public async startGeometrySearch(
     params: IGeometrySearchParameter
   ): Promise<IResult> {

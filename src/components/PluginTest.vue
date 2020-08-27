@@ -40,7 +40,7 @@ export default class PluginTest extends Vue {
     console.log(type, id, detail);
   }
   private mapClick(pt: object) {
-    console.log('aaaaaa2' + pt);
+    console.log(pt);
   }
 }
 </script>

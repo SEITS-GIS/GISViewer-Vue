@@ -1,6 +1,7 @@
 import {loadModules} from 'esri-loader';
 import {resolve, reject} from 'esri/core/promiseUtils';
 import {offset} from 'esri/geometry/geometryEngine';
+import {IHeatImageParameter} from '@/types/map';
 export default class HeatImageGL {
   private static intances: Map<string, any>;
   public view: any;
@@ -10,6 +11,8 @@ export default class HeatImageGL {
   private scale: number = 144447;
   private allImage: any;
   private heatData: any;
+  private options: any;
+  private imageOpt: any;
 
   private constructor(view: __esri.MapView | __esri.SceneView) {
     // Geometrical transformations that must be recomputed
@@ -37,8 +40,16 @@ export default class HeatImageGL {
       this.heat = null;
     }
   }
-  public async startup() {
+  public async addHeatImage(params: IHeatImageParameter) {
     this.clear();
+    let options = params.options;
+    this.options = options;
+    let points = params.points;
+    let imageOpt = params.images;
+    this.imageOpt = imageOpt;
+
+    let step = this.scale / this.view.scale;
+
     const [h337] = await loadModules(['libs/heatmap.min.js']);
     let heatDiv = document.createElement('div');
     heatDiv.style.width = this.view.width + 'px';
@@ -54,43 +65,57 @@ export default class HeatImageGL {
     let heatmapInstance = h337.create({
       // only container is required, the rest will be defaults
       container: heatDiv,
-      radius: 23
+      radius: options.radius || 25,
+      gradient: this.getHeatColor(options.colors),
+      maxOpacity: 1,
+      minOpacity: 0,
+      blur: 0.75
     });
-    let pdata = [];
-    for (let i = 0; i < 400; i++) {
-      var temp = Math.floor(Math.random() * 1000) % 2 == 0 ? 1 : -1;
-      var temp2 = Math.floor(Math.random() * 1000) % 3 == 0 ? 1 : -1;
-      var x1 = 1 + (1 * (Math.random() * 500 - 1)) / 1;
-      var y1 = 1 + (1 * (Math.random() * 500 - 1)) / 1;
-      var value = Math.floor(1000 * Math.random() + 1);
-      pdata.push({
-        x: Math.floor(x1),
-        y: Math.floor(y1),
-        value: value
-      });
-    }
+    let fieldName = options.field;
+    let pdata = points.map((point: any) => {
+      return {
+        x: Math.floor(point.geometry.x),
+        y: Math.floor(point.geometry.y),
+        value: point.fields[fieldName] || 0
+      };
+    });
     var data = {
-      max: 1000,
+      max: options.maxValue || 1000,
       min: 0,
       data: pdata
     };
-    let step = this.scale / this.view.scale;
     this.heatData = pdata;
     heatmapInstance.setData(data);
     this.heatmapInstance = heatmapInstance;
     heatDiv.style.display = 'none';
     let image = new Image();
-    image.src = 'http://localhost/gz.svg';
-    image.width = 600;
-    image.height = 600;
+    image.src = imageOpt.url;
+    image.width = this.imageOpt.width || 600;
+    image.height = this.imageOpt.height || 600;
     this.allImage = image;
     image.onload = (e: any) => {
-      this.adds();
+      this.startup(params);
     };
   }
-  public async adds() {
+  public getHeatColor(colors: string[] | undefined): any[] | undefined {
+    let obj: any = {};
+    if (colors && colors.length >= 4) {
+      //"rgba(30,144,255,0)","rgba(30,144,255)","rgb(0, 255, 0)","rgb(255, 255, 0)", "rgb(254,89,0)"
+      let steps = ['0.2', '0.5', '0.8', '1'];
+      let colorStops: any = {};
+      steps.forEach((element: string, index: number) => {
+        colorStops[element] = colors[index];
+      });
+      return colorStops;
+    } else {
+      return undefined;
+    }
+  }
+  public async startup(params: IHeatImageParameter) {
     let _that = this;
-    let pt = [121.43, 31.15];
+    let imageOpt = params.images;
+    let pt = params.images.geometry;
+    let options = params.options;
     await loadModules([
       'esri/views/2d/layers/BaseLayerView2D',
       'esri/geometry/Point',
@@ -103,21 +128,24 @@ export default class HeatImageGL {
           var context = renderParameters.context;
           let step = _that.scale / _that.view.scale;
           let point = new Point({
-            x: pt[0],
-            y: pt[1],
+            x: pt.x,
+            y: pt.y,
             spatialReference: new SpatialReference({wkid: 4326})
           });
-          let pcc = _that.view.toScreen(point);
+          let screenPoint = _that.view.toScreen(point);
 
-          let xoffset = Math.min(pcc.x, 0);
-          let yoffset = Math.min(pcc.y, 0);
+          let xoffset = Math.min(screenPoint.x, 0);
+          let yoffset = Math.min(screenPoint.y, 0);
           _that.heat.innerHTML = '';
           let heatmapInstance = h337.create({
             container: _that.heat,
-            radius: 23 * step
+            radius: (options.radius || 25) * step,
+            gradient: this.getHeatColor(options.colors),
+            maxOpacity: 1,
+            minOpacity: 0,
+            blur: 0.75
           });
-          let pdata = _that.heatData;
-          let pdata2 = pdata.map((dt: any) => {
+          let pdata = _that.heatData.map((dt: any) => {
             return {
               x: Math.floor(dt.x * step + xoffset),
               y: Math.floor(dt.y * step + yoffset),
@@ -126,27 +154,27 @@ export default class HeatImageGL {
           });
 
           var resdata = {
-            max: 1000,
+            max: options.maxValue || 1000,
             min: 0,
-            data: pdata2
+            data: pdata
           };
           heatmapInstance.setData(resdata);
+
           let canvas = _that.heat.firstChild;
           let cts = canvas.getContext('2d');
 
-          console.log(xoffset + ',' + yoffset);
           cts.globalCompositeOperation = 'destination-atop';
           cts.drawImage(
             _that.allImage,
             xoffset,
             yoffset,
-            600 * step,
-            600 * step
+            _that.allImage.width * step,
+            _that.allImage.height * step
           );
           context.drawImage(
             canvas,
-            Math.max(pcc.x, 0),
-            Math.max(pcc.y, 0),
+            Math.max(screenPoint.x, 0),
+            Math.max(screenPoint.y, 0),
             canvas.width,
             canvas.height
           );

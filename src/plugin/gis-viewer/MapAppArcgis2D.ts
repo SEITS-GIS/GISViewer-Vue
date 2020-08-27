@@ -416,9 +416,16 @@ export default class MapAppArcGIS2D {
     let y = params.y;
 
     if (!isNaN(x) && !isNaN(y)) {
-      this.view.goTo({
-        center: [x, y]
-      });
+      this.view.goTo(
+        {
+          center: [x, y]
+        },
+        {
+          animate: true,
+          easing: 'ease-in-out',
+          duration: 5000
+        }
+      );
     }
   }
   public async setMapCenterAndLevel(params: ICenterLevel) {
@@ -427,10 +434,17 @@ export default class MapAppArcGIS2D {
     let level: number = params.level || this.view.zoom;
 
     if (!isNaN(x) && !isNaN(y) && !isNaN(level) && level >= 0) {
-      this.view.goTo({
-        zoom: level,
-        center: [x, y]
-      });
+      this.view.goTo(
+        {
+          zoom: level,
+          center: [x, y]
+        },
+        {
+          animate: true,
+          easing: 'ease-out',
+          duration: 5000
+        }
+      );
     }
   }
   public async showRoad() {}
@@ -464,7 +478,7 @@ export default class MapAppArcGIS2D {
   }
   public showMigrateChart(params: any) {
     const chart = MigrateChart.getInstance(this.view);
-    chart.showMigrateChart(params);
+    chart.showPathChart(params);
   }
   public hideMigrateChart() {
     const chart = MigrateChart.getInstance(this.view);
@@ -474,7 +488,7 @@ export default class MapAppArcGIS2D {
     // const heat = HeatImage.getInstance(this.view);
     // heat.addHeatImage(params);
     const heat = HeatImageGL.getInstance(this.view);
-    heat.startup();
+    heat.addHeatImage(params);
     // const heat2 = HeatImage2D.getInstance(this.view);
     // heat2.startup();
   }
