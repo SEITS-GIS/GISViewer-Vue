@@ -532,7 +532,7 @@ export default class MapConfig {
         geometry: {x: 121.3226, y: 31.19456},
         width: 100,
         height: 100,
-        url: 'http://localhost/gz.svg'
+        url: 'http://localhost/12.svg'
       },
       options: {
         field: 'totalSpace',
@@ -541,14 +541,14 @@ export default class MapConfig {
         minValue: 1
       }
     };
-    //map.addHeatImage(json);
-    map.startGeometrySearch({
-      radius: 12000,
-      showResult: true,
-      clickHandle: (e: any) => {
-        console.log(e);
-      }
-    });
+    map.addHeatImage(json);
+    // map.startGeometrySearch({
+    //   radius: 12000,
+    //   showResult: true,
+    //   clickHandle: (e: any) => {
+    //     console.log(e);
+    //   }
+    // });
     //map.showMigrateChart();
     // map.addDrawLayer({
     //   layerUrls: './config/fbd/morph_ksl.json',

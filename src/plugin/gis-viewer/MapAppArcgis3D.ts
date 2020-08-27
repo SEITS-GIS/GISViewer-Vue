@@ -149,9 +149,9 @@ export default class MapAppArcGIS3D implements IMapContainer {
               label ||
               undefined;
           }
-          if (id) {
-            this.showGisDeviceInfo(type, id, graphic.toJSON());
-          }
+          //if (id) {
+          this.showGisDeviceInfo(type, id, graphic.toJSON());
+          //}
         });
       } else {
         this.doIdentifyTask(event.mapPoint).then((results: any) => {
