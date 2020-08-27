@@ -215,7 +215,7 @@ export class OverlayArcgis2D {
       fields.id = overlay.id;
       const buttons = overlay.buttons;
 
-      const graphic = new Graphic({
+      let graphic = new Graphic({
         geometry,
         symbol: overlaySymbol || defaultSymbol,
         attributes: fields || {}

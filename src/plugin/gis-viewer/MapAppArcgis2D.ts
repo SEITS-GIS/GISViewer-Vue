@@ -25,6 +25,8 @@ import {MigrateChart} from './widgets/MigrateChart/arcgis/MigrateChart';
 import {HeatImage} from './widgets/HeatMap/arcgis/HeatImage';
 import HeatImage2D from './widgets/HeatMap/arcgis/HeatImage2D';
 import HeatImageGL from './widgets/HeatMap/arcgis/HeatImageGL';
+import {GeometrySearchGD} from './widgets/GeometrySearch/gd/GeometrySearchGD';
+import {GeometrySearch} from './widgets/GeometrySearch/arcgis/GeometrySearch';
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
@@ -118,10 +120,11 @@ export default class MapAppArcGIS2D {
         response.results.forEach((result) => {
           const graphic = result.graphic;
           let {type, id} = graphic.attributes;
-          let label = (graphic.layer as any).label;
+          let label = graphic.layer ? (graphic.layer as any).label : '';
           if (
-            graphic.layer.type == 'feature' ||
-            graphic.layer.type == 'graphics'
+            graphic.layer &&
+            (graphic.layer.type == 'feature' ||
+              graphic.layer.type == 'graphics')
           ) {
             id =
               graphic.attributes['DEVICEID'] ||
@@ -192,6 +195,7 @@ export default class MapAppArcGIS2D {
     MigrateChart.destroy();
     DrawLayer.destroy();
     HeatImage.destroy();
+    GeometrySearch.destroy();
   }
   //使toolTip中支持{字段}的形式
   private getContent(attr: any, content: string): string {
@@ -485,7 +489,11 @@ export default class MapAppArcGIS2D {
   public async startGeometrySearch(
     params: IGeometrySearchParameter
   ): Promise<IResult> {
-    return {status: 0, message: ''};
+    let geometrySearch = GeometrySearch.getInstance(this.view);
+    return await geometrySearch.startGeometrySearch(params);
   }
-  public clearGeometrySearch() {}
+  public clearGeometrySearch() {
+    let geometrySearch = GeometrySearch.getInstance(this.view);
+    geometrySearch.clearGeometrySearch();
+  }
 }

@@ -325,7 +325,7 @@ export default class MapConfig {
     // map.showJurisdiction();
     let points = {
       type: 'police',
-      defaultVisible: true,
+      defaultVisible: false,
       defaultSymbol: {
         //symbol for 2d
         type: 'point-2d',
@@ -401,7 +401,7 @@ export default class MapConfig {
       },
       defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
     };
-    //const result = await map.addOverlays(points);
+    const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
     var points = [];
@@ -432,14 +432,14 @@ export default class MapConfig {
         minValue: 1
       }
     };
-    map.addHeatImage(json);
-    // map.startGeometrySearch({
-    //   radius: 12000,
-    //   showResult: true,
-    //   clickHandle: (e: any) => {
-    //     console.log(e);
-    //   }
-    // });
+    //map.addHeatImage(json);
+    map.startGeometrySearch({
+      radius: 12000,
+      showResult: true,
+      clickHandle: (e: any) => {
+        console.log(e);
+      }
+    });
     //map.showMigrateChart();
     // map.addDrawLayer({
     //   layerUrls: './config/fbd/morph_ksl.json',
@@ -592,7 +592,7 @@ export default class MapConfig {
   }
   public btn_test3(map: any) {
     //map.showLayer({label: 'fbd1333'});
-    //map.clearGeometrySearch();
+    map.clearGeometrySearch();
     //map.deleteHeatImage();
     //map.hideMigrateChart();
     //map.clearRouteSearch(); //清除
@@ -612,11 +612,11 @@ export default class MapConfig {
     // map.deleteOverlays({ids: ['test001']});
     //map.hideLayer({label: 'ceshi'});
     //map.setMapCenter({x: 121.12, y: 31.23});
-    map.setMapCenterAndLevel({
-      x: 121.12,
-      y: 31.23,
-      level: 15
-    });
+    // map.setMapCenterAndLevel({
+    //   x: 121.12,
+    //   y: 31.23,
+    //   level: 15
+    // });
     //map.hideJurisdiction();
     //map.hideDistrictMask();
     // map.addOverlays({

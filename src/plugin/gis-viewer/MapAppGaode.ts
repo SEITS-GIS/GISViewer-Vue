@@ -118,6 +118,7 @@ export default class MapAppGaode implements IMapContainer {
     DrawSteet.destroy();
     Route.destroy();
     RoutePoint.destroy();
+    GeometrySearchGD.destroy();
   }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayGaode.getInstance(this.view);
