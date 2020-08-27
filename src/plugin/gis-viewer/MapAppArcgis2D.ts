@@ -416,16 +416,9 @@ export default class MapAppArcGIS2D {
     let y = params.y;
 
     if (!isNaN(x) && !isNaN(y)) {
-      this.view.goTo(
-        {
-          center: [x, y]
-        },
-        {
-          animate: true,
-          easing: 'ease-in-out',
-          duration: 5000
-        }
-      );
+      this.view.goTo({
+        center: [x, y]
+      });
     }
   }
   public async setMapCenterAndLevel(params: ICenterLevel) {
@@ -434,17 +427,10 @@ export default class MapAppArcGIS2D {
     let level: number = params.level || this.view.zoom;
 
     if (!isNaN(x) && !isNaN(y) && !isNaN(level) && level >= 0) {
-      this.view.goTo(
-        {
-          zoom: level,
-          center: [x, y]
-        },
-        {
-          animate: true,
-          easing: 'ease-out',
-          duration: 5000
-        }
-      );
+      this.view.goTo({
+        zoom: level,
+        center: [x, y]
+      });
     }
   }
   public async showRoad() {}

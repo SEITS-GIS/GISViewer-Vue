@@ -428,9 +428,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
     if (!isNaN(x) && !isNaN(y) && !isNaN(level) && level >= 0) {
       this.view.goTo({
         zoom: level,
-        center: [x, y],
-        heading: 90, // set the heading to point South
-        tilt: 76 // maintain tilt value
+        center: [x, y]
       });
     }
   }

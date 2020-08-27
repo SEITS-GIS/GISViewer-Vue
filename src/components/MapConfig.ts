@@ -11,9 +11,9 @@ export default class MapConfig {
     theme: 'dark', //dark,vec
     baseLayers: [
       {
-        type: 'tiled',
-        url:
-          'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
+        label: '底图',
+        url: 'http://114.215.146.210:25003/v3/tile?z={level}&x={col}&y={row}',
+        type: 'webtiled',
         visible: true
       }
     ],
