@@ -280,4 +280,8 @@ export default class MapAppGaode implements IMapContainer {
     let geometrySearch = GeometrySearchGD.getInstance(this.view);
     geometrySearch.clearGeometrySearch();
   }
+  public async showDgene(params: any): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public hideDgene() {}
 }

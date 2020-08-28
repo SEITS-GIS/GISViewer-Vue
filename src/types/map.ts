@@ -169,6 +169,8 @@ export interface IMapContainer {
   deleteHeatImage: () => void;
   startGeometrySearch: (params: IGeometrySearchParameter) => Promise<IResult>;
   clearGeometrySearch: () => void;
+  showDgene: (params: any) => Promise<IResult>;
+  hideDgene: () => void;
 }
 export interface IPopUpTemplate {
   title?: string;

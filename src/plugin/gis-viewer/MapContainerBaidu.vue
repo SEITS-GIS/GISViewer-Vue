@@ -124,6 +124,10 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
     return {status: 0, message: ''};
   }
   public clearGeometrySearch() {}
+  public async showDgene(params: any): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public hideDgene() {}
 }
 </script>
 

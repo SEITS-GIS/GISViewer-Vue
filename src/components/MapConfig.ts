@@ -10,10 +10,16 @@ export default class MapConfig {
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
     theme: 'dark', //dark,vec
     baseLayers: [
+      // {
+      //   label: '深色',
+      //   url: 'http://114.215.146.210:25003/v3/tile?z={level}&x={col}&y={row}',
+      //   type: 'webtiled',
+      //   visible: true
+      // }
       {
-        label: '底图',
-        url: 'http://114.215.146.210:25003/v3/tile?z={level}&x={col}&y={row}',
-        type: 'webtiled',
+        type: 'tiled',
+        url:
+          'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
         visible: true
       }
     ],
@@ -323,115 +329,6 @@ export default class MapConfig {
     // });
     // map.showStreet();
     // map.showJurisdiction();
-    let a = {
-      overlays: [
-        {
-          symbol: {
-            type: 'point',
-            url: './assets/image/Anchor.png',
-            size: [33, 42]
-          },
-          geometry: {x: '121.408982', y: '31.202702'},
-          fields: {
-            fstrAutoStatus: '1',
-            fstrIfFocus: '0',
-            fdtCreateTime: '2020-08-26 18:16:15',
-            fstrLocation: '标题830',
-            fstrAuditStatus: '0',
-            isCollect: 1,
-            fstrConstructionId: 'b06bc62a-17ee-49e7-b35e-6adc3fb99ddb',
-            fstrCompany: '标题830',
-            fstrCreateUser: '还斌',
-            fstrMeasure:
-              '1、施工时间：00:00-23:58止；\n2、占道区域颜哥按照GB5768.4-2017《道路交通标志和标线第4部分：作业区》标准，设置相应的指示标志、交通提示牌及施工标志、夜间照明和警示灯等交通安全设施；\n3、施工时须及时清理挖土，逐段展开，并及时修复，车行道施工时，允许占用一根车道实施，开挖一段，修施工时须及时清理挖土，逐段展开，并及时修复，车行道施工时，允许占用一根车道实施，开挖一段，修复后再开挖一段，人行道施工时，须留出1米足够行人通行的安全通道或安全通道或设置行人绕线标志，确保车辆、行人通行安全；',
-            alarmPicList: [
-              {
-                id: 1,
-                icon: 'icon_normal.png',
-                desc: '超时是指当天超时 (违规)',
-                name: '正常'
-              }
-            ],
-            fstrProjectName: '标题830',
-            fstrEndDate: '2020-08-27',
-            fstrBeginTime: '16:08:29',
-            fdtFocusTime: null,
-            fstrBeginDate: '2020-08-26',
-            fstrEndTime: '21:08:32',
-            fstrAddress: '标题830',
-            fstrLimitArea: '121',
-            fstrManualStatus: '',
-            fstrTel: '12345678901',
-            fstrCloseType: '1',
-            fstrLimitHeight: 11,
-            fstrContact: '标题830',
-            fstrLimitWidth: 11,
-            fstrStatus: '3',
-            fstrY: '31.202702',
-            fstrSupervisionUnit: '标题830',
-            fstrX: '121.408982',
-            fstrSupervisionPolice: '标题830',
-            alarmType: '1',
-            fstrTitle: '标题830',
-            active: false
-          }
-        },
-        {
-          symbol: {
-            type: 'point',
-            url: './assets/image/Anchor.png',
-            size: [33, 42]
-          },
-          geometry: {x: '121.415162', y: '31.196388'},
-          fields: {
-            fstrAutoStatus: '1',
-            fstrIfFocus: '0',
-            fdtCreateTime: '2020-08-26 17:48:39',
-            fstrLocation: '标题828',
-            fstrAuditStatus: '0',
-            isCollect: 0,
-            fstrConstructionId: '5e41c3bf-d297-4706-80e2-8ef8887dc844',
-            fstrCompany: '标题828',
-            fstrCreateUser: '还斌',
-            fstrMeasure:
-              '1、施工时间：00:00-23:58止；\n2、占道区域颜哥按照GB5768.4-2017《道路交通标志和标线第4部分：作业区》标准，设置相应的指示标志、交通提示牌及施工标志、夜间照明和警示灯等交通安全设施；\n3、施工时须及时清理挖土，逐段展开，并及时修复，车行道施工时，允许占用一根车道实施，开挖一段，修施工时须及时清理挖土，逐段展开，并及时修复，车行道施工时，允许占用一根车道实施，开挖一段，修复后再开挖一段，人行道施工时，须留出1米足够行人通行的安全通道或安全通道或设置行人绕线标志，确保车辆、行人通行安全；',
-            alarmPicList: [
-              {
-                id: 1,
-                icon: 'icon_normal.png',
-                desc: '超时是指当天超时 (违规)',
-                name: '正常'
-              }
-            ],
-            fstrProjectName: '标题828',
-            fstrEndDate: '2020-08-27',
-            fstrBeginTime: '15:40:41',
-            fdtFocusTime: null,
-            fstrBeginDate: '2020-08-26',
-            fstrEndTime: '19:40:43',
-            fstrAddress: '标题828',
-            fstrLimitArea: '111',
-            fstrManualStatus: '',
-            fstrTel: '12345678901',
-            fstrCloseType: '1',
-            fstrLimitHeight: 11,
-            fstrContact: '标题828',
-            fstrLimitWidth: 11,
-            fstrStatus: '0',
-            fstrY: '31.196388',
-            fstrSupervisionUnit: '标题828',
-            fstrX: '121.415162',
-            fstrSupervisionPolice: '标题828',
-            alarmType: '1',
-            fstrTitle: '标题828',
-            active: false
-          }
-        }
-      ],
-      showPopup: false,
-      autoPopup: false,
-      defaultZooms: [15, 20]
-    };
     let points = {
       type: 'police',
       defaultVisible: true,
@@ -482,21 +379,6 @@ export default class MapConfig {
           fields: {name: '测试222', featureid: '0003'}
         },
         {
-          id: '1113',
-          geometry: {
-            rings: [
-              [
-                [121.31, 31.01],
-                [121.2, 31.22],
-                [121.1, 31.33],
-                [121.45, 30.89]
-              ]
-            ]
-          },
-          symbol: {color: 'red'},
-          fields: {name: '测试222', featureid: '0003'}
-        },
-        {
           id: 'test003',
           geometry: {x: 121.418924, y: 31.257101},
           fields: {name: '测试4', featureid: '0001'}
@@ -510,7 +392,7 @@ export default class MapConfig {
       },
       defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
     };
-    const result = await map.addOverlays(a);
+    const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
     var points = [];
@@ -530,8 +412,8 @@ export default class MapConfig {
       points: points,
       images: {
         geometry: {x: 121.3226, y: 31.19456},
-        width: 100,
-        height: 100,
+        width: 192,
+        height: 108,
         url: 'http://localhost/12.svg'
       },
       options: {
@@ -700,8 +582,9 @@ export default class MapConfig {
       });
   }
   public btn_test3(map: any) {
+    map.showDgene();
     //map.showLayer({label: 'fbd1333'});
-    map.clearGeometrySearch();
+    //map.clearGeometrySearch();
     //map.deleteHeatImage();
     //map.hideMigrateChart();
     //map.clearRouteSearch(); //清除
@@ -724,7 +607,7 @@ export default class MapConfig {
     // map.setMapCenterAndLevel({
     //   x: 121.12,
     //   y: 31.23,
-    //   level: 15
+    //   level: 17
     // });
     //map.hideJurisdiction();
     //map.hideDistrictMask();

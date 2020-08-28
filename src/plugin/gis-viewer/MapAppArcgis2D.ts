@@ -27,6 +27,7 @@ import HeatImage2D from './widgets/HeatMap/arcgis/HeatImage2D';
 import HeatImageGL from './widgets/HeatMap/arcgis/HeatImageGL';
 import {GeometrySearchGD} from './widgets/GeometrySearch/gd/GeometrySearchGD';
 import {GeometrySearch} from './widgets/GeometrySearch/arcgis/GeometrySearch';
+import {DgeneFusion} from './widgets/DgeneFusion/arcgis/DgeneFusion';
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
@@ -363,6 +364,8 @@ export default class MapAppArcGIS2D {
           return layer !== undefined;
         })
     );
+    // const dgene = DgeneFusion.getInstance(view);
+    // dgene.showDgeneFusion();
   }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayArcgis2D.getInstance(this.view);
@@ -495,5 +498,14 @@ export default class MapAppArcGIS2D {
   public clearGeometrySearch() {
     let geometrySearch = GeometrySearch.getInstance(this.view);
     geometrySearch.clearGeometrySearch();
+  }
+
+  public async showDgene(params: any): Promise<IResult> {
+    let dgene = DgeneFusion.getInstance(this.view);
+    return await dgene.showDgene(params);
+  }
+  public hideDgene() {
+    let dgene = DgeneFusion.getInstance(this.view);
+    dgene.hideDgene();
   }
 }

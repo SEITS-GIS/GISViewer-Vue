@@ -90,6 +90,7 @@ export default class HeatImageGL {
     heatDiv.style.display = 'none';
     let image = new Image();
     image.src = imageOpt.url;
+    image.setAttribute('crossOrigin', 'anonymous');
     image.width = this.imageOpt.width || 600;
     image.height = this.imageOpt.height || 600;
     this.allImage = image;

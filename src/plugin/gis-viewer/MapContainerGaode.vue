@@ -157,6 +157,10 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   public clearGeometrySearch() {
     this.mapApp.clearGeometrySearch();
   }
+  public async showDgene(params: any): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public hideDgene() {}
 }
 </script>
 

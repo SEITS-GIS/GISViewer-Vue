@@ -86,7 +86,10 @@ export default class RoutePoint {
         let content = point.fields.content;
         let count = point.fields.count;
         let type = point.fields.type && point.fields.type === '1' ? 'y' : '';
-
+        let countStr =
+          point.fields.count !== undefined
+            ? '(<span class="' + type + '"> ' + count + ' </span>' + '        )'
+            : '';
         let pointContent =
           ' <div class="td-point ' +
           type +
@@ -104,12 +107,7 @@ export default class RoutePoint {
           type +
           '">' +
           content +
-          '(<span class="' +
-          type +
-          '"> ' +
-          count +
-          ' </span>' +
-          '        )' +
+          countStr +
           '      </div>' +
           '    </div>' +
           ' </div>' +
@@ -134,7 +132,8 @@ export default class RoutePoint {
       strokeOpacity: 1,
       strokeWeight: params.width || 5,
       strokeStyle: 'solid',
-      zIndex: 1
+      zIndex: 1,
+      showDir: true
     });
     this.routeGroup.addOverlay(line);
     this.view.setFitView([line]);

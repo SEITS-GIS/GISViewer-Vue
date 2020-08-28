@@ -103,7 +103,10 @@ export class OverlayGaode {
     let addCount = 0;
 
     params.overlays.forEach((feature) => {
-      const {geometry, fields, id} = feature;
+      let {geometry, fields, id} = feature;
+      if (!fields) {
+        fields = {};
+      }
       fields.id = id;
       fields.type = params.type;
       let content;
