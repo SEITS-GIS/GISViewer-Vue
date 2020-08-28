@@ -79,6 +79,7 @@ export default class RoutePoint {
         fields: {content: '协调路口:漕宝路-柳州路', count: '2547'}
       }
     ];
+    let showDir = params.showDir === true;
     let paths = new Array();
     points.forEach((point: any) => {
       paths.push([point.geometry.x, point.geometry.y]);
@@ -133,7 +134,7 @@ export default class RoutePoint {
       strokeWeight: params.width || 5,
       strokeStyle: 'solid',
       zIndex: 1,
-      showDir: true
+      showDir: showDir
     });
     this.routeGroup.addOverlay(line);
     this.view.setFitView([line]);
