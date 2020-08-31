@@ -155,6 +155,7 @@ export class OverlayGaode {
               infoTemplate: content,
               type: 'point'
             },
+            bubble: true,
             icon: (symbol || defaultSymbol) as AMap.Icon,
             zooms: feature.zooms || params.defaultZooms,
             offset: new AMap.Pixel(xoffset as number, yoffset as number),
@@ -172,6 +173,7 @@ export class OverlayGaode {
               attributes: fields,
               infoTemplate: content
             },
+            bubble: true,
             visible: defaultVisible
           });
         }
@@ -193,6 +195,7 @@ export class OverlayGaode {
             infoTemplate: content,
             type: 'polyline'
           },
+          bubble: true,
           isOutline: symbol.isoutline || false,
           outlineColor: symbol.outlineColor || '#ffffff',
           borderWeight: symbol.borderWeight || 1,
@@ -225,6 +228,7 @@ export class OverlayGaode {
             infoTemplate: content,
             type: 'polygon'
           },
+          bubble: true,
           strokeColor: (symbol.outline && symbol.outline.color) || '#000000',
           strokeOpacity: (symbol.outline && symbol.outline.opacity) || 1,
           strokeWeight: (symbol.outline && symbol.outline.width) || 1,
@@ -254,6 +258,7 @@ export class OverlayGaode {
             new AMap.LngLat(geo.xmin, geo.ymin),
             new AMap.LngLat(geo.xmax, geo.ymax)
           ),
+          bubble: true,
           extData: {
             clickfunc: this.showGisDeviceInfo,
             mousefunc: this.mouseGisDeviceInfo,
@@ -289,6 +294,7 @@ export class OverlayGaode {
             infoTemplate: content,
             type: 'circle'
           },
+          bubble: true,
           strokeColor: (symbol.outline && symbol.outline.color) || '#000000',
           strokeOpacity: (symbol.outline && symbol.outline.opacity) || 1,
           strokeWeight: (symbol.outline && symbol.outline.width) || 1,
