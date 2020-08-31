@@ -176,8 +176,8 @@ export default class HeatImageGL {
             canvas,
             Math.max(screenPoint.x, 0),
             Math.max(screenPoint.y, 0),
-            canvas.width,
-            canvas.height
+            _that.allImage.width * step,
+            _that.allImage.height * step
           );
         }
       });

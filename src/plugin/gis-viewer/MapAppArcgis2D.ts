@@ -365,7 +365,7 @@ export default class MapAppArcGIS2D {
         })
     );
     // const dgene = DgeneFusion.getInstance(view);
-    // dgene.showDgeneFusion();
+    // dgene.addDgeneFusion();
   }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayArcgis2D.getInstance(this.view);

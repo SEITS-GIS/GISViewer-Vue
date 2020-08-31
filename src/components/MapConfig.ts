@@ -334,7 +334,7 @@ export default class MapConfig {
       defaultVisible: true,
       defaultSymbol: {
         //symbol for 2d
-        type: 'point-2d',
+        type: 'point',
         // primitive: "square",
         url: 'assets/image/Anchor.png',
         size: [50, 50],

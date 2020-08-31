@@ -61,7 +61,6 @@ export class DgeneFusion {
   private hideDgene() {}
   public async showDgene(params: any) {
     let _this = this;
-    //this.showDgeneFusion(params);
 
     this.view
       .goTo(
@@ -81,14 +80,16 @@ export class DgeneFusion {
           1
         );
 
-        _this.showFusion();
+        //_this.showFusion();
       });
   }
-  public async addOnceWatch() {
+  public async addDgeneFusion() {
     let _this = this;
-    const [watchUtils] = await loadModules(['esri/core/watchUtils']);
-    watchUtils.once(this.view, 'zoom', (newValue: any, oldValue: any) => {
-      if (newValue > 15) {
+    //this.showDgeneFusion(params);
+    this.showDgeneFusion({});
+    this.view.watch('zoom', (newValue: any, oldValue: any) => {
+      if (newValue >= 16 && oldValue < newValue) {
+        console.log('1eeeeee');
         _this.showFusion();
       }
     });
@@ -131,11 +132,18 @@ export class DgeneFusion {
     );
   }
   private hideFusion() {
-    this.addOnceWatch();
     $('#DgeneFusion').fadeOut('slow');
     $('#divMap').fadeIn(1000);
   }
   private showFusion() {
+    this.fusion_view.camFlyTo(
+      {
+        x: 0,
+        y: 200,
+        z: 45
+      },
+      1
+    );
     setTimeout(() => {
       let pos = {
         x: 100,
@@ -163,8 +171,9 @@ export class DgeneFusion {
     $('#divMap').fadeOut(1000);
     let _this = this;
     this.fusion_control.addEventListener('change', (e: any) => {
-      console.log(_this.fusion_view.getCameraPosition());
+      //console.log(_this.fusion_view.getCameraPosition());
       if (_this.fusion_view.getCameraY() > 300) {
+        console.log('hide fu');
         _this.hideFusion();
       }
     });
