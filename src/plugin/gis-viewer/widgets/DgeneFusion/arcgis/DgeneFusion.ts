@@ -1,5 +1,7 @@
 import {loadModules} from 'esri-loader';
 import $ from 'jquery';
+import {IResult} from '@/types/map';
+import {reject} from 'esri/core/promiseUtils';
 declare let Dgene: any;
 export class DgeneFusion {
   private static intances: Map<string, any>;
@@ -79,11 +81,9 @@ export class DgeneFusion {
           },
           1
         );
-
-        //_this.showFusion();
       });
   }
-  public restoreDegeneFsion(params: any) {
+  public restoreDegeneFsion(params: any): Promise<IResult> {
     let _this = this;
     let pos = {
       x: 0,
@@ -92,21 +92,28 @@ export class DgeneFusion {
     };
 
     this.fusion_view.camFlyTo(pos, 3000);
-    setTimeout(() => {
-      _this.hideFusion();
-    }, 3000);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        _this.hideFusion();
+        resolve({status: 0, message: 'restore map'});
+      }, 3300);
+    });
   }
-  public async addDgeneFusion(params: any) {
+  public async addDgeneFusion(params: any): Promise<IResult> {
     let _this = this;
-    //this.showDgeneFusion(params);
-    this.showDgeneFusion(params);
     this.view.watch('zoom', (newValue: any, oldValue: any) => {
       if (newValue >= 16 && oldValue < newValue) {
         _this.showFusion();
       }
     });
+
+    return new Promise((resolve, reject) => {
+      _this.showDgeneFusion(params).then((e: IResult) => {
+        resolve(e);
+      });
+    });
   }
-  public async showDgeneFusion(params: any) {
+  public async showDgeneFusion(params: any): Promise<IResult> {
     await loadModules([
       'libs/dgene/2.js',
       'libs/dgene/app.js',
@@ -114,34 +121,41 @@ export class DgeneFusion {
     ]);
     let setting = this.setting;
     let _this = this;
+    let callback = params.callback;
     /* eslint-disable */
     /* eslint-disable */
     // 叠境三维融合库调用示范
-    this.fusion_view = new Dgene(
-      (item: any, loaded: number, total: number) => {
-        if (Math.floor(Number(loaded / total) * 100) % 10 == 0)
-          console.log(
-            `Dgene info: data loaded ${Math.floor(
-              (loaded / total) * 100
-            ).toString()}%`
-          );
-      },
-      () => {
-        setTimeout(() => {
-          console.log('dgene fusion map onload success');
-          console.log(_this.fusion_view.initSetting.fusion);
-          for (const k in _this.fusion_view.initSetting.fusion) {
+    return new Promise((resolve, reject) => {
+      _this.fusion_view = new Dgene(
+        (item: any, loaded: number, total: number) => {
+          if (Math.floor(Number(loaded / total) * 100) % 10 == 0) {
             console.log(
-              `fusion index is >> ${_this.fusion_view.initSetting.fusion[k].index} fusion keyCode is >> ${_this.fusion_view.initSetting.fusion[k].keyCode}`
+              `Dgene info: data loaded ${Math.floor(
+                (loaded / total) * 100
+              ).toString()}%`
             );
-            _this.hideDgene();
-            let control = _this.fusion_view.getControl();
-            _this.fusion_control = control;
           }
-        }, 1000);
-      },
-      setting
-    );
+          if (callback) {
+            callback(loaded, total);
+          }
+        },
+        () => {
+          setTimeout(() => {
+            console.log('dgene fusion map onload success');
+            console.log(_this.fusion_view.initSetting.fusion);
+            for (const k in _this.fusion_view.initSetting.fusion) {
+              console.log(
+                `fusion index is >> ${_this.fusion_view.initSetting.fusion[k].index} fusion keyCode is >> ${_this.fusion_view.initSetting.fusion[k].keyCode}`
+              );
+              let control = _this.fusion_view.getControl();
+              _this.fusion_control = control;
+              resolve({status: 0, message: 'dgene fusion map onload success'});
+            }
+          }, 1000);
+        },
+        setting
+      );
+    });
   }
   private hideFusion() {
     $('#DgeneFusion').fadeOut('slow');

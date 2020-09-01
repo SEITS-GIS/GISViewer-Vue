@@ -334,7 +334,15 @@ export default class MapConfig {
     }
   };
   public async mapLoaded(map: any) {
-    map.addDgeneFusion();
+    map
+      .addDgeneFusion({
+        callback: (a: number, b: number) => {
+          console.log(a, b);
+        }
+      })
+      .then((e: any) => {
+        console.log('载入成功');
+      });
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
     // map.showDistrictMask({
@@ -606,18 +614,18 @@ export default class MapConfig {
     //   ids: ['31011300001310000003'],
     //   centerResult: true
     // });
-
-    map
-      .startGeometrySearch({
-        radius: 5000,
-        showResult: true,
-        clickHandle: (e: any) => {
-          console.log(e);
-        }
-      })
-      .then((res: any) => {
-        console.log(res.result);
-      });
+    map.restoreDegeneFsion();
+    // map
+    //   .startGeometrySearch({
+    //     radius: 5000,
+    //     showResult: true,
+    //     clickHandle: (e: any) => {
+    //       console.log(e);
+    //     }
+    //   })
+    //   .then((res: any) => {
+    //     console.log(res.result);
+    //   });
   }
   public btn_test3(map: any) {
     map.showDgene();
