@@ -58,6 +58,7 @@ export default class HeatImageGL {
     heatDiv.style.position = 'absolute';
     heatDiv.style.top = '0px';
     heatDiv.style.left = '0px';
+    heatDiv.style.opacity = '0.2';
     let parent = document.getElementsByClassName('esri-overlay-surface')[0];
     parent.appendChild(heatDiv);
     this.heat = heatDiv;
@@ -163,7 +164,6 @@ export default class HeatImageGL {
 
           let canvas = _that.heat.firstChild;
           let cts = canvas.getContext('2d');
-
           cts.globalCompositeOperation = 'destination-atop';
           cts.drawImage(
             _that.allImage,
@@ -172,12 +172,13 @@ export default class HeatImageGL {
             _that.allImage.width * step,
             _that.allImage.height * step
           );
+          let devicePixelRatio = window.devicePixelRatio || 1;
           context.drawImage(
             canvas,
             Math.max(screenPoint.x, 0),
             Math.max(screenPoint.y, 0),
-            _that.allImage.width * step,
-            _that.allImage.height * step
+            canvas.width * devicePixelRatio,
+            canvas.height * devicePixelRatio
           );
         }
       });

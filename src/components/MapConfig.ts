@@ -16,7 +16,20 @@ export default class MapConfig {
       //   type: 'webtiled',
       //   visible: true
       // }
+      // {
+      //   label: '深色',
+      //   type: 'tiled',
+      //   url: 'https://10.31.214.244/server/rest/services/bjm_cd/MapServer',
+      //   visible: true
+      // },
+      // {
+      //   label: '标注',
+      //   type: 'tiled',
+      //   url: 'https://10.31.214.244/server/rest/services/dlbj_cd/MapServer',
+      //   visible: true
+      // }
       {
+        label: '深色',
         type: 'tiled',
         url:
           'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
@@ -321,6 +334,7 @@ export default class MapConfig {
     }
   };
   public async mapLoaded(map: any) {
+    map.addDgeneFusion();
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
     // map.showDistrictMask({
@@ -329,6 +343,7 @@ export default class MapConfig {
     // });
     // map.showStreet();
     // map.showJurisdiction();
+    let overStr = '';
     let points = {
       type: 'police',
       defaultVisible: true,
@@ -355,7 +370,7 @@ export default class MapConfig {
       overlays: [
         {
           id: 'test001',
-          geometry: {x: 121.448924, y: 31.157101},
+          geometry: {x: 121.348924, y: 31.167101},
           fields: {name: '测试2', featureid: '0002'}
         },
         {
@@ -395,13 +410,36 @@ export default class MapConfig {
     const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
+    axios.get('config/a.json').then((res: any) => {
+      console.log(res.data.overlays);
+      let points = {
+        type: 'police',
+        defaultVisible: true,
+        defaultSymbol: {
+          type: 'point',
+          url: 'assets/image/Anchor.png',
+          height: 29,
+          width: 29
+        },
+        defaultTooltip: '{Name}',
+        points: res.data.overlays,
+        showPopup: true,
+        autoPopup: false,
+        defaultInfoTemplate: {
+          title: '1212',
+          content: '<div class="accc">name:{Name}</div>'
+        }
+      };
+      //const result = map.addOverlaysCluster(points);
+    });
+
     var points = [];
     var x = 0;
     var y = 0;
-    for (var i = 0; i < 1000; i++) {
-      var x1 = x + (Math.random() * 100 - 1);
-      var y1 = y + (Math.random() * 100 - 1);
-      var value = Math.floor(1000 * Math.random() + 1);
+    for (var i = 0; i < 30; i++) {
+      var x1 = x + (Math.random() * 192 - 1);
+      var y1 = (Math.random() * 100 - 1) % 2 == 0 ? 50 : 50;
+      var value = Math.floor(900 * Math.random() + 1);
       var a = i % 2 == 0 ? '1' : '0';
       points.push({
         geometry: {x: x1, y: y1},
@@ -418,7 +456,7 @@ export default class MapConfig {
       },
       options: {
         field: 'totalSpace',
-        radius: 3,
+        radius: 15,
         maxValue: 1000,
         minValue: 1
       }
@@ -431,7 +469,7 @@ export default class MapConfig {
     //     console.log(e);
     //   }
     // });
-    //map.showMigrateChart();
+    map.showMigrateChart();
     // map.addDrawLayer({
     //   layerUrls: './config/fbd/morph_ksl.json',
     //   label: '快速路'

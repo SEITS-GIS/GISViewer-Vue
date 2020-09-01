@@ -364,8 +364,6 @@ export default class MapAppArcGIS2D {
           return layer !== undefined;
         })
     );
-    // const dgene = DgeneFusion.getInstance(view);
-    // dgene.addDgeneFusion();
   }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayArcgis2D.getInstance(this.view);
@@ -478,12 +476,8 @@ export default class MapAppArcGIS2D {
     chart.hideMigrateChart();
   }
   public addHeatImage(params: IHeatImageParameter) {
-    // const heat = HeatImage.getInstance(this.view);
-    // heat.addHeatImage(params);
     const heat = HeatImageGL.getInstance(this.view);
     heat.addHeatImage(params);
-    // const heat2 = HeatImage2D.getInstance(this.view);
-    // heat2.startup();
   }
   public deleteHeatImage() {
     const heat = HeatImage.getInstance(this.view);
@@ -499,7 +493,14 @@ export default class MapAppArcGIS2D {
     let geometrySearch = GeometrySearch.getInstance(this.view);
     geometrySearch.clearGeometrySearch();
   }
-
+  public async addDgeneFusion(params: any): Promise<IResult> {
+    const dgene = DgeneFusion.getInstance(this.view);
+    return await dgene.addDgeneFusion(params);
+  }
+  public async restoreDegeneFsion(): Promise<IResult> {
+    const dgene = DgeneFusion.getInstance(this.view);
+    return await dgene.restoreDegeneFsion();
+  }
   public async showDgene(params: any): Promise<IResult> {
     let dgene = DgeneFusion.getInstance(this.view);
     return await dgene.showDgene(params);

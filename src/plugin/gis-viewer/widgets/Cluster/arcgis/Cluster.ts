@@ -141,7 +141,7 @@ export class Cluster {
       'esri/symbols/SimpleFillSymbol',
       'esri/symbols/SimpleLineSymbol',
       'esri/symbols/SimpleMarkerSymbol',
-      'libs/FlareClusterLayer_v4',
+      'libs/FlareClusterLayer_v4.js',
       'esri/geometry/support/webMercatorUtils',
       'esri/geometry/Point'
     ]);

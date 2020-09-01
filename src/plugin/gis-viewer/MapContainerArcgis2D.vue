@@ -139,6 +139,12 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public hideDgene() {
     this.mapApp.hideDgene();
   }
+  public async addDgeneFusion(params: any): Promise<IResult> {
+    return await this.mapApp.addDgeneFusion(params);
+  }
+  public async restoreDegeneFsion(): Promise<IResult> {
+    return await this.mapApp.restoreDegeneFsion();
+  }
 }
 </script>
 

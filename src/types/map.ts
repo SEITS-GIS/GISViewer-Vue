@@ -171,6 +171,8 @@ export interface IMapContainer {
   clearGeometrySearch: () => void;
   showDgene: (params: any) => Promise<IResult>;
   hideDgene: () => void;
+  addDgeneFusion: (params: any) => Promise<IResult>;
+  restoreDegeneFsion: () => Promise<IResult>;
 }
 export interface IPopUpTemplate {
   title?: string;

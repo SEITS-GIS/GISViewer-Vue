@@ -83,13 +83,25 @@ export class DgeneFusion {
         //_this.showFusion();
       });
   }
-  public async addDgeneFusion() {
+  public restoreDegeneFsion(params: any) {
+    let _this = this;
+    let pos = {
+      x: 0,
+      y: 300,
+      z: 45
+    };
+
+    this.fusion_view.camFlyTo(pos, 3000);
+    setTimeout(() => {
+      _this.hideFusion();
+    }, 3000);
+  }
+  public async addDgeneFusion(params: any) {
     let _this = this;
     //this.showDgeneFusion(params);
-    this.showDgeneFusion({});
+    this.showDgeneFusion(params);
     this.view.watch('zoom', (newValue: any, oldValue: any) => {
       if (newValue >= 16 && oldValue < newValue) {
-        console.log('1eeeeee');
         _this.showFusion();
       }
     });

@@ -248,4 +248,10 @@ export default class MapAppBaidu implements IMapContainer {
     return {status: 0, message: ''};
   }
   public hideDgene() {}
+  public async addDgeneFusion(params: any): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
+  public async restoreDegeneFsion(): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
 }

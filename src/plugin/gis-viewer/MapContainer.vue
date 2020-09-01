@@ -245,6 +245,12 @@ export default class MapContainer extends Vue implements IMapContainer {
   public hideDgene() {
     this.mapContainer.hideDgene();
   }
+  public async addDgeneFusion(params: any): Promise<IResult> {
+    return await this.mapContainer.addDgeneFusion(params);
+  }
+  public async restoreDegeneFsion(): Promise<IResult> {
+    return await this.mapContainer.restoreDegeneFsion();
+  }
 }
 </script>
 
