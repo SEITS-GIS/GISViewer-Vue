@@ -8,7 +8,7 @@ export default class MapConfig {
     //arcgis_api: 'http://128.64.130.247:8219/baidumap/jsapi/api.js',
     //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
     //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
-    theme: 'dark', //dark,vec
+    theme: 'custom', //dark,vec
     baseLayers: [
       // {
       //   label: '深色',
@@ -16,27 +16,107 @@ export default class MapConfig {
       //   type: 'webtiled',
       //   visible: true
       // }
-      // {
-      //   label: '深色',
-      //   type: 'tiled',
-      //   url: 'https://10.31.214.244/server/rest/services/bjm_cd/MapServer',
-      //   visible: true
-      // },
-      // {
-      //   label: '标注',
-      //   type: 'tiled',
-      //   url: 'https://10.31.214.244/server/rest/services/dlbj_cd/MapServer',
-      //   visible: true
-      // }
       {
         label: '深色',
         type: 'tiled',
-        url:
-          'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
+        url: 'https://10.31.214.244/server/rest/services/bjm_cd/MapServer',
+        visible: true
+      },
+      {
+        label: '标注',
+        type: 'tiled',
+        url: 'https://10.31.214.244/server/rest/services/dlbj_cd/MapServer',
         visible: true
       }
+      // {
+      //   label: '深色',
+      //   type: 'tiled',
+      //   url:
+      //     'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
+      //   visible: true
+      // }
     ],
     operationallayers: [
+      // {
+      //   label: '高速公路',
+      //   type: 'dynamic',
+      //   url: 'https://10.31.214.244/server/rest/services/gsl_dpt/MapServer',
+      //   visible: true
+      // },
+      // {
+      //   label: '地面道路',
+      //   type: 'dynamic',
+      //   url: 'https://10.31.214.244/server/rest/services/dm_dpt/MapServer',
+      //   visible: false
+      // },
+      // {
+      //   label: '快速路',
+      //   type: 'dynamic',
+      //   url: 'https://10.31.214.244/server/rest/services/ksl_dpt/MapServer',
+      //   visible: true
+      // },
+      // {
+      //   label: '标线',
+      //   type: 'dynamic',
+      //   url: 'https://10.31.214.244/server/rest/services/bx/MapServer',
+      //   visible: true
+      // },
+
+      {
+        label: '匝道灯3',
+        type: 'dynamic',
+        url:
+          'http://10.31.214.201:6080/arcgis/rest/services/YJZH/KuaiSuLu_fbd/MapServer',
+        refreshInterval: 1,
+        // url:
+        //   'http://10.31.152.89:6080/arcgis/rest/services/ksl/ksl_fbd_morph/MapServer/1',
+        visible: true,
+        outFields: ['*']
+      },
+      {
+        label: '匝道灯1',
+        type: 'feature',
+        url:
+          'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_devices/MapServer/0',
+        refreshInterval: 1,
+        // url:
+        //   'http://10.31.152.89:6080/arcgis/rest/services/ksl/ksl_fbd_morph/MapServer/1',
+        visible: true,
+        outFields: ['*'],
+        popupTemplate: {
+          title: '',
+          content:
+            '<div>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/></div>'
+        }
+      },
+      {
+        label: '匝道灯2',
+        type: 'feature',
+        url:
+          'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_event/MapServer/0',
+        refreshInterval: 1,
+        // url:
+        //   'http://10.31.152.89:6080/arcgis/rest/services/ksl/ksl_fbd_morph/MapServer/1',
+        visible: true,
+        outFields: ['*'],
+        popupTemplate: {
+          title: '',
+          content: '<div>{YJZH.EVENT.DEVICEDESC}</div>'
+        },
+        renderer: {
+          type: 'simple', // autocasts as new SimpleRenderer()
+          symbol: {
+            type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
+            color: 'rgba(12,12,255,1)',
+            size: 20,
+            outline: {
+              // autocasts as new SimpleLineSymbol()
+              width: 2,
+              color: 'red'
+            }
+          }
+        }
+      }
       // {
       //   label: 'fbd1333',
       //   url: './config/fbd/六大队.json',
@@ -290,19 +370,20 @@ export default class MapConfig {
     //gisServer: 'http://128.64.151.245:8019',
     options: {
       //for arcgis-2d
-      center: [121.415, 31.174],
-      zoom: 11,
-      //viewingMode: 'local'
-      // ground: {opacity: 0},
+      //center: [0, 0],
+      center: [0, 0],
+      zoom: 3,
+      //viewingMode: 'global',
+      // ground: {opacity: 1},
       // alphaCompositingEnabled: true,
       // environment: {
       //   background: {
       //     type: 'color',
-      //     color: [255, 0, 0, 0.5]
+      //     color: [255, 255, 255]
       //   },
       //   starsEnabled: false,
       //   atmosphereEnabled: false
-      // }
+      // },
       //viewMode: '3D',
       constraints: {
         rotationEnabled: false,
@@ -342,7 +423,8 @@ export default class MapConfig {
       })
       .then((e: any) => {
         console.log('载入成功');
-      });
+      }); //载入3维模型
+    //map.showDgene();
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
     // map.showDistrictMask({
@@ -376,46 +458,71 @@ export default class MapConfig {
         //anchor: "bottom",
       },
       overlays: [
+        // {
+        //   id: 'test001',
+        //   geometry: {x: 121.448924, y: 31.157101},
+        //   fields: {name: '测试2', featureid: '0002'}
+        // },
+        // {
+        //   id: 'test002',
+        //   geometry: {x: 121.418924, y: 31.157101},
+        //   fields: {name: '测试3', featureid: '0003'}
+        // },
+        // {
+        //   id: '1111',
+        //   geometry: {
+        //     paths: [
+        //       [
+        //         [121.31, 31.01],
+        //         [121.2, 31.22],
+        //         [121.1, 31.33],
+        //         [121.45, 30.89]
+        //       ]
+        //     ]
+        //   },
+        //   symbol: {color: 'red'},
+        //   fields: {name: '测试222', featureid: '0003'}
+        // },
+        // {
+        //   id: 'test003',
+        //   geometry: {x: 121.418924, y: 31.257101},
+        //   fields: {name: '测试4', featureid: '0001'}
+        // }
         {
           id: 'test001',
-          geometry: {x: 121.348924, y: 31.167101},
+          geometry: {
+            x: -14553.805845333449,
+            y: -4237.1518463943485
+          },
           fields: {name: '测试2', featureid: '0002'}
         },
         {
           id: 'test002',
-          geometry: {x: 121.418924, y: 31.157101},
+          geometry: {
+            x: -15553.805845333449,
+            y: -4637.1518463943485
+          },
           fields: {name: '测试3', featureid: '0003'}
         },
         {
-          id: '1111',
-          geometry: {
-            paths: [
-              [
-                [121.31, 31.01],
-                [121.2, 31.22],
-                [121.1, 31.33],
-                [121.45, 30.89]
-              ]
-            ]
-          },
-          symbol: {color: 'red'},
-          fields: {name: '测试222', featureid: '0003'}
-        },
-        {
           id: 'test003',
-          geometry: {x: 121.418924, y: 31.257101},
+          geometry: {
+            x: -25553.805845333449,
+            y: -14637.1518463943485
+          },
           fields: {name: '测试4', featureid: '0001'}
         }
       ],
       showPopup: true,
       autoPopup: false,
+      iswgs: false,
       defaultInfoTemplate: {
         title: '1212',
         content: '<div class="accc">name:{name}</div>'
       },
       defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
     };
-    const result = await map.addOverlays(points);
+    //const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
     axios.get('config/a.json').then((res: any) => {
@@ -457,7 +564,7 @@ export default class MapConfig {
     var json = {
       points: points,
       images: {
-        geometry: {x: 121.3226, y: 31.19456},
+        geometry: {x: 121.3226, y: 31.19456}, //{x: -14553.805845333449, y: -4237.1518463943485},
         width: 192,
         height: 108,
         url: 'http://localhost/12.svg'
@@ -628,7 +735,7 @@ export default class MapConfig {
     //   });
   }
   public btn_test3(map: any) {
-    map.showDgene();
+    map.showDgene(); //显示三维模型
     //map.showLayer({label: 'fbd1333'});
     //map.clearGeometrySearch();
     //map.deleteHeatImage();

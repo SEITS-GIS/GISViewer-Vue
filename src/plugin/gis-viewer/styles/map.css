@@ -6,6 +6,10 @@
   line-height: 35px;
   text-align: center;
   min-height: 35px;
+  max-width: 270px;
+  text-align: left;
+  line-height: 22px;
+  color: white !important;
   /* height: 30px; */
 }
 .esri-popup__pointer-direction {

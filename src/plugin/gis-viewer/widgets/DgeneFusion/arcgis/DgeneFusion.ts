@@ -2,29 +2,44 @@ import {loadModules} from 'esri-loader';
 import $ from 'jquery';
 import {IResult} from '@/types/map';
 import {reject} from 'esri/core/promiseUtils';
+import videoJson from './config/fusion.json';
+
 declare let Dgene: any;
 export class DgeneFusion {
   private static intances: Map<string, any>;
   private view!: any;
+  private showZoom: number = 10;
+  private mouseEventFn: any;
+  private originView: any = {
+    x: 0,
+    y: 300,
+    z: 45
+  };
+  private FlyView: any = {
+    x: 180,
+    y: 30,
+    z: 45
+  };
   private setting: any = {
-    isLocal: false, // isLocal?apiBase = 'static/api':apiBase = 'project/api/'+id
-    url: 'http://fusion.dgene.com/api',
+    isLocal: true, // isLocal?apiBase = 'static/api':apiBase = 'project/api/'+id
+    url: 'http://10.31.251.205/test/static/api/',
     api: {
       // http://fusion.dgene.com/admin/project/v2/11
-      apiBase: '/v2/23',
+      apiBase: 'http://10.31.251.205/test/static/api/',
       // apiBase: '/v2/11',
       file: '/file',
       scene: '/scene',
       fusion: '/fusion'
     },
     // loadType 模型贴图资源指向
-    loadType: 'url',
+    loadType: 'local',
     // 视频来源地址,请注意同源协议规范
     videoSource: 'src',
     // isDown 是否开启管理员隐藏 点击获取模块
-    isDown: false,
+    isDown: true,
     // 动画时间和融合时间
-    animateDuringTime: 1000,
+    animateDuringTime: 3000,
+    fusionTime: 1000,
     // fov 窗口系数
     fovWinScale: 1.1,
     // 是否开启gui
@@ -37,6 +52,7 @@ export class DgeneFusion {
       'FtJXj7vVFLjHaXfL7vOZYuxnfZ3KCU54ywKhJMuvC7l2jG0TqYpFGlu5dIv0hWTs',
     // 是否开启outline
     isOutLine: false,
+    appendDomID: 'dgeneDiv',
     id: 'canvas'
   };
   private fusion_view: any;
@@ -64,32 +80,47 @@ export class DgeneFusion {
   public async showDgene(params: any) {
     let _this = this;
 
+    this.view.watch('zoom', (newValue: any, oldValue: any) => {
+      if (newValue >= this.showZoom && oldValue < newValue) {
+        _this.showFusion();
+      }
+    });
+    this.stopMouseWheelEvent(true);
     this.view
       .goTo(
         {
           center: this.view.center,
-          zoom: 16
+          zoom: this.showZoom
         },
         {duration: 5000}
       )
       .then(() => {
-        this.fusion_view.camFlyTo(
-          {
-            x: 0,
-            y: 200,
-            z: 45
-          },
-          1
-        );
+        _this.stopMouseWheelEvent(false);
+        _this.fusion_view.camFlyTo(this.originView, 1);
       });
+  }
+  public stopMouseWheelEvent(param: boolean) {
+    if (!param) {
+      if (this.mouseEventFn) {
+        this.mouseEventFn.remove();
+      }
+    } else {
+      this.mouseEventFn = this.view.on('mouse-wheel', (evt: any) => {
+        if (evt && evt.stopPropagation) {
+          //因此它支持W3C的stopPropagation()方法
+          evt.stopPropagation();
+        } else if (evt && evt.srcEvent) {
+          evt.srcEvent.stopPropagation();
+        } else {
+          //否则，我们需要使用IE的方式来取消事件冒泡
+          (window as any).event.cancelBubble = true;
+        }
+      });
+    }
   }
   public restoreDegeneFsion(params: any): Promise<IResult> {
     let _this = this;
-    let pos = {
-      x: 0,
-      y: 300,
-      z: 45
-    };
+    let pos = this.originView;
 
     this.fusion_view.camFlyTo(pos, 3000);
     return new Promise((resolve, reject) => {
@@ -101,17 +132,45 @@ export class DgeneFusion {
   }
   public async addDgeneFusion(params: any): Promise<IResult> {
     let _this = this;
-    this.view.watch('zoom', (newValue: any, oldValue: any) => {
-      if (newValue >= 16 && oldValue < newValue) {
-        _this.showFusion();
-      }
-    });
+    let parentid = params.appendDomID || 'app';
+    let dgeneDiv = document.createElement('div');
+    dgeneDiv.style.width = this.view.width + 'px';
+    dgeneDiv.style.height = this.view.height + 'px';
+    dgeneDiv.setAttribute('id', 'dgeneDiv');
+    dgeneDiv.style.position = 'absolute';
+    dgeneDiv.style.display = 'none';
+    dgeneDiv.style.top = '0px';
+    dgeneDiv.style.left = '0px';
+    let divmap = document.getElementById(parentid) as any;
+    divmap.appendChild(dgeneDiv);
 
     return new Promise((resolve, reject) => {
       _this.showDgeneFusion(params).then((e: IResult) => {
+        _this.addVideo();
         resolve(e);
       });
     });
+  }
+  public async addVideo() {
+    let videodata = videoJson.data;
+    if (videodata) {
+      for (let data in videodata) {
+        let posion = (videodata as any)[data].camJson.position;
+        this.fusion_view.loadMapSprite(
+          './assets/image/video.png',
+          data,
+          {
+            x: posion.x,
+            y: posion.y + 2,
+            z: posion.z
+          },
+          4
+        );
+      }
+    }
+  }
+  public async showVideo(params: any) {
+    this.fusion_view.activeFuse(name);
   }
   public async showDgeneFusion(params: any): Promise<IResult> {
     await loadModules([
@@ -153,29 +212,22 @@ export class DgeneFusion {
             }
           }, 1000);
         },
-        setting
+        setting,
+        (name: any) => {
+          _this.fusion_view.activeFuse(name);
+        }
       );
     });
   }
   private hideFusion() {
-    $('#DgeneFusion').fadeOut('slow');
+    $('#dgeneDiv').fadeOut('slow');
     $('#divMap').fadeIn(1000);
   }
   private showFusion() {
-    this.fusion_view.camFlyTo(
-      {
-        x: 0,
-        y: 200,
-        z: 45
-      },
-      1
-    );
+    let _this = this;
+    this.fusion_view.camFlyTo(this.originView, 1);
     setTimeout(() => {
-      let pos = {
-        x: 100,
-        y: 50,
-        z: 50
-      };
+      let pos = _this.FlyView;
 
       this.fusion_view.camFlyTo(pos, 5000);
       console.log(this.fusion_view.getCameraPosition());
@@ -183,7 +235,7 @@ export class DgeneFusion {
     $('#gisDiv').css({
       'background-color': '#003452'
     });
-    $('#DgeneFusion').css({
+    $('#dgeneDiv').css({
       display: 'flex',
       position: 'fixed',
       width: '100vw',
@@ -192,10 +244,9 @@ export class DgeneFusion {
       top: '0px',
       left: '0px'
     });
-    $('#DgeneFusion').fadeIn('slow');
+    $('#dgeneDiv').fadeIn('slow');
 
     $('#divMap').fadeOut(1000);
-    let _this = this;
     this.fusion_control.addEventListener('change', (e: any) => {
       //console.log(_this.fusion_view.getCameraPosition());
       if (_this.fusion_view.getCameraY() > 300) {

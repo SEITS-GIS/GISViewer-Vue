@@ -8,7 +8,7 @@ export default class HeatImageGL {
   private heatmapInstance: any;
   private customLayer: any;
   private heat: any;
-  private scale: number = 144447;
+  private scale: number = 16000;
   private allImage: any;
   private heatData: any;
   private options: any;
@@ -131,8 +131,8 @@ export default class HeatImageGL {
           let step = _that.scale / _that.view.scale;
           let point = new Point({
             x: pt.x,
-            y: pt.y,
-            spatialReference: new SpatialReference({wkid: 4326})
+            y: pt.y
+            //spatialReference: _that.view.spatialReference
           });
           let screenPoint = _that.view.toScreen(point);
 

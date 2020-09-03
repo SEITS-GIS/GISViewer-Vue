@@ -124,35 +124,35 @@ export default class MapAppArcGIS3D implements IMapContainer {
       }
       const response = await view.hitTest(event);
       if (response.results.length > 0) {
-        response.results.forEach((result) => {
-          const graphic = result.graphic;
-          let {type, id} = graphic.attributes;
-          let label = graphic.layer ? (graphic.layer as any).label : '';
-          if (
-            graphic.layer &&
-            (graphic.layer.type == 'feature' ||
-              graphic.layer.type == 'graphics')
-          ) {
-            id =
-              graphic.attributes['DEVICEID'] ||
-              graphic.attributes['FEATUREID'] ||
-              graphic.attributes['SECTIONID'] ||
-              graphic.attributes['id'] ||
-              graphic.attributes['ID'] ||
-              undefined;
-            type =
-              graphic.attributes['DEVICETYPE'] ||
-              graphic.attributes['FEATURETYPE'] ||
-              graphic.attributes['FEATURETYP'] ||
-              graphic.attributes['type'] ||
-              graphic.attributes['TYPE'] ||
-              label ||
-              undefined;
-          }
-          //if (id) {
-          this.showGisDeviceInfo(type, id, graphic.toJSON());
-          //}
-        });
+        // response.results.forEach((result) => {
+        //   //}
+        // });
+        let result = response.results[0];
+        const graphic = result.graphic;
+        let {type, id} = graphic.attributes;
+        let label = graphic.layer ? (graphic.layer as any).label : '';
+        if (
+          graphic.layer &&
+          (graphic.layer.type == 'feature' || graphic.layer.type == 'graphics')
+        ) {
+          id =
+            graphic.attributes['DEVICEID'] ||
+            graphic.attributes['FEATUREID'] ||
+            graphic.attributes['SECTIONID'] ||
+            graphic.attributes['id'] ||
+            graphic.attributes['ID'] ||
+            undefined;
+          type =
+            graphic.attributes['DEVICETYPE'] ||
+            graphic.attributes['FEATURETYPE'] ||
+            graphic.attributes['FEATURETYP'] ||
+            graphic.attributes['type'] ||
+            graphic.attributes['TYPE'] ||
+            label ||
+            undefined;
+        }
+        //if (id) {
+        this.showGisDeviceInfo(type, id, graphic.toJSON());
       } else {
         this.doIdentifyTask(event.mapPoint).then((results: any) => {
           if (results.length > 0) {

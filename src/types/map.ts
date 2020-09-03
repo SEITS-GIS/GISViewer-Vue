@@ -121,6 +121,7 @@ export interface IOverlayParameter {
   showToolTip?: boolean; //鼠标移到该点位是，是否显示悬浮窗
   toolTipContent?: string; //悬浮窗内容
   defaultVisible?: boolean;
+  iswgs?: boolean;
 }
 export interface IOverlayClusterParameter {
   points: Array<IOverlay>;

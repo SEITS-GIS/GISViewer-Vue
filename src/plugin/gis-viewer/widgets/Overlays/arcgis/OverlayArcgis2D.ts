@@ -184,10 +184,18 @@ export class OverlayArcgis2D {
       await this.createOverlayLayer();
     }
 
-    const [Graphic, geometryJsonUtils, PopupTemplate] = await loadModules([
+    const [
+      Graphic,
+      geometryJsonUtils,
+      PopupTemplate,
+      SpatialReference,
+      WebMercatorUtils
+    ] = await loadModules([
       'esri/Graphic',
       'esri/geometry/support/jsonUtils',
-      'esri/PopupTemplate'
+      'esri/PopupTemplate',
+      'esri/geometry/SpatialReference',
+      'esri/geometry/support/webMercatorUtils'
     ]);
 
     const defaultSymbol = this.makeSymbol(params.defaultSymbol);
@@ -196,6 +204,7 @@ export class OverlayArcgis2D {
     const autoPopup = params.autoPopup;
     const defaultButtons = params.defaultButtons;
     const defaultVisible = params.defaultVisible !== false;
+    const iswgs = params.iswgs !== false;
 
     let addCount = 0;
     for (let i = 0; i < params.overlays.length; i++) {
@@ -204,7 +213,10 @@ export class OverlayArcgis2D {
         (overlay.geometry as any).x = Number((overlay.geometry as any).x);
         (overlay.geometry as any).y = Number((overlay.geometry as any).y);
       }
-      const geometry = geometryJsonUtils.fromJSON(overlay.geometry);
+      if (!iswgs) {
+        (overlay.geometry as any).spatialReference = this.view.spatialReference;
+      }
+      let geometry = geometryJsonUtils.fromJSON(overlay.geometry);
       if (overlay.symbol && !overlay.symbol.type) {
         overlay.symbol.type = geometry.type;
       }
