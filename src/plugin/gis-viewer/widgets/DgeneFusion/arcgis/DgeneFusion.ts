@@ -174,9 +174,9 @@ export class DgeneFusion {
   }
   public async showDgeneFusion(params: any): Promise<IResult> {
     await loadModules([
+      'libs/dgene/runtime.js',
       'libs/dgene/2.js',
-      'libs/dgene/app.js',
-      'libs/dgene/runtime.js'
+      'libs/dgene/app.js'
     ]);
     let setting = this.setting;
     let _this = this;

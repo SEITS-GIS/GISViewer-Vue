@@ -417,6 +417,7 @@ export default class MapConfig {
   public async mapLoaded(map: any) {
     map
       .addDgeneFusion({
+        appendDomID: 'gisDiv',
         callback: (a: number, b: number) => {
           console.log(a, b);
         }
