@@ -9,6 +9,8 @@ export default class HeatImageGL {
   private customLayer: any;
   private heat: any;
   private scale: number = 16000;
+  private factor: number = 8;
+  private imageCenter: any;
   private allImage: any;
   private heatData: any;
   private options: any;
@@ -47,6 +49,9 @@ export default class HeatImageGL {
     let points = params.points;
     let imageOpt = params.images;
     this.imageOpt = imageOpt;
+    this.scale = imageOpt.scale || this.scale;
+    this.factor = imageOpt.factor || this.factor;
+    this.imageCenter = imageOpt.center || imageOpt.geometry;
 
     let step = this.scale / this.view.scale;
 
@@ -126,13 +131,23 @@ export default class HeatImageGL {
       'libs/heatmap.min.js'
     ]).then(([BaseLayerView2D, Point, SpatialReference, Layer, h337]) => {
       let TileBorderLayerView2D = BaseLayerView2D.createSubclass({
+        attach: () => {
+          if (_that.imageCenter) {
+            let point = new Point({
+              x: _that.imageCenter.x,
+              y: _that.imageCenter.y,
+              spatialReference: _that.view.spatialReference
+            });
+            _that.view.goTo({center: point, scale: _that.scale / 8});
+          }
+        },
         render: (renderParameters: any) => {
           var context = renderParameters.context;
           let step = _that.scale / _that.view.scale;
           let point = new Point({
             x: pt.x,
-            y: pt.y
-            //spatialReference: _that.view.spatialReference
+            y: pt.y,
+            spatialReference: _that.view.spatialReference
           });
           let screenPoint = _that.view.toScreen(point);
 

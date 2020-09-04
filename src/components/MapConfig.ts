@@ -61,62 +61,61 @@ export default class MapConfig {
       //   url: 'https://10.31.214.244/server/rest/services/bx/MapServer',
       //   visible: true
       // },
-
-      {
-        label: '匝道灯3',
-        type: 'dynamic',
-        url:
-          'http://10.31.214.201:6080/arcgis/rest/services/YJZH/KuaiSuLu_fbd/MapServer',
-        refreshInterval: 1,
-        // url:
-        //   'http://10.31.152.89:6080/arcgis/rest/services/ksl/ksl_fbd_morph/MapServer/1',
-        visible: true,
-        outFields: ['*']
-      },
-      {
-        label: '匝道灯1',
-        type: 'feature',
-        url:
-          'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_devices/MapServer/0',
-        refreshInterval: 1,
-        // url:
-        //   'http://10.31.152.89:6080/arcgis/rest/services/ksl/ksl_fbd_morph/MapServer/1',
-        visible: true,
-        outFields: ['*'],
-        popupTemplate: {
-          title: '',
-          content:
-            '<div>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/></div>'
-        }
-      },
-      {
-        label: '匝道灯2',
-        type: 'feature',
-        url:
-          'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_event/MapServer/0',
-        refreshInterval: 1,
-        // url:
-        //   'http://10.31.152.89:6080/arcgis/rest/services/ksl/ksl_fbd_morph/MapServer/1',
-        visible: true,
-        outFields: ['*'],
-        popupTemplate: {
-          title: '',
-          content: '<div>{YJZH.EVENT.DEVICEDESC}</div>'
-        },
-        renderer: {
-          type: 'simple', // autocasts as new SimpleRenderer()
-          symbol: {
-            type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
-            color: 'rgba(12,12,255,1)',
-            size: 20,
-            outline: {
-              // autocasts as new SimpleLineSymbol()
-              width: 2,
-              color: 'red'
-            }
-          }
-        }
-      }
+      // {
+      //   label: '匝道灯3',
+      //   type: 'dynamic',
+      //   url:
+      //     'http://10.31.214.201:6080/arcgis/rest/services/YJZH/KuaiSuLu_fbd/MapServer',
+      //   refreshInterval: 1,
+      //   // url:
+      //   //   'http://10.31.152.89:6080/arcgis/rest/services/ksl/ksl_fbd_morph/MapServer/1',
+      //   visible: true,
+      //   outFields: ['*']
+      // },
+      // {
+      //   label: '匝道灯1',
+      //   type: 'feature',
+      //   url:
+      //     'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_devices/MapServer/0',
+      //   refreshInterval: 1,
+      //   // url:
+      //   //   'http://10.31.152.89:6080/arcgis/rest/services/ksl/ksl_fbd_morph/MapServer/1',
+      //   visible: true,
+      //   outFields: ['*'],
+      //   popupTemplate: {
+      //     title: '',
+      //     content:
+      //       '<div>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/></div>'
+      //   }
+      // },
+      // {
+      //   label: '匝道灯2',
+      //   type: 'feature',
+      //   url:
+      //     'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_event/MapServer/0',
+      //   refreshInterval: 1,
+      //   // url:
+      //   //   'http://10.31.152.89:6080/arcgis/rest/services/ksl/ksl_fbd_morph/MapServer/1',
+      //   visible: true,
+      //   outFields: ['*'],
+      //   popupTemplate: {
+      //     title: '',
+      //     content: '<div>{YJZH.EVENT.DEVICEDESC}</div>'
+      //   },
+      //   renderer: {
+      //     type: 'simple', // autocasts as new SimpleRenderer()
+      //     symbol: {
+      //       type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
+      //       color: 'rgba(12,12,255,1)',
+      //       size: 20,
+      //       outline: {
+      //         // autocasts as new SimpleLineSymbol()
+      //         width: 2,
+      //         color: 'red'
+      //       }
+      //     }
+      //   }
+      // }
       // {
       //   label: 'fbd1333',
       //   url: './config/fbd/六大队.json',
@@ -370,9 +369,10 @@ export default class MapConfig {
     //gisServer: 'http://128.64.151.245:8019',
     options: {
       //for arcgis-2d
-      //center: [0, 0],
+      //center: [100, 0.5],
       center: [0, 0],
       zoom: 3,
+      spatialReference: {wkid: 3857},
       //viewingMode: 'global',
       // ground: {opacity: 1},
       // alphaCompositingEnabled: true,
@@ -552,9 +552,9 @@ export default class MapConfig {
     var points = [];
     var x = 0;
     var y = 0;
-    for (var i = 0; i < 30; i++) {
-      var x1 = x + (Math.random() * 192 - 1);
-      var y1 = (Math.random() * 100 - 1) % 2 == 0 ? 50 : 50;
+    for (var i = 0; i < 60; i++) {
+      var x1 = x + (Math.random() * 202 - 1);
+      var y1 = Math.floor(Math.random() * 100) % 2 == 0 ? 20 : 80;
       var value = Math.floor(900 * Math.random() + 1);
       var a = i % 2 == 0 ? '1' : '0';
       points.push({
@@ -562,13 +562,16 @@ export default class MapConfig {
         fields: {desc: '上海体育馆停车场', totalSpace: value, type: a}
       });
     }
+    console.log(points);
     var json = {
       points: points,
       images: {
-        geometry: {x: 121.3226, y: 31.19456}, //{x: -14553.805845333449, y: -4237.1518463943485},
-        width: 192,
-        height: 108,
-        url: 'http://localhost/12.svg'
+        geometry: {x: -14553.805845333449, y: -4137.1518463943485},
+        width: 202,
+        height: 101,
+        url: 'http://localhost/HQ.svg',
+        center: {x: -14124.415959211594, y: -4342.546650737293},
+        factor: 8
       },
       options: {
         field: 'totalSpace',
@@ -578,6 +581,7 @@ export default class MapConfig {
       }
     };
     map.addHeatImage(json);
+
     // map.startGeometrySearch({
     //   radius: 12000,
     //   showResult: true,
@@ -672,42 +676,53 @@ export default class MapConfig {
       }
     };
     //map.addHeatMap(json);
-    // map.addOverlays({
-    //   type: 'police',
-    //   defaultSymbol: {
-    //     //symbol for 2d
-    //     type: 'point-2d',
-    //     // primitive: "square",
-    //     url: 'assets/image/Anchor.png',
-    //     size: [50, 50],
-    //     anchor: 'center'
-    //   },
-    //   defaultZooms: [10, 20],
-    //   overlays: [
-    //     {
-    //       id: 'test001',
-    //       geometry: {x: 121.448924, y: 31.137101},
-    //       fields: {name: '测试2', featureid: '0002'}
-    //     },
-    //     {
-    //       id: 'test002',
-    //       geometry: {x: 121.318924, y: 31.157101},
-    //       fields: {name: '测试3', featureid: '0003'}
-    //     },
-    //     {
-    //       id: 'test003',
-    //       geometry: {x: 121.418924, y: 31.257101},
-    //       fields: {name: '测试4', featureid: '0001'}
-    //     }
-    //   ],
-    //   showPopup: true,
-    //   autoPopup: false,
-    //   defaultInfoTemplate: {
-    //     title: '1212',
-    //     content: '<div>name:{name}<br/><button>{name}</button></div>'
-    //   },
-    //   defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
-    // });
+    let points2 = {
+      type: 'police',
+      defaultVisible: true,
+      defaultSymbol: {
+        //symbol for 2d
+        type: 'point',
+        // primitive: "square",
+        url: 'assets/image/Anchor.png',
+        size: [50, 50],
+        anchor: 'center'
+      },
+      overlays: [
+        {
+          id: 'test001',
+          geometry: {
+            x: -14553.805845333449,
+            y: -4237.1518463943485
+          },
+          fields: {name: '测试2', featureid: '0002'}
+        },
+        {
+          id: 'test002',
+          geometry: {
+            x: -15553.805845333449,
+            y: -4637.1518463943485
+          },
+          fields: {name: '测试3', featureid: '0003'}
+        },
+        {
+          id: 'test003',
+          geometry: {
+            x: -25553.805845333449,
+            y: -14637.1518463943485
+          },
+          fields: {name: '测试4', featureid: '0001'}
+        }
+      ],
+      showPopup: true,
+      autoPopup: false,
+      iswgs: false,
+      defaultInfoTemplate: {
+        title: '1212',
+        content: '<div class="accc">name:{name}</div>'
+      },
+      defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
+    };
+    const result = map.addOverlays(points2);
     //map.showLayer({label: 'ceshi'});
     // map.hideLayer({type: 'traffic'});
     // // map.showDistrictMask({

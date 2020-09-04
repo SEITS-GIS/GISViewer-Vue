@@ -190,6 +190,9 @@ export interface IHeatImageParameter {
     url: string;
     width: number;
     heigth: number;
+    center: {x: number; y: number}; //图片中心位置
+    factor: number; //图片显示倍率
+    scale: number; //图片显示比例
     geometry: {x: number; y: number};
   };
 }

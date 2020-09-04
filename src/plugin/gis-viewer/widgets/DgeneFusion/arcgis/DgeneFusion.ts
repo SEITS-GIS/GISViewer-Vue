@@ -12,7 +12,7 @@ export class DgeneFusion {
   private mouseEventFn: any;
   private originView: any = {
     x: 0,
-    y: 300,
+    y: 1000,
     z: 45
   };
   private FlyView: any = {
@@ -249,7 +249,7 @@ export class DgeneFusion {
     $('#divMap').fadeOut(1000);
     this.fusion_control.addEventListener('change', (e: any) => {
       //console.log(_this.fusion_view.getCameraPosition());
-      if (_this.fusion_view.getCameraY() > 300) {
+      if (_this.fusion_view.getCameraY() > 1000) {
         console.log('hide fu');
         _this.hideFusion();
       }

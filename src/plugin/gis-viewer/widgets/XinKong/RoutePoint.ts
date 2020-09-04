@@ -32,7 +32,7 @@ export default class RoutePoint {
     }
   }
   public async showRoutePoint(params: any) {
-    this.clearRoutePoint();
+    //this.clearRoutePoint();
     if (!params) {
       params = {};
     }

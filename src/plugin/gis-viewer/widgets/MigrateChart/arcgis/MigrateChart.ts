@@ -6,6 +6,8 @@ import {
 } from '@/types/map';
 import {loadModules} from 'esri-loader';
 import echartsLayer from '../echartsLayer';
+import odJson from './config/OD.json';
+
 export class MigrateChart {
   private static intances: Map<string, any>;
   private view!: any;
@@ -210,45 +212,43 @@ export class MigrateChart {
     };
     this.echartlayer.setChartOption(option);
   }
-
-  public async showPathChart(params: IHeatParameter) {
+  private getColor(alph: number): string {
+    let color = 'rgb(255,255,255)';
+    let r = Math.floor(Math.random() * 255);
+    let g = Math.floor(Math.random() * 255);
+    let b = Math.floor(Math.random() * 255);
+    let a = alph;
+    return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+  }
+  public async showPathChart(params: any) {
     this.clear();
+    let odData = odJson.coords;
+    let _this = this;
     let busLines = [
       {
-        coords: [
-          [121.32957491713877, 31.184669012330712],
-          [121.33442435103781, 31.18470572652254],
-          [121.33345101817262911, 31.177325887774224],
-          [121.34004626113317, 31.17688528219029],
-          [121.34506735640922, 31.17692199940059],
-          [121.34571108657279, 31.171230661889787],
-          [121.34566817122855, 31.16869698872447]
-        ],
-        lineStyle: {normal: {color: 'rgba(223,90,90,1)'}}
+        coords: ['B1', 'B2', 'B4', 'B5', 'B6', 'B7', 'B8']
       },
       {
-        coords: [
-          [121.32946971893031, 31.17135624289745],
-          [121.33440498351786, 31.17113592647439],
-          [121.33981231689202, 31.17120936533901],
-          [121.33959774017082, 31.17737802667528],
-          [121.33964065551508, 31.183656430017937],
-          [121.33968357085932, 31.18549214180122],
-          [121.34624961852795, 31.18512500229241],
-          [121.34612087249522, 31.18714425196953]
-        ],
-        lineStyle: {normal: {color: 'rgba(12,12,255,1)'}}
+        coords: ['B5', 'B12', 'B7', 'B1', 'B6', 'B4', 'B9']
       }
     ];
-    let planePath =
-      'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
+    let lines = busLines;
+    let chartslines = lines.map((line: any) => {
+      line.coords = line.coords.map((pid: any) => {
+        return (odData as any)[pid] || [0, 0];
+      });
+      line.lineStyle = {normal: {color: _this.getColor(1)}};
+      return line;
+    });
+    // let planePath =
+    //   'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
 
     let series = [
       {
         type: 'lines',
         coordinateSystem: 'arcgis',
         polyline: true,
-        data: busLines,
+        data: chartslines,
         silent: true,
         lineStyle: {
           // color: '#c23531',
@@ -263,7 +263,7 @@ export class MigrateChart {
         type: 'lines',
         coordinateSystem: 'arcgis',
         polyline: true,
-        data: busLines,
+        data: chartslines,
         lineStyle: {
           width: 0
         },
@@ -271,229 +271,7 @@ export class MigrateChart {
           constantSpeed: 30,
           show: true,
           trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
-        },
-        zlevel: 1
-      },
-      {
-        type: 'lines',
-        coordinateSystem: 'arcgis',
-        polyline: true,
-        data: busLines,
-        lineStyle: {
-          width: 0
-        },
-        effect: {
-          constantSpeed: 60,
-          show: true,
-          trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
-        },
-        zlevel: 1
-      },
-      {
-        type: 'lines',
-        coordinateSystem: 'arcgis',
-        polyline: true,
-        data: busLines,
-        lineStyle: {
-          width: 0
-        },
-        effect: {
-          constantSpeed: 23,
-          show: true,
-          trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
-        },
-        zlevel: 1
-      },
-      {
-        type: 'lines',
-        coordinateSystem: 'arcgis',
-        polyline: true,
-        data: busLines,
-        lineStyle: {
-          width: 0
-        },
-        effect: {
-          constantSpeed: 56,
-          show: true,
-          trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
-        },
-        zlevel: 1
-      },
-      {
-        type: 'lines',
-        coordinateSystem: 'arcgis',
-        polyline: true,
-        data: busLines,
-        lineStyle: {
-          width: 0
-        },
-        effect: {
-          constantSpeed: 34,
-          show: true,
-          trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
-        },
-        zlevel: 1
-      },
-      {
-        type: 'lines',
-        coordinateSystem: 'arcgis',
-        polyline: true,
-        data: busLines,
-        lineStyle: {
-          width: 0
-        },
-        effect: {
-          constantSpeed: 67,
-          show: true,
-          trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
-        },
-        zlevel: 1
-      },
-      {
-        type: 'lines',
-        coordinateSystem: 'arcgis',
-        polyline: true,
-        data: busLines,
-        lineStyle: {
-          width: 0
-        },
-        effect: {
-          constantSpeed: 65,
-          show: true,
-          trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
-        },
-        zlevel: 1
-      },
-      {
-        type: 'lines',
-        coordinateSystem: 'arcgis',
-        polyline: true,
-        data: busLines,
-        lineStyle: {
-          width: 0
-        },
-        effect: {
-          constantSpeed: 54,
-          show: true,
-          trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
-        },
-        zlevel: 1
-      },
-      {
-        type: 'lines',
-        coordinateSystem: 'arcgis',
-        polyline: true,
-        data: busLines,
-        lineStyle: {
-          width: 0
-        },
-        effect: {
-          constantSpeed: 23,
-          show: true,
-          trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
-        },
-        zlevel: 1
-      },
-      {
-        type: 'lines',
-        coordinateSystem: 'arcgis',
-        polyline: true,
-        data: busLines,
-        lineStyle: {
-          width: 0
-        },
-        effect: {
-          constantSpeed: 80,
-          show: true,
-          trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
-        },
-        zlevel: 1
-      },
-      {
-        type: 'lines',
-        coordinateSystem: 'arcgis',
-        polyline: true,
-        data: busLines,
-        lineStyle: {
-          width: 0
-        },
-        effect: {
-          constantSpeed: 70,
-          show: true,
-          trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
-        },
-        zlevel: 1
-      },
-      {
-        type: 'lines',
-        coordinateSystem: 'arcgis',
-        polyline: true,
-        data: busLines,
-        lineStyle: {
-          width: 0
-        },
-        effect: {
-          constantSpeed: 60,
-          show: true,
-          trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
-        },
-        zlevel: 1
-      },
-      {
-        type: 'lines',
-        coordinateSystem: 'arcgis',
-        polyline: true,
-        data: busLines,
-        lineStyle: {
-          width: 0
-        },
-        effect: {
-          constantSpeed: 20,
-          show: true,
-          trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
-        },
-        zlevel: 1
-      },
-      {
-        type: 'lines',
-        coordinateSystem: 'arcgis',
-        polyline: true,
-        data: busLines,
-        lineStyle: {
-          width: 0
-        },
-        effect: {
-          constantSpeed: 50,
-          show: true,
-          trailLength: 0.2,
-          symbol: planePath,
-          symbolSize: 20
+          symbolSize: 2.5
         },
         zlevel: 1
       }
