@@ -371,7 +371,7 @@ export default class MapConfig {
       //for arcgis-2d
       //center: [100, 0.5],
       center: [0, 0],
-      zoom: 3,
+      zoom: 1,
       spatialReference: {wkid: 3857},
       //viewingMode: 'global',
       // ground: {opacity: 1},
@@ -552,7 +552,7 @@ export default class MapConfig {
     var points = [];
     var x = 0;
     var y = 0;
-    for (var i = 0; i < 60; i++) {
+    for (var i = 0; i < 10; i++) {
       var x1 = x + (Math.random() * 202 - 1);
       var y1 = Math.floor(Math.random() * 100) % 2 == 0 ? 20 : 80;
       var value = Math.floor(900 * Math.random() + 1);
@@ -567,15 +567,15 @@ export default class MapConfig {
       points: points,
       images: {
         geometry: {x: -14553.805845333449, y: -4137.1518463943485},
-        width: 202,
-        height: 101,
-        url: 'http://localhost/HQ.svg',
-        center: {x: -14124.415959211594, y: -4342.546650737293},
+        width: 226,
+        height: 100,
+        url: 'http://localhost/HQ2.svg',
+        center: {x: -14071.811607336222, y: -4342.546650737293},
         factor: 8
       },
       options: {
         field: 'totalSpace',
-        radius: 15,
+        radius: 13,
         maxValue: 1000,
         minValue: 1
       }

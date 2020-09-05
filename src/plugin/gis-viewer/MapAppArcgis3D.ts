@@ -184,6 +184,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
     });
     await view.when();
     this.view = view;
+    (this.view as any).mapOptions = mapConfig.options;
   }
   private destroy() {
     OverlayArcgis3D.destroy();

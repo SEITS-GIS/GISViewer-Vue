@@ -80,11 +80,11 @@ export class DgeneFusion {
   public async showDgene(params: any) {
     let _this = this;
 
-    this.view.watch('zoom', (newValue: any, oldValue: any) => {
-      if (newValue >= this.showZoom && oldValue < newValue) {
-        _this.showFusion();
-      }
-    });
+    // this.view.watch('zoom', (newValue: any, oldValue: any) => {
+    //   if (newValue >= this.showZoom && oldValue < newValue) {
+    //     _this.showFusion();
+    //   }
+    // });
     this.stopMouseWheelEvent(true);
     this.view
       .goTo(
@@ -96,15 +96,20 @@ export class DgeneFusion {
       )
       .then(() => {
         _this.stopMouseWheelEvent(false);
-        _this.fusion_view.camFlyTo(this.originView, 1);
+        _this.showFusion();
+        if (_this.fusion_view.camFlyTo) {
+          _this.fusion_view.camFlyTo(this.originView, 1);
+        }
       });
   }
   public stopMouseWheelEvent(param: boolean) {
     if (!param) {
       if (this.mouseEventFn) {
+        console.log('start mouseWheel');
         this.mouseEventFn.remove();
       }
     } else {
+      console.log('stop mouseWheel');
       this.mouseEventFn = this.view.on('mouse-wheel', (evt: any) => {
         if (evt && evt.stopPropagation) {
           //因此它支持W3C的stopPropagation()方法
@@ -121,13 +126,19 @@ export class DgeneFusion {
   public restoreDegeneFsion(params: any): Promise<IResult> {
     let _this = this;
     let pos = this.originView;
-
-    this.fusion_view.camFlyTo(pos, 3000);
+    this.stopMouseWheelEvent(false);
+    // if (this.fusion_view.camFlyTo) {
+    //   this.fusion_view.camFlyTo(pos, 3000);
+    // }
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         _this.hideFusion();
+        _this.view.goTo({
+          center: this.view.mapOptions.center,
+          zoom: this.view.mapOptions.zoom
+        });
         resolve({status: 0, message: 'restore map'});
-      }, 3300);
+      }, 300);
     });
   }
   public async addDgeneFusion(params: any): Promise<IResult> {

@@ -155,7 +155,7 @@ export default class echartsLayer {
         type: 'point',
         x: data[0],
         y: data[1],
-        spatialReference: new adt({wkid: 4326})
+        spatialReference: new adt({wkid: 3857})
       };
       var px = this.view.toScreen(point);
       var mapOffset = [0, 0];

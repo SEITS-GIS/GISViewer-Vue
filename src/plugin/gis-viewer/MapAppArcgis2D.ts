@@ -183,7 +183,7 @@ export default class MapAppArcGIS2D {
       this.createLayer(view, mapConfig.operationallayers);
     }
     this.view = view;
-
+    (this.view as any).mapOptions = mapConfig.options;
     (this.view.popup as any).visibleElements = {
       featureNavigation: false,
       closeButton: false

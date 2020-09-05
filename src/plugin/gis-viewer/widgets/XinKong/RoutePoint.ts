@@ -128,7 +128,7 @@ export default class RoutePoint {
     }, this);
     let line = new AMap.Polyline({
       path: paths as any,
-      borderWeight: 5,
+      borderWeight: 2,
       strokeColor: params.color || 'green',
       strokeOpacity: 1,
       strokeWeight: params.width || 5,
