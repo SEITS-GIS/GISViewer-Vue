@@ -163,9 +163,11 @@ export default class HeatImageGL {
             blur: 0.75
           });
           let pdata = _that.heatData.map((dt: any) => {
+            let dx = Math.floor(dt.x * step + xoffset);
+            let dy = Math.floor(dt.y * step + yoffset);
             return {
-              x: Math.floor(dt.x * step + xoffset),
-              y: Math.floor(dt.y * step + yoffset),
+              x: dx,
+              y: dy,
               value: dt.value
             };
           });
@@ -175,11 +177,15 @@ export default class HeatImageGL {
             min: 0,
             data: pdata
           };
-          heatmapInstance.setData(resdata);
+          try {
+            heatmapInstance.setData(resdata);
+          } catch (e) {}
 
           let canvas = _that.heat.firstChild;
           let cts = canvas.getContext('2d');
-          cts.globalCompositeOperation = 'destination-atop';
+          if (pdata.length > 0) {
+            cts.globalCompositeOperation = 'destination-atop';
+          }
           cts.drawImage(
             _that.allImage,
             xoffset,
