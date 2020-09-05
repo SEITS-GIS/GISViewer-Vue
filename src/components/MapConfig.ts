@@ -489,17 +489,17 @@ export default class MapConfig {
   };
   public async mapLoaded(map: any) {
     let _this = this;
-    map
-      .addDgeneFusion({
-        appendDomID: 'gisDiv',
-        callback: (a: number, b: number) => {
-          console.log(a, b);
-        }
-      })
-      .then((e: any) => {
-        console.log('载入成功', e.result);
-        _this.model_view = e.result;
-      }); //载入3维模型
+    // map
+    //   .addDgeneFusion({
+    //     appendDomID: 'gisDiv',
+    //     callback: (a: number, b: number) => {
+    //       console.log(a, b);
+    //     }
+    //   })
+    //   .then((e: any) => {
+    //     console.log('载入成功', e.result);
+    //     _this.model_view = e.result;
+    //   }); //载入3维模型
     //map.showDgene();
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
@@ -634,9 +634,9 @@ export default class MapConfig {
     var points = [];
     var x = 0;
     var y = 0;
-    for (var i = 0; i < 10; i++) {
-      var x1 = x + (Math.random() * 202 - 1);
-      var y1 = Math.floor(Math.random() * 100) % 2 == 0 ? 20 : 80;
+    for (var i = 0; i < 100; i++) {
+      var x1 = x + (Math.random() * 202 + 60);
+      var y1 = Math.floor(Math.random() * 100) % 2 == 0 ? 30 : 70;
       var value = Math.floor(900 * Math.random() + 1);
       var a = i % 2 == 0 ? '1' : '0';
       points.push({
@@ -662,8 +662,8 @@ export default class MapConfig {
         minValue: 1
       }
     };
-    // map.addHeatImage(json);
-    // map.showMigrateChart();
+    map.addHeatImage(json);
+    map.showMigrateChart();
     // map.startGeometrySearch({
     //   radius: 12000,
     //   showResult: true,
