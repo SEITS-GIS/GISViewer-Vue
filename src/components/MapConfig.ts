@@ -489,17 +489,17 @@ export default class MapConfig {
   };
   public async mapLoaded(map: any) {
     let _this = this;
-    // map
-    //   .addDgeneFusion({
-    //     appendDomID: 'gisDiv',
-    //     callback: (a: number, b: number) => {
-    //       console.log(a, b);
-    //     }
-    //   })
-    //   .then((e: any) => {
-    //     console.log('载入成功', e.result);
-    //     _this.model_view = e.result;
-    //   }); //载入3维模型
+    map
+      .addDgeneFusion({
+        appendDomID: 'gisDiv',
+        callback: (a: number, b: number) => {
+          console.log(a, b);
+        }
+      })
+      .then((e: any) => {
+        console.log('载入成功', e.result);
+        _this.model_view = e.result;
+      }); //载入3维模型
     //map.showDgene();
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
@@ -601,13 +601,13 @@ export default class MapConfig {
     //const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
-    // if (this.model_view) {
-    //   this.model_view.newShowOut(
-    //     {x: -34.06616800542628, y: 1351.7254831416005, z: 2620.9422016533167},
-    //     {x: 106.22608293953024, y: 0, z: 107.42583747482},
-    //     0.07
-    //   );
-    // }
+    if (this.model_view) {
+      this.model_view.newShowOut(
+        {x: -34.06616800542628, y: 1351.7254831416005, z: 2620.9422016533167},
+        {x: 106.22608293953024, y: 0, z: 107.42583747482},
+        0.07
+      );
+    }
     axios.get('config/a.json').then((res: any) => {
       //console.log(res.data.overlays);
       let points = {
@@ -662,8 +662,8 @@ export default class MapConfig {
         minValue: 1
       }
     };
-    map.addHeatImage(json);
-    map.showMigrateChart();
+    // map.addHeatImage(json);
+    // map.showMigrateChart();
     // map.startGeometrySearch({
     //   radius: 12000,
     //   showResult: true,
