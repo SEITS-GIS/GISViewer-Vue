@@ -13,13 +13,13 @@ export class DgeneFusion {
   private fusion_view_state: string = 'all';
   private originView: any = {
     x: 0,
-    y: 800,
+    y: 2000,
     z: 45
   };
   private FlyView: any = {
-    x: 180,
-    y: 30,
-    z: 45
+    x: 211,
+    y: 190,
+    z: 342
   };
   private setting: any = {
     isLocal: true, // isLocal?apiBase = 'static/api':apiBase = 'project/api/'+id
@@ -254,8 +254,6 @@ export class DgeneFusion {
     $('#dgeneDiv').css({
       display: 'flex',
       position: 'fixed',
-      width: '100vw',
-      height: '100vh',
       'z-index': '90',
       top: '0px',
       left: '0px'

@@ -176,12 +176,12 @@ export default class MapConfig {
         outFields: ['*'],
         popupTemplate: {
           title: '',
-          content: '<div>{YJZH.EVENT.DEVICEDESC}</div>'
+          content: '{YJZH.EVENT.DEVICEDESC}'
         },
         renderer: {
           type: 'simple', // autocasts as new SimpleRenderer()
           symbol: {
-            type: 'pictrue-marker',
+            type: 'picture-marker',
             url: 'assets/mapIcons/event.svg',
             width: 33,
             height: 33
@@ -495,7 +495,7 @@ export default class MapConfig {
         }
       })
       .then((e: any) => {
-        console.log('载入成功');
+        console.log('载入成功', e.result);
       }); //载入3维模型
     //map.showDgene();
     //map.showLayer({label: 'fbd1333'});
