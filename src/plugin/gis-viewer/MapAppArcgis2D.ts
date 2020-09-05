@@ -103,10 +103,17 @@ export default class MapAppArcGIS2D {
     view.ui.remove('attribution');
     view.ui.remove('zoom');
     view.ui.remove('compass');
-    view.popup.watch('content', async (newValue) => {
-      console.log(newValue);
-      if (newValue == 'Null' || newValue == '' || newValue == null) {
-        view.popup.close();
+    view.popup.watch('visible', async (newValue) => {
+      if (newValue) {
+        let content = view.popup.content;
+        if (
+          content == 'Null' ||
+          content == '' ||
+          content == null ||
+          content.toString().indexOf('Null') > -1
+        ) {
+          view.popup.close();
+        }
       }
     });
     view.on('click', async (event) => {

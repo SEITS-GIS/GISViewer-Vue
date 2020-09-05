@@ -225,12 +225,15 @@ export class MigrateChart {
     let odData = odJson.coords;
     let _this = this;
     let busLines = [
-      {
-        coords: ['B1', 'B2', 'B4', 'B5', 'B6', 'B7', 'B8']
-      },
-      {
-        coords: ['B5', 'B12', 'B7', 'B1', 'B6', 'B4', 'B9']
-      }
+      {coords: ['B115', 'B116', 'B120', 'B126', 'B131', 'B134']},
+      {coords: ['B115', 'B116', 'B120', 'B126', 'B131', 'B132', 'B135']},
+      {coords: ['B115', 'B116', 'B120', 'B121', 'B122', 'B123', 'B124']},
+      {coords: ['B13', 'B14', 'B11']},
+      {coords: ['B118', 'B117', 'B113', 'B114']},
+      {coords: ['B118', 'B117', 'B123', 'B129', 'B133', 'B136']},
+      {coords: ['B118', 'B117', 'B123', 'B129', 'B133', 'B132', 'B135']},
+      {coords: ['B118', 'B117', 'B123', 'B124']},
+      {coords: ['B115', 'B116', 'B120', 'B119']}
     ];
     let lines = busLines;
     let chartslines = lines.map((line: any) => {

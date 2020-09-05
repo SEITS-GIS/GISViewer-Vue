@@ -21,6 +21,7 @@ export class DgeneFusion {
     y: 190,
     z: 342
   };
+  private rotateState: string = 'auto';
   private setting: any = {
     isLocal: true, // isLocal?apiBase = 'static/api':apiBase = 'project/api/'+id
     url: 'http://10.31.251.205/test/static/api/',
@@ -155,7 +156,23 @@ export class DgeneFusion {
     dgeneDiv.style.left = '0px';
     let divmap = document.getElementById(parentid) as any;
     divmap.appendChild(dgeneDiv);
-
+    window.onresize = () => {
+      $('#dgeneDiv').css({
+        width: window.screen.width + 'px',
+        height: window.screen.height + 'px'
+      });
+      _this.fusion_view.setCanvasSize(
+        window.screen.width,
+        window.screen.height
+      );
+    };
+    this.view.watch('width,height', async (newValue: any) => {
+      $('#dgeneDiv').css({
+        width: _this.view.width + 'px',
+        height: _this.view.height + 'px'
+      });
+      _this.fusion_view.setCanvasSize(_this.view.width, _this.view.height);
+    });
     return new Promise((resolve, reject) => {
       _this.showDgeneFusion(params).then((e: IResult) => {
         _this.addVideo();
@@ -230,6 +247,7 @@ export class DgeneFusion {
         },
         setting,
         (name: any) => {
+          _this.fusion_view.stopAutoRotate();
           _this.fusion_view.activeFuse(name);
         }
       );
@@ -240,17 +258,37 @@ export class DgeneFusion {
     $('#divMap').fadeIn(1000);
   }
   private showFusion() {
+    this.rotateState = 'stop';
+    window.ondblclick = () => {
+      if ($('#dgeneDiv').css('display') != 'none') {
+        if (_this.rotateState == 'stop') {
+          _this.rotateState = 'auto';
+          _this.fusion_view.autoRotate();
+        } else {
+          _this.rotateState = 'stop';
+          _this.fusion_view.stopAutoRotate();
+        }
+      }
+    };
     let _this = this;
     this.fusion_view.camFlyTo(this.originView, 1);
     setTimeout(() => {
       let pos = _this.FlyView;
 
-      this.fusion_view.camFlyTo(pos, 5000);
-      console.log(this.fusion_view.getCameraPosition());
+      _this.fusion_view.camFlyTo(pos, 5000);
     }, 200);
-    $('#gisDiv').css({
-      'background-color': '#003452'
-    });
+
+    setTimeout(() => {
+      _this.rotateState = 'auto';
+      _this.fusion_view.autoRotate();
+      setTimeout(() => {
+        _this.rotateState = 'stop';
+        _this.fusion_view.stopAutoRotate();
+      }, 35000);
+    }, 5500);
+    // $('#gisDiv').css({
+    //   'background-color': '#003452'
+    // });
     $('#dgeneDiv').css({
       display: 'flex',
       position: 'fixed',

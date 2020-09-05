@@ -1,6 +1,7 @@
 import axios from 'axios';
 export default class MapConfig {
   public constructor() {}
+  private model_view: any;
   public mapConfig: any = {
     arcgis_api: 'http://localhost:8090/arcgis_js_api/library/4.14',
     //arcgis_api:
@@ -487,6 +488,7 @@ export default class MapConfig {
     }
   };
   public async mapLoaded(map: any) {
+    let _this = this;
     // map
     //   .addDgeneFusion({
     //     appendDomID: 'gisDiv',
@@ -496,6 +498,7 @@ export default class MapConfig {
     //   })
     //   .then((e: any) => {
     //     console.log('载入成功', e.result);
+    //     _this.model_view = e.result;
     //   }); //载入3维模型
     //map.showDgene();
     //map.showLayer({label: 'fbd1333'});
@@ -598,8 +601,15 @@ export default class MapConfig {
     //const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
+    // if (this.model_view) {
+    //   this.model_view.newShowOut(
+    //     {x: -34.06616800542628, y: 1351.7254831416005, z: 2620.9422016533167},
+    //     {x: 106.22608293953024, y: 0, z: 107.42583747482},
+    //     0.07
+    //   );
+    // }
     axios.get('config/a.json').then((res: any) => {
-      console.log(res.data.overlays);
+      //console.log(res.data.overlays);
       let points = {
         type: 'police',
         defaultVisible: true,
@@ -653,7 +663,7 @@ export default class MapConfig {
       }
     };
     map.addHeatImage(json);
-
+    map.showMigrateChart();
     // map.startGeometrySearch({
     //   radius: 12000,
     //   showResult: true,
@@ -661,7 +671,7 @@ export default class MapConfig {
     //     console.log(e);
     //   }
     // });
-    map.showMigrateChart();
+    //map.showMigrateChart();
     // map.addDrawLayer({
     //   layerUrls: './config/fbd/morph_ksl.json',
     //   label: '快速路'
@@ -809,7 +819,7 @@ export default class MapConfig {
     //   ids: ['31011300001310000003'],
     //   centerResult: true
     // });
-    map.restoreDegeneFsion();
+    //map.restoreDegeneFsion();
     // map
     //   .startGeometrySearch({
     //     radius: 5000,
@@ -821,6 +831,13 @@ export default class MapConfig {
     //   .then((res: any) => {
     //     console.log(res.result);
     //   });
+    if (this.model_view) {
+      this.model_view.newHideOut(
+        {x: -13.011890024929382, y: 250.93535559918166, z: 395.3027167055879},
+        {x: -17.892323885262947, y: 0, z: -36.609106518356604},
+        260
+      );
+    }
   }
   public btn_test3(map: any) {
     map.showDgene(); //显示三维模型
