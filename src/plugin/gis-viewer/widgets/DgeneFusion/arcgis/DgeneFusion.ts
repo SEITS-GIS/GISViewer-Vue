@@ -10,9 +10,10 @@ export class DgeneFusion {
   private view!: any;
   private showZoom: number = 10;
   private mouseEventFn: any;
+  private fusion_view_state: string = 'all';
   private originView: any = {
     x: 0,
-    y: 1000,
+    y: 800,
     z: 45
   };
   private FlyView: any = {
@@ -219,7 +220,11 @@ export class DgeneFusion {
               );
               let control = _this.fusion_view.getControl();
               _this.fusion_control = control;
-              resolve({status: 0, message: 'dgene fusion map onload success'});
+              resolve({
+                status: 0,
+                message: 'dgene fusion map onload success',
+                result: _this.fusion_view
+              });
             }
           }, 1000);
         },
@@ -260,10 +265,19 @@ export class DgeneFusion {
     $('#divMap').fadeOut(1000);
     this.fusion_control.addEventListener('change', (e: any) => {
       //console.log(_this.fusion_view.getCameraPosition());
-      if (_this.fusion_view.getCameraY() > 1000) {
-        console.log('hide fu');
-        _this.hideFusion();
-      }
+      // if (_this.fusion_view.getCameraY() < 300) {
+      //   console.log('hide fu');
+      //   //_this.hideFusion();
+      //   if (_this.fusion_view_state == 'all') {
+      //     _this.fusion_view_state = 'in';
+      //     _this.fusion_view.hideOut();
+      //   }
+      // } else {
+      //   if (_this.fusion_view_state == 'in') {
+      //     _this.fusion_view_state = 'all';
+      //     _this.fusion_view.showOut();
+      //   }
+      // }
     });
   }
 }

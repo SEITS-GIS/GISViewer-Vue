@@ -103,7 +103,12 @@ export default class MapAppArcGIS2D {
     view.ui.remove('attribution');
     view.ui.remove('zoom');
     view.ui.remove('compass');
-
+    view.popup.watch('content', async (newValue) => {
+      console.log(newValue);
+      if (newValue == 'Null' || newValue == '' || newValue == null) {
+        view.popup.close();
+      }
+    });
     view.on('click', async (event) => {
       if (event.mapPoint) {
         let mp = event.mapPoint;

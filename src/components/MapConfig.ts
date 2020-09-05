@@ -61,61 +61,133 @@ export default class MapConfig {
       //   url: 'https://10.31.214.244/server/rest/services/bx/MapServer',
       //   visible: true
       // },
-      // {
-      //   label: '匝道灯3',
-      //   type: 'dynamic',
-      //   url:
-      //     'http://10.31.214.201:6080/arcgis/rest/services/YJZH/KuaiSuLu_fbd/MapServer',
-      //   refreshInterval: 1,
-      //   // url:
-      //   //   'http://10.31.152.89:6080/arcgis/rest/services/ksl/ksl_fbd_morph/MapServer/1',
-      //   visible: true,
-      //   outFields: ['*']
-      // },
-      // {
-      //   label: '匝道灯1',
-      //   type: 'feature',
-      //   url:
-      //     'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_devices/MapServer/0',
-      //   refreshInterval: 1,
-      //   // url:
-      //   //   'http://10.31.152.89:6080/arcgis/rest/services/ksl/ksl_fbd_morph/MapServer/1',
-      //   visible: true,
-      //   outFields: ['*'],
-      //   popupTemplate: {
-      //     title: '',
-      //     content:
-      //       '<div>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/>{BM_CODE}1212---{DEVICETYPE}<br/></div>'
-      //   }
-      // },
-      // {
-      //   label: '匝道灯2',
-      //   type: 'feature',
-      //   url:
-      //     'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_event/MapServer/0',
-      //   refreshInterval: 1,
-      //   // url:
-      //   //   'http://10.31.152.89:6080/arcgis/rest/services/ksl/ksl_fbd_morph/MapServer/1',
-      //   visible: true,
-      //   outFields: ['*'],
-      //   popupTemplate: {
-      //     title: '',
-      //     content: '<div>{YJZH.EVENT.DEVICEDESC}</div>'
-      //   },
-      //   renderer: {
-      //     type: 'simple', // autocasts as new SimpleRenderer()
-      //     symbol: {
-      //       type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
-      //       color: 'rgba(12,12,255,1)',
-      //       size: 20,
-      //       outline: {
-      //         // autocasts as new SimpleLineSymbol()
-      //         width: 2,
-      //         color: 'red'
-      //       }
-      //     }
-      //   }
-      // }
+      {
+        label: '发布段',
+        type: 'dynamic',
+        url:
+          'http://10.31.214.201:6080/arcgis/rest/services/YJZH/KuaiSuLu_fbd/MapServer',
+        refreshInterval: 1,
+        visible: true,
+        outFields: ['*'],
+        popupTemplates: {
+          '0': {
+            title: '',
+            content: '{FSTR_DESC}'
+          },
+          '1': {
+            title: '',
+            content: '{FSTR_DESC}'
+          },
+          '2': {
+            title: '',
+            content: '{FSTR_DESC}'
+          },
+          '3': {
+            title: '',
+            content: '{FSTR_DESC}'
+          },
+          '4': {
+            title: '',
+            content: '{FSTR_DESC}'
+          },
+          '5': {
+            title: '',
+            content: '{FSTR_DESC}'
+          },
+          '6': {
+            title: '',
+            content: '{FSTR_DESC}'
+          },
+          '7': {
+            title: '',
+            content: '{FSTR_DESC}'
+          }
+        }
+      },
+      {
+        label: '匝道灯',
+        type: 'feature',
+        url:
+          'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_devices/MapServer/0',
+        refreshInterval: 1,
+        visible: true,
+        outFields: ['*'],
+        renderer: {
+          type: 'unique-value',
+          field1: 'CYZXGX.RT_ZDD_VW.FSTR_STATE',
+          defaultSymbol: {
+            type: 'picture-marker',
+            url: 'assets/mapIcons/ZaDaoDeng-green.png',
+            width: 15,
+            height: 17,
+            yoffset: 9
+          },
+          uniqueValueInfos: [
+            {
+              value: 'black',
+              symbol: {
+                type: 'picture-marker',
+                url: 'assets/mapIcons/ZaDaoDeng-black.png',
+                width: 15,
+                height: 17,
+                yoffset: 9
+              }
+            },
+            {
+              value: 'closed',
+              symbol: {
+                type: 'picture-marker',
+                url: 'assets/mapIcons/ZaDaoDeng-close.png',
+                width: 15,
+                height: 17,
+                yoffset: 9
+              }
+            },
+            {
+              value: 'opened',
+              symbol: {
+                type: 'picture-marker',
+                url: 'assets/mapIcons/ZaDaoDeng-green.png',
+                width: 15,
+                height: 17,
+                yoffset: 9
+              }
+            },
+            {
+              value: 'unknown',
+              symbol: {
+                type: 'picture-marker',
+                url: 'assets/mapIcons/ZaDaoDeng-grey.png',
+                width: 15,
+                height: 17,
+                yoffset: 9
+              }
+            }
+          ]
+        }
+      },
+      {
+        label: '交通事故',
+        type: 'feature',
+        url:
+          'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_event/MapServer/0',
+        refreshInterval: 1,
+        visible: true,
+        outFields: ['*'],
+        popupTemplate: {
+          title: '',
+          content: '<div>{YJZH.EVENT.DEVICEDESC}</div>'
+        },
+        renderer: {
+          type: 'simple', // autocasts as new SimpleRenderer()
+          symbol: {
+            type: 'pictrue-marker',
+            url: 'assets/mapIcons/event.svg',
+            width: 33,
+            height: 33
+          }
+        }
+      }
       // {
       //   label: 'fbd1333',
       //   url: './config/fbd/六大队.json',
