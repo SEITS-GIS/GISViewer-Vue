@@ -172,6 +172,18 @@ export class DgeneFusion {
         window.screen.height
       );
     };
+    this.rotateState = 'stop';
+    window.ondblclick = () => {
+      if ($('#dgeneDiv').css('display') != 'none') {
+        if (_this.rotateState == 'stop') {
+          _this.rotateState = 'auto';
+          _this.fusion_view.autoRotate();
+        } else {
+          _this.rotateState = 'stop';
+          _this.fusion_view.stopAutoRotate();
+        }
+      }
+    };
     this.view.watch('width,height', async (newValue: any) => {
       $('#dgeneDiv').css({
         width: _this.view.width + 'px',
@@ -264,23 +276,11 @@ export class DgeneFusion {
     $('#' + this.view.container.id).fadeIn(1000);
   }
   private showFusion() {
-    this.rotateState = 'stop';
-    window.ondblclick = () => {
-      if ($('#dgeneDiv').css('display') != 'none') {
-        if (_this.rotateState == 'stop') {
-          _this.rotateState = 'auto';
-          _this.fusion_view.autoRotate();
-        } else {
-          _this.rotateState = 'stop';
-          _this.fusion_view.stopAutoRotate();
-        }
-      }
-    };
     let _this = this;
+    this.rotateState = 'stop';
     this.fusion_view.camFlyTo(this.originView, 1);
     setTimeout(() => {
       let pos = _this.FlyView;
-
       _this.fusion_view.camFlyTo(pos, 5000);
     }, 200);
 
@@ -303,7 +303,7 @@ export class DgeneFusion {
       left: '0px'
     });
     $('#dgeneDiv').fadeIn('slow');
-
+    console.log(this.view.container.id);
     $('#' + this.view.container.id).fadeOut(1000);
     this.fusion_control.addEventListener('change', (e: any) => {
       //console.log(_this.fusion_view.getCameraPosition());
