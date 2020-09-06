@@ -489,17 +489,17 @@ export default class MapConfig {
   };
   public async mapLoaded(map: any) {
     let _this = this;
-    map
-      .addDgeneFusion({
-        appendDomID: 'gisDiv',
-        callback: (a: number, b: number) => {
-          console.log(a, b);
-        }
-      })
-      .then((e: any) => {
-        console.log('载入成功', e.result);
-        _this.model_view = e.result;
-      }); //载入3维模型
+    // map
+    //   .addDgeneFusion({
+    //     appendDomID: 'gisDiv',
+    //     callback: (a: number, b: number) => {
+    //       console.log(a, b);
+    //     }
+    //   })
+    //   .then((e: any) => {
+    //     console.log('载入成功', e.result);
+    //     _this.model_view = e.result;
+    //   }); //载入3维模型
     //map.showDgene();
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
@@ -652,7 +652,7 @@ export default class MapConfig {
         height: 100,
         url: 'http://localhost/HQ2.svg',
         center: {x: -14071.811607336222, y: -4342.546650737293},
-        factor: 8
+        factor: 4
       },
       options: {
         field: 'totalSpace',

@@ -143,7 +143,7 @@ export default class HeatImageGL {
               y: _that.imageCenter.y,
               spatialReference: _that.view.spatialReference
             });
-            _that.view.goTo({center: point, scale: _that.scale / 8});
+            _that.view.goTo({center: point, scale: _that.scale / _that.factor});
           }
         },
         render: (renderParameters: any) => {
