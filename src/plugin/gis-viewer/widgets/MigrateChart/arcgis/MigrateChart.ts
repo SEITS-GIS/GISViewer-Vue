@@ -12,6 +12,17 @@ export class MigrateChart {
   private static intances: Map<string, any>;
   private view!: any;
   private echartlayer: any;
+  private colors: Array<string> = [
+    'rgba(0,255,255,0.4)',
+    'rgba(0,250,154,0.4)',
+    'rgba(0,255,0,0.4)',
+    'rgba(255,255,0,0.4)',
+    'rgba(255,215,0,0.4)',
+    'rgba(255,69,0,0.4)',
+    'rgba(255,0,0,0.4)',
+    'rgba(255,20,147,0.4)',
+    'rgba(0,191,255,0.4)'
+  ];
 
   private constructor(view: any) {
     this.view = view;
@@ -225,22 +236,40 @@ export class MigrateChart {
     let odData = odJson.coords;
     let _this = this;
     let busLines = [
-      {coords: ['B115', 'B116', 'B120', 'B126', 'B131', 'B134']},
-      {coords: ['B115', 'B116', 'B120', 'B126', 'B131', 'B132', 'B135']},
-      {coords: ['B115', 'B116', 'B120', 'B121', 'B122', 'B123', 'B124']},
-      {coords: ['B13', 'B14', 'B11']},
-      {coords: ['B118', 'B117', 'B113', 'B114']},
-      {coords: ['B118', 'B117', 'B123', 'B129', 'B133', 'B136']},
-      {coords: ['B118', 'B117', 'B123', 'B129', 'B133', 'B132', 'B135']},
-      {coords: ['B118', 'B117', 'B123', 'B124']},
-      {coords: ['B115', 'B116', 'B120', 'B119']}
+      {coords: ['B115', 'B116', 'B134'], value: 3},
+      {
+        coords: ['B115', 'B116', 'B126', 'B131', 'B132', 'B135'],
+        value: 4
+      },
+      {
+        coords: ['B115', 'B116', 'B120', 'B124'],
+        value: 3
+      },
+      {coords: ['B13', 'B14', 'B11'], value: 4},
+      {coords: ['B118', 'B117', 'B113', 'B114'], value: 2},
+      {coords: ['B118', 'B117', 'B136'], value: 1},
+      {
+        coords: ['B118', 'B117', 'B133', 'B132', 'B135'],
+        value: 3
+      },
+      {coords: ['B118', 'B117', 'B123', 'B124'], value: 6},
+      {coords: ['B115', 'B116', 'B120', 'B119'], value: 4}
     ];
     let lines = busLines;
-    let chartslines = lines.map((line: any) => {
+    let chartslines = lines.map((line: any, index: number) => {
       line.coords = line.coords.map((pid: any) => {
         return (odData as any)[pid] || [0, 0];
       });
-      line.lineStyle = {normal: {color: _this.getColor(1)}};
+      line.lineStyle = {
+        normal: {
+          color:
+            index < _this.colors.length
+              ? _this.colors[index]
+              : _this.getColor(0.3),
+          width: line.value + 1,
+          opacity: 0.1
+        }
+      };
       return line;
     });
     // let planePath =
@@ -254,11 +283,12 @@ export class MigrateChart {
         polyline: true,
         data: chartslines,
         silent: true,
+        smooth: true,
         lineStyle: {
           // color: '#c23531',
           // color: 'rgb(200, 35, 45)',
-          opacity: 0.5,
-          width: 4
+          opacity: 0.1
+          //width: 4
         },
         progressiveThreshold: 500,
         progressive: 200
@@ -268,14 +298,15 @@ export class MigrateChart {
         coordinateSystem: 'arcgis',
         polyline: true,
         data: chartslines,
+        smooth: true,
         lineStyle: {
           width: 0
         },
         effect: {
           constantSpeed: 60,
           show: true,
-          trailLength: 0.4, //小尾巴长度0.2
-          symbolSize: 7
+          trailLength: 0.2, //小尾巴长度0.2
+          symbolSize: 10
         },
         zlevel: 1
       }

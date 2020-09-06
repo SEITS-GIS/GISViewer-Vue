@@ -18,5 +18,11 @@
   background-color: #02243f !important;
   border: 1px solid #2098a5;
   z-index: 2;
+}
+
+.esri-popup--aligned-top-center .esri-popup__pointer-direction {
   border-width: 0px 1px 1px 0px;
+}
+.esri-popup--aligned-bottom-center .esri-popup__pointer-direction {
+  border-width: 1px 0px 0px 1px;
 }

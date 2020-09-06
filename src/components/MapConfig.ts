@@ -489,17 +489,17 @@ export default class MapConfig {
   };
   public async mapLoaded(map: any) {
     let _this = this;
-    // map
-    //   .addDgeneFusion({
-    //     appendDomID: 'gisDiv',
-    //     callback: (a: number, b: number) => {
-    //       console.log(a, b);
-    //     }
-    //   })
-    //   .then((e: any) => {
-    //     console.log('载入成功', e.result);
-    //     _this.model_view = e.result;
-    //   }); //载入3维模型
+    map
+      .addDgeneFusion({
+        appendDomID: 'gisDiv',
+        callback: (a: number, b: number) => {
+          console.log(a, b);
+        }
+      })
+      .then((e: any) => {
+        console.log('载入成功', e.result);
+        _this.model_view = e.result;
+      }); //载入3维模型
     //map.showDgene();
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
@@ -645,7 +645,7 @@ export default class MapConfig {
       });
     }
     var json = {
-      points: points,
+      points: [],
       images: {
         geometry: {x: -14553.805845333449, y: -4137.1518463943485},
         width: 226,
