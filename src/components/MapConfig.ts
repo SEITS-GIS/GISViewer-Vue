@@ -489,17 +489,17 @@ export default class MapConfig {
   };
   public async mapLoaded(map: any) {
     let _this = this;
-    // map
-    //   .addDgeneFusion({
-    //     appendDomID: 'gisDiv',
-    //     callback: (a: number, b: number) => {
-    //       console.log(a, b);
-    //     }
-    //   })
-    //   .then((e: any) => {
-    //     console.log('载入成功', e.result);
-    //     _this.model_view = e.result;
-    //   }); //载入3维模型
+    map
+      .addDgeneFusion({
+        appendDomID: 'gisDiv',
+        callback: (a: number, b: number) => {
+          console.log(a, b);
+        }
+      })
+      .then((e: any) => {
+        console.log('载入成功', e.result);
+        _this.model_view = e.result;
+      }); //载入3维模型
     //map.showDgene();
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
@@ -641,10 +641,9 @@ export default class MapConfig {
       var a = i % 2 == 0 ? '1' : '0';
       points.push({
         geometry: {x: x1, y: y1},
-        fields: {desc: '上海体育馆停车场', totalSpace: value, type: a}
+        fields: {desc: 'a', totalSpace: value, type: a}
       });
     }
-    console.log(points);
     var json = {
       points: points,
       images: {

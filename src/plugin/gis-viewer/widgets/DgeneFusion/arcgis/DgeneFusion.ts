@@ -11,6 +11,7 @@ export class DgeneFusion {
   private showZoom: number = 10;
   private mouseEventFn: any;
   private fusion_view_state: string = 'all';
+  private FlyCenter: any;
   private originView: any = {
     x: 0,
     y: 2000,
@@ -81,7 +82,12 @@ export class DgeneFusion {
   private hideDgene() {}
   public async showDgene(params: any) {
     let _this = this;
-
+    const [Point] = await loadModules(['esri/geometry/Point']);
+    let center = new Point({
+      x: -14071.811607336222,
+      y: -4342.546650737293,
+      spatialReference: this.view.spatialReference
+    });
     // this.view.watch('zoom', (newValue: any, oldValue: any) => {
     //   if (newValue >= this.showZoom && oldValue < newValue) {
     //     _this.showFusion();
@@ -91,7 +97,7 @@ export class DgeneFusion {
     this.view
       .goTo(
         {
-          center: this.view.center,
+          center: center,
           zoom: this.showZoom
         },
         {duration: 5000}
@@ -255,7 +261,7 @@ export class DgeneFusion {
   }
   private hideFusion() {
     $('#dgeneDiv').fadeOut('slow');
-    $('#divMap').fadeIn(1000);
+    $('#' + this.view.container.id).fadeIn(1000);
   }
   private showFusion() {
     this.rotateState = 'stop';
@@ -298,7 +304,7 @@ export class DgeneFusion {
     });
     $('#dgeneDiv').fadeIn('slow');
 
-    $('#divMap').fadeOut(1000);
+    $('#' + this.view.container.id).fadeOut(1000);
     this.fusion_control.addEventListener('change', (e: any) => {
       //console.log(_this.fusion_view.getCameraPosition());
       // if (_this.fusion_view.getCameraY() < 300) {

@@ -67,6 +67,11 @@ export default class HeatImageGL {
     let parent = document.getElementsByClassName('esri-overlay-surface')[0];
     parent.appendChild(heatDiv);
     this.heat = heatDiv;
+    let _this = this;
+    this.view.watch('width,height', async (newValue: any) => {
+      heatDiv.style.width = _this.view.width + 'px';
+      heatDiv.style.height = _this.view.height + 'px';
+    });
 
     let heatmapInstance = h337.create({
       // only container is required, the rest will be defaults
