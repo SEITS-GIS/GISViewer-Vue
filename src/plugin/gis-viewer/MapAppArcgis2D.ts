@@ -88,7 +88,7 @@ export default class MapAppArcGIS2D {
         }
       })
     );
-    this.destroy();
+    //this.destroy();
     const basemap: __esri.Basemap = new Basemap({
       baseLayers
     });

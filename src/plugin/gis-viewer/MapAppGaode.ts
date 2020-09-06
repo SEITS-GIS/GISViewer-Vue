@@ -59,7 +59,7 @@ export default class MapAppGaode implements IMapContainer {
       version: v,
       plugins: plugins
     });
-    this.destroy();
+    //this.destroy();
     this.view = new AMap.Map(mapContainer, mapConfig.options);
     (this.view as any).version = version;
     (this.view as any).mapOptions = mapConfig.options;

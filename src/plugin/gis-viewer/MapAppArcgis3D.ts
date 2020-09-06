@@ -90,7 +90,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
         }
       })
     );
-    this.destroy();
+    //this.destroy();
     const basemap: __esri.Basemap = new Basemap({
       baseLayers
     });
