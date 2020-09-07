@@ -14,11 +14,11 @@ export class MigrateChart {
   private echartlayer: any;
   private colors: Array<string> = [
     'rgba(0,255,255,0.4)',
-    'rgba(0,250,154,0.4)',
-    'rgba(0,255,0,0.4)',
     'rgba(255,255,0,0.4)',
     'rgba(255,215,0,0.4)',
     'rgba(255,69,0,0.4)',
+    'rgba(0,250,154,0.4)',
+    'rgba(0,255,0,0.4)',
     'rgba(255,0,0,0.4)',
     'rgba(255,20,147,0.4)',
     'rgba(0,191,255,0.4)'

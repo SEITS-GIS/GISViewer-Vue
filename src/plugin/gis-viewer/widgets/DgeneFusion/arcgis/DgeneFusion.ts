@@ -1,8 +1,7 @@
 import {loadModules} from 'esri-loader';
 import $ from 'jquery';
 import {IResult} from '@/types/map';
-import {reject} from 'esri/core/promiseUtils';
-import videoJson from './config/fusion.json';
+import Axios from 'axios';
 
 declare let Dgene: any;
 export class DgeneFusion {
@@ -199,22 +198,25 @@ export class DgeneFusion {
     });
   }
   public async addVideo() {
-    let videodata = videoJson.data;
-    if (videodata) {
-      for (let data in videodata) {
-        let posion = (videodata as any)[data].camJson.position;
-        this.fusion_view.loadMapSprite(
-          './assets/image/video.png',
-          data,
-          {
-            x: posion.x,
-            y: posion.y + 2,
-            z: posion.z
-          },
-          4
-        );
+    //let videodata = videoJson.data;
+    Axios.get('./static/fusion.json').then((res: any) => {
+      let videodata = res.data.data;
+      if (videodata) {
+        for (let data in videodata) {
+          let posion = (videodata as any)[data].camJson.position;
+          this.fusion_view.loadMapSprite(
+            './assets/image/video.png',
+            data,
+            {
+              x: posion.x,
+              y: posion.y + 2,
+              z: posion.z
+            },
+            4
+          );
+        }
       }
-    }
+    });
   }
   public async showVideo(params: any) {
     this.fusion_view.activeFuse(name);
@@ -248,19 +250,18 @@ export class DgeneFusion {
         () => {
           setTimeout(() => {
             console.log('dgene fusion map onload success');
-            console.log(_this.fusion_view.initSetting.fusion);
             for (const k in _this.fusion_view.initSetting.fusion) {
               console.log(
                 `fusion index is >> ${_this.fusion_view.initSetting.fusion[k].index} fusion keyCode is >> ${_this.fusion_view.initSetting.fusion[k].keyCode}`
               );
-              let control = _this.fusion_view.getControl();
-              _this.fusion_control = control;
-              resolve({
-                status: 0,
-                message: 'dgene fusion map onload success',
-                result: _this.fusion_view
-              });
             }
+            let control = _this.fusion_view.getControl();
+            _this.fusion_control = control;
+            resolve({
+              status: 0,
+              message: 'dgene fusion map onload success',
+              result: _this.fusion_view
+            });
           }, 1000);
         },
         setting,
