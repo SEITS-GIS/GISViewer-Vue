@@ -2,6 +2,7 @@ import {loadModules} from 'esri-loader';
 import $ from 'jquery';
 import {IResult} from '@/types/map';
 import Axios from 'axios';
+import {Utils} from '@/plugin/gis-viewer/Utils';
 
 declare let Dgene: any;
 export class DgeneFusion {
@@ -59,6 +60,7 @@ export class DgeneFusion {
   };
   private fusion_view: any;
   private fusion_control: any;
+  private fusion_video = new Array();
 
   private constructor(view: any) {
     this.view = view;
@@ -192,28 +194,45 @@ export class DgeneFusion {
     });
     return new Promise((resolve, reject) => {
       _this.showDgeneFusion(params).then((e: IResult) => {
-        _this.addVideo();
+        _this.addVideo(params);
         resolve(e);
       });
     });
   }
-  public async addVideo() {
+  public async addVideo(params: any) {
     //let videodata = videoJson.data;
+    let _this = this;
+    let showOutVideo = params.outvideo !== false;
     Axios.get('./static/fusion.json').then((res: any) => {
       let videodata = res.data.data;
       if (videodata) {
         for (let data in videodata) {
-          let posion = (videodata as any)[data].camJson.position;
-          this.fusion_view.loadMapSprite(
-            './assets/image/video.png',
-            data,
-            {
-              x: posion.x,
-              y: posion.y + 2,
-              z: posion.z
-            },
-            4
-          );
+          let vdata = (videodata as any)[data];
+
+          if (vdata.isreal && data != 'HQtest132') {
+            _this.fusion_video.push(data);
+          }
+          let size = vdata.isreal ? 30 : 4;
+          let position = vdata.isreal
+            ? vdata.realposition
+            : vdata.camJson.position;
+          if (data == 'HQtest132') {
+            size = 4;
+          }
+          // console.log(data, position);
+          if (showOutVideo || !vdata.isreal || data == 'HQtest132') {
+            console.log(data, position);
+            this.fusion_view.loadMapSprite(
+              './assets/image/video.png',
+              data,
+              {
+                x: position.x,
+                y: position.y,
+                z: position.z
+              },
+              size
+            );
+          }
         }
       }
     });
@@ -222,11 +241,19 @@ export class DgeneFusion {
     this.fusion_view.activeFuse(name);
   }
   public async showDgeneFusion(params: any): Promise<IResult> {
-    await loadModules([
-      'libs/dgene/runtime.js',
-      'libs/dgene/2.js',
-      'libs/dgene/app.js'
-    ]);
+    let dgene = params.url || 'dgene';
+    await Utils.loadScripts(['libs/' + dgene + '/runtime.js']).then(
+      async () => {
+        await Utils.loadScripts(['libs/' + dgene + '/2.js']).then(async () => {
+          await Utils.loadScripts(['libs/' + dgene + '/app.js']);
+        });
+      }
+    );
+    // await loadModules([
+    //   'libs/dgene2/runtime.js',
+    //   'libs/dgene2/2.js',
+    //   'libs/dgene2/app.js'
+    // ]);
     let setting = this.setting;
     let _this = this;
     let callback = params.callback;
@@ -267,7 +294,11 @@ export class DgeneFusion {
         setting,
         (name: any) => {
           _this.fusion_view.stopAutoRotate();
-          _this.fusion_view.activeFuse(name);
+          if (_this.fusion_video.indexOf(name) > -1) {
+            _this.fusion_view.showVideoDom(name);
+          } else {
+            _this.fusion_view.activeFuse(name);
+          }
         }
       );
     });

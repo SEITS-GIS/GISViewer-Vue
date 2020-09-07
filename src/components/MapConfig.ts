@@ -492,6 +492,8 @@ export default class MapConfig {
     map
       .addDgeneFusion({
         appendDomID: 'gisDiv',
+        url: 'dgene2',
+        outvideo: false,
         callback: (a: number, b: number) => {
           console.log(a, b);
         }
@@ -499,6 +501,8 @@ export default class MapConfig {
       .then((e: any) => {
         console.log('载入成功', e.result);
         _this.model_view = e.result;
+        //_this.model_view.showVideoDom('HQtest147');
+        //_this.model_view.showVideoDom('HQtest148');
       }); //载入3维模型
     //map.showDgene();
     //map.showLayer({label: 'fbd1333'});
