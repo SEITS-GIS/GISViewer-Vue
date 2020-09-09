@@ -16,4 +16,39 @@ export class Utils {
       });
     });
   }
+
+  public static getZoom(
+    view: __esri.MapView | __esri.SceneView,
+    scale: number
+  ): number {
+    if (scale == 0) {
+      return 0;
+    }
+    let zoom: number = 0;
+    (view.map.allLayers.getItemAt(0) as any).tileInfo.lods.forEach(
+      (lod: any) => {
+        if (lod.scale == scale) {
+          zoom = lod.level;
+        }
+      }
+    );
+    return zoom;
+  }
+  public static getScale(
+    view: __esri.MapView | __esri.SceneView,
+    zoom: number
+  ): number {
+    let scale: number = 0;
+    if (zoom == 0) {
+      return 0;
+    }
+    (view.map.allLayers.getItemAt(0) as any).tileInfo.lods.forEach(
+      (lod: any) => {
+        if (lod.level == zoom) {
+          scale = lod.scale;
+        }
+      }
+    );
+    return scale;
+  }
 }

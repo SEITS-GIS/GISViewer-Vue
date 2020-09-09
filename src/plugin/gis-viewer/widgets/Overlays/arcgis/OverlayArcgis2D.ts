@@ -11,11 +11,16 @@ import {loadModules} from 'esri-loader';
 import ToolTip from './ToolTip';
 import HighFeauture from './HighFeauture3D';
 import HighFeauture2D from './HighFeauture2D';
+import {type} from 'jquery';
+import {Utils} from '@/plugin/gis-viewer/Utils';
 
 export class OverlayArcgis2D {
   private static intances: Map<string, any>;
 
-  private overlayLayer!: __esri.GraphicsLayer;
+  private overlayGroups: Map<string, __esri.GraphicsLayer> = new Map<
+    string,
+    __esri.GraphicsLayer
+  >();
   private view!: __esri.MapView;
 
   private primitive2D = [
@@ -46,15 +51,56 @@ export class OverlayArcgis2D {
   public static destroy() {
     (OverlayArcgis2D.intances as any) = null;
   }
-  private async createOverlayLayer() {
+  private async getOverlayLayer(type: string) {
+    let group = this.overlayGroups.get(type);
+    if (!group) {
+      group = await this.createOverlayLayer(type);
+    }
+    return group;
+  }
+  private async createOverlayLayer(
+    type: string
+  ): Promise<__esri.GraphicsLayer> {
     type MapModules = [typeof import('esri/layers/GraphicsLayer')];
     const [GraphicsLayer] = await (loadModules([
       'esri/layers/GraphicsLayer'
     ]) as Promise<MapModules>);
-    this.overlayLayer = new GraphicsLayer();
-    this.view.map.add(this.overlayLayer);
+    let overlayLayer: __esri.GraphicsLayer = new GraphicsLayer();
+    this.view.map.add(overlayLayer);
+    this.overlayGroups.set(type, overlayLayer);
+    return overlayLayer;
   }
-
+  private MoveToolTip(type: string, content: string) {
+    const view = this.view;
+    const moveLayer = this.overlayGroups.get(type);
+    let parent = this;
+    let tip!: any;
+    view.on('pointer-move', function(event) {
+      view.hitTest(event).then((response) => {
+        if (response.results.length > 0) {
+          response.results.forEach((result) => {
+            if (result.graphic.layer === moveLayer) {
+              if (!tip) {
+                tip = new ToolTip(
+                  view,
+                  {
+                    title: '',
+                    content: parent.getToolTipContent(result.graphic, content)
+                  },
+                  result.graphic
+                );
+              }
+            }
+          });
+        } else {
+          if (tip) {
+            tip.remove();
+            tip = null;
+          }
+        }
+      });
+    });
+  }
   private makeSymbol(symbol: IPointSymbol | undefined): Object | undefined {
     if (!symbol || (symbol.type && symbol.type.toLowerCase() == 'point-3d'))
       return undefined;
@@ -180,10 +226,10 @@ export class OverlayArcgis2D {
   }
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
-    if (!this.overlayLayer) {
-      await this.createOverlayLayer();
-    }
-
+    let layerType = params.type || 'default';
+    let overlayLayer = (await this.getOverlayLayer(
+      params.type || 'default'
+    )) as __esri.GraphicsLayer;
     const [
       Graphic,
       geometryJsonUtils,
@@ -204,7 +250,18 @@ export class OverlayArcgis2D {
     const autoPopup = params.autoPopup;
     const defaultButtons = params.defaultButtons;
     const defaultVisible = params.defaultVisible !== false;
+    const custom = params.custom;
     const iswgs = params.iswgs !== false;
+    const zooms = params.zooms || [0, 0];
+    overlayLayer.minScale = Utils.getScale(this.view, zooms[0]);
+    overlayLayer.maxScale = Utils.getScale(this.view, zooms[1]);
+
+    const showToolTip = params.showToolTip;
+    const toolTipContent = params.toolTipContent;
+
+    if (showToolTip && toolTipContent) {
+      this.MoveToolTip(layerType, toolTipContent);
+    }
 
     let addCount = 0;
     for (let i = 0; i < params.overlays.length; i++) {
@@ -262,8 +319,21 @@ export class OverlayArcgis2D {
           };
         }
       }
-
-      this.overlayLayer.add(graphic);
+      if (custom) {
+        let customContent = custom.content;
+        let customtool = new ToolTip(
+          this.view,
+          {
+            title: '',
+            id: overlay.id,
+            zooms: custom.zooms,
+            visible: !custom.visible || false,
+            content: this.getToolTipContent(graphic, customContent)
+          },
+          graphic
+        );
+      }
+      overlayLayer.add(graphic);
       addCount++;
     }
     return {
@@ -276,28 +346,40 @@ export class OverlayArcgis2D {
     let types = params.types || [];
     let ids = params.ids || [];
     let delcount = 0;
-    for (let i = 0; i < this.overlayLayer.graphics.length; i++) {
-      let graphic: any = this.overlayLayer.graphics.getItemAt(i);
-      if (
-        //只判断type
-        (types.length > 0 &&
-          ids.length === 0 &&
-          types.indexOf(graphic.type) >= 0) ||
-        //只判断id
-        (types.length === 0 &&
-          ids.length > 0 &&
-          ids.indexOf(graphic.id) >= 0) ||
-        //type和id都要判断
-        (types.length > 0 &&
-          ids.length > 0 &&
-          types.indexOf(graphic.type) >= 0 &&
-          ids.indexOf(graphic.id) >= 0)
-      ) {
-        this.overlayLayer.remove(graphic);
-        delcount++;
-        i--;
+    let groups: Array<__esri.GraphicsLayer> = [];
+    this.overlayGroups.forEach((overlay, key) => {
+      if (types.length == 0 || types.indexOf(key) > -1) {
+        groups.push(overlay);
       }
-    }
+    });
+    groups.forEach((overlayLayer: __esri.GraphicsLayer) => {
+      for (let i = 0; i < overlayLayer.graphics.length; i++) {
+        let graphic: any = overlayLayer.graphics.getItemAt(i);
+        if (
+          //只判断type
+          (types.length > 0 &&
+            ids.length === 0 &&
+            types.indexOf(graphic.type) >= 0) ||
+          //只判断id
+          (types.length === 0 &&
+            ids.length > 0 &&
+            ids.indexOf(graphic.id) >= 0) ||
+          //type和id都要判断
+          (types.length > 0 &&
+            ids.length > 0 &&
+            types.indexOf(graphic.type) >= 0 &&
+            ids.indexOf(graphic.id) >= 0)
+        ) {
+          overlayLayer.remove(graphic);
+          delcount++;
+          i--;
+        }
+      }
+    }, this);
+
+    ids.forEach((id: string) => {
+      ToolTip.clear(this.view, id);
+    }, this);
     return {
       status: 0,
       message: 'ok',
@@ -305,23 +387,26 @@ export class OverlayArcgis2D {
     };
   }
   public async deleteAllOverlays(): Promise<IResult> {
-    this.overlayLayer.removeAll();
+    this.overlayGroups.forEach((overlay, key) => {
+      overlay.removeAll();
+    });
     return {
       status: 0,
       message: 'ok'
     };
   }
   public async findFeature(params: IFindParameter): Promise<IResult> {
-    if (!this.overlayLayer) {
+    let type = params.layerName;
+    let overlayLayer = this.overlayGroups.get(type);
+    if (!overlayLayer) {
       return {
         status: 0,
         message: 'ok'
       };
     }
-    let type = params.layerName;
     let ids = params.ids || [];
     let level = params.level || this.view.zoom;
-    let overlays = this.overlayLayer.graphics;
+    let overlays = overlayLayer.graphics;
     let centerResult = params.centerResult !== false;
     overlays.forEach((overlay: any) => {
       if (type == overlay.type && ids.indexOf(overlay.id) >= 0) {

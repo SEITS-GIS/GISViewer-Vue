@@ -26,6 +26,7 @@ export class OverlayGaode {
 
   private constructor(view: any) {
     this.view = view;
+    this.onZoomChange();
   }
 
   public static getInstance(view: AMap.Map) {
@@ -100,6 +101,9 @@ export class OverlayGaode {
     const autoPopup = params.autoPopup;
     const defaultVisible = params.defaultVisible !== false;
 
+    const custom = params.custom;
+    const zooms = params.zooms || [0, 0];
+
     let addCount = 0;
 
     params.overlays.forEach((feature) => {
@@ -111,6 +115,7 @@ export class OverlayGaode {
       fields.type = params.type;
       let content;
       let title;
+      let customtip;
       if (showPopup) {
         if (defaultInfoTemplate === undefined) {
           content = this.getInfoWindowContent(feature);
@@ -175,6 +180,18 @@ export class OverlayGaode {
             },
             bubble: true,
             visible: defaultVisible
+          });
+        }
+        if (custom) {
+          let customContent = custom.content;
+          customtip = new AMap.Marker({
+            position: [geometry.x, geometry.y],
+            extData: {
+              attributes: fields
+            },
+            bubble: true,
+            content: this.getPopUpHtml(feature, customContent),
+            anchor: 'top-center'
           });
         }
       }
@@ -316,6 +333,9 @@ export class OverlayGaode {
         overlay.on('mouseover', this.onOverlayMouse);
         overlay.on('mouseout', this.onOverlayMouse);
       }
+      if (customtip) {
+        group.addOverlay(customtip);
+      }
     });
     return {
       status: 0,
@@ -418,7 +438,12 @@ export class OverlayGaode {
       result: ''
     };
   }
-
+  private async onZoomChange() {
+    let _this = this;
+    this.view.on('zoomchange', async () => {
+      console.log(_this.view.getZoom());
+    });
+  }
   public async findFeature(params: IFindParameter): Promise<IResult> {
     let type = params.layerName;
     let ids = params.ids || [];

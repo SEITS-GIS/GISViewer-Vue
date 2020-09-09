@@ -190,6 +190,7 @@ export class DrawLayer {
     res.fields.forEach((field: any) => {
       field.type = field.type.replace('esriFieldType', '').toLowerCase();
     });
+    let renderer = res.renderer || param.renderer;
     let graphics = res.features.map((graphic: any) => {
       // return {
       //   geometry: jsonUtils.fromJSON(graphic.geometry),
@@ -213,7 +214,7 @@ export class DrawLayer {
       fields: res.fields,
       objectIdField: 'FID',
       geometryType: res.geometryType.replace('esriGeometry', '').toLowerCase(),
-      renderer: param.renderer,
+      renderer: renderer,
       visible: param.visible,
       outFields: ['*']
     });

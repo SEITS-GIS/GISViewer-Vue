@@ -1,27 +1,38 @@
 <template>
-  <div class="MapText TextDiv">
+  <div
+    v-bind:id="id"
+    class="map-tool-tip"
+    :style="visible ? 'visibility:visible' : 'visibility:hidden'"
+    v-bind:class="{MapText: istip, TextDiv: istip}"
+  >
     <div v-html="content"></div>
-    <div class="TextTriTop" />
+    <div class="TextTriTop" v-show="istip" />
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Emit, Prop, Ref } from "vue-property-decorator";
+import {Vue, Component, Emit, Prop, Ref} from 'vue-property-decorator';
 
 @Component
 export default class MapToolTip extends Vue {
-  @Prop({ type: String }) content!: String;
-  @Prop({ type: String }) title!: String;
+  @Prop({type: String}) content!: String;
+  @Prop({type: String}) title!: String;
+  @Prop({type: String}) id!: String;
+  @Prop({type: Boolean, default: false}) istip!: Boolean;
+  @Prop({type: Boolean, default: true}) visible!: Boolean;
   @Ref() tp!: Object;
 }
 </script>
 
 <style scoped>
+.map-tool-tip {
+  position: absolute;
+}
 .MapText {
   min-width: 30px;
   max-width: 260px;
   border-radius: 4px;
-  position: absolute;
+
   text-align: left;
   color: #fff;
   padding: 8px 15px 8px 15px;

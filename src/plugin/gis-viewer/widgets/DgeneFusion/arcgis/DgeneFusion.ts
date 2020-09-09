@@ -83,6 +83,10 @@ export class DgeneFusion {
   private hideDgene() {}
   public async showDgene(params: any) {
     let _this = this;
+    if (params == undefined) {
+      params = {};
+    }
+    let duration = params.duration || 5000;
     const [Point] = await loadModules(['esri/geometry/Point']);
     let center = new Point({
       x: -14071.811607336222,
@@ -101,7 +105,7 @@ export class DgeneFusion {
           center: center,
           zoom: this.showZoom
         },
-        {duration: 5000}
+        {duration: duration}
       )
       .then(() => {
         _this.stopMouseWheelEvent(false);

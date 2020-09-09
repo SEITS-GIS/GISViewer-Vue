@@ -170,7 +170,7 @@ export class MigrateChart {
           effect: {
             show: true,
             period: 4,
-            trailLength: 0,
+            trailLength: 0.1,
             symbolSize: 1
           },
           //blendMode: 'lighter',
@@ -179,7 +179,7 @@ export class MigrateChart {
               color: color[i],
               width: 0.1,
               opacity: 0.6,
-              curveness: 0.0
+              curveness: 0.2
             }
           },
           data: convertData(item[1])

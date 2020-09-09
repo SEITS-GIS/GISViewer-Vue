@@ -122,6 +122,8 @@ export interface IOverlayParameter {
   toolTipContent?: string; //悬浮窗内容
   defaultVisible?: boolean;
   iswgs?: boolean;
+  zooms: [number, number];
+  custom: {content: string; zooms: [number, number]; visible: true};
 }
 export interface IOverlayClusterParameter {
   points: Array<IOverlay>;
