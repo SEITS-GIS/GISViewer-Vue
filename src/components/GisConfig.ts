@@ -38,7 +38,7 @@ export let GisConfig = {
   operationallayers: [
     {
       label: 'fbd1333',
-      url: './config/fbd/dd.json',
+      url: './config/fbd/pcs.json',
       type: 'json',
       visible: true
     },
