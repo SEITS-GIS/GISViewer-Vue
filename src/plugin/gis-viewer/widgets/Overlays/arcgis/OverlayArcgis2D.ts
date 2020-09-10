@@ -252,9 +252,11 @@ export class OverlayArcgis2D {
     const defaultVisible = params.defaultVisible !== false;
     const custom = params.custom;
     const iswgs = params.iswgs !== false;
-    const zooms = params.zooms || [0, 0];
-    overlayLayer.minScale = Utils.getScale(this.view, zooms[0]);
-    overlayLayer.maxScale = Utils.getScale(this.view, zooms[1]);
+    const zooms = params.defaultZooms || [0, 0];
+    if (params.defaultZooms) {
+      overlayLayer.minScale = Utils.getScale(this.view, zooms[0]);
+      overlayLayer.maxScale = Utils.getScale(this.view, zooms[1]);
+    }
 
     const showToolTip = params.showToolTip;
     const toolTipContent = params.toolTipContent;

@@ -26,7 +26,6 @@ export class OverlayGaode {
 
   private constructor(view: any) {
     this.view = view;
-    this.onZoomChange();
   }
 
   public static getInstance(view: AMap.Map) {
@@ -89,7 +88,6 @@ export class OverlayGaode {
   }
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
-    console.log(params);
     const group: AMap.OverlayGroup = this.getOverlayGroup(
       params.type || 'default'
     );
@@ -102,7 +100,6 @@ export class OverlayGaode {
     const defaultVisible = params.defaultVisible !== false;
 
     const custom = params.custom;
-    const zooms = params.zooms || [0, 0];
 
     let addCount = 0;
 
@@ -189,9 +186,10 @@ export class OverlayGaode {
             extData: {
               attributes: fields
             },
+            zooms: custom.zooms || undefined,
             bubble: true,
             content: this.getPopUpHtml(feature, customContent),
-            anchor: 'top-center'
+            anchor: 'bottom-center'
           });
         }
       }
@@ -437,12 +435,6 @@ export class OverlayGaode {
       message: 'ok',
       result: ''
     };
-  }
-  private async onZoomChange() {
-    let _this = this;
-    this.view.on('zoomchange', async () => {
-      console.log(_this.view.getZoom());
-    });
   }
   public async findFeature(params: IFindParameter): Promise<IResult> {
     let type = params.layerName;

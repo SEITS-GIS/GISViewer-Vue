@@ -115,7 +115,7 @@ export default class MapConfig {
       ],
       showPopup: true,
       autoPopup: false,
-      zooms: [0, 13],
+      defaultZooms: [0, 16],
       custom: {
         content:
           '<div style="background:red;width:100px">aaaa:<button>{name}</button></div>',

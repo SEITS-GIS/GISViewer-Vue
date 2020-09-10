@@ -5,7 +5,7 @@ export let GisConfig = {
   //arcgis_api: 'http://128.64.130.247:8219/baidumap/jsapi/api.js',
   //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
   //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
-  theme: 'custom', //dark,vec
+  theme: 'dark', //dark,vec
   baseLayers: [
     // {
     //   label: '深色',
@@ -13,18 +13,13 @@ export let GisConfig = {
     //   type: 'webtiled',
     //   visible: true
     // }
-    // {
-    //   label: '深色',
-    //   type: 'tiled',
-    //   url: 'https://10.31.214.244/server/rest/services/bjm_cd/MapServer',
-    //   visible: true
-    // },
-    // {
-    //   label: '标注',
-    //   type: 'tiled',
-    //   url: 'https://10.31.214.244/server/rest/services/dlbj_cd/MapServer',
-    //   visible: true
-    // }
+    {
+      label: '深色',
+      type: 'tiled',
+      url:
+        'http://10.31.152.48:6080/arcgis/rest/services/ShangHaiHarbour/ShangHai_base_mercator/MapServer',
+      visible: true
+    }
     // {
     //   label: '浅色',
     //   type: 'tiled',
@@ -32,21 +27,21 @@ export let GisConfig = {
     //     'http://172.30.30.1:6080/arcgis/rest/services/ShangHai/ShangHai_base_mercator_new/MapServer',
     //   visible: true
     // },
-    {
-      label: '深色',
-      type: 'tiled',
-      url:
-        'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
-      visible: true
-    }
+    // {
+    //   label: '深色',
+    //   type: 'tiled',
+    //   url:
+    //     'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
+    //   visible: true
+    // }
   ],
   operationallayers: [
     {
       label: 'fbd1333',
-      url: './config/fbd/pcs.json',
+      url: './config/fbd/dd.json',
       type: 'json',
       visible: true
-    }
+    },
     // {
     //   label: 'fbd123',
     //   url: './config/fbd/morph_ksl.json',
@@ -125,93 +120,93 @@ export let GisConfig = {
     //     }
     //   }
     // },
-    // {
-    //   label: '发布段0000',
-    //   url:
-    //     'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/shanghai_xzqh_simple/MapServer/0',
-    //   type: 'feature',
-    //   visible: false,
-    //   labelsVisible: true,
-    //   outFields: ['*'],
-    //   renderer: {
-    //     type: 'unique-value',
-    //     field: 'Name',
-    //     defaultSymbol: {
-    //       type: 'simple-fill',
-    //       style: 'solid',
-    //       color: [255, 0, 0, 0.5],
-    //       outline: {
-    //         type: 'simple-line',
-    //         style: 'solid',
-    //         color: [110, 110, 110, 255],
-    //         width: 2
-    //       }
-    //     },
-    //     uniqueValueInfos: [
-    //       {
-    //         value: '闵行区',
-    //         symbol: {
-    //           type: 'simple-fill',
-    //           style: 'solid',
-    //           color: [0, 255, 51, 0.3],
-    //           outline: {
-    //             type: 'simple-line',
-    //             style: 'solid',
-    //             color: [110, 110, 110, 0.5],
-    //             width: 2
-    //           }
-    //         }
-    //       },
-    //       {
-    //         value: '普陀区',
-    //         symbol: {
-    //           type: 'simple-fill',
-    //           style: 'solid',
-    //           color: [34, 255, 122, 0.6],
-    //           outline: {
-    //             type: 'simple-line',
-    //             style: 'solid',
-    //             color: [110, 110, 110, 255],
-    //             width: 2
-    //           }
-    //         }
-    //       },
-    //       {
-    //         value: '奉贤区',
-    //         symbol: {
-    //           type: 'simple-fill',
-    //           style: 'solid',
-    //           color: [128, 0, 68, 0.4],
-    //           outline: {
-    //             type: 'simple-line',
-    //             style: 'solid',
-    //             color: [110, 110, 110, 255],
-    //             width: 2
-    //           }
-    //         }
-    //       }
-    //     ]
-    //   },
-    //   labelingInfo: [
-    //     {
-    //       //labelExpressionInfo: {expression: '$feature.Name'},
-    //       labelExpression: '[Name]',
-    //       useCodedValues: true,
-    //       labelPlacement: 'always-horizontal',
-    //       symbol: {
-    //         type: 'text',
-    //         rightToLeft: false,
-    //         color: [255, 255, 0, 0.85],
-    //         verticalAlignment: 'baseline',
-    //         horizontalAlignment: 'left',
-    //         font: {
-    //           size: 100,
-    //           weight: 'bold'
-    //         }
-    //       }
-    //     }
-    //   ]
-    // }
+    {
+      label: '发布段0000',
+      url:
+        'http://10.31.152.48:6080/arcgis/rest/services/ShangHaiHarbour/ShangHai_xzqh_simple/MapServer/0',
+      type: 'feature',
+      visible: true,
+      labelsVisible: true,
+      outFields: ['*'],
+      renderer: {
+        type: 'unique-value',
+        field: 'Name',
+        defaultSymbol: {
+          type: 'simple-fill',
+          style: 'solid',
+          color: [255, 0, 0, 0.5],
+          outline: {
+            type: 'simple-line',
+            style: 'solid',
+            color: [110, 110, 110, 255],
+            width: 2
+          }
+        },
+        uniqueValueInfos: [
+          {
+            value: '闵行区',
+            symbol: {
+              type: 'simple-fill',
+              style: 'solid',
+              color: [0, 255, 51, 0.3],
+              outline: {
+                type: 'simple-line',
+                style: 'solid',
+                color: [110, 110, 110, 0.5],
+                width: 2
+              }
+            }
+          },
+          {
+            value: '普陀区',
+            symbol: {
+              type: 'simple-fill',
+              style: 'solid',
+              color: [34, 255, 122, 0.6],
+              outline: {
+                type: 'simple-line',
+                style: 'solid',
+                color: [110, 110, 110, 255],
+                width: 2
+              }
+            }
+          },
+          {
+            value: '奉贤区',
+            symbol: {
+              type: 'simple-fill',
+              style: 'solid',
+              color: [128, 0, 68, 0.4],
+              outline: {
+                type: 'simple-line',
+                style: 'solid',
+                color: [110, 110, 110, 255],
+                width: 2
+              }
+            }
+          }
+        ]
+      },
+      labelingInfo: [
+        {
+          labelExpressionInfo: {
+            expression: '$feature.FEATURETYP+",测试中文112,"'
+          },
+          //labelExpression: '1212',
+          useCodedValues: false,
+          labelPlacement: 'always-horizontal',
+          symbol: {
+            type: 'text', // autocasts as new TextSymbol()
+            color: 'white',
+            font: {
+              // autocast as new Font()
+              size: 12,
+              weight: 'normal'
+            }
+          }
+        }
+      ]
+    }
     // ,
     // {
     //   label: '匝道灯',
@@ -282,9 +277,9 @@ export let GisConfig = {
   //gisServer: 'http://128.64.151.245:8019',
   options: {
     //for arcgis-2d
-    //center: [100, 0.5],
+    //center: [0, 0],
     center: [121.24, 31.235],
-    zoom: 11,
+    zoom: 3,
     //viewingMode: 'global',
     // ground: {opacity: 1},
     // alphaCompositingEnabled: true,

@@ -39,7 +39,7 @@ ul {
   margin-top: 0;
   margin-bottom: 0;
 }
-div {
+/* div {
   box-sizing: border-box;
 }
 a {
@@ -87,8 +87,8 @@ p {
 a,
 p {
   line-height: 35px;
-}
-@media (max-width: 768px) {
+} */
+/* @media (max-width: 768px) {
   h1 {
     font-size: 30px;
   }
@@ -106,8 +106,8 @@ p {
     font-size: 22px;
     line-height: 30px;
   }
-}
-:focus {
+} */
+/* :focus {
   outline: none;
 }
 .a-frame-container,
@@ -426,4 +426,4 @@ p {
 .win-pop-index {
   width: 10.29rem;
   height: 5.92rem;
-}
+} */

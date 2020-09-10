@@ -350,7 +350,6 @@ export default class MapAppArcGIS2D {
           switch (type) {
             case 'feature':
               layer = new FeatureLayer(layerConfig);
-              layer.labelingInfo = layerConfig.labelingInfo;
               break;
             case 'dynamic':
               layer = new MapImageLayer(layerConfig);

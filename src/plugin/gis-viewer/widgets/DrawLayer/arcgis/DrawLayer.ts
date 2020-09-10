@@ -52,6 +52,7 @@ export class DrawLayer {
     let dataUrl = params.dataUrl;
     let defaultVisible = params.visible !== false;
     let renderer = params.renderer || this.getRender();
+    let labelingInfo = params.labelingInfo;
     let refreshInterval = params.refreshInterval || 0;
 
     let layer = this.view.map.allLayers.find((baselayer: any) => {
@@ -99,6 +100,7 @@ export class DrawLayer {
             data: e[0],
             label: label,
             renderer: renderer,
+            labelingInfo: labelingInfo,
             visible: defaultVisible,
             states: e[1]
           });
@@ -191,6 +193,7 @@ export class DrawLayer {
       field.type = field.type.replace('esriFieldType', '').toLowerCase();
     });
     let renderer = res.renderer || param.renderer;
+    let labelingInfo = res.labelingInfo || param.labelingInfo;
     let graphics = res.features.map((graphic: any) => {
       // return {
       //   geometry: jsonUtils.fromJSON(graphic.geometry),
@@ -218,6 +221,9 @@ export class DrawLayer {
       visible: param.visible,
       outFields: ['*']
     });
+    if (labelingInfo) {
+      drawlayer.labelingInfo = labelingInfo;
+    }
     if (param.label) {
       (drawlayer as any).label = param.label;
     }
@@ -268,5 +274,26 @@ export class DrawLayer {
       ]
     };
     return renderer;
+  }
+  private getFont(field: string): any {
+    let labelingInfo = [
+      {
+        labelExpressionInfo: {
+          expression: '$feature.' + field
+        },
+        useCodedValues: true,
+        labelPlacement: 'always-horizontal',
+        symbol: {
+          type: 'text', // autocasts as new TextSymbol()
+          color: 'white',
+          font: {
+            // autocast as new Font()
+            size: 12,
+            weight: 'bord'
+          }
+        }
+      }
+    ];
+    return labelingInfo;
   }
 }
