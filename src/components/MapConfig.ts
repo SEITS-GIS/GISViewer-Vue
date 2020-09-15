@@ -159,7 +159,7 @@ export default class MapConfig {
       //     content: '<div class="accc">name:{Name}</div>'
       //   }
       // };
-      const result = map.addOverlaysCluster(res.data);
+      //const result = map.addOverlaysCluster(res.data);
     });
 
     // var points = [];
