@@ -11,8 +11,9 @@ export default class MapConfig {
     // map
     //   .addDgeneFusion({
     //     appendDomID: 'gisDiv',
-    //     url: 'dgene2',
-    //     outvideo: false,
+    //     url: 'dgene',
+    //     showOut: true,
+    //     outvideo: true,
     //     callback: (a: number, b: number) => {
     //       console.log(a, b);
     //     }
@@ -20,6 +21,7 @@ export default class MapConfig {
     //   .then((e: any) => {
     //     console.log('载入成功', e.result);
     //     _this.model_view = e.result;
+
     //     map.showDgene({duration: 0});
     //     //_this.model_view.showVideoDom('HQtest147');
     //     //_this.model_view.showVideoDom('HQtest148');
@@ -137,27 +139,27 @@ export default class MapConfig {
     //     0.07
     //   );
     // }
-    axios.get('config/a.json').then((res: any) => {
+    axios.get('config/pt.json').then((res: any) => {
       //console.log(res.data.overlays);
-      let points = {
-        type: 'police',
-        defaultVisible: true,
-        defaultSymbol: {
-          type: 'point',
-          url: 'assets/image/Anchor.png',
-          height: 29,
-          width: 29
-        },
-        defaultTooltip: '{Name}',
-        points: res.data.overlays,
-        showPopup: true,
-        autoPopup: false,
-        defaultInfoTemplate: {
-          title: '1212',
-          content: '<div class="accc">name:{Name}</div>'
-        }
-      };
-      //const result = map.addOverlaysCluster(points);
+      // let points = {
+      //   type: 'police',
+      //   defaultVisible: true,
+      //   defaultSymbol: {
+      //     type: 'point',
+      //     url: 'assets/image/Anchor.png',
+      //     height: 29,
+      //     width: 29
+      //   },
+      //   defaultTooltip: '{Name}',
+      //   points: res.data.overlays,
+      //   showPopup: true,
+      //   autoPopup: false,
+      //   defaultInfoTemplate: {
+      //     title: '1212',
+      //     content: '<div class="accc">name:{Name}</div>'
+      //   }
+      // };
+      const result = map.addOverlaysCluster(res.data);
     });
 
     // var points = [];
@@ -273,13 +275,13 @@ export default class MapConfig {
     for (var i = 0; i < 10000; i++) {
       var x1 = x + (Math.random() * 2 - 1) / 20;
       var y1 = y + (Math.random() * 2 - 1) / 20;
-      var value = Math.floor(1000 * Math.random() + 1);
+      var value = Math.floor(1000000 * Math.random() + 1);
       var a = i % 2 == 0 ? '1' : '0';
       points.push({
-        geometry: {x: x1, y: y1},
+        geometry: {x: x1.toString(), y: y1.toString()},
         fields: {
           desc: '上海体育馆停车场',
-          totalSpace: value.toString(),
+          totalSpace: 5,
           type: a
         }
       });
@@ -290,20 +292,15 @@ export default class MapConfig {
         field: 'totalSpace',
         radius: '5',
         colors: [
-          // 'rgb(255, 255, 255)',
-          // 'rgba(206, 199, 25,0.5)',
-          // 'rgba(255, 140, 27,0.5)',
-          // 'rgba(246, 64, 64,0.5)'
-          //'rgb(255, 255, 255)',
-          'rgb(63, 63, 191)',
-          'rgb(117,211,248)',
-          'rgb(0, 255, 0)',
-          'rgba(255,234,0)',
-          'rgb(255,0,0)'
+          'rgb(255, 255, 255,0)',
+          'rgba(206, 199, 25,0.5)',
+          'rgba(255, 140, 27,0.5)',
+          'rgba(246, 64, 64,0.5)',
+          'rgba(255, 255, 255,1)'
         ],
         maxValue: 100,
-        minValue: 1,
-        zoom: 13,
+        minValue: 0,
+        zoom: 16,
         renderer: {
           type: 'simple',
           symbol: {
@@ -399,7 +396,7 @@ export default class MapConfig {
     // }
   }
   public btn_test3(map: any) {
-    //map.showDgene(); //显示三维模型
+    map.showDgene({duration: 0}); //显示三维模型
     //map.showLayer({label: 'fbd1333'});
     //map.clearGeometrySearch();
     //map.deleteHeatImage();

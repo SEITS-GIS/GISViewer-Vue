@@ -10,6 +10,9 @@ export class DgeneFusion {
   private view!: any;
   private showZoom: number = 10;
   private mouseEventFn: any;
+  private showOut: boolean = true;
+  private loadOutState: boolean = false;
+
   private fusion_view_state: string = 'all';
   private FlyCenter: any;
   private originView: any = {
@@ -157,6 +160,8 @@ export class DgeneFusion {
   public async addDgeneFusion(params: any): Promise<IResult> {
     let _this = this;
     let parentid = params.appendDomID || 'app';
+    this.showOut = params.showOut !== false;
+
     let dgeneDiv = document.createElement('div');
     dgeneDiv.style.width = this.view.width + 'px';
     dgeneDiv.style.height = this.view.height + 'px';
@@ -213,28 +218,25 @@ export class DgeneFusion {
         for (let data in videodata) {
           let vdata = (videodata as any)[data];
 
-          if (vdata.isreal && data != 'HQtest132') {
+          if (vdata.isreal) {
             _this.fusion_video.push(data);
           }
-          let size = vdata.isreal ? 30 : 4;
+          let size = vdata.isreal ? 10 : 4;
           let position = vdata.isreal
             ? vdata.realposition
             : vdata.camJson.position;
-          if (data == 'HQtest132') {
-            size = 4;
-          }
           // console.log(data, position);
-          if (showOutVideo || !vdata.isreal || data == 'HQtest132') {
+          if (showOutVideo || !vdata.isreal) {
             console.log(data, position);
             this.fusion_view.loadMapSprite(
-              './assets/image/video.png',
               data,
               {
                 x: position.x,
                 y: position.y,
                 z: position.z
               },
-              size
+              size,
+              0x0000ff
             );
           }
         }
@@ -267,6 +269,11 @@ export class DgeneFusion {
     return new Promise((resolve, reject) => {
       _this.fusion_view = new Dgene(
         (item: any, loaded: number, total: number) => {
+          if (_this.showOut && !_this.loadOutState) {
+            _this.fusion_view.loadOutSideModel();
+            _this.loadOutState = true;
+          }
+
           if (Math.floor(Number(loaded / total) * 100) % 10 == 0) {
             console.log(
               `Dgene info: data loaded ${Math.floor(
@@ -288,6 +295,7 @@ export class DgeneFusion {
             }
             let control = _this.fusion_view.getControl();
             _this.fusion_control = control;
+
             resolve({
               status: 0,
               message: 'dgene fusion map onload success',

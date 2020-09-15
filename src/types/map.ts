@@ -125,7 +125,8 @@ export interface IOverlayParameter {
   custom: {content: string; zooms: [number, number]; visible: true};
 }
 export interface IOverlayClusterParameter {
-  points: Array<IOverlay>;
+  points?: Array<IOverlay>;
+  overlays?: Array<IOverlay>;
   type?: string;
   zoom: number;
   distance: number;
@@ -133,6 +134,7 @@ export interface IOverlayClusterParameter {
   clusterSymbol?: IPointSymbol;
   defaultVisible: boolean;
   defaultTooltip: string;
+  subType: string;
 }
 
 export interface IMapContainer {

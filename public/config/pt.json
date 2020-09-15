@@ -1,0 +1,1556 @@
+{
+  "type": "sxj1",
+  "zoom": 16,
+  "defaultVisible": true,
+  "defaultTooltip": "{roadName}",
+  "defaultSymbol": {
+    "url": "http://localhost:8090/TGISViewer_v200/images/mapIcons/JiaoWei/event.png",
+    "height": 29,
+    "width": 29
+  },
+  "overlays": [
+    {
+      "id": "31011300001310000003",
+      "geometry": {
+        "x": "121.3875375370700",
+        "y": "31.3811053844800"
+      },
+      "fields": {
+        "cameraId": "31011300001310000003",
+        "cameraNo": "2a784123-0698-4ae5-b665-b284eec39e3f",
+        "cameraType": null,
+        "ip": null,
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": "310113000000",
+        "deptName": null,
+        "roadId": null,
+        "roadName": "宝山宾馆",
+        "longitude": "121.3875375370700",
+        "latitude": "31.3811053844800",
+        "ptz": "1",
+        "capture": null,
+        "position": null,
+        "maintenanceDept": null
+      }
+    },
+    {
+      "id": "31011300001310000061",
+      "geometry": {
+        "x": "121.298719174207",
+        "y": "31.500074628324"
+      },
+      "fields": {
+        "cameraId": "31011300001310000061",
+        "cameraNo": "b67732e4-34ae-4911-b469-b8ddc91f38c3",
+        "cameraType": null,
+        "ip": null,
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": "310113000000",
+        "deptName": null,
+        "roadId": null,
+        "roadName": "洋桥一级检查站引导区2",
+        "longitude": "121.298719174207",
+        "latitude": "31.500074628324",
+        "ptz": "1",
+        "capture": null,
+        "position": null,
+        "maintenanceDept": null
+      }
+    },
+    {
+      "id": "31011300001310000067",
+      "geometry": {
+        "x": "121.296937441600",
+        "y": "31.3899618526600"
+      },
+      "fields": {
+        "cameraId": "31011300001310000067",
+        "cameraNo": "59493340-1d5e-477b-87f3-ac0a8b518696",
+        "cameraType": null,
+        "ip": null,
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": "310113000000",
+        "deptName": null,
+        "roadId": null,
+        "roadName": "洋桥一级检查站外",
+        "longitude": "121.296937441600",
+        "latitude": "31.3899618526600",
+        "ptz": "1",
+        "capture": null,
+        "position": null,
+        "maintenanceDept": null
+      }
+    },
+    {
+      "id": "31011300001310000068",
+      "geometry": {
+        "x": "121.3809443972800",
+        "y": "31.304459747200"
+      },
+      "fields": {
+        "cameraId": "31011300001310000068",
+        "cameraNo": "ab0e697c-0bc7-40c2-8ac1-99e2d710f4fe",
+        "cameraType": null,
+        "ip": null,
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": "310113000000",
+        "deptName": null,
+        "roadId": null,
+        "roadName": "沪太／场中",
+        "longitude": "121.3809443972800",
+        "latitude": "31.304459747200",
+        "ptz": "1",
+        "capture": null,
+        "position": null,
+        "maintenanceDept": null
+      }
+    },
+    {
+      "id": "31011300001310000093",
+      "geometry": {
+        "x": "121.375887101400",
+        "y": "31.301333871100"
+      },
+      "fields": {
+        "cameraId": "31011300001310000093",
+        "cameraNo": "474d6465-51ed-4345-baad-da365d9f695c",
+        "cameraType": null,
+        "ip": null,
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": "310113000000",
+        "deptName": null,
+        "roadId": null,
+        "roadName": "南大／祁连",
+        "longitude": "121.375887101400",
+        "latitude": "31.301333871100",
+        "ptz": "1",
+        "capture": null,
+        "position": null,
+        "maintenanceDept": null
+      }
+    },
+    {
+      "id": "31011300001310000095",
+      "geometry": {
+        "x": "0.000000000000",
+        "y": "0.000000000000"
+      },
+      "fields": {
+        "cameraId": "31011300001310000095",
+        "cameraNo": "388512df-aeaa-483c-8740-ec89ecd31468",
+        "cameraType": null,
+        "ip": null,
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": "310113000000",
+        "deptName": null,
+        "roadId": null,
+        "roadName": "浦西-C3(复接)",
+        "longitude": "0.000000000000",
+        "latitude": "0.000000000000",
+        "ptz": "1",
+        "capture": null,
+        "position": null,
+        "maintenanceDept": null
+      }
+    },
+    {
+      "id": "31011300001310000096",
+      "geometry": {
+        "x": "0.000000000000",
+        "y": "0.000000000000"
+      },
+      "fields": {
+        "cameraId": "31011300001310000096",
+        "cameraNo": "7425c216-2007-4cef-95cb-2901e15d805f",
+        "cameraType": null,
+        "ip": null,
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": "310113000000",
+        "deptName": null,
+        "roadId": null,
+        "roadName": "浦东-C1(复接)",
+        "longitude": "0.000000000000",
+        "latitude": "0.000000000000",
+        "ptz": "1",
+        "capture": null,
+        "position": null,
+        "maintenanceDept": null
+      }
+    },
+    {
+      "id": "31011300001310000097",
+      "geometry": {
+        "x": "0.000000000000",
+        "y": "0.000000000000"
+      },
+      "fields": {
+        "cameraId": "31011300001310000097",
+        "cameraNo": "b1745c4b-8a41-4e7f-a056-f6801a46930f",
+        "cameraType": null,
+        "ip": null,
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": "310113000000",
+        "deptName": null,
+        "roadId": null,
+        "roadName": "北线-41号(复接)",
+        "longitude": "0.000000000000",
+        "latitude": "0.000000000000",
+        "ptz": "1",
+        "capture": null,
+        "position": null,
+        "maintenanceDept": null
+      }
+    },
+    {
+      "id": "31011300001310000098",
+      "geometry": {
+        "x": "121.3845147666700",
+        "y": "31.381368051300"
+      },
+      "fields": {
+        "cameraId": "31011300001310000098",
+        "cameraNo": "52ab9510-cbf7-4f0b-9c6d-ccc1387472ed",
+        "cameraType": null,
+        "ip": null,
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": "310113000000",
+        "deptName": null,
+        "roadId": null,
+        "roadName": "宝杨／江杨北",
+        "longitude": "121.3845147666700",
+        "latitude": "31.381368051300",
+        "ptz": "1",
+        "capture": null,
+        "position": null,
+        "maintenanceDept": null
+      }
+    },
+    {
+      "id": "31011300001310000991",
+      "geometry": {
+        "x": "0.000000000000",
+        "y": "0.000000000000"
+      },
+      "fields": {
+        "cameraId": "31011300001310000991",
+        "cameraNo": "7c6d8f9e-aea8-45e7-97f6-44074c44b719",
+        "cameraType": null,
+        "ip": null,
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": "310113000000",
+        "deptName": null,
+        "roadId": null,
+        "roadName": "3G无线信号",
+        "longitude": "0.000000000000",
+        "latitude": "0.000000000000",
+        "ptz": "1",
+        "capture": null,
+        "position": null,
+        "maintenanceDept": null
+      }
+    },
+    {
+      "id": "31011300001310000997",
+      "geometry": {
+        "x": "0.000000000000",
+        "y": "0.000000000000"
+      },
+      "fields": {
+        "cameraId": "31011300001310000997",
+        "cameraNo": "79949da3-a808-45ea-9668-e9f978bc1d6d",
+        "cameraType": null,
+        "ip": null,
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": "310113000000",
+        "deptName": null,
+        "roadId": null,
+        "roadName": "指挥长席",
+        "longitude": "0.000000000000",
+        "latitude": "0.000000000000",
+        "ptz": "1",
+        "capture": null,
+        "position": null,
+        "maintenanceDept": null
+      }
+    },
+    {
+      "id": "31011300001310000999",
+      "geometry": {
+        "x": "0.000000000000",
+        "y": "0.000000000000"
+      },
+      "fields": {
+        "cameraId": "31011300001310000999",
+        "cameraNo": "6f782423-f62a-498f-ac94-865fd45e3a21",
+        "cameraType": null,
+        "ip": null,
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": "310113000000",
+        "deptName": null,
+        "roadId": null,
+        "roadName": "指挥大厅",
+        "longitude": "0.000000000000",
+        "latitude": "0.000000000000",
+        "ptz": "1",
+        "capture": null,
+        "position": null,
+        "maintenanceDept": null
+      }
+    },
+    {
+      "id": "31011300001321997001",
+      "geometry": {
+        "x": "121.3871889111110",
+        "y": "31.3805376111111"
+      },
+      "symbol": {
+        "url": "http://localhost:8090/assets_xuhui_white/assets/layouts/images/icon_green/icon_gis_green_dianzijingcha.png",
+        "height": 31,
+        "width": 41
+      },
+      "fields": {
+        "cameraId": "31011300001321997001",
+        "cameraNo": "8661baa6-5c1c-4aed-b1bd-7eaefe8786d5",
+        "cameraType": "高清",
+        "ip": "15.192.55.60",
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": null,
+        "deptName": "宝山公安分局科技科",
+        "roadId": null,
+        "roadName": "同济路930号入",
+        "longitude": "121.3871889111110",
+        "latitude": "31.3805376111111",
+        "ptz": "0",
+        "capture": "人脸识别",
+        "position": "同济路930号入",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011300001321997002",
+      "geometry": {
+        "x": "121.3871889111110",
+        "y": "31.3805376111111"
+      },
+      "symbol": {
+        "url": "http://localhost:8090/assets_xuhui_white/assets/layouts/images/icon_green/icon_gis_green_dianzijingcha.png",
+        "height": 31,
+        "width": 41
+      },
+      "fields": {
+        "cameraId": "31011300001321997002",
+        "cameraNo": "8914cdbc-ca37-4c12-b264-232b030ce417",
+        "cameraType": "高清",
+        "ip": "15.192.55.61",
+        "channel": null,
+        "areaId": "310113",
+        "areaName": null,
+        "deptId": null,
+        "deptName": "宝山公安分局科技科",
+        "roadId": null,
+        "roadName": "同济路930号出",
+        "longitude": "121.3871889111110",
+        "latitude": "31.3805376111111",
+        "ptz": "0",
+        "capture": "人脸识别",
+        "position": "同济路930号出",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011311001310000035",
+      "geometry": {
+        "x": "121.3891740319200",
+        "y": "31.3811613947200"
+      },
+      "fields": {
+        "cameraId": "31011311001310000035",
+        "cameraNo": "5c29d288-f276-485a-a44c-55319d5e652e",
+        "cameraType": null,
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": null,
+        "roadId": null,
+        "roadName": "江堤望江楼",
+        "longitude": "121.3891740319200",
+        "latitude": "31.3811613947200",
+        "ptz": "1",
+        "capture": null,
+        "position": null,
+        "maintenanceDept": null
+      }
+    },
+    {
+      "id": "31011311001310000043",
+      "geometry": {
+        "x": "121.3887583111110",
+        "y": "31.3810401411111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000043",
+        "cameraNo": "dabac086-fb69-44a7-8d9e-2853c5371e5b",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "友谊/东林",
+        "longitude": "121.3887583111110",
+        "latitude": "31.3810401411111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "友谊/东林",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011311001310000044",
+      "geometry": {
+        "x": "121.3874494111110",
+        "y": "31.3805426911111"
+      },
+      "symbol": {
+        "url": "http://localhost:8090/assets_xuhui_white/assets/layouts/images/icon_green/icon_gis_green_dianzijingcha.png",
+        "height": 31,
+        "width": 41
+      },
+      "fields": {
+        "cameraId": "31011311001310000044",
+        "cameraNo": "c6989ca1-94ff-4aab-bea2-c5c5c2e7dd8a",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "友谊/密山",
+        "longitude": "121.3874494111110",
+        "latitude": "31.3805426911111",
+        "ptz": "0",
+        "capture": "普通监控",
+        "position": "友谊/密山",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011311001310000045",
+      "geometry": {
+        "x": "121.3898336111110",
+        "y": "31.3804897211111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000045",
+        "cameraNo": "c58609f1-e4ed-4d1e-a75f-c45d2c9e3ab2",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "宝杨路6号",
+        "longitude": "121.3898336111110",
+        "latitude": "31.3804897211111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "宝杨路6号",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011311001310000046",
+      "geometry": {
+        "x": "121.3894843111110",
+        "y": "31.3804386011111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000046",
+        "cameraNo": "aa76eb4e-1ff1-4a0a-9f27-6adf34a0f4b0",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "宝杨/宝东",
+        "longitude": "121.3894843111110",
+        "latitude": "31.3804386011111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "宝杨/宝东",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011311001310000047",
+      "geometry": {
+        "x": "121.3890819111110",
+        "y": "31.3802973111111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000047",
+        "cameraNo": "4a4f670a-99b8-4ee4-bdc7-4381c869ac27",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "宝杨/淞宝1",
+        "longitude": "121.3890819111110",
+        "latitude": "31.3802973111111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "宝杨/淞宝1",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011311001310000048",
+      "geometry": {
+        "x": "121.3885832111110",
+        "y": "31.3801667511111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000048",
+        "cameraNo": "8ada7713-aaf1-426c-aa42-2e8d4a29bca6",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "宝杨/永清1",
+        "longitude": "121.3885832111110",
+        "latitude": "31.3801667511111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "宝杨/永清1",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011311001310000049",
+      "geometry": {
+        "x": "121.3877272111110",
+        "y": "31.399331011111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000049",
+        "cameraNo": "1cdbad48-2287-4c69-9507-5049b73a05bc",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "宝杨/双庆1",
+        "longitude": "121.3877272111110",
+        "latitude": "31.399331011111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "宝杨/双庆1",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011311001310000050",
+      "geometry": {
+        "x": "121.3890404111110",
+        "y": "31.3811320411111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000050",
+        "cameraNo": "21ce3f95-9a00-4e2c-a858-ea21ea195102",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "宝山公安分局科技科",
+        "roadId": null,
+        "roadName": "淞沪抗战纪念馆",
+        "longitude": "121.3890404111110",
+        "latitude": "31.3811320411111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "淞沪抗战纪念馆",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011311001310000051",
+      "geometry": {
+        "x": "121.3885912111110",
+        "y": "31.3806510511111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000051",
+        "cameraNo": "d4c49c8a-0e0f-4145-a545-651d0a545be2",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "区政府东侧",
+        "longitude": "121.3885912111110",
+        "latitude": "31.3806510511111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "区政府东侧",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011311001310000052",
+      "geometry": {
+        "x": "121.3884923111110",
+        "y": "31.3806356711111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000052",
+        "cameraNo": "85e6b488-b8a0-4ef6-90bc-3340f4dbde86",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "区政府北侧",
+        "longitude": "121.3884923111110",
+        "latitude": "31.3806356711111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "区政府北侧",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011311001310000053",
+      "geometry": {
+        "x": "121.3884406111110",
+        "y": "31.3806013511111"
+      },
+      "symbol": {
+        "url": "http://localhost:8090/assets_xuhui_white/assets/layouts/images/icon_green/icon_gis_green_dianzijingcha.png",
+        "height": 31,
+        "width": 41
+      },
+      "fields": {
+        "cameraId": "31011311001310000053",
+        "cameraNo": "6251d2e0-a9e4-46c1-a41a-685b1ac487c7",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "密山/友谊支",
+        "longitude": "121.3884406111110",
+        "latitude": "31.3806013511111",
+        "ptz": "0",
+        "capture": "普通监控",
+        "position": "密山/友谊支",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011311001310000054",
+      "geometry": {
+        "x": "121.3883650111110",
+        "y": "31.3807674811111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000054",
+        "cameraNo": "e7315ed9-eef6-42d4-8e5e-ab7fd81f7ceb",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "区政府西门",
+        "longitude": "121.3883650111110",
+        "latitude": "31.3807674811111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "区政府西门",
+        "maintenanceDept": "海康威视"
+      }
+    },
+    {
+      "id": "31011311001310000057",
+      "geometry": {
+        "x": "121.3887883111110",
+        "y": "31.3810243911111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000057",
+        "cameraNo": "63b348b3-27b1-4b1c-ac4c-6aa17c205517",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "东林路401号杏花楼",
+        "longitude": "121.3887883111110",
+        "latitude": "31.3810243911111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "东林路401号杏花楼",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000058",
+      "geometry": {
+        "x": "121.3883217111110",
+        "y": "31.3808680611111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000058",
+        "cameraNo": "2ddf7f22-8df9-4eac-9294-6620c2d70a5d",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "友谊支路新华书店",
+        "longitude": "121.3883217111110",
+        "latitude": "31.3808680611111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "友谊支路新华书店",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000059",
+      "geometry": {
+        "x": "121.3883717111110",
+        "y": "31.3808064911111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000059",
+        "cameraNo": "9136c57f-4196-4f67-8f40-b16e0f7c09a2",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "友谊路家得利",
+        "longitude": "121.3883717111110",
+        "latitude": "31.3808064911111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "友谊路家得利",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000060",
+      "geometry": {
+        "x": "121.3882090111110",
+        "y": "31.3810828311111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000060",
+        "cameraNo": "f95a3ae5-edd6-42bf-9129-bca19b4fe4b9",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "青鲜菜场",
+        "longitude": "121.3882090111110",
+        "latitude": "31.3810828311111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "青鲜菜场",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000061",
+      "geometry": {
+        "x": "121.3885135111110",
+        "y": "31.3803775811111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000061",
+        "cameraNo": "9f7f3624-a628-4eed-802f-55c93f2bb821",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "宝隆加油站",
+        "longitude": "121.3885135111110",
+        "latitude": "31.3803775811111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "宝隆加油站",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000062",
+      "geometry": {
+        "x": "121.3877403111110",
+        "y": "31.3806593811111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000062",
+        "cameraNo": "e8130399-8c1a-4189-bc19-2699eeef0c2f",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "友谊路必胜客",
+        "longitude": "121.3877403111110",
+        "latitude": "31.3806593811111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "友谊路必胜客",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000063",
+      "geometry": {
+        "x": "121.3879493111110",
+        "y": "31.3802273411111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000063",
+        "cameraNo": "10755213-3921-4594-b978-d16274221967",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "金牡丹",
+        "longitude": "121.3879493111110",
+        "latitude": "31.3802273411111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "金牡丹",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000064",
+      "geometry": {
+        "x": "121.3877519111110",
+        "y": "31.3804052411111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000064",
+        "cameraNo": "78cad4b3-ed1e-49a3-ae9a-dff4edccda20",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "爱民网吧",
+        "longitude": "121.3877519111110",
+        "latitude": "31.3804052411111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "爱民网吧",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000065",
+      "geometry": {
+        "x": "121.3888129111110",
+        "y": "31.3809130711111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000065",
+        "cameraNo": "fd661d0d-c4c2-4363-9840-834b94167030",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "博士娃",
+        "longitude": "121.3888129111110",
+        "latitude": "31.3809130711111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "博士娃",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000066",
+      "geometry": {
+        "x": "121.3879275111110",
+        "y": "31.3803512711111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000066",
+        "cameraNo": "be05dfa0-cd48-472d-856f-6a60df4759db",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "北翼商业街西侧通道",
+        "longitude": "121.3879275111110",
+        "latitude": "31.3803512711111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "北翼商业街西侧通道",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000067",
+      "geometry": {
+        "x": "121.3880378111110",
+        "y": "31.3808585111111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000067",
+        "cameraNo": "5dcf892c-ee91-4ad8-9e4b-bd8cfc5ee312",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "宝山医院门诊部",
+        "longitude": "121.3880378111110",
+        "latitude": "31.3808585111111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "宝山医院门诊部",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000068",
+      "geometry": {
+        "x": "121.3874636111110",
+        "y": "31.3808848811111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000068",
+        "cameraNo": "bf1d79d8-64e0-4561-8436-145af0aa4c4a",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "盘古路菜场",
+        "longitude": "121.3874636111110",
+        "latitude": "31.3808848811111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "盘古路菜场",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000069",
+      "geometry": {
+        "x": "121.3877837111110",
+        "y": "31.3809940611111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000069",
+        "cameraNo": "6cce06f8-f43d-4b41-85ff-6bf9046531d4",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "祥腾国际",
+        "longitude": "121.3877837111110",
+        "latitude": "31.3809940611111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "祥腾国际",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000070",
+      "geometry": {
+        "x": "121.3873288111110",
+        "y": "31.3811254211111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000070",
+        "cameraNo": "77eb9673-0e9d-450e-90f3-0c581f7cf173",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "宝钢医院东侧",
+        "longitude": "121.3873288111110",
+        "latitude": "31.3811254211111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "宝钢医院东侧",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000071",
+      "geometry": {
+        "x": "121.3880486111110",
+        "y": "31.3800122111111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000071",
+        "cameraNo": "44fe8ed3-f618-420b-aab7-95957b39a3a5",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "牡丹江路1398号建行",
+        "longitude": "121.3880486111110",
+        "latitude": "31.3800122111111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "牡丹江路1398号建行",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000072",
+      "geometry": {
+        "x": "121.3888800111110",
+        "y": "31.3807376711111"
+      },
+      "symbol": {
+        "url": "http://localhost:8090/assets_xuhui_white/assets/layouts/images/icon_green/icon_gis_green_dianzijingcha.png",
+        "height": 31,
+        "width": 41
+      },
+      "fields": {
+        "cameraId": "31011311001310000072",
+        "cameraNo": "d0d88ce2-a699-4e7b-9041-760b948a194a",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "东林/密山东",
+        "longitude": "121.3888800111110",
+        "latitude": "31.3807376711111",
+        "ptz": "0",
+        "capture": "普通监控",
+        "position": "东林/密山东",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000073",
+      "geometry": {
+        "x": "121.3876051111110",
+        "y": "31.3809385811111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000073",
+        "cameraNo": "047ee9a5-c777-414b-9d10-9c0367b85a16",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "泰煌鸡",
+        "longitude": "121.3876051111110",
+        "latitude": "31.3809385811111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "泰煌鸡",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000074",
+      "geometry": {
+        "x": "121.3872027111110",
+        "y": "31.3804718111111"
+      },
+      "symbol": {
+        "url": "http://localhost:8090/assets_xuhui_white/assets/layouts/images/icon_green/icon_gis_green_dianzijingcha.png",
+        "height": 31,
+        "width": 41
+      },
+      "fields": {
+        "cameraId": "31011311001310000074",
+        "cameraNo": "c18666fa-2022-46c1-adc5-1e4a5f350601",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": null,
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "同济/友谊",
+        "longitude": "121.3872027111110",
+        "latitude": "31.3804718111111",
+        "ptz": "0",
+        "capture": "普通监控",
+        "position": "同济/友谊",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000075",
+      "geometry": {
+        "x": "121.3883589111110",
+        "y": "31.3814923211111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000075",
+        "cameraNo": "fee49f69-ae7b-4fef-9986-1e9848319c8b",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "849终点站",
+        "longitude": "121.3883589111110",
+        "latitude": "31.3814923211111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "849终点站",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000076",
+      "geometry": {
+        "x": "121.3878328111110",
+        "y": "31.399502811111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000076",
+        "cameraNo": "09466d8f-8a97-40a1-9146-777c2acdd6cc",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "武装部",
+        "longitude": "121.3878328111110",
+        "latitude": "31.399502811111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "武装部",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000077",
+      "geometry": {
+        "x": "121.3891615111110",
+        "y": "31.3813937011111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000077",
+        "cameraNo": "4a29d06e-66a6-42ac-a494-deac6b19a11c",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "新江堤",
+        "longitude": "121.3891615111110",
+        "latitude": "31.3813937011111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "新江堤",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000079",
+      "geometry": {
+        "x": "121.3883718111110",
+        "y": "31.3811855611111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000079",
+        "cameraNo": "346ceb94-33d7-45cb-8e3c-623e96cea69b",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "临江三村",
+        "longitude": "121.3883718111110",
+        "latitude": "31.3811855611111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "临江三村",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000080",
+      "geometry": {
+        "x": "121.3880557111110",
+        "y": "31.3800945411111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000080",
+        "cameraNo": "669ff1bc-c68a-4b85-bf8f-ebb8722f63c9",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "宝钢新闻中心",
+        "longitude": "121.3880557111110",
+        "latitude": "31.3800945411111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "宝钢新闻中心",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000081",
+      "geometry": {
+        "x": "121.3874601111110",
+        "y": "31.398554311111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000081",
+        "cameraNo": "a4a4f770-b589-4794-83e6-97f09199ec61",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "自来水公司",
+        "longitude": "121.3874601111110",
+        "latitude": "31.398554311111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "自来水公司",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000082",
+      "geometry": {
+        "x": "121.3869194111110",
+        "y": "31.3809231811111"
+      },
+      "symbol": {
+        "url": "http://localhost:8090/assets_xuhui_white/assets/layouts/images/icon_green/icon_gis_green_dianzijingcha.png",
+        "height": 31,
+        "width": 41
+      },
+      "fields": {
+        "cameraId": "31011311001310000082",
+        "cameraNo": "7424777e-eb05-44bf-950a-adab5dfff3b3",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": null,
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "同济高架漠河路上匝道",
+        "longitude": "121.3869194111110",
+        "latitude": "31.3809231811111",
+        "ptz": "0",
+        "capture": "普通监控",
+        "position": "同济高架漠河路上匝道",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000083",
+      "geometry": {
+        "x": "121.3871846111110",
+        "y": "31.3805440511111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000083",
+        "cameraNo": "9da2d78a-b335-49b9-b6bb-3c7b0213501d",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "3号线友谊路站",
+        "longitude": "121.3871846111110",
+        "latitude": "31.3805440511111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "3号线友谊路站",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000084",
+      "geometry": {
+        "x": "121.3873249111110",
+        "y": "31.397494811111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000084",
+        "cameraNo": "8163f81d-2886-4819-bc01-4fea63ba0766",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "城管大队",
+        "longitude": "121.3873249111110",
+        "latitude": "31.397494811111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "城管大队",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000085",
+      "geometry": {
+        "x": "121.3887295111110",
+        "y": "31.3811604111111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000085",
+        "cameraNo": "932728be-a225-4e9d-9e18-4f51914eec29",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "宝城三村",
+        "longitude": "121.3887295111110",
+        "latitude": "31.3811604111111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "宝城三村",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000087",
+      "geometry": {
+        "x": "121.3885347111110",
+        "y": "31.3815992511111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000087",
+        "cameraNo": "d5ab1c00-afa9-43c9-9d70-20c25fb7de5c",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "漠河路网球场",
+        "longitude": "121.3885347111110",
+        "latitude": "31.3815992511111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "漠河路网球场",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000088",
+      "geometry": {
+        "x": "121.3887881111110",
+        "y": "31.3802258111111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000088",
+        "cameraNo": "1ba1e8f6-3e9f-4e58-9094-85f280c7f506",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "宝杨路555弄1",
+        "longitude": "121.3887881111110",
+        "latitude": "31.3802258111111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "宝杨路555弄1",
+        "maintenanceDept": "大华"
+      }
+    },
+    {
+      "id": "31011311001310000089",
+      "geometry": {
+        "x": "121.3874156111110",
+        "y": "31.3805477011111"
+      },
+      "fields": {
+        "cameraId": "31011311001310000089",
+        "cameraNo": "c5c489b5-a93c-48ef-a4bc-6b664a7f547a",
+        "cameraType": "标清",
+        "ip": null,
+        "channel": null,
+        "areaId": "31011311",
+        "areaName": null,
+        "deptId": "310113420000",
+        "deptName": "友谊路派出所",
+        "roadId": null,
+        "roadName": "友谊路幸福湾",
+        "longitude": "121.3874156111110",
+        "latitude": "31.3805477011111",
+        "ptz": "1",
+        "capture": "普通监控",
+        "position": "友谊路幸福湾",
+        "maintenanceDept": "大华"
+      }
+    }
+  ]
+}

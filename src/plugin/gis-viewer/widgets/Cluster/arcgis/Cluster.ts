@@ -50,7 +50,7 @@ export class Cluster {
 
     this.clearLayer([params.type] as string[]);
 
-    let points = params.points;
+    let points = params.points || params.overlays || [];
 
     let popup = params.defaultTooltip;
     let zoom = params.zoom;
@@ -102,7 +102,8 @@ export class Cluster {
       defaultSymbol: defaultSym,
       scale: scale,
       popup: popup,
-      type: label
+      type: label,
+      subType: params.subType
     });
   }
   //使toolTip中支持{字段}的形式
@@ -267,8 +268,8 @@ export class Cluster {
       flareRenderer: flareRenderer,
       singlePopupTemplate: popupTemplate,
       spatialReference: new SpatialReference({wkid: 4326}),
-      subTypeFlareProperty: 'type',
-      singleFlareTooltipProperty: 'id',
+      subTypeFlareProperty: params.subType || 'type',
+      singleFlareTooltipProperty: params.subType || 'type',
       displaySubTypeFlares: true,
       maxSingleFlareCount: this.maxSingleFlareCount,
       clusterRatio: 75,
