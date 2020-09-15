@@ -291,7 +291,7 @@ export class OverlayBaidu {
         ? new BMap.Size(clusterSymbol.width, clusterSymbol.height)
         : new BMap.Size(53, 53);
 
-    const points = params.points;
+    const points = params.points || params.overlays || [];
     let mapView = this.view;
 
     let markers = new Array();

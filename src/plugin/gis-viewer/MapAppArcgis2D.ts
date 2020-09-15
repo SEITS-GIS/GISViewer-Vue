@@ -53,6 +53,7 @@ export default class MapAppArcGIS2D {
       typeof import('esri/Map'),
       typeof import('esri/layers/TileLayer'),
       typeof import('esri/layers/WebTileLayer'),
+      typeof import('esri/layers/MapImageLayer'),
       typeof import('esri/core/Collection'),
       typeof import('esri/config')
     ];
@@ -62,6 +63,7 @@ export default class MapAppArcGIS2D {
       Map,
       TileLayer,
       WebTileLayer,
+      MapImageLayer,
       Collection,
       esriConfig
     ] = await (loadModules([
@@ -70,6 +72,7 @@ export default class MapAppArcGIS2D {
       'esri/Map',
       'esri/layers/TileLayer',
       'esri/layers/WebTileLayer',
+      'esri/layers/MapImageLayer',
       'esri/core/Collection',
       'esri/config'
     ]) as Promise<MapModules>);
@@ -85,6 +88,9 @@ export default class MapAppArcGIS2D {
             urlTemplate: layerConfig.url,
             subDomains: layerConfig.subDomains || undefined
           });
+        } else if (layerConfig.type === 'dynamic') {
+          delete layerConfig.type;
+          return new MapImageLayer(layerConfig);
         }
       })
     );

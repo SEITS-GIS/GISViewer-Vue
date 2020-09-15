@@ -69,7 +69,7 @@ export class ClusterGD {
         });
       }
     }
-    const points = params.points;
+    const points = params.points || params.overlays || [];
     let markers = new Array();
     let version: string = this.view.version;
     points.forEach((point: any) => {

@@ -7,6 +7,13 @@ export let GisConfig = {
   //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
   theme: 'dark', //dark,vec
   baseLayers: [
+    {
+      label: '发布段0000',
+      url:
+        'http://10.31.152.48:6080/arcgis/rest/services/ShangHaiHarbour/ShangHai_xzqh_simple/MapServer',
+      type: 'dynamic',
+      visible: true
+    }
     // {
     //   label: '深色',
     //   url: 'http://114.215.146.210:25003/v3/tile?z={level}&x={col}&y={row}',
@@ -26,13 +33,13 @@ export let GisConfig = {
     //     'http://172.30.30.1:6080/arcgis/rest/services/ShangHai/ShangHai_base_mercator_new/MapServer',
     //   visible: true
     // },
-    {
-      label: '深色',
-      type: 'tiled',
-      url:
-        'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
-      visible: true
-    }
+    // {
+    //   label: '深色',
+    //   type: 'tiled',
+    //   url:
+    //     'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
+    //   visible: true
+    // }
   ],
   operationallayers: [
     // {
