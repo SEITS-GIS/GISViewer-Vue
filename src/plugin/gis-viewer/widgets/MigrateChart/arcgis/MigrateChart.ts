@@ -5,7 +5,7 @@ import {
   IHeatPoint
 } from '@/types/map';
 import {loadModules} from 'esri-loader';
-import echartsLayer from '../echartsLayer';
+import echartsLayer from './echartsLayer';
 import odJson from './config/OD.json';
 
 export class MigrateChart {

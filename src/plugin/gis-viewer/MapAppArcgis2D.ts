@@ -1,4 +1,5 @@
 import {setDefaultOptions, loadCss, loadModules} from 'esri-loader';
+import {Vue, Component, Emit, Prop, PropSync} from 'vue-property-decorator';
 import {
   ILayerConfig,
   IOverlayParameter,
@@ -29,6 +30,7 @@ import {GeometrySearchGD} from './widgets/GeometrySearch/gd/GeometrySearchGD';
 import {GeometrySearch} from './widgets/GeometrySearch/arcgis/GeometrySearch';
 import {DgeneFusion} from './widgets/DgeneFusion/arcgis/DgeneFusion';
 import {ChengDiLayer} from './widgets/ChengDi/ChengDiLayer';
+import AnimateLine from './widgets/MigrateChart/AnimateLine';
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
@@ -47,6 +49,9 @@ export default class MapAppArcGIS2D {
       : 'css/main.css';
     loadCss(`${apiUrl}/esri/${cssFile}`);
 
+    if (mapConfig.theme == 'custom') {
+      this.loadCustomCss();
+    }
     type MapModules = [
       typeof import('esri/views/MapView'),
       typeof import('esri/Basemap'),
@@ -169,23 +174,23 @@ export default class MapAppArcGIS2D {
       } else {
         this.doIdentifyTask(event.mapPoint).then((results: any) => {
           if (results.length > 0) {
-            let result = results[0];
-            let type = result.layerName;
-            let layerid = result.layerId;
+            let res = results[0];
+            let layername = res.layerName;
+            let layerid = res.layerId;
             let id =
-              result.feature.attributes['DEVICEID'] ||
-              result.feature.attributes['FEATUREID'] ||
-              result.feature.attributes['SECTIONID'] ||
-              result.feature.attributes[result.displayFieldName];
-            this.showGisDeviceInfo(type, id, result.feature.attributes);
-            let selectLayer = this.getLayerByName(type);
+              res.feature.attributes['DEVICEID'] ||
+              res.feature.attributes['FEATUREID'] ||
+              res.feature.attributes['SECTIONID'] ||
+              res.feature.attributes[res.displayFieldName];
+            this.showGisDeviceInfo(layername, id, res.feature.attributes);
+            let selectLayer = this.getLayerByName(layername, layerid);
             if (selectLayer.popupTemplates) {
               let popup = selectLayer.popupTemplates[layerid];
               if (popup) {
                 this.view.popup.open({
                   title: popup.title,
                   content: this.getContent(
-                    result.feature.attributes,
+                    res.feature.attributes,
                     popup.content
                   ),
                   location: event.mapPoint
@@ -206,6 +211,9 @@ export default class MapAppArcGIS2D {
       featureNavigation: false,
       closeButton: false
     };
+  }
+  private loadCustomCss() {
+    import('./CustomCss.vue');
   }
   private destroy() {
     OverlayArcgis2D.destroy();
@@ -249,20 +257,37 @@ export default class MapAppArcGIS2D {
     }
     return layerids.reverse();
   }
-  private getLayerByName(layername: string): any {
+  private getLayerByName(name: string, id: string): any {
+    let res: any[] = [];
     let selLayer;
     let layers = this.view.map.allLayers.toArray().forEach((layer: any) => {
       if (layer.type == 'imagery' || layer.type == 'map-image') {
-        let sublayers = (layer as __esri.MapImageLayer).sublayers;
-        sublayers.forEach((sublayer) => {
-          if (sublayer.title == layername) {
-            selLayer = layer;
-          }
-        });
+        this.getRecursionLayerById(res, layer, name, id);
+        if (res.length > 0) {
+          //res[0],子图层
+          selLayer = layer;
+        }
       }
-      return false;
-    });
+    }, this);
     return selLayer;
+  }
+  //查找子图层
+  private getRecursionLayerById(
+    res: any[],
+    layer: any,
+    name: string,
+    id: string
+  ): any {
+    let selLayer;
+    if (!layer.sublayers) {
+      if (layer.title == name && layer.id == id) {
+        res.push(layer);
+      }
+    } else {
+      layer.sublayers.toArray().forEach((sublayer: any) => {
+        this.getRecursionLayerById(res, sublayer, name, id);
+      }, this);
+    }
   }
   private async doIdentifyTask(clickpoint: any) {
     let layers = this.view.map.allLayers.filter((layer: any) => {
@@ -491,8 +516,10 @@ export default class MapAppArcGIS2D {
     drawlayer.clearDrawLayer(params);
   }
   public showMigrateChart(params: any) {
-    const chart = MigrateChart.getInstance(this.view);
-    chart.showPathChart(params);
+    // const chart = MigrateChart.getInstance(this.view);
+    // chart.showPathChart(params);
+    const chart = AnimateLine.getInstance(this.view);
+    chart.addAnimateLine(params);
   }
   public hideMigrateChart() {
     const chart = MigrateChart.getInstance(this.view);

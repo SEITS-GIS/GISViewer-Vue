@@ -87,7 +87,7 @@ export class HeatMap {
       geometryType: 'point'
     });
     let layer = this.heatlayer;
-    let maxzoom = options.zoom || 0;
+    let maxzoom = options.zoom || 100;
     let colors = params.options.colors || [
       'rgb(255, 255, 255)',
       'rgb(255, 140, 0)',
@@ -111,7 +111,7 @@ export class HeatMap {
   }
   private getRender(renderer: any): any {
     let newrender = renderer;
-    if (newrender.symbol) {
+    if (newrender && newrender.symbol) {
       newrender.symbol.type = newrender.symbol.type
         .replace('esriPMS', 'picture-marker')
         .replace('esriSMS', 'simple-marker');

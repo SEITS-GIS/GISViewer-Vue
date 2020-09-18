@@ -115,9 +115,9 @@ class HeatImageRender {
 
     // setup scene lighting
     this.ambient = new THREE.AmbientLight(0xffffff, 0.5);
-    this.scene.add(this.ambient);
+    //this.scene.add(this.ambient);
     this.sun = new THREE.DirectionalLight(0xffffff, 0.5);
-    this.scene.add(this.sun);
+    //this.scene.add(this.sun);
     context.resetWebGLState();
 
     const [Point, externalRenderers, SpatialReference, h337] = this.aClass;
@@ -159,7 +159,7 @@ class HeatImageRender {
     this.heatData = pdata;
     heatmapInstance.setData(data);
     this.heatmapInstance = heatmapInstance;
-    //heatDiv.style.display = 'none';
+    heatDiv.style.display = 'none';
     let canvas = this.heat.firstChild;
 
     let mat = new THREE.MeshBasicMaterial({
@@ -173,14 +173,14 @@ class HeatImageRender {
     var geometry = new THREE.PlaneGeometry(1000, 1000, 32);
     var material = new THREE.MeshBasicMaterial({
       map: texture, // 设置纹理贴图,
-      transparent: false,
-      depthTest: true
+      transparent: true,
+      depthTest: false
     });
     var model = new THREE.Mesh(geometry, material);
 
     let posEst = this.pt;
 
-    posEst = [posEst[0], posEst[1], 1000];
+    posEst = [posEst[0], posEst[1], 300];
 
     let transform = new THREE.Matrix4();
     transform.fromArray(

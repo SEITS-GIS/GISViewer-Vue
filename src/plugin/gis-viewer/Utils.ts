@@ -42,13 +42,16 @@ export class Utils {
     if (zoom == 0) {
       return 0;
     }
-    (view.map.allLayers.getItemAt(0) as any).tileInfo.lods.forEach(
-      (lod: any) => {
-        if (lod.level == zoom) {
-          scale = lod.scale;
+    let layer: any = view.map.allLayers.getItemAt(0);
+    if (layer.tileInfo && layer.tileInfo.lods) {
+      (view.map.allLayers.getItemAt(0) as any).tileInfo.lods.forEach(
+        (lod: any) => {
+          if (lod.level == zoom) {
+            scale = lod.scale;
+          }
         }
-      }
-    );
+      );
+    }
     return scale;
   }
 }

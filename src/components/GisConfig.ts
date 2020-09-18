@@ -7,13 +7,13 @@ export let GisConfig = {
   //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
   theme: 'dark', //dark,vec
   baseLayers: [
-    {
-      label: '发布段0000',
-      url:
-        'http://10.31.152.48:6080/arcgis/rest/services/ShangHaiHarbour/ShangHai_xzqh_simple/MapServer',
-      type: 'dynamic',
-      visible: true
-    }
+    // {
+    //   label: '发布段0000',
+    //   url:
+    //     'http://10.31.152.48:6080/arcgis/rest/services/ShangHaiHarbour/ShangHai_xzqh_simple/MapServer',
+    //   type: 'dynamic',
+    //   visible: true
+    // }
     // {
     //   label: '深色',
     //   url: 'http://114.215.146.210:25003/v3/tile?z={level}&x={col}&y={row}',
@@ -23,7 +23,19 @@ export let GisConfig = {
     // {
     //   label: '深色',
     //   type: 'tiled',
-    //   url: 'https://10.31.214.244/server/rest/services/bj/MapServer',
+    //   url: 'https://10.89.1.99/arcgis/rest/services/bj_xxb/MapServer',
+    //   visible: true
+    // },
+    // {
+    //   label: 'f12',
+    //   url: 'https://10.89.1.99/arcgis/rest/services/dlbj_cd/MapServer',
+    //   type: 'tiled',
+    //   visible: true
+    // },
+    // {
+    //   label: 'f13',
+    //   url: 'https://10.89.1.99/arcgis/rest/services/bx/MapServer',
+    //   type: 'tiled',
     //   visible: true
     // }
     // {
@@ -33,15 +45,44 @@ export let GisConfig = {
     //     'http://172.30.30.1:6080/arcgis/rest/services/ShangHai/ShangHai_base_mercator_new/MapServer',
     //   visible: true
     // },
-    // {
-    //   label: '深色',
-    //   type: 'tiled',
-    //   url:
-    //     'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
-    //   visible: true
-    // }
+    {
+      label: '深色',
+      type: 'tiled',
+      url:
+        'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
+      visible: true
+    }
   ],
   operationallayers: [
+    // {
+    //   label: 'fbd1333',
+    //   url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer',
+    //   type: 'dynamic',
+    //   visible: false
+    // }
+    // {
+    //   label: '发布段0000',
+    //   url:
+    //     'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_HeatMap/MapServer/1',
+    //   type: 'chengdi',
+    //   visible: true,
+    //   isCD: true,
+    //   outFields: ['*'],
+    //   renderer: {
+    //     type: 'heatmap',
+    //     colorStops: [
+    //       {ratio: 0, color: 'rgba(255, 255, 255, 0)'},
+    //       {ratio: 0.2, color: 'rgba(255, 255, 255, 1)'},
+    //       {ratio: 0.5, color: 'rgba(255, 140, 0, 1)'},
+    //       {ratio: 0.8, color: 'rgba(255, 140, 0, 1)'},
+    //       {ratio: 1, color: 'rgba(255, 0, 0, 1)'}
+    //     ],
+    //     field: 'ID',
+    //     blurRadius: 11,
+    //     maxPixelIntensity: 3000,
+    //     minPixelIntensity: 1
+    //   }
+    // }
     // {
     //   label: 'fbd1333',
     //   url: './config/fbd/pcs.json',
@@ -285,7 +326,7 @@ export let GisConfig = {
     //for arcgis-2d
     //center: [0, 0],
     center: [121.24, 31.235],
-    zoom: 12,
+    zoom: 13,
     //viewingMode: 'global',
     // ground: {opacity: 1},
     // alphaCompositingEnabled: true,
@@ -299,8 +340,7 @@ export let GisConfig = {
     // },
     //viewMode: '3D',
     constraints: {
-      rotationEnabled: false,
-      maxzoom: 16
+      rotationEnabled: false
     }
     //mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
     //for arcgis-3d

@@ -51,7 +51,9 @@ export default class MapAppArcGIS3D implements IMapContainer {
       ? `themes/${mapConfig.theme}/main.css`
       : 'css/main.css';
     loadCss(`${apiUrl}/esri/${cssFile}`);
-
+    if (mapConfig.theme == 'custom') {
+      this.loadCustomCss();
+    }
     type MapModules = [
       typeof import('esri/views/SceneView'),
       typeof import('esri/Basemap'),
@@ -156,22 +158,23 @@ export default class MapAppArcGIS3D implements IMapContainer {
       } else {
         this.doIdentifyTask(event.mapPoint).then((results: any) => {
           if (results.length > 0) {
-            let result = results[0];
-            let type = result.layerName;
-            let layerid = result.layerId;
+            let res = results[0];
+            let layername = res.layerName;
+            let layerid = res.layerId;
             let id =
-              result.feature.attributes['DEVICEID'] ||
-              result.feature.attributes['FEATUREID'] ||
-              result.feature.attributes[result.displayFieldName];
-            this.showGisDeviceInfo(type, id, result.feature.attributes);
-            let selectLayer = this.getLayerByName(type);
+              res.feature.attributes['DEVICEID'] ||
+              res.feature.attributes['FEATUREID'] ||
+              res.feature.attributes['SECTIONID'] ||
+              res.feature.attributes[res.displayFieldName];
+            this.showGisDeviceInfo(layername, id, res.feature.attributes);
+            let selectLayer = this.getLayerByName(layername, layerid);
             if (selectLayer.popupTemplates) {
               let popup = selectLayer.popupTemplates[layerid];
               if (popup) {
                 this.view.popup.open({
                   title: popup.title,
                   content: this.getContent(
-                    result.feature.attributes,
+                    res.feature.attributes,
                     popup.content
                   ),
                   location: event.mapPoint
@@ -185,6 +188,9 @@ export default class MapAppArcGIS3D implements IMapContainer {
     await view.when();
     this.view = view;
     (this.view as any).mapOptions = mapConfig.options;
+  }
+  private loadCustomCss() {
+    import('./CustomCss.vue');
   }
   private destroy() {
     OverlayArcgis3D.destroy();
@@ -227,20 +233,36 @@ export default class MapAppArcGIS3D implements IMapContainer {
     }
     return layerids.reverse();
   }
-  private getLayerByName(layername: string): any {
+  private getLayerByName(name: string, id: string): any {
+    let res: any[] = [];
     let selLayer;
     let layers = this.view.map.allLayers.toArray().forEach((layer: any) => {
       if (layer.type == 'imagery' || layer.type == 'map-image') {
-        let sublayers = (layer as __esri.MapImageLayer).sublayers;
-        sublayers.forEach((sublayer) => {
-          if (sublayer.title == layername) {
-            selLayer = layer;
-          }
-        });
+        this.getRecursionLayerById(res, layer, name, id);
       }
-      return false;
-    });
+    }, this);
+    if (res.length > 0) {
+      selLayer = res[0];
+    }
     return selLayer;
+  }
+  //查找子图层
+  private getRecursionLayerById(
+    res: any[],
+    layer: any,
+    name: string,
+    id: string
+  ): any {
+    let selLayer;
+    if (!layer.sublayers) {
+      if (layer.title == name && layer.id == id) {
+        res.push(layer);
+      }
+    } else {
+      layer.sublayers.toArray().forEach((sublayer: any) => {
+        this.getRecursionLayerById(res, sublayer, name, id);
+      }, this);
+    }
   }
   private async doIdentifyTask(clickpoint: any) {
     let layers = this.view.map.allLayers.filter((layer: any) => {
@@ -477,7 +499,10 @@ export default class MapAppArcGIS3D implements IMapContainer {
     const chart = MigrateChart.getInstance(this.view);
     chart.hideMigrateChart();
   }
-  public addHeatImage(params: IHeatImageParameter) {}
+  public addHeatImage(params: IHeatImageParameter) {
+    const heatmap2 = HeatImage3D.getInstance(this.view);
+    return heatmap2.startup(params);
+  }
   public deleteHeatImage() {}
   public async startGeometrySearch(
     params: IGeometrySearchParameter

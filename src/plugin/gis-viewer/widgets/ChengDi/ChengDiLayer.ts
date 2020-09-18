@@ -149,8 +149,8 @@ export class ChengDiLayer {
     if (features) {
       pointDatas = features.map((graphic: any) => {
         return {
-          lon1: graphic.geometry.x.toFixed(6),
-          lat: graphic.geometry.y.toFixed(6)
+          lon1: graphic.geometry.longitude.toFixed(6),
+          lat: graphic.geometry.latitude.toFixed(6)
         };
       });
       console.log(pointDatas);

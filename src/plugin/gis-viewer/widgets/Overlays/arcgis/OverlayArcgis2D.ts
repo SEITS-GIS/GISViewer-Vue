@@ -226,6 +226,7 @@ export class OverlayArcgis2D {
   }
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
+    console.log(params);
     let layerType = params.type || 'default';
     let overlayLayer = (await this.getOverlayLayer(
       params.type || 'default'

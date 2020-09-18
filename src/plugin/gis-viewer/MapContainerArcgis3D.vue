@@ -149,7 +149,6 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
 </script>
 
 <style scoped>
-/* @import './styles/map.css'; */
 .my-map-div {
   padding: 0;
   margin: 0;

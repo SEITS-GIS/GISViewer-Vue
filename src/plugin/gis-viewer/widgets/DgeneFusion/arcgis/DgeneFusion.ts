@@ -3,6 +3,7 @@ import $ from 'jquery';
 import {IResult} from '@/types/map';
 import Axios from 'axios';
 import {Utils} from '@/plugin/gis-viewer/Utils';
+import {reject} from 'esri/core/promiseUtils';
 
 declare let Dgene: any;
 export class DgeneFusion {
@@ -12,9 +13,12 @@ export class DgeneFusion {
   private mouseEventFn: any;
   private showOut: boolean = true;
   private loadOutState: boolean = false;
+  private videoStateUrl: string =
+    'http://10.31.214.237:15021/utcp/trafficemgc/getCameraStatus';
 
   private fusion_view_state: string = 'all';
   private FlyCenter: any;
+  private videocode: string = 'HQ0912New';
   private originView: any = {
     x: 0,
     y: 2000,
@@ -182,6 +186,14 @@ export class DgeneFusion {
         window.screen.height
       );
     };
+    window.onkeydown = (event: any) => {
+      console.log(event.keyCode);
+      if (event.keyCode == 32) {
+        if (_this.fusion_view) {
+          _this.fusion_view.showMapSprite(); //showMapSprite hideMapSprite
+        }
+      }
+    };
     this.rotateState = 'stop';
     window.ondblclick = () => {
       if ($('#dgeneDiv').css('display') != 'none') {
@@ -212,6 +224,7 @@ export class DgeneFusion {
     //let videodata = videoJson.data;
     let _this = this;
     let showOutVideo = params.outvideo !== false;
+
     Axios.get('./static/fusion.json').then((res: any) => {
       let videodata = res.data.data;
       if (videodata) {
@@ -225,6 +238,17 @@ export class DgeneFusion {
           let position = vdata.isreal
             ? vdata.realposition
             : vdata.camJson.position;
+          this.fusion_view.loadMapSprite2(
+            './assets/image/b1.png',
+            'test',
+            {
+              x: position.x,
+              y: 30,
+              z: position.z
+            },
+            70
+          );
+
           // console.log(data, position);
           if (showOutVideo || !vdata.isreal) {
             console.log(data, position);
@@ -236,10 +260,15 @@ export class DgeneFusion {
                 z: position.z
               },
               size,
-              0x0000ff
+              0x00ff00,
+              0.9,
+              180
             );
           }
         }
+        setTimeout(() => {
+          _this.refreshVideoState();
+        }, 3000);
       }
     });
   }
@@ -273,7 +302,6 @@ export class DgeneFusion {
             _this.fusion_view.loadOutSideModel();
             _this.loadOutState = true;
           }
-
           if (Math.floor(Number(loaded / total) * 100) % 10 == 0) {
             console.log(
               `Dgene info: data loaded ${Math.floor(
@@ -306,6 +334,9 @@ export class DgeneFusion {
         setting,
         (name: any) => {
           _this.fusion_view.stopAutoRotate();
+          if (_this.fusion_view) {
+            _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
+          }
           if (_this.fusion_video.indexOf(name) > -1) {
             _this.fusion_view.showVideoDom(name);
           } else {
@@ -347,23 +378,40 @@ export class DgeneFusion {
       left: '0px'
     });
     $('#dgeneDiv').fadeIn('slow');
-    console.log(this.view.container.id);
     $('#' + this.view.container.id).fadeOut(1000);
     this.fusion_control.addEventListener('change', (e: any) => {
-      //console.log(_this.fusion_view.getCameraPosition());
-      // if (_this.fusion_view.getCameraY() < 300) {
-      //   console.log('hide fu');
-      //   //_this.hideFusion();
-      //   if (_this.fusion_view_state == 'all') {
-      //     _this.fusion_view_state = 'in';
-      //     _this.fusion_view.hideOut();
-      //   }
-      // } else {
-      //   if (_this.fusion_view_state == 'in') {
-      //     _this.fusion_view_state = 'all';
-      //     _this.fusion_view.showOut();
-      //   }
-      // }
+      if (_this.fusion_view.getCameraY() < 60) {
+        _this.fusion_view.setCamNear(0.1, 20000);
+      } else {
+        _this.fusion_view.setCamNear(50, 20000);
+      }
+    });
+  }
+  private getVideoStatus(): Promise<any> {
+    let _this = this;
+    return new Promise((resolve, reject) => {
+      Axios.get(_this.videoStateUrl).then((res: any) => {
+        resolve(res.data);
+      });
+    });
+  }
+  private refreshVideoState() {
+    let _this = this;
+    this.getVideoStatus().then((res) => {
+      let videos = res;
+      videos.forEach((video: any) => {
+        if (video.FSTR_ID) {
+          let name = _this.videocode + video.FSTR_ID;
+          if (video.FSTR_STATUS.toString() == '1') {
+            _this.fusion_view.setSpriteMaterialColor(name, 0x00ff00, 0.9);
+          } else {
+            _this.fusion_view.setSpriteMaterialColor(name, 0x000000, 0.9);
+          }
+        }
+      });
+      setTimeout(() => {
+        _this.refreshVideoState();
+      }, 60 * 1000);
     });
   }
 }
