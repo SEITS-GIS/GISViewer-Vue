@@ -28,7 +28,7 @@ export let GisConfig = {
   ],
   operationallayers: [
     {
-      label: '发布段',
+      label: '路网状况',
       type: 'dynamic',
       url:
         'http://10.31.214.201:6080/arcgis/rest/services/YJZH/KuaiSuLu_fbd/MapServer',
@@ -140,7 +140,7 @@ export let GisConfig = {
       visible: true
     },
     {
-      label: '设备',
+      label: '摄像机',
       url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer',
       type: 'dynamic',
       visible: false
