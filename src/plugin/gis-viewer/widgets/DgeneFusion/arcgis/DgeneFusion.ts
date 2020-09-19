@@ -225,6 +225,22 @@ export class DgeneFusion {
     let _this = this;
     let showOutVideo = params.outvideo !== false;
 
+    Axios.get('./static/station.json').then((res: any) => {
+      let stations = res.data;
+      for (let name in stations) {
+        let pos = stations[name];
+        this.fusion_view.loadMapSprite2(
+          './assets/image/' + name + '.png',
+          'test',
+          {
+            x: pos[0],
+            y: pos[1],
+            z: pos[2]
+          },
+          50
+        );
+      }
+    });
     Axios.get('./static/fusion.json').then((res: any) => {
       let videodata = res.data.data;
       if (videodata) {
@@ -234,20 +250,10 @@ export class DgeneFusion {
           if (vdata.isreal) {
             _this.fusion_video.push(data);
           }
-          let size = vdata.isreal ? 10 : 4;
+          let size = vdata.isreal ? 8 : 2;
           let position = vdata.isreal
             ? vdata.realposition
             : vdata.camJson.position;
-          this.fusion_view.loadMapSprite2(
-            './assets/image/b1.png',
-            'test',
-            {
-              x: position.x,
-              y: 30,
-              z: position.z
-            },
-            70
-          );
 
           // console.log(data, position);
           if (showOutVideo || !vdata.isreal) {
