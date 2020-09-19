@@ -181,7 +181,13 @@ export default class MapAppArcGIS2D {
       } else {
         this.doIdentifyTask(event.mapPoint).then((results: any) => {
           if (results.length > 0) {
-            let res = results[0];
+            let res = results.filter((item: any) => {
+              if (item != undefined) {
+                return true;
+              } else {
+                return false;
+              }
+            })[0];
             let layername = res.layerName;
             let layerid = res.layerId;
             let id =
@@ -345,8 +351,11 @@ export default class MapAppArcGIS2D {
         // 执行查询对象
         identify.execute(identifyParams).then((data: any) => {
           let results = data.results;
-          if (results.length < 1) return [];
-          resolve(results[0]);
+          if (results.length < 1) {
+            resolve(undefined);
+          } else {
+            resolve(results[0]);
+          }
         });
       });
     });
