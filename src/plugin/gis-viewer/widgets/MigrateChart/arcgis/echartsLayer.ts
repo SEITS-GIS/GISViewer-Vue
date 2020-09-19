@@ -94,7 +94,7 @@ export default class echartsLayer {
     box.style.top = '0px';
     box.style.left = '0px';
     box.style.zIndex = '99';
-    let parent = document.getElementsByClassName('esri-overlay-surface')[0];
+    let parent = this.view.container.children[0].children[0];
     parent.appendChild(box);
     this.chart = echarts.init(box);
     this.setCharts();
