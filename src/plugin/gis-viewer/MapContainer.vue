@@ -231,6 +231,12 @@ export default class MapContainer extends Vue implements IMapContainer {
   public hideMigrateChart() {
     this.mapContainer.hideMigrateChart();
   }
+  public showBarChart(params: any) {
+    this.mapContainer.showBarChart(params);
+  }
+  public hideBarChart() {
+    this.mapContainer.hideBarChart();
+  }
   public async startGeometrySearch(
     params: IGeometrySearchParameter
   ): Promise<IResult> {

@@ -127,6 +127,12 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   public hideMigrateChart() {
     this.mapApp.hideMigrateChart();
   }
+  public showBarChart(params: any) {
+    this.mapApp.showBarChart(params);
+  }
+  public hideBarChart() {
+    this.mapApp.hideBarChart();
+  }
   public async startGeometrySearch(
     params: IGeometrySearchParameter
   ): Promise<IResult> {

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {GdConfig} from './GdConfig';
 //import {GisConfig} from './GisConfig';
-import {GisConfig} from './project/config';
-//import {GisConfig} from './project/configsub';
+//import {GisConfig} from './project/config';
+import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
 export default class MapConfig {
   public constructor() {}
@@ -128,12 +128,43 @@ export default class MapConfig {
       },
       defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
     };
-    const result = await map.addOverlays(points);
+    //const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
-    if (this.model_view) {
-      this.model_view.showMapSprite();
-    }
+    //map.showMigrateChart();
+    map.showBarChart({
+      points: [
+        {geometry: {x: 121.31, y: 31.24}, id: '1'},
+        {geometry: {x: 121.131, y: 31.24}, id: '2'}
+      ]
+    });
+
+    let points = {
+      type: 'police',
+      defaultVisible: true,
+      defaultSymbol: {
+        //symbol for 2d
+        type: 'point',
+        url: 'assets/image/Anchor.png',
+        size: [10, 10],
+        anchor: 'center'
+      },
+      overlays: [
+        {
+          id: 'test001',
+          geometry: {x: 121.31, y: 31.24},
+          fields: {name: '测试2', featureid: '0002'}
+        },
+        {
+          id: 'test002',
+          geometry: {x: 121.131, y: 31.24},
+          fields: {name: '测试3', featureid: '0003'}
+        }
+      ],
+      showPopup: true,
+      autoPopup: false
+    };
+    const result = map.addOverlays(points);
     // if (this.model_view) {
     //   this.model_view.newShowOut(
     //     {x: -34.06616800542628, y: 1351.7254831416005, z: 2620.9422016533167},
@@ -194,27 +225,27 @@ export default class MapConfig {
     //     minValue: 1
     //   }
     // };
-    map.addHeatImage({});
-    map.showMigrateChart({
-      overlays: [
-        {
-          id: '1111',
-          geometry: {
-            paths: [
-              [
-                [121.1341, 31.21201],
-                [121.1351, 31.22101],
-                [121.1361, 31.21101],
-                [121.1371, 31.21201],
-                [121.1381, 31.21401],
-                [121.1391, 31.21501]
-              ]
-            ]
-          },
-          symbol: {color: [255, 0, 0]}
-        }
-      ]
-    });
+    //map.addHeatImage({});
+    // map.showMigrateChart({
+    //   overlays: [
+    //     {
+    //       id: '1111',
+    //       geometry: {
+    //         paths: [
+    //           [
+    //             [121.1341, 31.21201],
+    //             [121.1351, 31.22101],
+    //             [121.1361, 31.21101],
+    //             [121.1371, 31.21201],
+    //             [121.1381, 31.21401],
+    //             [121.1391, 31.21501]
+    //           ]
+    //         ]
+    //       },
+    //       symbol: {color: [255, 0, 0]}
+    //     }
+    //   ]
+    // });
     // map.startGeometrySearch({
     //   radius: 12000,
     //   showResult: true,
@@ -222,7 +253,7 @@ export default class MapConfig {
     //     console.log(e);
     //   }
     // });
-    //map.showMigrateChart();
+    map.showMigrateChart();
     // map.addDrawLayer({
     //   layerUrls: './config/fbd/morph_ksl.json',
     //   label: '快速路'
@@ -508,6 +539,7 @@ export default class MapConfig {
     // }
   }
   public btn_test3(map: any) {
+    map.hideBarChart();
     //map.showDgene({duration: 0}); //显示三维模型
     //map.showLayer({label: 'fbd1333'});
     //map.clearGeometrySearch();

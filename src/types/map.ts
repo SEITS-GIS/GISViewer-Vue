@@ -177,6 +177,8 @@ export interface IMapContainer {
   hideDgene: () => void;
   addDgeneFusion: (params: any) => Promise<IResult>;
   restoreDegeneFsion: () => Promise<IResult>;
+  showBarChart: (params: any) => void;
+  hideBarChart: () => void;
 }
 export interface IPopUpTemplate {
   title?: string;

@@ -23,6 +23,7 @@ import {TextSymbol} from 'esri/symbols';
 import {Cluster} from './widgets/Cluster/arcgis/Cluster';
 import {DrawLayer} from './widgets/DrawLayer/arcgis/DrawLayer';
 import {MigrateChart} from './widgets/MigrateChart/arcgis/MigrateChart';
+import {SubwayLine} from './widgets/MigrateChart/arcgis/SubwayLine';
 import {HeatImage} from './widgets/HeatMap/arcgis/HeatImage';
 import HeatImage2D from './widgets/HeatMap/arcgis/HeatImage2D';
 import HeatImageGL from './widgets/HeatMap/arcgis/HeatImageGL';
@@ -31,11 +32,13 @@ import {GeometrySearch} from './widgets/GeometrySearch/arcgis/GeometrySearch';
 import {DgeneFusion} from './widgets/DgeneFusion/arcgis/DgeneFusion';
 import {ChengDiLayer} from './widgets/ChengDi/ChengDiLayer';
 import AnimateLine from './widgets/MigrateChart/AnimateLine';
+import {Bar3DChart} from './widgets/MigrateChart/arcgis/Bar3DChart';
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
   public showGisDeviceInfo: any;
   public mapClick: any;
+  public showFlow: boolean = false;
 
   public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
     const apiUrl =
@@ -95,6 +98,9 @@ export default class MapAppArcGIS2D {
           });
         } else if (layerConfig.type === 'dynamic') {
           delete layerConfig.type;
+          if ((layerConfig as any).showFlow) {
+            this.showFlow = true;
+          }
           return new MapImageLayer(layerConfig);
         }
       })
@@ -128,6 +134,7 @@ export default class MapAppArcGIS2D {
       }
     });
     view.on('click', async (event) => {
+      this.hideBarChart();
       if (event.mapPoint) {
         let mp = event.mapPoint;
         this.mapClick({
@@ -185,6 +192,32 @@ export default class MapAppArcGIS2D {
             this.showGisDeviceInfo(layername, id, res.feature.attributes);
             let selectLayer = this.getLayerByName(layername, layerid);
             if (selectLayer.popupTemplates) {
+              if (selectLayer.showBar) {
+                this.view.popup.alignment = 'bottom-center';
+                //console.log(res.feature);
+                this.showBarChart({
+                  points: [
+                    {
+                      geometry: {
+                        x: event.mapPoint.x,
+                        y: event.mapPoint.y,
+                        spatialReference: this.view.spatialReference
+                      },
+                      fields: {
+                        inflow:
+                          res.feature.attributes['IN_FLX_NR'] ||
+                          res.feature.attributes['VOLUME_YESTERDAY'],
+                        outflow:
+                          res.feature.attributes['OUT_FLX_NR'] ||
+                          res.feature.attributes['VOLUME_TODAY']
+                      }
+                    }
+                  ],
+                  name: layername
+                });
+              } else {
+                this.view.popup.alignment = 'auto';
+              }
               let popup = selectLayer.popupTemplates[layerid];
               if (popup) {
                 this.view.popup.open({
@@ -211,6 +244,9 @@ export default class MapAppArcGIS2D {
       featureNavigation: false,
       closeButton: false
     };
+    if (this.showFlow) {
+      this.showSubwayFlow();
+    }
   }
   private loadCustomCss() {
     import('./CustomCss.vue');
@@ -257,37 +293,20 @@ export default class MapAppArcGIS2D {
     }
     return layerids.reverse();
   }
-  private getLayerByName(name: string, id: string): any {
-    let res: any[] = [];
+  private getLayerByName(layername: string, id: string): any {
     let selLayer;
     let layers = this.view.map.allLayers.toArray().forEach((layer: any) => {
       if (layer.type == 'imagery' || layer.type == 'map-image') {
-        this.getRecursionLayerById(res, layer, name, id);
-        if (res.length > 0) {
-          //res[0],子图层
-          selLayer = layer;
-        }
+        let sublayers = (layer as __esri.MapImageLayer).allSublayers;
+        sublayers.forEach((sublayer) => {
+          if (sublayer.title == layername && sublayer.id.toString() == id) {
+            selLayer = layer;
+          }
+        });
       }
-    }, this);
+      return false;
+    });
     return selLayer;
-  }
-  //查找子图层
-  private getRecursionLayerById(
-    res: any[],
-    layer: any,
-    name: string,
-    id: string
-  ): any {
-    let selLayer;
-    if (!layer.sublayers) {
-      if (layer.title == name && layer.id == id) {
-        res.push(layer);
-      }
-    } else {
-      layer.sublayers.toArray().forEach((sublayer: any) => {
-        this.getRecursionLayerById(res, sublayer, name, id);
-      }, this);
-    }
   }
   private async doIdentifyTask(clickpoint: any) {
     let layers = this.view.map.allLayers.filter((layer: any) => {
@@ -413,6 +432,10 @@ export default class MapAppArcGIS2D {
         })
     );
   }
+  public async showSubwayFlow() {
+    const flow = SubwayLine.getInstance(this.view);
+    flow.showSubwayFlow();
+  }
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     const overlay = OverlayArcgis2D.getInstance(this.view);
     return await overlay.addOverlays(params);
@@ -516,14 +539,20 @@ export default class MapAppArcGIS2D {
     drawlayer.clearDrawLayer(params);
   }
   public showMigrateChart(params: any) {
-    // const chart = MigrateChart.getInstance(this.view);
-    // chart.showPathChart(params);
-    const chart = AnimateLine.getInstance(this.view);
-    chart.addAnimateLine(params);
+    const chart = MigrateChart.getInstance(this.view);
+    chart.showPathChart(params);
   }
   public hideMigrateChart() {
     const chart = MigrateChart.getInstance(this.view);
     chart.hideMigrateChart();
+  }
+  public showBarChart(params: any) {
+    const chart = Bar3DChart.getInstance(this.view);
+    chart.showBarChart(params);
+  }
+  public hideBarChart() {
+    const chart = Bar3DChart.getInstance(this.view);
+    chart.hideBarChart();
   }
   public addHeatImage(params: IHeatImageParameter) {
     const heat = HeatImageGL.getInstance(this.view);

@@ -267,6 +267,8 @@ export default class MapAppGaode implements IMapContainer {
 
   public showMigrateChart(params: any) {}
   public hideMigrateChart() {}
+  public showBarChart(params: any) {}
+  public hideBarChart() {}
   public addHeatImage(params: IHeatImageParameter) {}
   public deleteHeatImage() {}
 

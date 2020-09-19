@@ -31,6 +31,7 @@ import HeatImage2D from './widgets/HeatMap/arcgis/HeatImage2D';
 import HeatImageGL from './widgets/HeatMap/arcgis/HeatImageGL';
 import HeatImage3D from './widgets/HeatMap/arcgis/HeatImage3D';
 import {GeometrySearch} from './widgets/GeometrySearch/arcgis/GeometrySearch';
+import {Bar3DChart} from './widgets/MigrateChart/arcgis/Bar3DChart';
 
 export default class MapAppArcGIS3D implements IMapContainer {
   public view!: __esri.SceneView;
@@ -233,36 +234,23 @@ export default class MapAppArcGIS3D implements IMapContainer {
     }
     return layerids.reverse();
   }
-  private getLayerByName(name: string, id: string): any {
-    let res: any[] = [];
+  private getLayerByName(layername: string, id: string | number): any {
     let selLayer;
     let layers = this.view.map.allLayers.toArray().forEach((layer: any) => {
       if (layer.type == 'imagery' || layer.type == 'map-image') {
-        this.getRecursionLayerById(res, layer, name, id);
+        let sublayers = (layer as __esri.MapImageLayer).allSublayers;
+        sublayers.forEach((sublayer) => {
+          if (
+            sublayer.title == layername &&
+            sublayer.id.toString() == id.toString()
+          ) {
+            selLayer = layer;
+          }
+        });
       }
-    }, this);
-    if (res.length > 0) {
-      selLayer = res[0];
-    }
+      return false;
+    });
     return selLayer;
-  }
-  //查找子图层
-  private getRecursionLayerById(
-    res: any[],
-    layer: any,
-    name: string,
-    id: string
-  ): any {
-    let selLayer;
-    if (!layer.sublayers) {
-      if (layer.title == name && layer.id == id) {
-        res.push(layer);
-      }
-    } else {
-      layer.sublayers.toArray().forEach((sublayer: any) => {
-        this.getRecursionLayerById(res, sublayer, name, id);
-      }, this);
-    }
   }
   private async doIdentifyTask(clickpoint: any) {
     let layers = this.view.map.allLayers.filter((layer: any) => {
@@ -498,6 +486,14 @@ export default class MapAppArcGIS3D implements IMapContainer {
   public hideMigrateChart() {
     const chart = MigrateChart.getInstance(this.view);
     chart.hideMigrateChart();
+  }
+  public showBarChart(params: any) {
+    const chart = Bar3DChart.getInstance(this.view);
+    chart.showBarChart(params);
+  }
+  public hideBarChart() {
+    const chart = Bar3DChart.getInstance(this.view);
+    chart.hideBarChart();
   }
   public addHeatImage(params: IHeatImageParameter) {
     const heatmap2 = HeatImage3D.getInstance(this.view);

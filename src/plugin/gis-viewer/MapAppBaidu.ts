@@ -234,6 +234,8 @@ export default class MapAppBaidu implements IMapContainer {
 
   public showMigrateChart(params: any) {}
   public hideMigrateChart() {}
+  public showBarChart(params: any) {}
+  public hideBarChart() {}
   public addHeatImage(params: IHeatImageParameter) {}
   public deleteHeatImage() {}
 

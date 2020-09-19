@@ -118,6 +118,8 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public deleteHeatImage() {}
   public showMigrateChart(params: any) {}
   public hideMigrateChart() {}
+  public showBarChart(params: any) {}
+  public hideBarChart() {}
   public async startGeometrySearch(
     params: IGeometrySearchParameter
   ): Promise<IResult> {
