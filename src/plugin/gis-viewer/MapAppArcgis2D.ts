@@ -188,6 +188,9 @@ export default class MapAppArcGIS2D {
                 return false;
               }
             })[0];
+            if (!res) {
+              return;
+            }
             let layername = res.layerName;
             let layerid = res.layerId;
             let id =

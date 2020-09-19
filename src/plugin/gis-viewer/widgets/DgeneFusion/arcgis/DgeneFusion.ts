@@ -67,7 +67,8 @@ export class DgeneFusion {
   };
   private fusion_view: any;
   private fusion_control: any;
-  private fusion_video = new Array();
+  private out_video = new Array();
+  private in_video = new Array();
 
   private constructor(view: any) {
     this.view = view;
@@ -163,6 +164,8 @@ export class DgeneFusion {
   }
   public async addDgeneFusion(params: any): Promise<IResult> {
     let _this = this;
+    this.out_video = [];
+    this.in_video = [];
     let parentid = params.appendDomID || 'app';
     this.showOut = params.showOut !== false;
 
@@ -248,7 +251,9 @@ export class DgeneFusion {
           let vdata = (videodata as any)[data];
 
           if (vdata.isreal) {
-            _this.fusion_video.push(data);
+            _this.out_video.push(data);
+          } else {
+            _this.in_video.push(data);
           }
           let size = vdata.isreal ? 8 : 2;
           let position = vdata.isreal
@@ -340,12 +345,16 @@ export class DgeneFusion {
         setting,
         (name: any) => {
           _this.fusion_view.stopAutoRotate();
-          if (_this.fusion_view) {
-            _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
-          }
-          if (_this.fusion_video.indexOf(name) > -1) {
+          console.log(name);
+          if (_this.out_video.indexOf(name) > -1) {
+            if (_this.fusion_view) {
+              _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
+            }
             _this.fusion_view.showVideoDom(name);
-          } else {
+          } else if (_this.in_video.indexOf(name) > -1) {
+            if (_this.fusion_view) {
+              _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
+            }
             _this.fusion_view.activeFuse(name);
           }
         }
@@ -379,13 +388,12 @@ export class DgeneFusion {
     $('#dgeneDiv').css({
       display: 'flex',
       position: 'fixed',
-      'z-index': '90',
-      top: '0px',
-      left: '0px'
+      'z-index': '90'
     });
     $('#dgeneDiv').fadeIn('slow');
     $('#' + this.view.container.id).fadeOut(1000);
     this.fusion_control.addEventListener('change', (e: any) => {
+      // console.log(_this.fusion_view.getCameraPosition());
       if (_this.fusion_view.getCameraY() < 60) {
         _this.fusion_view.setCamNear(0.1, 20000);
       } else {

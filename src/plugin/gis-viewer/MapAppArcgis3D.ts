@@ -166,6 +166,9 @@ export default class MapAppArcGIS3D implements IMapContainer {
                 return false;
               }
             })[0];
+            if (!res) {
+              return;
+            }
             let layername = res.layerName;
             let layerid = res.layerId;
             let id =
