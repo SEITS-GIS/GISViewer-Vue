@@ -197,7 +197,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
     (this.view as any).mapOptions = mapConfig.options;
   }
   private loadCustomCss() {
-    import('./CustomCss.vue');
+    require('./styles/custom.css');
   }
   private destroy() {
     OverlayArcgis3D.destroy();

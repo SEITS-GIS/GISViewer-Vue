@@ -54,7 +54,7 @@ export class Bar3DChart {
     if (this.chartsGroup && this.chartsGroup.length > 0) {
       this.chartsGroup.forEach((el: any) => {
         el.chart.clear();
-        let parent = document.getElementsByClassName('esri-overlay-surface')[0];
+        let parent = this.view.container.children[0].children[0];
         parent.removeChild(el.container);
       });
       this.chartsGroup = [];
@@ -86,7 +86,7 @@ export class Bar3DChart {
     chartDiv.style.left = '0px';
     chartDiv.style.width = '200px';
     chartDiv.style.height = '150px';
-    let parent = document.getElementsByClassName('esri-overlay-surface')[0];
+    let parent = this.view.container.children[0].children[0];
     parent.appendChild(chartDiv);
     let myChart = echarts.init(document.getElementById(chartid));
     let mode = ['进', '出'];

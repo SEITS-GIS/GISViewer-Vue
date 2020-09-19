@@ -255,7 +255,7 @@ export default class MapAppArcGIS2D {
     }
   }
   private loadCustomCss() {
-    import('./CustomCss.vue');
+    require('./styles/custom.css');
   }
   private destroy() {
     OverlayArcgis2D.destroy();
