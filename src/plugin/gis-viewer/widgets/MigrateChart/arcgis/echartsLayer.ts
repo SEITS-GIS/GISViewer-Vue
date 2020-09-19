@@ -64,7 +64,9 @@ export default class echartsLayer {
     if (
       this.chartOption == null ||
       this.chartOption == 'undefined' ||
-      this.view == undefined
+      this.view == undefined ||
+      this.view.extent == undefined ||
+      this.view.extent.xmin == undefined
     )
       return;
     let baseExtent = this.view.extent;

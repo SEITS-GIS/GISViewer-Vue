@@ -1,6 +1,6 @@
 export let GisConfig = {
   arcgis_api: 'http://localhost:8090/arcgis_js_api/library/4.14',
-  theme: 'dark', //dark,vec
+  theme: 'custom', //dark,vec
   baseLayers: [
     {
       label: '地铁线路图',

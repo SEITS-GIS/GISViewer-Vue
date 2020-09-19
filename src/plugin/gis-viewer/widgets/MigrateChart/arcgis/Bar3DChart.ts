@@ -219,7 +219,7 @@ export class Bar3DChart {
                 return 'rgb(0,255,255)';
               }
             },
-            opacity: 0.9
+            opacity: 1
           },
           emphasis: {
             label: {
