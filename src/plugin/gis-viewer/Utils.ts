@@ -16,7 +16,9 @@ export class Utils {
       });
     });
   }
-
+  public static copyObject(obj: object) {
+    return JSON.parse(JSON.stringify(obj));
+  }
   public static getZoom(
     view: __esri.MapView | __esri.SceneView,
     scale: number

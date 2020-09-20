@@ -19,6 +19,12 @@ export let GisConfig = {
       url: 'https://10.89.1.99/arcgis/rest/services/bx/MapServer',
       type: 'tiled',
       visible: true
+    },
+    {
+      label: '道路',
+      url: 'https://10.89.1.99/arcgis/rest/services/dlbj_cd/MapServer',
+      type: 'tiled',
+      visible: true
     }
   ],
   operationallayers: [

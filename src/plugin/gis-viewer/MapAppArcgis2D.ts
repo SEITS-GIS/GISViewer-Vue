@@ -33,6 +33,7 @@ import {DgeneFusion} from './widgets/DgeneFusion/arcgis/DgeneFusion';
 import {ChengDiLayer} from './widgets/ChengDi/ChengDiLayer';
 import AnimateLine from './widgets/MigrateChart/AnimateLine';
 import {Bar3DChart} from './widgets/MigrateChart/arcgis/Bar3DChart';
+import {Utils} from './Utils';
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
@@ -40,13 +41,14 @@ export default class MapAppArcGIS2D {
   public mapClick: any;
   public showFlow: boolean = false;
 
-  public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
+  public async initialize(gisConfig: any, mapContainer: string): Promise<void> {
+    //路由跳转是delete mapConfig属性导致报错
+    let mapConfig = Utils.copyObject(gisConfig);
     const apiUrl =
       mapConfig.arcgis_api || mapConfig.apiUrl || 'https://js.arcgis.com/4.14/';
     setDefaultOptions({
       url: `${apiUrl}/init.js`
     });
-
     const cssFile: string = mapConfig.theme
       ? `themes/${mapConfig.theme}/main.css`
       : 'css/main.css';
@@ -85,7 +87,7 @@ export default class MapAppArcGIS2D {
       'esri/config'
     ]) as Promise<MapModules>);
     esriConfig.fontsUrl = '/font/';
-    const baseLayers: __esri.Collection = new Collection();
+    let baseLayers: __esri.Collection = new Collection();
     baseLayers.addMany(
       mapConfig.baseLayers.map((layerConfig: ILayerConfig) => {
         if (layerConfig.type === 'tiled') {
@@ -106,10 +108,12 @@ export default class MapAppArcGIS2D {
       })
     );
     //this.destroy();
-    const basemap: __esri.Basemap = new Basemap({
+
+    console.log('4');
+    let basemap: __esri.Basemap = new Basemap({
       baseLayers
     });
-
+    console.log('5');
     const view: __esri.MapView = new MapView({
       map: new Map({
         basemap

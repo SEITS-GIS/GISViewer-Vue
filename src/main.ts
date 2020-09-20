@@ -21,7 +21,7 @@ const routes = [
 
 //创建 router 实例，然后传 routes 配置
 const router = new VueRouter({
-  mode: 'history',
+  //mode: 'history',
   routes: routes
 });
 new Vue({

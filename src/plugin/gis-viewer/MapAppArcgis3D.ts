@@ -32,6 +32,7 @@ import HeatImageGL from './widgets/HeatMap/arcgis/HeatImageGL';
 import HeatImage3D from './widgets/HeatMap/arcgis/HeatImage3D';
 import {GeometrySearch} from './widgets/GeometrySearch/arcgis/GeometrySearch';
 import {Bar3DChart} from './widgets/MigrateChart/arcgis/Bar3DChart';
+import {Utils} from './Utils';
 
 export default class MapAppArcGIS3D implements IMapContainer {
   public view!: __esri.SceneView;
@@ -39,12 +40,10 @@ export default class MapAppArcGIS3D implements IMapContainer {
   private mapToolTip: any;
   public mapClick: any;
 
-  public async initialize(mapConfig: any, mapContainer: string): Promise<void> {
-    const apiUrl = mapConfig.arcgis_api || 'https://js.arcgis.com/4.14/';
-
-    // await loadModules(['esri/config']).then(([esriConfig]) => {
-    //   esriConfig.workers.loaderConfig.baseUrl = apiUrl + '/dojo';
-    // });
+  public async initialize(gisConfig: any, mapContainer: string): Promise<void> {
+    let mapConfig = Utils.copyObject(gisConfig);
+    const apiUrl =
+      mapConfig.arcgis_api || mapConfig.apiUrl || 'https://js.arcgis.com/4.14/';
 
     setDefaultOptions({url: `${apiUrl}/init.js`});
 
