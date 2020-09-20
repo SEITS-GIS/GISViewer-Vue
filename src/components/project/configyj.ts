@@ -5,7 +5,7 @@ export let GisConfig = {
   //arcgis_api: 'http://128.64.130.247:8219/baidumap/jsapi/api.js',
   //arcgis_api: "http://128.64.151.245:8019/baidumap/jsapi/api.js",
   //arcgis_api: "http://localhost:8090/baidu/BDAPI.js",
-  theme: 'dark', //dark,vec
+  theme: 'custom', //dark,vec
   baseLayers: [
     {
       label: '深色底图',
@@ -143,7 +143,141 @@ export let GisConfig = {
       label: '摄像机',
       url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer',
       type: 'dynamic',
-      visible: false
+      visible: true,
+      popupTemplates: {
+        '1': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{位置}<br/>类型:{图层名}'
+        },
+        '2': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{位置}<br/>类型:{图层名}'
+        },
+        '3': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{位置}<br/>类型:{图层名}'
+        },
+        '4': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{位置}<br/>类型:{图层名}'
+        },
+        '6': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{位置}<br/>类型:{图层名}'
+        },
+        '7': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{位置}<br/>类型:{图层名}'
+        },
+        '8': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{位置}<br/>类型:{图层名}'
+        },
+        '9': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{位置}<br/>类型:{图层名}'
+        },
+        '10': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{位置}<br/>类型:{图层名}'
+        },
+        '12': {
+          title: '',
+          content: '描述:{DES}<br/>类型:{图层名}'
+        },
+        '13': {
+          title: '',
+          content: '描述:{DES}<br/>类型:{图层名}'
+        },
+        '14': {
+          title: '',
+          content: '描述:{DES}<br/>类型:{图层名}'
+        },
+        '15': {
+          title: '',
+          content: '描述:{DES}<br/>类型:{图层名}'
+        },
+        '16': {
+          title: '',
+          content: '描述:{DES}<br/>类型:{图层名}'
+        },
+        '17': {
+          title: '',
+          content: '描述:{DES}<br/>类型:{图层名}'
+        },
+        '19': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{DES}<br/>类型:{DEVTYPE}'
+        },
+        '20': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{DES}<br/>类型:{DEVTYPE}'
+        },
+        '21': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{DES}<br/>类型:{DEVTYPE}'
+        },
+        '22': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{DES}<br/>类型:{DEVTYPE}'
+        },
+        '24': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{DES}<br/>类型:{DEVTYPE}'
+        },
+        '25': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{DES}<br/>类型:{DEVTYPE}'
+        },
+        '27': {
+          title: '',
+          content: '路名:{LXMC}<br/>描述:{NAME}'
+        },
+        '28': {
+          title: '',
+          content: '路名:{LXMC}<br/>描述:{NAME}'
+        },
+        '29': {
+          title: '',
+          content: '路名:{LXMC}<br/>描述:{NAME}'
+        },
+        '30': {
+          title: '',
+          content: '路名:{LXMC}<br/>描述:{NAME}'
+        },
+        '31': {
+          title: '',
+          content: '路名:{LXMC}<br/>描述:{NAME}'
+        },
+        '33': {
+          title: '',
+          content: '路名:{ROADNAME }<br/>描述:{DES}<br/>类型:{DEVTYPE}'
+        },
+        '34': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{DES}<br/>类型:{DEVTYPE}'
+        },
+        '35': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{DES}<br/>类型:{DEVTYPE}'
+        },
+        '36': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{DES}<br/>类型:{DEVTYPE}'
+        },
+        '37': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{DES}<br/>类型:{DEVTYPE}'
+        },
+        '38': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{DES}<br/>类型:{DEVTYPE}'
+        },
+        '39': {
+          title: '',
+          content: '路名:{ROADNAME}<br/>描述:{DES}<br/>类型:{DEVTYPE}'
+        }
+      }
     }
     // {
     //   label: '发布段0000',
