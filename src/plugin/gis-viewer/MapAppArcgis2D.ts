@@ -86,7 +86,7 @@ export default class MapAppArcGIS2D {
       'esri/core/Collection',
       'esri/config'
     ]) as Promise<MapModules>);
-    esriConfig.fontsUrl = '/font/';
+    esriConfig.fontsUrl = apiUrl + '/font/';
     let baseLayers: __esri.Collection = new Collection();
     baseLayers.addMany(
       mapConfig.baseLayers.map((layerConfig: ILayerConfig) => {

@@ -83,12 +83,12 @@ export let GisConfig = {
     //     minPixelIntensity: 1
     //   }
     // }
-    // {
-    //   label: 'fbd1333',
-    //   url: './config/fbd/pcs.json',
-    //   type: 'json',
-    //   visible: true
-    // },
+    {
+      label: 'fbd1333',
+      url: './config/fbd/pcs.json',
+      type: 'json',
+      visible: true
+    }
     // {
     //   label: 'fbd123',
     //   url: './config/fbd/morph_ksl.json',

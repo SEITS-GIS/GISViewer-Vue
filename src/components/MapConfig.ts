@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {GdConfig} from './GdConfig';
-//import {GisConfig} from './GisConfig';
-import {GisConfig} from './project/config';
+import {GisConfig} from './GisConfig';
+//import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
 export default class MapConfig {
@@ -128,7 +128,7 @@ export default class MapConfig {
       },
       defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
     };
-    //const result = await map.addOverlays(points);
+    const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
     //map.showMigrateChart();

@@ -227,7 +227,7 @@ export class DrawLayer {
     if (param.label) {
       (drawlayer as any).label = param.label;
     }
-    this.view.map.add(drawlayer);
+    this.view.map.add(drawlayer, 0);
   }
   public getRender(): object {
     let renderer = {

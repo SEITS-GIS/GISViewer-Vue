@@ -144,7 +144,7 @@ export let GisConfig = {
       label: '摄像机',
       url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer',
       type: 'dynamic',
-      visible: true,
+      visible: false,
       popupTemplates: {
         '1': {
           title: '',
