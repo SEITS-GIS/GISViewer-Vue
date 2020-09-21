@@ -108,12 +108,9 @@ export default class MapAppArcGIS2D {
       })
     );
     //this.destroy();
-
-    console.log('4');
     let basemap: __esri.Basemap = new Basemap({
       baseLayers
     });
-    console.log('5');
     const view: __esri.MapView = new MapView({
       map: new Map({
         basemap
