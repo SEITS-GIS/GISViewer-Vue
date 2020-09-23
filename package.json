@@ -1,6 +1,6 @@
 {
   "name": "gisviewer-vue",
-  "version": "0.4.29",
+  "version": "0.4.30",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
