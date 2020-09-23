@@ -262,7 +262,7 @@ export class DgeneFusion {
 
           // console.log(data, position);
           if (showOutVideo || !vdata.isreal) {
-            console.log(data, position);
+            //console.log(data, position);
             this.fusion_view.loadMapSprite(
               data,
               {
@@ -346,7 +346,7 @@ export class DgeneFusion {
         setting,
         (name: any) => {
           _this.fusion_view.stopAutoRotate();
-          console.log(name);
+          //console.log(name);
           if (_this.out_video.indexOf(name) > -1) {
             if (_this.fusion_view) {
               _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
@@ -367,7 +367,7 @@ export class DgeneFusion {
           }
         },
         (obj: any) => {
-          console.log(obj);
+          //console.log(obj);
         }
       );
     });
