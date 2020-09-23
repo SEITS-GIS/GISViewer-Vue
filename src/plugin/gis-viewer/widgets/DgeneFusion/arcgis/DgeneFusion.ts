@@ -240,7 +240,7 @@ export class DgeneFusion {
             y: pos[1],
             z: pos[2]
           },
-          20
+          stations['size'] || 20
         );
       }
     });
