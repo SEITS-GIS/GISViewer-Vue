@@ -313,10 +313,6 @@ export class DgeneFusion {
     return new Promise((resolve, reject) => {
       _this.fusion_view = new Dgene(
         (item: any, loaded: number, total: number) => {
-          if (_this.showOut && !_this.loadOutState) {
-            _this.fusion_view.loadOutSideModel();
-            _this.loadOutState = true;
-          }
           if (Math.floor(Number(loaded / total) * 100) % 10 == 0) {
             console.log(
               `Dgene info: data loaded ${Math.floor(
@@ -360,6 +356,13 @@ export class DgeneFusion {
               _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
             }
             _this.fusion_view.activeFuse(name);
+          }
+        },
+        () => {
+          if (_this.showOut && !_this.loadOutState) {
+            _this.fusion_view.loadOutSideModel();
+            _this.loadOutState = true;
+            _this.fusion_view.addSprite();
           }
         }
       );
