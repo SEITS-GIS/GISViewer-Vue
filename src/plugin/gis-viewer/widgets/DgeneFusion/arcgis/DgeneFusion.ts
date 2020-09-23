@@ -408,7 +408,7 @@ export class DgeneFusion {
     this.fusion_control.addEventListener('change', (e: any) => {
       let dir = _this.fusion_view.getCameraPosition();
       let theta = Math.atan2(-dir.x, -dir.z);
-      theta = (180 * theta) / Math.PI;
+      theta = (180 * theta) / Math.PI + 180;
       //var theta = Math.atan2(-dir.x, -dir.z);
       if (carmeraCallback) {
         carmeraCallback(theta);
