@@ -32,10 +32,10 @@ export class DgeneFusion {
   private rotateState: string = 'auto';
   private setting: any = {
     isLocal: true, // isLocal?apiBase = 'static/api':apiBase = 'project/api/'+id
-    url: 'http://10.31.251.205/test4/static/api/',
+    url: 'http://10.31.251.205/test3/static/api/',
     api: {
       // http://fusion.dgene.com/admin/project/v2/11
-      apiBase: 'http://10.31.251.205/test4/static/api/',
+      apiBase: 'http://10.31.251.205/test3/static/api/',
       // apiBase: '/v2/11',
       file: '/file',
       scene: '/scene',
@@ -240,7 +240,7 @@ export class DgeneFusion {
             y: pos[1],
             z: pos[2]
           },
-          50
+          20
         );
       }
     });
