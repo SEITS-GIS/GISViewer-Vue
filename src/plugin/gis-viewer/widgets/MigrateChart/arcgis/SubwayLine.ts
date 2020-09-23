@@ -6,7 +6,6 @@ import {
 } from '@/types/map';
 import {loadModules} from 'esri-loader';
 import echartsLayer from './echartsLayer';
-import odLine from './config/line.json';
 
 export class SubwayLine {
   private static intances: Map<string, any>;
@@ -85,7 +84,6 @@ export class SubwayLine {
   }
   private async showPathChart(res: any) {
     this.clear();
-    let subLines = odLine as any;
     let chartslines: any[] = [];
     res.forEach((graphic: any, index: number) => {
       let fields = graphic.attributes;
@@ -96,8 +94,8 @@ export class SubwayLine {
       let tflow =
         fields['YJZH.STAT_METROLINEFLOW.VOLUME_TODAY'] ||
         fields['VOLUME_TODAY'];
-
-      subLines[lineid].forEach((item: any) => {
+      let geometry = graphic.geometry;
+      geometry.paths.forEach((item: any) => {
         let line: {coords?: any; lineStyle?: any; value?: number} = {};
         line.value = tflow;
         line.lineStyle = {
@@ -139,7 +137,8 @@ export class SubwayLine {
           width: 0
         },
         effect: {
-          constantSpeed: 60,
+          //constantSpeed: 60,
+          period: 7,
           show: true,
           trailLength: 0.6, //小尾巴长度0.2
           symbolSize: 10
@@ -167,7 +166,7 @@ export class SubwayLine {
         url: queryUrl
       });
       var query = new Query();
-      query.returnGeometry = false;
+      query.returnGeometry = true;
       query.outFields = ['*'];
       query.where = '1=1';
       // When resolved, returns features and graphics that satisfy the query.

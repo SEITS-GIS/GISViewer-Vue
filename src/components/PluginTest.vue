@@ -5,9 +5,6 @@
       <button @click="btn_test2">test2</button>
       <button @click="btn_test3">test3</button>
     </div>
-    <div
-      style="width:100%;height:100%; position: absolute;pointer-events:none"
-    ></div>
     <gis-viewer
       ref="gisViewer"
       platform="arcgis2d"
@@ -54,6 +51,7 @@ export default class PluginTest extends Vue {
   width: 100%;
   height: 100%;
   margin: 0 auto;
+  background: rgb(2, 24, 25);
 }
 #test {
   position: absolute;

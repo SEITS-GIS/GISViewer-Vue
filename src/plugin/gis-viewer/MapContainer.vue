@@ -99,7 +99,10 @@ export default class MapContainer extends Vue implements IMapContainer {
   }
   async created() {
     //console.log(this.mapConfig);
-    if ((this.mapConfig as any).arcgis_api.indexOf('arcgis') > -1) {
+    if (
+      (this.mapConfig as any).arcgis_api &&
+      (this.mapConfig as any).arcgis_api.indexOf('arcgis') > -1
+    ) {
       (window as any).dojoConfig = {
         async: true,
         tlmSiblingOfDojo: false,

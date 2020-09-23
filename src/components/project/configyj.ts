@@ -77,7 +77,7 @@ export let GisConfig = {
       url:
         'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_event/MapServer/0',
       refreshInterval: 1,
-      visible: true,
+      visible: false,
       outFields: ['*'],
       popupTemplate: {
         title: '',
@@ -98,7 +98,7 @@ export let GisConfig = {
       url:
         'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_ferryroutes/MapServer',
       type: 'dynamic',
-      visible: true,
+      visible: false,
       popupTemplates: {
         '0': {
           title: '',
@@ -131,14 +131,14 @@ export let GisConfig = {
       url:
         'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_Airport/MapServer',
       type: 'dynamic',
-      visible: true
+      visible: false
     },
     {
       label: '铁路客运',
       url:
         'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_Railway/MapServer',
       type: 'dynamic',
-      visible: true
+      visible: false
     },
     {
       label: '摄像机',

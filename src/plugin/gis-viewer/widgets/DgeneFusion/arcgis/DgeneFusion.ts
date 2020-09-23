@@ -32,10 +32,10 @@ export class DgeneFusion {
   private rotateState: string = 'auto';
   private setting: any = {
     isLocal: true, // isLocal?apiBase = 'static/api':apiBase = 'project/api/'+id
-    url: 'http://10.31.251.205/test/static/api/',
+    url: 'http://10.31.251.205/test3/static/api/',
     api: {
       // http://fusion.dgene.com/admin/project/v2/11
-      apiBase: 'http://10.31.251.205/test/static/api/',
+      apiBase: 'http://10.31.251.205/test3/static/api/',
       // apiBase: '/v2/11',
       file: '/file',
       scene: '/scene',
@@ -174,7 +174,7 @@ export class DgeneFusion {
     dgeneDiv.style.height = this.view.height + 'px';
     dgeneDiv.setAttribute('id', 'dgeneDiv');
     dgeneDiv.style.position = 'absolute';
-    dgeneDiv.style.display = 'none';
+    dgeneDiv.style.visibility = 'hidden';
     dgeneDiv.style.top = '0px';
     dgeneDiv.style.left = '0px';
     let divmap = document.getElementById(parentid) as any;
@@ -362,7 +362,7 @@ export class DgeneFusion {
     });
   }
   private hideFusion() {
-    $('#dgeneDiv').fadeOut('slow');
+    $('#dgeneDiv').css('visibility', 'hidden');
     $('#' + this.view.container.id).fadeIn(1000);
   }
   private showFusion() {
@@ -390,7 +390,7 @@ export class DgeneFusion {
       position: 'fixed',
       'z-index': '90'
     });
-    $('#dgeneDiv').fadeIn('slow');
+    $('#dgeneDiv').css('visibility', 'visible');
     $('#' + this.view.container.id).fadeOut(1000);
     this.fusion_control.addEventListener('change', (e: any) => {
       // console.log(_this.fusion_view.getCameraPosition());

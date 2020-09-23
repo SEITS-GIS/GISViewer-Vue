@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {GdConfig} from './GdConfig';
-import {GisConfig} from './GisConfig';
+//import {GisConfig} from './GisConfig';
 //import {GisConfig} from './project/config';
-//import {GisConfig} from './project/configsub';
+import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
 export default class MapConfig {
   public constructor() {}
@@ -132,39 +132,8 @@ export default class MapConfig {
   }
   public btn_test1(map: any) {
     //map.showMigrateChart();
-    map.showBarChart({
-      points: [
-        {geometry: {x: 121.31, y: 31.24}, id: '1'},
-        {geometry: {x: 121.131, y: 31.24}, id: '2'}
-      ]
-    });
 
-    let points = {
-      type: 'police',
-      defaultVisible: true,
-      defaultSymbol: {
-        //symbol for 2d
-        type: 'point',
-        url: 'assets/image/Anchor.png',
-        size: [10, 10],
-        anchor: 'center'
-      },
-      overlays: [
-        {
-          id: 'test001',
-          geometry: {x: 121.31, y: 31.24},
-          fields: {name: '测试2', featureid: '0002'}
-        },
-        {
-          id: 'test002',
-          geometry: {x: 121.131, y: 31.24},
-          fields: {name: '测试3', featureid: '0003'}
-        }
-      ],
-      showPopup: true,
-      autoPopup: false
-    };
-    const result = map.addOverlays(points);
+    //const result = map.addOverlays(points);
     // if (this.model_view) {
     //   this.model_view.newShowOut(
     //     {x: -34.06616800542628, y: 1351.7254831416005, z: 2620.9422016533167},
@@ -172,60 +141,92 @@ export default class MapConfig {
     //     0.07
     //   );
     // }
-    //axios.get('config/pt.json').then((res: any) => {
-    //console.log(res.data.overlays);
-    // let points = {
-    //   type: 'police',
-    //   defaultVisible: true,
-    //   defaultSymbol: {
-    //     type: 'point',
-    //     url: 'assets/image/Anchor.png',
-    //     height: 29,
-    //     width: 29
-    //   },
-    //   defaultTooltip: '{Name}',
-    //   points: res.data.overlays,
-    //   showPopup: true,
-    //   autoPopup: false,
-    //   defaultInfoTemplate: {
-    //     title: '1212',
-    //     content: '<div class="accc">name:{Name}</div>'
-    //   }
-    // };
-    //const result = map.addOverlaysCluster(res.data);
-    //});
+    // axios.get('config/2.json').then((res: any) => {
+    //   // res.data.points = (res.data.points as any[]).concat(
+    //   //   res.data.points as any[]
+    //   // );
+    //   // res.data.points = (res.data.points as any[]).concat(
+    //   //   res.data.points as any[]
+    //   // );
+    //   let points = {
+    //     type: 'police',
+    //     defaultVisible: true,
+    //     defaultSymbol: {
+    //       type: 'point',
+    //       url: 'assets/image/Anchor.png',
+    //       height: 29,
+    //       width: 29
+    //     },
+    //     defaultTooltip: '{Name}',
+    //     points: res.data.points,
+    //     showPopup: true,
+    //     autoPopup: false,
+    //     defaultInfoTemplate: {
+    //       title: '1212',
+    //       content: '<div class="accc">name:{Name}</div>'
+    //     }
+    //   };
+    //   const result = map.addOverlaysCluster(res.data);
+    // });
+    // img.html:13 2142 308
+    // img.html:13 2140 513
+    // img.html:13 2139 719
+    // img.html:13 1936 312
+    // img.html:13 1944 720
+    // img.html:13 1671 306
+    // img.html:13 1612 517
+    // img.html:13 1670 720
+    // img.html:13 1402 302
+    // img.html:13 1377 514
+    // img.html:13 1406 711
+    // img.html:13 1153 303
+    // img.html:13 1140 512
+    // img.html:13 1151 733
+    // img.html:13 966 305
+    // img.html:13 963 723
+    // img.html:13 640 321
+    // img.html:13 628 691
+    var points = [
+      {geometry: {x: 214, y: 31}, fields: {desc: 'a', totalSpace: 25}},
+      {geometry: {x: 214, y: 51}, fields: {desc: 'a', totalSpace: 26}},
+      {geometry: {x: 214, y: 72}, fields: {desc: 'a', totalSpace: 28}},
+      {geometry: {x: 194, y: 31}, fields: {desc: 'a', totalSpace: 32}},
+      {geometry: {x: 194, y: 72}, fields: {desc: 'a', totalSpace: 34}},
+      {geometry: {x: 167, y: 31}, fields: {desc: 'a', totalSpace: 40}},
+      {geometry: {x: 161, y: 51}, fields: {desc: 'a', totalSpace: 11}},
+      {geometry: {x: 167, y: 72}, fields: {desc: 'a', totalSpace: 17}},
+      {geometry: {x: 140, y: 30}, fields: {desc: 'a', totalSpace: 19}},
+      {geometry: {x: 140, y: 51}, fields: {desc: 'a', totalSpace: 22}},
+      {geometry: {x: 140, y: 71}, fields: {desc: 'a', totalSpace: 33}},
+      {geometry: {x: 115, y: 30}, fields: {desc: 'a', totalSpace: 31}},
+      {geometry: {x: 115, y: 51}, fields: {desc: 'a', totalSpace: 42}},
+      {geometry: {x: 115, y: 73}, fields: {desc: 'a', totalSpace: 37}},
+      {geometry: {x: 96, y: 30}, fields: {desc: 'a', totalSpace: 39}},
+      {geometry: {x: 96, y: 72}, fields: {desc: 'a', totalSpace: 25}},
+      {geometry: {x: 64, y: 32}, fields: {desc: 'a', totalSpace: 39}},
+      {geometry: {x: 64, y: 69}, fields: {desc: 'a', totalSpace: 33}}
+    ];
+    var x = 0;
+    var y = 0;
 
-    // var points = [];
-    // var x = 0;
-    // var y = 0;
-    // for (var i = 0; i < 100; i++) {
-    //   var x1 = x + (Math.random() * 202 + 60);
-    //   var y1 = Math.floor(Math.random() * 100) % 2 == 0 ? 30 : 70;
-    //   var value = Math.floor(900 * Math.random() + 1);
-    //   var a = i % 2 == 0 ? '1' : '0';
-    //   points.push({
-    //     geometry: {x: x1, y: y1},
-    //     fields: {desc: 'a', totalSpace: value, type: a}
-    //   });
-    // }
-    // var json = {
-    //   points: [],
-    //   images: {
-    //     geometry: {x: -14553.805845333449, y: -4137.1518463943485},
-    //     width: 226,
-    //     height: 100,
-    //     url: 'http://localhost/HQ2.svg',
-    //     center: {x: -14071.811607336222, y: -4342.546650737293},
-    //     factor: 4
-    //   },
-    //   options: {
-    //     field: 'totalSpace',
-    //     radius: 13,
-    //     maxValue: 1000,
-    //     minValue: 1
-    //   }
-    // };
-    //map.addHeatImage({});
+    var json = {
+      points: points,
+      images: {
+        geometry: {x: -14553.805845333449, y: -4137.1518463943485},
+        width: 226,
+        height: 100,
+        url: 'http://localhost/HQ2.svg',
+        center: {x: -14071.811607336222, y: -4342.546650737293},
+        factor: 4
+      },
+      options: {
+        field: 'totalSpace',
+        radius: 30,
+        maxValue: 40,
+        minValue: 1
+      }
+    };
+    map.addHeatImage(json);
     // map.showMigrateChart({
     //   overlays: [
     //     {

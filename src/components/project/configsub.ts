@@ -15,7 +15,7 @@ export let GisConfig = {
           title: '',
           content: '{DES}<br/>进流量:{IN_FLX_NR}<br/>出流量:{OUT_FLX_NR}'
         },
-        1: {
+        2: {
           title: '',
           content:
             '{NAME_1}<br/>昨日流量:{VOLUME_YESTERDAY}<br/>今日流量:{VOLUME_TODAY}'
@@ -36,6 +36,7 @@ export let GisConfig = {
       ymax: 33.26927173678651,
       spatialReference: {wkid: 3857}
     },
+    tolerance: 10,
     constraints: {
       rotationEnabled: false
     }

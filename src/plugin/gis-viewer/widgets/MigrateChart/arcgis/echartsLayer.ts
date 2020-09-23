@@ -160,8 +160,13 @@ export default class echartsLayer {
         spatialReference: new adt({wkid: 3857})
       };
       var px = this.view.toScreen(point);
+
       var mapOffset = [0, 0];
-      return [px.x - mapOffset[0], px.y - mapOffset[1]];
+      if (px) {
+        return [px.x - mapOffset[0], px.y - mapOffset[1]];
+      } else {
+        return [0, 0];
+      }
     };
     CoordSystem.prototype.pointToData = (pt: any) => {
       var mapOffset = _mapOffset;

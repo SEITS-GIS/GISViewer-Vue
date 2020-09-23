@@ -40,6 +40,7 @@ export default class MapAppArcGIS2D {
   public showGisDeviceInfo: any;
   public mapClick: any;
   public showFlow: boolean = false;
+  private tolerance: number = 3;
 
   public async initialize(gisConfig: any, mapContainer: string): Promise<void> {
     //路由跳转是delete mapConfig属性导致报错
@@ -179,6 +180,7 @@ export default class MapAppArcGIS2D {
         }
         //if (id) {
         this.showGisDeviceInfo(type, id, graphic.toJSON());
+        this.showSubBar(graphic.layer, event.mapPoint, graphic);
       } else {
         this.doIdentifyTask(event.mapPoint).then((results: any) => {
           if (results.length > 0) {
@@ -202,32 +204,7 @@ export default class MapAppArcGIS2D {
             this.showGisDeviceInfo(layername, id, res.feature.attributes);
             let selectLayer = this.getLayerByName(layername, layerid);
             if (selectLayer.popupTemplates) {
-              if (selectLayer.showBar) {
-                this.view.popup.alignment = 'bottom-center';
-                //console.log(res.feature);
-                this.showBarChart({
-                  points: [
-                    {
-                      geometry: {
-                        x: event.mapPoint.x,
-                        y: event.mapPoint.y,
-                        spatialReference: this.view.spatialReference
-                      },
-                      fields: {
-                        inflow:
-                          res.feature.attributes['IN_FLX_NR'] ||
-                          res.feature.attributes['VOLUME_YESTERDAY'],
-                        outflow:
-                          res.feature.attributes['OUT_FLX_NR'] ||
-                          res.feature.attributes['VOLUME_TODAY']
-                      }
-                    }
-                  ],
-                  name: layername
-                });
-              } else {
-                this.view.popup.alignment = 'auto';
-              }
+              this.showSubBar(selectLayer, event.mapPoint, res.feature);
               let popup = selectLayer.popupTemplates[layerid];
               if (popup) {
                 this.view.popup.open({
@@ -250,12 +227,45 @@ export default class MapAppArcGIS2D {
     }
     this.view = view;
     (this.view as any).mapOptions = mapConfig.options;
+    if (mapConfig.options && mapConfig.options.tolerance) {
+      this.tolerance = mapConfig.options && mapConfig.options.tolerance;
+    }
     (this.view.popup as any).visibleElements = {
       featureNavigation: false,
       closeButton: false
     };
     if (this.showFlow) {
       this.showSubwayFlow();
+    }
+  }
+  private showSubBar(layer: any, point: any, feature: any) {
+    if (layer && layer.showBar) {
+      this.view.popup.alignment = 'bottom-center';
+      //console.log(res.feature);
+      this.showBarChart({
+        points: [
+          {
+            geometry: {
+              x: point.x,
+              y: point.y,
+              spatialReference: this.view.spatialReference
+            },
+            fields: {
+              inflow:
+                feature.attributes['IN_FLX_NR'] ||
+                feature.attributes['VOLUME_YESTERDAY'] ||
+                feature.attributes['YJZH.STAT_METROLINEFLOW.VOLUME_YESTERDAY'],
+              outflow:
+                feature.attributes['OUT_FLX_NR'] ||
+                feature.attributes['VOLUME_TODAY'] ||
+                feature.attributes['YJZH.STAT_METROLINEFLOW.VOLUME_TODAY']
+            }
+          }
+        ],
+        name: '地铁线路图'
+      });
+    } else {
+      this.view.popup.alignment = 'auto';
     }
   }
   private loadCustomCss() {
@@ -344,7 +354,7 @@ export default class MapAppArcGIS2D {
         let identify = new IdentifyTask(layer.url); //创建属性查询对象
 
         let identifyParams = new IdentifyParameters(); //创建属性查询参数
-        identifyParams.tolerance = 3;
+        identifyParams.tolerance = this.tolerance;
         identifyParams.layerIds = that.getLayerIds(layer);
         identifyParams.layerOption = 'visible'; //"top"|"visible"|"all"
         identifyParams.width = that.view.width;

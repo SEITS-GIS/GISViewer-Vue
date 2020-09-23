@@ -191,7 +191,6 @@ export class Bar3DChart {
           label: {
             show: true,
             formatter: (params: any) => {
-              console.log(params);
               if (params.dataIndex == 0) {
                 return (
                   (params.seriesName == 'line' ? '昨日:' : '进') +
@@ -267,8 +266,10 @@ export class Bar3DChart {
       div,
       'top'
     );
-    div.style.left = point.x + 10 + offset.xoffset + 'px';
-    div.style.top = point.y + offset.yoffset + 'px';
+    if (point) {
+      div.style.left = point.x + 10 + offset.xoffset + 'px';
+      div.style.top = point.y + offset.yoffset + 'px';
+    }
   }
   private addEvent() {
     let o: any = this;
