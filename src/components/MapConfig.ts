@@ -25,7 +25,12 @@ export default class MapConfig {
         console.log('载入成功', e.result);
         _this.model_view = e.result;
 
-        map.showDgene({duration: 0});
+        map.showDgene({
+          duration: 0,
+          callback: (e: any) => {
+            console.log(e);
+          }
+        });
         //_this.model_view.showVideoDom('HQtest147');
         //_this.model_view.showVideoDom('HQtest148');
       }); //载入3维模型
@@ -126,6 +131,13 @@ export default class MapConfig {
         title: '1212',
         content: '<div class="accc">name:{name}</div>'
       },
+      showToolTip: true,
+      toolTipContent: '{featureid}',
+      toolTipOption: {
+        content: '{featureid}',
+        xoffset: 0,
+        yoffset: 10
+      },
       defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
     };
     const result = await map.addOverlays(points);
@@ -134,13 +146,9 @@ export default class MapConfig {
     //map.showMigrateChart();
 
     //const result = map.addOverlays(points);
-    // if (this.model_view) {
-    //   this.model_view.newShowOut(
-    //     {x: -34.06616800542628, y: 1351.7254831416005, z: 2620.9422016533167},
-    //     {x: 106.22608293953024, y: 0, z: 107.42583747482},
-    //     0.07
-    //   );
-    // }
+    if (this.model_view) {
+      this.model_view.showVideoDom('HQ0912New151');
+    }
     // axios.get('config/2.json').then((res: any) => {
     //   // res.data.points = (res.data.points as any[]).concat(
     //   //   res.data.points as any[]
@@ -168,24 +176,6 @@ export default class MapConfig {
     //   };
     //   const result = map.addOverlaysCluster(res.data);
     // });
-    // img.html:13 2142 308
-    // img.html:13 2140 513
-    // img.html:13 2139 719
-    // img.html:13 1936 312
-    // img.html:13 1944 720
-    // img.html:13 1671 306
-    // img.html:13 1612 517
-    // img.html:13 1670 720
-    // img.html:13 1402 302
-    // img.html:13 1377 514
-    // img.html:13 1406 711
-    // img.html:13 1153 303
-    // img.html:13 1140 512
-    // img.html:13 1151 733
-    // img.html:13 966 305
-    // img.html:13 963 723
-    // img.html:13 640 321
-    // img.html:13 628 691
     var points = [
       {geometry: {x: 214, y: 31}, fields: {desc: 'a', totalSpace: 25}},
       {geometry: {x: 214, y: 51}, fields: {desc: 'a', totalSpace: 26}},

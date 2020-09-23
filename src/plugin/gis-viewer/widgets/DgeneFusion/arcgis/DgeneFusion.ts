@@ -117,7 +117,7 @@ export class DgeneFusion {
       )
       .then(() => {
         _this.stopMouseWheelEvent(false);
-        _this.showFusion();
+        _this.showFusion(params);
         if (_this.fusion_view.camFlyTo) {
           _this.fusion_view.camFlyTo(this.originView, 1);
         }
@@ -237,7 +237,7 @@ export class DgeneFusion {
           'test',
           {
             x: pos[0],
-            y: pos[1],
+            y: pos[1] + 10,
             z: pos[2]
           },
           20
@@ -300,6 +300,7 @@ export class DgeneFusion {
     //   'libs/dgene2/2.js',
     //   'libs/dgene2/app.js'
     // ]);
+    let clickCallBack = params.onclick;
     let setting = this.setting;
     if (params.settingUrl) {
       setting.url = params.settingUrl;
@@ -364,6 +365,9 @@ export class DgeneFusion {
             _this.loadOutState = true;
             _this.fusion_view.addSprite();
           }
+        },
+        (obj: any) => {
+          console.log(obj);
         }
       );
     });
@@ -372,9 +376,11 @@ export class DgeneFusion {
     $('#dgeneDiv').css('visibility', 'hidden');
     $('#' + this.view.container.id).fadeIn(1000);
   }
-  private showFusion() {
+  private showFusion(params: any) {
     let _this = this;
     this.rotateState = 'stop';
+
+    let carmeraCallback = params.callback;
     this.fusion_view.camFlyTo(this.originView, 1);
     setTimeout(() => {
       let pos = _this.FlyView;
@@ -400,7 +406,13 @@ export class DgeneFusion {
     $('#dgeneDiv').css('visibility', 'visible');
     $('#' + this.view.container.id).fadeOut(1000);
     this.fusion_control.addEventListener('change', (e: any) => {
-      // console.log(_this.fusion_view.getCameraPosition());
+      let dir = _this.fusion_view.getCameraPosition();
+      let theta = Math.atan2(-dir.x, -dir.z);
+      theta = (180 * theta) / Math.PI;
+      //var theta = Math.atan2(-dir.x, -dir.z);
+      if (carmeraCallback) {
+        carmeraCallback(theta);
+      }
       if (_this.fusion_view.getCameraY() < 60) {
         _this.fusion_view.setCamNear(0.1, 20000);
       } else {
