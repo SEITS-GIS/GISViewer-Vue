@@ -2,8 +2,8 @@ import axios from 'axios';
 import {GdConfig} from './GdConfig';
 //import {GisConfig} from './GisConfig';
 //import {GisConfig} from './project/config';
-import {GisConfig} from './project/configsub';
-//import {GisConfig} from './project/configyj';
+//import {GisConfig} from './project/configsub';
+import {GisConfig} from './project/configyj';
 export default class MapConfig {
   public constructor() {}
   private model_view: any;
@@ -11,24 +11,24 @@ export default class MapConfig {
   public gdConfig: any = GdConfig;
   public async mapLoaded(map: any) {
     let _this = this;
-    // map
-    //   .addDgeneFusion({
-    //     appendDomID: 'gisDiv',
-    //     url: 'dgene',
-    //     showOut: false,
-    //     outvideo: true,
-    //     callback: (a: number, b: number) => {
-    //       console.log(a, b);
-    //     }
-    //   })
-    //   .then((e: any) => {
-    //     console.log('载入成功', e.result);
-    //     _this.model_view = e.result;
+    map
+      .addDgeneFusion({
+        appendDomID: 'gisDiv',
+        url: 'dgene',
+        showOut: false,
+        outvideo: true,
+        callback: (a: number, b: number) => {
+          console.log(a, b);
+        }
+      })
+      .then((e: any) => {
+        console.log('载入成功', e.result);
+        _this.model_view = e.result;
 
-    //     map.showDgene({duration: 0});
-    //     //_this.model_view.showVideoDom('HQtest147');
-    //     //_this.model_view.showVideoDom('HQtest148');
-    //   }); //载入3维模型
+        map.showDgene({duration: 0});
+        //_this.model_view.showVideoDom('HQtest147');
+        //_this.model_view.showVideoDom('HQtest148');
+      }); //载入3维模型
 
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
