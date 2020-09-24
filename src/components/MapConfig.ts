@@ -125,18 +125,21 @@ export default class MapConfig {
         //   fields: {name: '测试4', featureid: '0001'}
         // }
       ],
-      showPopup: true,
+      showPopup: false,
       autoPopup: false,
       defaultInfoTemplate: {
         title: '1212',
         content: '<div class="accc">name:{name}</div>'
       },
-      showToolTip: true,
-      toolTipContent: '{featureid}',
-      toolTipOption: {
-        content: '{featureid}',
-        xoffset: 0,
-        yoffset: 10
+      // showToolTip: true,
+      // toolTipContent: '{featureid}',
+      // toolTipOption: {
+      //   content: '{featureid}',
+      //   xoffset: 0,
+      //   yoffset: 10
+      // },
+      custom: {
+        content: "<div style='background:red'>333333</div>"
       },
       defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
     };
@@ -203,10 +206,10 @@ export default class MapConfig {
       points: points,
       images: {
         geometry: {x: -14553.805845333449, y: -4137.1518463943485},
-        width: 226,
-        height: 100,
+        width: 226 * 1.5,
+        height: 100 * 1.5,
         url: 'http://localhost/HQ2.svg',
-        center: {x: -14071.811607336222, y: -4342.546650737293},
+        center: {x: -13873.811607336222, y: -4444.546650737293},
         factor: 4
       },
       options: {

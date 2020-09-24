@@ -27,7 +27,8 @@ export let GisConfig = {
     // },
     //viewMode: '3D',
     constraints: {
-      rotationEnabled: false
+      rotationEnabled: false,
+      minZoom: 0
     }
     //for arcgis-3d
     // camera: {

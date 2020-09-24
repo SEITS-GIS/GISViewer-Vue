@@ -55,9 +55,9 @@ export default class PluginGD extends Vue {
 
 <style scoped>
 #gisDiv {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  width: 300px;
+  height: 300px;
   margin: 0 auto;
 }
 #test {

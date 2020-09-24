@@ -19,7 +19,8 @@ import {
   IStreetParameter,
   routeParameter,
   IHeatImageParameter,
-  IGeometrySearchParameter
+  IGeometrySearchParameter,
+  ICustomTip
 } from '@/types/map';
 @Component({
   name: 'MapAppBaidu'
@@ -136,6 +137,7 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public async restoreDegeneFsion(): Promise<IResult> {
     return {status: 0, message: ''};
   }
+  public showCustomTip(params: ICustomTip) {}
 }
 </script>
 

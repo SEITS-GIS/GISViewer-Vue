@@ -191,6 +191,7 @@ export default class HeatImageGL {
           if (pdata.length > 0) {
             cts.globalCompositeOperation = 'destination-atop';
           }
+          let devicePixelRatio = window.devicePixelRatio || 1;
           cts.drawImage(
             _that.allImage,
             xoffset,
@@ -198,11 +199,12 @@ export default class HeatImageGL {
             _that.allImage.width * step,
             _that.allImage.height * step
           );
-          let devicePixelRatio = window.devicePixelRatio || 1;
+
+          console.log(devicePixelRatio);
           context.drawImage(
             canvas,
-            Math.max(screenPoint.x, 0),
-            Math.max(screenPoint.y, 0),
+            Math.max(screenPoint.x, 0) * devicePixelRatio,
+            Math.max(screenPoint.y, 0) * devicePixelRatio,
             canvas.width * devicePixelRatio,
             canvas.height * devicePixelRatio
           );

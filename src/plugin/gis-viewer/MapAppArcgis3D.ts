@@ -15,7 +15,8 @@ import {
   IStreetParameter,
   routeParameter,
   IHeatImageParameter,
-  IGeometrySearchParameter
+  IGeometrySearchParameter,
+  ICustomTip
 } from '@/types/map';
 import {OverlayArcgis3D} from '@/plugin/gis-viewer/widgets/Overlays/arcgis/OverlayArcgis3D';
 import {RasterStretchRenderer} from 'esri/rasterRenderers';
@@ -190,6 +191,8 @@ export default class MapAppArcGIS3D implements IMapContainer {
                 });
               }
             }
+          } else {
+            //ToolTip.clear(this.view, undefined);
           }
         });
       }
@@ -530,5 +533,9 @@ export default class MapAppArcGIS3D implements IMapContainer {
   }
   public async restoreDegeneFsion(): Promise<IResult> {
     return {status: 0, message: ''};
+  }
+  public showCustomTip(params: ICustomTip) {
+    ToolTip.clear(this.view, params.prop.className);
+    let ctip = new ToolTip(this.view, params.prop, params.geometry);
   }
 }

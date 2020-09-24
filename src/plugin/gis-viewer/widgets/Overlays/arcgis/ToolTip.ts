@@ -29,14 +29,18 @@ export default class ToolTip {
         props.visible = false;
       }
     }
-    this.create(props);
+    let vue: any = props.vue || MapToolTip;
+    this.create(vue, props);
   }
-  private create(props: Object) {
+  private create(vue: any, props: any) {
     this.vm = new Vue({
       // 为什么不使用 template 要使用render 因为现在是webpack里面没有编译器 只能使用render
-      render: (h) => h(MapToolTip, {props}) // render 生成虚拟dom  {props: props}
+      render: (h) => h(vue, {props}) // render 生成虚拟dom  {props: props}
     }).$mount(); // $mount 生成真实dom, 挂载dom 挂载在哪里, 不传参的时候只生成不挂载，需要手动挂载
-
+    let className = props.className || 'map-tool-tip';
+    if (!this.vm.$el.classList.contains(className)) {
+      this.vm.$el.classList.add(className);
+    }
     this.view.container.children[0].children[0].appendChild(this.vm.$el);
     this.changeText();
     this.init();
@@ -68,14 +72,17 @@ export default class ToolTip {
       }
     });
   }
-  private changeText() {
-    let center = this.getPostion(this.postion);
+  private async changeText() {
+    let center = await this.getPostion(this.postion);
     let point = this.view.toScreen(center);
     const offset: {xoffset: number; yoffset: number} = this.subLocate('top');
     Object(this.vm.$el).style.left = point.x + 10 + offset.xoffset + 'px';
     Object(this.vm.$el).style.top = point.y + offset.yoffset + 'px';
   }
-  private getPostion(geometry: any) {
+  private async getPostion(geometry: any) {
+    const [geometryJsonUtils] = await loadModules([
+      'esri/geometry/support/jsonUtils'
+    ]);
     let center = geometry;
     if (geometry.type == 'point') {
     } else if (geometry.type == 'polyline') {
@@ -84,6 +91,8 @@ export default class ToolTip {
       center = geometry.center;
     } else if (geometry.type == 'polygon' || geometry.type == 'circle') {
       center = geometry.centroid;
+    } else {
+      center = geometryJsonUtils.fromJSON(geometry);
     }
     return center;
   }
@@ -92,8 +101,10 @@ export default class ToolTip {
     this.view.container.children[0].children[0].removeChild(this.vm.$el); // 删除元素
     this.vm.$destroy(); // 销毁组件
   }
-  public static clear(view: any, id: string | undefined) {
-    let tools: any = document.getElementsByClassName('map-tool-tip');
+  public static clear(view: any, id: string | undefined, className?: string) {
+    let tools: any = document.getElementsByClassName(
+      className || 'map-tool-tip'
+    );
     tools.forEach((el: any) => {
       if (id == undefined || el.id == id) {
         view.container.children[0].children[0].removeChild(el);

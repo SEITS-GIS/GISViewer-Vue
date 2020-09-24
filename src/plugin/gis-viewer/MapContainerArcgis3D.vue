@@ -20,7 +20,8 @@ import {
   IStreetParameter,
   routeParameter,
   IHeatImageParameter,
-  IGeometrySearchParameter
+  IGeometrySearchParameter,
+  ICustomTip
 } from '@/types/map';
 
 @Component({
@@ -150,6 +151,9 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
   }
   public async restoreDegeneFsion(): Promise<IResult> {
     return {status: 0, message: ''};
+  }
+  public showCustomTip(params: ICustomTip) {
+    this.mapApp.showCustomTip(params);
   }
 }
 </script>

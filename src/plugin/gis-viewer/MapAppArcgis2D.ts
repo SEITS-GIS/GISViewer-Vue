@@ -13,7 +13,8 @@ import {
   IOverlayClusterParameter,
   routeParameter,
   IHeatImageParameter,
-  IGeometrySearchParameter
+  IGeometrySearchParameter,
+  ICustomTip
 } from '@/types/map';
 import {OverlayArcgis2D} from '@/plugin/gis-viewer/widgets/Overlays/arcgis/OverlayArcgis2D';
 import {FindFeature} from './widgets/FindFeature/arcgis/FindFeature';
@@ -34,6 +35,7 @@ import {ChengDiLayer} from './widgets/ChengDi/ChengDiLayer';
 import AnimateLine from './widgets/MigrateChart/AnimateLine';
 import {Bar3DChart} from './widgets/MigrateChart/arcgis/Bar3DChart';
 import {Utils} from './Utils';
+import ToolTip from './widgets/Overlays/arcgis/ToolTip';
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
@@ -217,6 +219,8 @@ export default class MapAppArcGIS2D {
                 });
               }
             }
+          } else {
+            ToolTip.clear(this.view, undefined, 'custom-popup');
           }
         });
       }
@@ -610,5 +614,11 @@ export default class MapAppArcGIS2D {
   public hideDgene() {
     let dgene = DgeneFusion.getInstance(this.view);
     dgene.hideDgene();
+  }
+  public showCustomTip(params: ICustomTip) {
+    let className: string = 'custom-popup';
+    params.prop.className = className;
+    ToolTip.clear(this.view, undefined, className);
+    let ctip = new ToolTip(this.view, params.prop, params.geometry);
   }
 }

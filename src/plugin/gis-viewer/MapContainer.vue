@@ -58,7 +58,8 @@ import {
   IStreetParameter,
   routeParameter,
   IHeatImageParameter,
-  IGeometrySearchParameter
+  IGeometrySearchParameter,
+  ICustomTip
 } from '@/types/map';
 
 @Component({
@@ -259,6 +260,9 @@ export default class MapContainer extends Vue implements IMapContainer {
   }
   public async restoreDegeneFsion(): Promise<IResult> {
     return await this.mapContainer.restoreDegeneFsion();
+  }
+  public showCustomTip(params: ICustomTip) {
+    this.mapContainer.showCustomTip(params);
   }
 }
 </script>

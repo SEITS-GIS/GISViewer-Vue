@@ -330,7 +330,6 @@ export class OverlayArcgis2D {
           {
             title: '',
             id: overlay.id,
-            istip: true,
             zooms: custom.zooms,
             visible: !custom.visible || false,
             content: this.getToolTipContent(graphic, customContent)

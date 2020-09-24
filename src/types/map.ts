@@ -179,6 +179,7 @@ export interface IMapContainer {
   restoreDegeneFsion: () => Promise<IResult>;
   showBarChart: (params: any) => void;
   hideBarChart: () => void;
+  showCustomTip: (params: ICustomTip) => void;
 }
 export interface IPopUpTemplate {
   title?: string;
@@ -248,4 +249,8 @@ export interface IGeometrySearchParameter {
   showGeometry?: boolean; //是否显示搜素区域
   clickHandle?: any; //点击回调方法
   repeat?: boolean; //是否重复点击画圆
+}
+export interface ICustomTip {
+  prop: any;
+  geometry: IPointGeometry;
 }

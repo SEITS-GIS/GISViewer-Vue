@@ -19,6 +19,7 @@
 import {Vue, Component, Prop} from 'vue-property-decorator';
 import axios from 'axios';
 import MapConfig from './MapConfig';
+import PluginGd from './PluginGD.vue';
 @Component
 export default class PluginTest extends Vue {
   private cg = new MapConfig();
@@ -38,6 +39,10 @@ export default class PluginTest extends Vue {
   }
   private showGisDeviceInfo(type: string, id: string, detail: any) {
     console.log(type, id, detail);
+    (this.$refs.gisViewer as any).showCustomTip({
+      prop: {vue: PluginGd},
+      geometry: detail.geometry
+    });
   }
   private mapClick(pt: object) {
     console.log(pt);

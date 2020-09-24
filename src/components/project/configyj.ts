@@ -9,20 +9,8 @@ export let GisConfig = {
       visible: true
     },
     {
-      label: '道路',
-      url: 'https://10.89.1.99/arcgis/rest/services/dlbj_cd/MapServer',
-      type: 'tiled',
-      visible: true
-    },
-    {
       label: '标线',
       url: 'https://10.89.1.99/arcgis/rest/services/bx/MapServer',
-      type: 'tiled',
-      visible: true
-    },
-    {
-      label: '道路',
-      url: 'https://10.89.1.99/arcgis/rest/services/dlbj_cd/MapServer',
       type: 'tiled',
       visible: true
     }
@@ -316,7 +304,7 @@ export let GisConfig = {
     zoom: 1,
     //viewMode: '3D',
     constraints: {
-      rotationEnabled: false
+      minZoom: 3
     }
   }
 };
