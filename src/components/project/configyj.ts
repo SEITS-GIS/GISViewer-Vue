@@ -304,7 +304,7 @@ export let GisConfig = {
     zoom: 1,
     //viewMode: '3D',
     constraints: {
-      minZoom: 3
+      //minZoom: 3
     }
   }
 };

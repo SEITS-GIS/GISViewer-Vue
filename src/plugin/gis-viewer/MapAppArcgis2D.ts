@@ -203,7 +203,8 @@ export default class MapAppArcGIS2D {
               res.feature.attributes['FEATUREID'] ||
               res.feature.attributes['SECTIONID'] ||
               res.feature.attributes[res.displayFieldName];
-            this.showGisDeviceInfo(layername, id, res.feature.attributes);
+            //res.feature.attributes.geometry = res.feature.geometry;
+            this.showGisDeviceInfo(layername, id, res.feature);
             let selectLayer = this.getLayerByName(layername, layerid);
             if (selectLayer.popupTemplates) {
               this.showSubBar(selectLayer, event.mapPoint, res.feature);
@@ -364,6 +365,7 @@ export default class MapAppArcGIS2D {
         identifyParams.width = that.view.width;
         identifyParams.height = that.view.height;
         identifyParams.geometry = clickpoint;
+        identifyParams.returnGeometry = true;
         identifyParams.mapExtent = that.view.extent;
 
         // 执行查询对象

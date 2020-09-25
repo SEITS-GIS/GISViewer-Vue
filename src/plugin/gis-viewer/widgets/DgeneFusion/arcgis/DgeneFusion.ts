@@ -180,14 +180,14 @@ export class DgeneFusion {
     let divmap = document.getElementById(parentid) as any;
     divmap.appendChild(dgeneDiv);
     window.onresize = () => {
-      $('#dgeneDiv').css({
-        width: window.screen.width + 'px',
-        height: window.screen.height + 'px'
-      });
-      _this.fusion_view.setCanvasSize(
-        window.screen.width,
-        window.screen.height
-      );
+      // $('#dgeneDiv').css({
+      //   width: window.screen.width + 'px',
+      //   height: window.screen.height + 'px'
+      // });
+      // _this.fusion_view.setCanvasSize(
+      //   window.screen.width,
+      //   window.screen.height
+      // );
     };
     window.onkeydown = (event: any) => {
       console.log(event.keyCode);

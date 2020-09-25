@@ -13,15 +13,15 @@ export class MigrateChart {
   private view!: any;
   private echartlayer: any;
   private colors: Array<string> = [
-    'rgba(0,255,255,0.4)',
-    'rgba(255,255,0,0.4)',
-    'rgba(255,215,0,0.4)',
-    'rgba(255,69,0,0.4)',
+    'rgba(255,0,255,0.4)',
+    'rgba(75,0,130,0.4)',
+    'rgba(72,61,139,0.4)',
+    'rgba(60,179,113,0.4)',
     'rgba(0,250,154,0.4)',
     'rgba(0,255,0,0.4)',
-    'rgba(255,0,0,0.4)',
-    'rgba(255,20,147,0.4)',
-    'rgba(0,191,255,0.4)'
+    'rgba(30,144,255,0.4)',
+    'rgba(0,255,255,0.4)',
+    'rgba(255,215,0,0.4)'
   ];
 
   private constructor(view: any) {
@@ -234,31 +234,16 @@ export class MigrateChart {
   public async showPathChart(params: any) {
     this.clear();
     let odData = odJson.coords;
+    let row = odJson.row;
+    let col = odJson.col;
     let _this = this;
-    let busLines = [
-      {coords: ['B115', 'B116', 'B134'], value: 3},
-      {
-        coords: ['B115', 'B116', 'B126', 'B131', 'B132', 'B135'],
-        value: 4
-      },
-      {
-        coords: ['B115', 'B116', 'B120', 'B124'],
-        value: 3
-      },
-      {coords: ['B13', 'B14', 'B11'], value: 4},
-      {coords: ['B118', 'B117', 'B113', 'B114'], value: 2},
-      {coords: ['B118', 'B117', 'B136'], value: 1},
-      {
-        coords: ['B118', 'B117', 'B133', 'B132', 'B135'],
-        value: 3
-      },
-      {coords: ['B118', 'B117', 'B123', 'B124'], value: 6},
-      {coords: ['B115', 'B116', 'B120', 'B119'], value: 4}
-    ];
+    let busLines = params.coords;
     let lines = busLines;
     let chartslines = lines.map((line: any, index: number) => {
       line.coords = line.coords.map((pid: any) => {
-        return (odData as any)[pid] || [0, 0];
+        let xy = (odData as any)[pid];
+        let pt = [(row as any)[xy[0]], (col as any)[xy[1]]];
+        return pt;
       });
       line.lineStyle = {
         normal: {

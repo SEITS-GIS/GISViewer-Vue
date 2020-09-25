@@ -2,6 +2,8 @@ import {loadModules} from 'esri-loader';
 import {resolve, reject} from 'esri/core/promiseUtils';
 import {offset} from 'esri/geometry/geometryEngine';
 import {IHeatImageParameter} from '@/types/map';
+import wifiGeo from './config/wifi.json';
+
 export default class HeatImageGL {
   private static intances: Map<string, any>;
   public view: any;
@@ -84,9 +86,10 @@ export default class HeatImageGL {
     });
     let fieldName = options.field;
     let pdata = points.map((point: any) => {
+      let pt = point.geometry || (wifiGeo.geo as any)[point.fields.id];
       return {
-        x: Math.floor(point.geometry.x),
-        y: Math.floor(point.geometry.y),
+        x: Math.floor(pt.x),
+        y: Math.floor(pt.y),
         value: point.fields[fieldName] || 0
       };
     });

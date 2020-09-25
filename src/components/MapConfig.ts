@@ -11,29 +11,29 @@ export default class MapConfig {
   public gdConfig: any = GdConfig;
   public async mapLoaded(map: any) {
     let _this = this;
-    map
-      .addDgeneFusion({
-        appendDomID: 'gisDiv',
-        url: 'dgene',
-        showOut: false,
-        outvideo: true,
-        callback: (a: number, b: number) => {
-          console.log(a, b);
-        }
-      })
-      .then((e: any) => {
-        console.log('载入成功', e.result);
-        _this.model_view = e.result;
+    // map
+    //   .addDgeneFusion({
+    //     appendDomID: 'gisDiv',
+    //     url: 'dgene',
+    //     showOut: false,
+    //     outvideo: true,
+    //     callback: (a: number, b: number) => {
+    //       console.log(a, b);
+    //     }
+    //   })
+    //   .then((e: any) => {
+    //     console.log('载入成功', e.result);
+    //     _this.model_view = e.result;
 
-        map.showDgene({
-          duration: 0,
-          callback: (e: any) => {
-            console.log(e);
-          }
-        });
-        //_this.model_view.showVideoDom('HQtest147');
-        //_this.model_view.showVideoDom('HQtest148');
-      }); //载入3维模型
+    //     map.showDgene({
+    //       duration: 0,
+    //       callback: (e: any) => {
+    //         console.log(e);
+    //       }
+    //     });
+    //     //_this.model_view.showVideoDom('HQtest147');
+    //     //_this.model_view.showVideoDom('HQtest148');
+    //   }); //载入3维模型
 
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
@@ -180,24 +180,24 @@ export default class MapConfig {
     //   const result = map.addOverlaysCluster(res.data);
     // });
     var points = [
-      {geometry: {x: 214, y: 31}, fields: {desc: 'a', totalSpace: 25}},
-      {geometry: {x: 214, y: 51}, fields: {desc: 'a', totalSpace: 26}},
-      {geometry: {x: 214, y: 72}, fields: {desc: 'a', totalSpace: 28}},
-      {geometry: {x: 194, y: 31}, fields: {desc: 'a', totalSpace: 32}},
-      {geometry: {x: 194, y: 72}, fields: {desc: 'a', totalSpace: 34}},
-      {geometry: {x: 167, y: 31}, fields: {desc: 'a', totalSpace: 40}},
-      {geometry: {x: 161, y: 51}, fields: {desc: 'a', totalSpace: 11}},
-      {geometry: {x: 167, y: 72}, fields: {desc: 'a', totalSpace: 17}},
-      {geometry: {x: 140, y: 30}, fields: {desc: 'a', totalSpace: 19}},
-      {geometry: {x: 140, y: 51}, fields: {desc: 'a', totalSpace: 22}},
-      {geometry: {x: 140, y: 71}, fields: {desc: 'a', totalSpace: 33}},
-      {geometry: {x: 115, y: 30}, fields: {desc: 'a', totalSpace: 31}},
-      {geometry: {x: 115, y: 51}, fields: {desc: 'a', totalSpace: 42}},
-      {geometry: {x: 115, y: 73}, fields: {desc: 'a', totalSpace: 37}},
-      {geometry: {x: 96, y: 30}, fields: {desc: 'a', totalSpace: 39}},
-      {geometry: {x: 96, y: 72}, fields: {desc: 'a', totalSpace: 25}},
-      {geometry: {x: 64, y: 32}, fields: {desc: 'a', totalSpace: 39}},
-      {geometry: {x: 64, y: 69}, fields: {desc: 'a', totalSpace: 33}}
+      {fields: {id: '12', value: 125}},
+      {fields: {id: '8', value: 26}},
+      {fields: {id: '1', value: 24}},
+      {fields: {id: '13', value: 32}},
+      {fields: {id: '2', value: 34}},
+      {fields: {id: '14', value: 40}},
+      {fields: {id: '9', value: 11}},
+      {fields: {id: '3', value: 17}},
+      {fields: {id: '15', value: 19}},
+      {fields: {id: '10', value: 22}},
+      {fields: {id: '4', value: 33}},
+      {fields: {id: '16', value: 31}},
+      {fields: {id: '11', value: 42}},
+      {fields: {id: '5', value: 37}},
+      {fields: {id: '17', value: 39}},
+      {fields: {id: '6', value: 25}},
+      {fields: {id: '18', value: 39}},
+      {fields: {id: '7', value: 33}}
     ];
     var x = 0;
     var y = 0;
@@ -206,16 +206,16 @@ export default class MapConfig {
       points: points,
       images: {
         geometry: {x: -14553.805845333449, y: -4137.1518463943485},
-        width: 226 * 1.5,
-        height: 100 * 1.5,
+        width: 339,
+        height: 150,
         url: 'http://localhost/HQ2.svg',
-        center: {x: -13873.811607336222, y: -4444.546650737293},
+        center: {x: -13833.811607336222, y: -4444.546650737293},
         factor: 4
       },
       options: {
-        field: 'totalSpace',
-        radius: 30,
-        maxValue: 40,
+        field: 'value',
+        radius: 10,
+        maxValue: 100,
         minValue: 1
       }
     };
@@ -429,7 +429,7 @@ export default class MapConfig {
         geometry: {x: x1.toString(), y: y1.toString()},
         fields: {
           desc: '上海体育馆停车场',
-          totalSpace: 5,
+          value: 5,
           type: a
         }
       });
@@ -437,7 +437,7 @@ export default class MapConfig {
     var json = {
       points: points,
       options: {
-        field: 'totalSpace',
+        field: 'value',
         radius: '5',
         colors: [
           'rgb(255, 255, 255,0)',
