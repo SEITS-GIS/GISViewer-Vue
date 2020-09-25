@@ -11,29 +11,46 @@ export default class MapConfig {
   public gdConfig: any = GdConfig;
   public async mapLoaded(map: any) {
     let _this = this;
-    // map
-    //   .addDgeneFusion({
-    //     appendDomID: 'gisDiv',
-    //     url: 'dgene',
-    //     showOut: false,
-    //     outvideo: true,
-    //     callback: (a: number, b: number) => {
-    //       console.log(a, b);
-    //     }
-    //   })
-    //   .then((e: any) => {
-    //     console.log('载入成功', e.result);
-    //     _this.model_view = e.result;
+    map
+      .addDgeneFusion({
+        appendDomID: 'gisDiv',
+        url: 'dgene',
+        showOut: false,
+        outvideo: true,
+        callback: (a: number, b: number) => {
+          console.log(a, b);
+        }
+      })
+      .then((e: any) => {
+        console.log('载入成功', e.result);
+        _this.model_view = e.result;
+        map.addOverlays({
+          type: 'model3d',
+          defaultSymbol: {
+            type: 'point-2d',
+            url: 'assets/image/Anchor.png',
+            size: [50, 50],
+            anchor: 'center'
+          },
+          overlays: [
+            {
+              id: 'model1',
+              geometry: {x: -14071.811607336222, y: -4342.546650737293},
+              fields: {}
+            }
+          ],
+          iswgs: false
+        });
 
-    //     map.showDgene({
-    //       duration: 0,
-    //       callback: (e: any) => {
-    //         console.log(e);
-    //       }
-    //     });
-    //     //_this.model_view.showVideoDom('HQtest147');
-    //     //_this.model_view.showVideoDom('HQtest148');
-    //   }); //载入3维模型
+        // map.showDgene({
+        //   duration: 0,
+        //   callback: (e: any) => {
+        //     console.log(e);
+        //   }
+        // });
+        //_this.model_view.showVideoDom('HQtest147');
+        //_this.model_view.showVideoDom('HQtest148');
+      }); //载入3维模型
 
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
@@ -42,9 +59,9 @@ export default class MapConfig {
     //   showMask: true
     // });
     // map.showStreet();
-    // map.showJurisdiction();
-    map.deleteAllOverlays();
-    map.deleteOverlays({types: ['police']});
+    //map.showJurisdiction();
+    // map.deleteAllOverlays();
+    // map.deleteOverlays({types: ['police']});
     let overStr = '';
     let points = {
       type: 'police',
@@ -69,64 +86,53 @@ export default class MapConfig {
         //size: 20000,
         //anchor: "bottom",
       },
+      // overlays: [
+      //   {
+      //     id: 'test001',
+      //     geometry: {x: 148.448924, y: 31.157101},
+      //     fields: {name: '测试2', featureid: '0002'}
+      //   },
+      //   {
+      //     id: 'test002',
+      //     geometry: {x: 121.418924, y: 31.157101},
+      //     fields: {name: '测试3', featureid: '0003'}
+      //   },
+      //   {
+      //     id: '1111',
+      //     geometry: {
+      //       paths: [
+      //         [
+      //           [121.31, 31.01],
+      //           [121.2, 31.22],
+      //           [121.1, 31.33],
+      //           [121.45, 30.89]
+      //         ]
+      //       ]
+      //     },
+      //     symbol: {color: 'red'},
+      //     fields: {name: '测试222', featureid: '0003'}
+      //   },
+      //   {
+      //     id: 'test003',
+      //     geometry: {x: 121.418924, y: 31.257101},
+      //     fields: {name: '测试4', featureid: '0001'}
+      //   }
+      // ],
       overlays: [
         {
           id: 'test001',
-          geometry: {x: 148.448924, y: 31.157101},
+          geometry: {x: -13834.446598916875, y: -4445.604986187298},
           fields: {name: '测试2', featureid: '0002'}
         },
         {
           id: 'test002',
-          geometry: {x: 121.418924, y: 31.157101},
+          geometry: {x: -13834.446598916875, y: -4445.604986187298},
           fields: {name: '测试3', featureid: '0003'}
-        },
-        {
-          id: '1111',
-          geometry: {
-            paths: [
-              [
-                [121.31, 31.01],
-                [121.2, 31.22],
-                [121.1, 31.33],
-                [121.45, 30.89]
-              ]
-            ]
-          },
-          symbol: {color: 'red'},
-          fields: {name: '测试222', featureid: '0003'}
-        },
-        {
-          id: 'test003',
-          geometry: {x: 121.418924, y: 31.257101},
-          fields: {name: '测试4', featureid: '0001'}
         }
-        // {
-        //   id: 'test001',
-        //   geometry: {
-        //     x: -14553.805845333449,
-        //     y: -4237.1518463943485
-        //   },
-        //   fields: {name: '测试2', featureid: '0002'}
-        // },
-        // {
-        //   id: 'test002',
-        //   geometry: {
-        //     x: -15553.805845333449,
-        //     y: -4637.1518463943485
-        //   },
-        //   fields: {name: '测试3', featureid: '0003'}
-        // },
-        // {
-        //   id: 'test003',
-        //   geometry: {
-        //     x: -25553.805845333449,
-        //     y: -14637.1518463943485
-        //   },
-        //   fields: {name: '测试4', featureid: '0001'}
-        // }
       ],
       showPopup: false,
       autoPopup: false,
+      iswgs: false,
       defaultInfoTemplate: {
         title: '1212',
         content: '<div class="accc">name:{name}</div>'
@@ -143,7 +149,7 @@ export default class MapConfig {
       },
       defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
     };
-    const result = await map.addOverlays(points);
+    //const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
     //map.showMigrateChart();

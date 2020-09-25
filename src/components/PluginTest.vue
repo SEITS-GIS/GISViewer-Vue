@@ -39,10 +39,18 @@ export default class PluginTest extends Vue {
   }
   private showGisDeviceInfo(type: string, id: string, detail: any) {
     console.log(type, id, detail);
-    (this.$refs.gisViewer as any).showCustomTip({
-      prop: {vue: PluginGd},
-      geometry: detail.geometry
-    });
+    if (type == 'model3d') {
+      (this.$refs.gisViewer as any).showDgene({
+        duration: 0,
+        callback: (e: any) => {
+          console.log(e);
+        }
+      });
+    }
+    // (this.$refs.gisViewer as any).showCustomTip({
+    //   prop: {vue: PluginGd},
+    //   geometry: detail.geometry
+    // });
   }
   private mapClick(pt: object) {
     console.log(pt);
@@ -56,6 +64,7 @@ export default class PluginTest extends Vue {
   width: 100%;
   height: 100%;
   margin: 0 auto;
+  background: rgb(2, 24, 25);
 }
 #test {
   position: absolute;

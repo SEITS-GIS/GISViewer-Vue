@@ -203,7 +203,6 @@ export default class HeatImageGL {
             _that.allImage.height * step
           );
 
-          console.log(devicePixelRatio);
           context.drawImage(
             canvas,
             Math.max(screenPoint.x, 0) * devicePixelRatio,

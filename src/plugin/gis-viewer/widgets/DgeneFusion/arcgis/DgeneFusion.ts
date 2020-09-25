@@ -4,6 +4,8 @@ import {IResult} from '@/types/map';
 import Axios from 'axios';
 import {Utils} from '@/plugin/gis-viewer/Utils';
 import {reject} from 'esri/core/promiseUtils';
+import {Vue} from 'vue-property-decorator';
+import Loading from './Loading.vue';
 
 declare let Dgene: any;
 export class DgeneFusion {
@@ -19,6 +21,7 @@ export class DgeneFusion {
   private fusion_view_state: string = 'all';
   private FlyCenter: any;
   private videocode: string = 'HQ0912New';
+  private loadingVm: any;
   private originView: any = {
     x: 0,
     y: 2000,
@@ -189,6 +192,7 @@ export class DgeneFusion {
       //   window.screen.height
       // );
     };
+    this.showLoading({content: '30%'});
     window.onkeydown = (event: any) => {
       console.log(event.keyCode);
       if (event.keyCode == 32) {
@@ -288,6 +292,7 @@ export class DgeneFusion {
   }
   public async showDgeneFusion(params: any): Promise<IResult> {
     let dgene = params.url || 'dgene';
+    let showOut = params.showOut;
     await Utils.loadScripts(['libs/' + dgene + '/runtime.js']).then(
       async () => {
         await Utils.loadScripts(['libs/' + dgene + '/2.js']).then(async () => {
@@ -321,6 +326,13 @@ export class DgeneFusion {
               ).toString()}%`
             );
           }
+          let processTotal = showOut ? 180 : 100;
+
+          if (loaded < processTotal) {
+            _this.loadingVm.changeLoading(
+              Math.floor((loaded / processTotal) * 100)
+            );
+          }
           if (callback) {
             callback(loaded, total);
           }
@@ -336,6 +348,7 @@ export class DgeneFusion {
             let control = _this.fusion_view.getControl();
             _this.fusion_control = control;
 
+            _this.loadingVm.changeLoading(100);
             resolve({
               status: 0,
               message: 'dgene fusion map onload success',
@@ -375,6 +388,16 @@ export class DgeneFusion {
   private hideFusion() {
     $('#dgeneDiv').css('visibility', 'hidden');
     $('#' + this.view.container.id).fadeIn(1000);
+  }
+  private showLoading(props: any) {
+    if (!this.loadingVm) {
+      let vm = new Vue({
+        // 为什么不使用 template 要使用render 因为现在是webpack里面没有编译器 只能使用render
+        render: (h) => h(Loading, {props}) // render 生成虚拟dom  {props: props}
+      }).$mount(); // $mount 生成真实dom, 挂载dom 挂载在哪里, 不传参的时候只生成不挂载，需要手动挂载
+      this.view.container.children[0].children[0].appendChild(vm.$el);
+      this.loadingVm = vm.$children[0];
+    }
   }
   private showFusion(params: any) {
     let _this = this;
