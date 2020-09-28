@@ -180,6 +180,7 @@ export interface IMapContainer {
   showBarChart: (params: any) => void;
   hideBarChart: () => void;
   showCustomTip: (params: ICustomTip) => void;
+  showDgeneOutPoint: (params: any) => void;
 }
 export interface IPopUpTemplate {
   title?: string;
@@ -219,6 +220,7 @@ export interface IFindParameter {
   ids: Array<string>;
   level?: number;
   centerResult?: boolean;
+  layerids?: Array<string>;
 }
 export interface IOverlayDelete {
   types?: Array<string>;

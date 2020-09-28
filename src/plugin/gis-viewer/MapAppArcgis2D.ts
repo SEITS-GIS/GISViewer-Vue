@@ -276,17 +276,7 @@ export default class MapAppArcGIS2D {
   private loadCustomCss() {
     require('./styles/custom.css');
   }
-  private destroy() {
-    OverlayArcgis2D.destroy();
-    Cluster.destroy();
-    HeatMap.destroy();
-    FindFeature.destroy();
-    MigrateChart.destroy();
-    DrawLayer.destroy();
-    HeatImage.destroy();
-    GeometrySearch.destroy();
-    DgeneFusion.destroy();
-  }
+  private destroy() {}
   //使toolTip中支持{字段}的形式
   private getContent(attr: any, content: string): string {
     let tipContent = content;
@@ -624,5 +614,9 @@ export default class MapAppArcGIS2D {
     if (params.geometry) {
       let ctip = new ToolTip(this.view, params.prop, params.geometry);
     }
+  }
+  public showDgeneOutPoint(params: any) {
+    let dgene = DgeneFusion.getInstance(this.view);
+    dgene.showDgeneOutPoint(params);
   }
 }

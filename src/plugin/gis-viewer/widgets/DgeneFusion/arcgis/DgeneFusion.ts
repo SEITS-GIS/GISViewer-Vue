@@ -203,6 +203,7 @@ export class DgeneFusion {
       if (event.keyCode == 32) {
         if (_this.fusion_view) {
           _this.fusion_view.showMapSprite(); //showMapSprite hideMapSprite
+          _this.showDgeneOutPoint(_this.showOut);
         }
       }
     };
@@ -354,7 +355,6 @@ export class DgeneFusion {
             }
             let control = _this.fusion_view.getControl();
             _this.fusion_control = control;
-
             _this.loadingVm.changeLoading(100);
             resolve({
               status: 0,
@@ -404,6 +404,15 @@ export class DgeneFusion {
       }).$mount(); // $mount 生成真实dom, 挂载dom 挂载在哪里, 不传参的时候只生成不挂载，需要手动挂载
       this.view.container.children[0].children[0].appendChild(vm.$el);
       this.loadingVm = vm.$children[0];
+    }
+  }
+  private showDgeneOutPoint(show: boolean) {
+    if (this.fusion_view) {
+      this.out_video.forEach((item: string) => {
+        if (['HQ0912New197', 'HQ0912New196'].indexOf(item) < 0) {
+          this.fusion_view.getScene().getObjectByName(item).visible = show;
+        }
+      });
     }
   }
   private showFusion(params: any) {
@@ -473,6 +482,7 @@ export class DgeneFusion {
           }
         }
       });
+      _this.showDgeneOutPoint(_this.showOut);
       setTimeout(() => {
         _this.refreshVideoState();
       }, 60 * 1000);

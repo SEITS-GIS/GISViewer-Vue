@@ -264,6 +264,9 @@ export default class MapContainer extends Vue implements IMapContainer {
   public showCustomTip(params: ICustomTip) {
     this.mapContainer.showCustomTip(params);
   }
+  public showDgeneOutPoint(params: any) {
+    this.mapContainer.showDgeneOutPoint(params);
+  }
 }
 </script>
 

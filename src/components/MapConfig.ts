@@ -11,37 +11,37 @@ export default class MapConfig {
   public gdConfig: any = GdConfig;
   public async mapLoaded(map: any) {
     let _this = this;
-    // map
-    //   .addDgeneFusion({
-    //     appendDomID: 'gisDiv',
-    //     url: 'dgene',
-    //     showOut: false,
-    //     outvideo: true,
-    //     callback: (a: number, b: number) => {
-    //       console.log(a, b);
-    //     }
-    //   })
-    //   .then((e: any) => {
-    //     console.log('载入成功', e.result);
-    //     _this.model_view = e.result;
-    //     map.addOverlays({
-    //       type: 'model3d',
-    //       defaultSymbol: {
-    //         type: 'point-2d',
-    //         url: 'assets/image/Anchor.png',
-    //         size: [50, 50],
-    //         anchor: 'center'
-    //       },
-    //       overlays: [
-    //         {
-    //           id: 'model1',
-    //           geometry: {x: -14071.811607336222, y: -4342.546650737293},
-    //           fields: {}
-    //         }
-    //       ],
-    //       iswgs: false
-    //     });
-    //   }); //载入3维模型
+    map
+      .addDgeneFusion({
+        appendDomID: 'gisDiv',
+        url: 'dgene',
+        showOut: false,
+        outvideo: true,
+        callback: (a: number, b: number) => {
+          console.log(a, b);
+        }
+      })
+      .then((e: any) => {
+        console.log('载入成功', e.result);
+        _this.model_view = e.result;
+        map.addOverlays({
+          type: 'model3d',
+          defaultSymbol: {
+            type: 'point-2d',
+            url: 'assets/image/Anchor.png',
+            size: [50, 50],
+            anchor: 'center'
+          },
+          overlays: [
+            {
+              id: 'model1',
+              geometry: {x: -14071.811607336222, y: -4342.546650737293},
+              fields: {}
+            }
+          ],
+          iswgs: false
+        });
+      }); //载入3维模型
 
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
@@ -143,6 +143,9 @@ export default class MapConfig {
     //const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
+    if (this.model_view) {
+      map.showDgeneOutPoint(false);
+    }
     //map.showMigrateChart();
 
     //const result = map.addOverlays(points);
@@ -346,89 +349,92 @@ export default class MapConfig {
   }
 
   public btn_test2(map: any) {
+    if (this.model_view) {
+      map.showDgeneOutPoint(true);
+    }
     //map.showLayer({label: 'fbd123'});
     //let map = this.$refs.gisViewer as any;
-    var points = [];
-    var x = 121.43;
-    var y = 31.15;
-    for (var i = 0; i < 10000; i++) {
-      var x1 = x + (Math.random() * 2 - 1) / 20;
-      var y1 = y + (Math.random() * 2 - 1) / 20;
-      var value = Math.floor(1000000 * Math.random() + 1);
-      var a = i % 2 == 0 ? '1' : '0';
-      points.push({
-        geometry: {x: x1.toString(), y: y1.toString()},
-        fields: {
-          desc: '上海体育馆停车场',
-          value: 5,
-          type: a
-        }
-      });
-    }
-    var json = {
-      points: points,
-      options: {
-        field: 'value',
-        radius: '5',
-        colors: [
-          'rgb(255, 255, 255,0)',
-          'rgba(206, 199, 25,0.5)',
-          'rgba(255, 140, 27,0.5)',
-          'rgba(246, 64, 64,0.5)',
-          'rgba(255, 255, 255,1)'
-        ],
-        maxValue: 100,
-        minValue: 0
-      }
-    };
-    map.addHeatMap(json);
-    let points2 = {
-      type: 'police',
-      defaultVisible: true,
-      defaultSymbol: {
-        //symbol for 2d
-        type: 'point',
-        // primitive: "square",
-        url: 'assets/image/Anchor.png',
-        size: [50, 50],
-        anchor: 'center'
-      },
-      overlays: [
-        {
-          id: 'test001',
-          geometry: {
-            x: -14553.805845333449,
-            y: -4237.1518463943485
-          },
-          fields: {name: '测试2', featureid: '0002'}
-        },
-        {
-          id: 'test002',
-          geometry: {
-            x: -15553.805845333449,
-            y: -4637.1518463943485
-          },
-          fields: {name: '测试3', featureid: '0003'}
-        },
-        {
-          id: 'test003',
-          geometry: {
-            x: -25553.805845333449,
-            y: -14637.1518463943485
-          },
-          fields: {name: '测试4', featureid: '0001'}
-        }
-      ],
-      showPopup: true,
-      autoPopup: false,
-      iswgs: false,
-      defaultInfoTemplate: {
-        title: '1212',
-        content: '<div class="accc">name:{name}</div>'
-      },
-      defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
-    };
-    const result = map.addOverlays(points2);
+    // var points = [];
+    // var x = 121.43;
+    // var y = 31.15;
+    // for (var i = 0; i < 10000; i++) {
+    //   var x1 = x + (Math.random() * 2 - 1) / 20;
+    //   var y1 = y + (Math.random() * 2 - 1) / 20;
+    //   var value = Math.floor(1000000 * Math.random() + 1);
+    //   var a = i % 2 == 0 ? '1' : '0';
+    //   points.push({
+    //     geometry: {x: x1.toString(), y: y1.toString()},
+    //     fields: {
+    //       desc: '上海体育馆停车场',
+    //       value: 5,
+    //       type: a
+    //     }
+    //   });
+    // }
+    // var json = {
+    //   points: points,
+    //   options: {
+    //     field: 'value',
+    //     radius: '5',
+    //     colors: [
+    //       'rgb(255, 255, 255,0)',
+    //       'rgba(206, 199, 25,0.5)',
+    //       'rgba(255, 140, 27,0.5)',
+    //       'rgba(246, 64, 64,0.5)',
+    //       'rgba(255, 255, 255,1)'
+    //     ],
+    //     maxValue: 100,
+    //     minValue: 0
+    //   }
+    // };
+    // map.addHeatMap(json);
+    // let points2 = {
+    //   type: 'police',
+    //   defaultVisible: true,
+    //   defaultSymbol: {
+    //     //symbol for 2d
+    //     type: 'point',
+    //     // primitive: "square",
+    //     url: 'assets/image/Anchor.png',
+    //     size: [50, 50],
+    //     anchor: 'center'
+    //   },
+    //   overlays: [
+    //     {
+    //       id: 'test001',
+    //       geometry: {
+    //         x: -14553.805845333449,
+    //         y: -4237.1518463943485
+    //       },
+    //       fields: {name: '测试2', featureid: '0002'}
+    //     },
+    //     {
+    //       id: 'test002',
+    //       geometry: {
+    //         x: -15553.805845333449,
+    //         y: -4637.1518463943485
+    //       },
+    //       fields: {name: '测试3', featureid: '0003'}
+    //     },
+    //     {
+    //       id: 'test003',
+    //       geometry: {
+    //         x: -25553.805845333449,
+    //         y: -14637.1518463943485
+    //       },
+    //       fields: {name: '测试4', featureid: '0001'}
+    //     }
+    //   ],
+    //   showPopup: true,
+    //   autoPopup: false,
+    //   iswgs: false,
+    //   defaultInfoTemplate: {
+    //     title: '1212',
+    //     content: '<div class="accc">name:{name}</div>'
+    //   },
+    //   defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
+    // };
+    // const result = map.addOverlays(points2);
     //map.showLayer({label: 'ceshi'});
     // map.hideLayer({type: 'traffic'});
     // // map.showDistrictMask({
@@ -476,7 +482,6 @@ export default class MapConfig {
     // map.showLayer({type: 'traffic'});
     map.findFeature({
       layerName: '路网状况',
-      level: 4,
       ids: ['NHWY-NI->NHJSJ-NO'],
       centerResult: true
     });

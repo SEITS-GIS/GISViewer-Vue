@@ -46,7 +46,7 @@ export default class Loading extends Vue {
 .demo {
   padding: 0;
   position: absolute;
-  right: 1rem;
+  right: 120px;
   top: 0.2rem;
   width: 300px;
   height: 30px;

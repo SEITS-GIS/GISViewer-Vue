@@ -204,16 +204,7 @@ export default class MapAppArcGIS3D implements IMapContainer {
   private loadCustomCss() {
     require('./styles/custom.css');
   }
-  private destroy() {
-    OverlayArcgis3D.destroy();
-    Cluster.destroy();
-    HeatMap3D.destroy();
-    FindFeature.destroy();
-    DrawLayer.destroy();
-    MigrateChart.destroy();
-    HeatImage.destroy();
-    GeometrySearch.destroy();
-  }
+  private destroy() {}
   //使toolTip中支持{字段}的形式
   private getContent(attr: any, content: string): string {
     let tipContent = content;
@@ -538,4 +529,5 @@ export default class MapAppArcGIS3D implements IMapContainer {
     ToolTip.clear(this.view, params.prop.className);
     let ctip = new ToolTip(this.view, params.prop, params.geometry);
   }
+  public showDgeneOutPoint(params: any) {}
 }

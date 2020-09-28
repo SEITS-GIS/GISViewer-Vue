@@ -9,6 +9,7 @@ import {loadModules} from 'esri-loader';
 import HighFeauture3D from '../../Overlays/arcgis/HighFeauture3D';
 import HighFeauture2D from '../../Overlays/arcgis/HighFeauture2D';
 import {getThumbnailUrl} from 'esri/widgets/BasemapToggle/BasemapToggleViewModel';
+import {param} from 'jquery';
 
 export class FindFeature {
   private static intances: Map<string, any>;
@@ -48,8 +49,9 @@ export class FindFeature {
     }
     let type = params.layerName;
     let ids = params.ids || [];
-    let level = params.level || this.view.zoom;
+    let level = params.level || 0;
     let centerResult = params.centerResult !== false;
+    let layerIds = params.layerids || undefined;
 
     this.view.map.allLayers.forEach((layer: any) => {
       if (params.layerName && layer.label === params.layerName) {
@@ -59,7 +61,7 @@ export class FindFeature {
             this.doFindTask({
               url: layer.url as string,
               layer: layer,
-              layerIds: this.getLayerIds(layer),
+              layerIds: layerIds || this.getLayerIds(layer),
               ids: ids,
               zoom: level
             });
@@ -125,7 +127,7 @@ export class FindFeature {
     }
     return layerids;
   }
-  private async doFindTask(options: any) {
+  private async doFindTask(options: any): Promise<any> {
     type MapModules = [
       typeof import('esri/Graphic'),
       typeof import('esri/tasks/FindTask'),
@@ -137,7 +139,15 @@ export class FindFeature {
       'esri/tasks/support/FindParameters'
     ]) as Promise<MapModules>);
     let ids = options.ids;
-    let symbol = ''; //options.layer.renderer.symbol;
+    let symbol = {
+      type: 'simple-fill', // autocasts as new SimpleFillSymbol()
+      color: [51, 51, 204, 0],
+      style: 'solid',
+      outline: {
+        color: [0, 255, 255, 255],
+        width: 1
+      }
+    }; //options.layer.renderer.symbol;
     let that = this;
     let promises = ids.map((searchText: string) => {
       return new Promise((resolve, reject) => {
@@ -169,25 +179,15 @@ export class FindFeature {
             return item.feature.attributes;
           });
           //that.startJumpPoint(graphics);
-          that.findLayer.add(
-            new Graphic({
-              geometry: graphics[0].geometry,
-              symbol: {
-                type: 'simple-fill', // autocasts as new SimpleFillSymbol()
-                color: [51, 51, 204, 0],
-                style: 'solid',
-                outline: {
-                  color: [0, 255, 255, 255],
-                  width: 1
-                }
-              } as any,
-              attributes: {}
-            })
-          );
+          that.findLayer.add(graphics[0]);
           setTimeout(() => {
             that.findLayer.removeAll();
           }, 3000);
-          that.view.goTo({target: graphics[0].geometry, zoom: options.zoom});
+          if (options.zoom > 0) {
+            that.view.goTo({target: graphics[0].geometry, zoom: options.zoom});
+          } else {
+            that.view.goTo({target: graphics[0].geometry});
+          }
           resolve(feats);
         });
       });

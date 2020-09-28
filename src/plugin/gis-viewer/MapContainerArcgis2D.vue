@@ -155,6 +155,9 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public showCustomTip(params: ICustomTip) {
     this.mapApp.showCustomTip(params);
   }
+  public showDgeneOutPoint(params: any) {
+    this.mapApp.showDgeneOutPoint(params);
+  }
 }
 </script>
 
