@@ -11,45 +11,37 @@ export default class MapConfig {
   public gdConfig: any = GdConfig;
   public async mapLoaded(map: any) {
     let _this = this;
-    map
-      .addDgeneFusion({
-        appendDomID: 'gisDiv',
-        url: 'dgene',
-        showOut: false,
-        outvideo: true,
-        callback: (a: number, b: number) => {
-          console.log(a, b);
-        }
-      })
-      .then((e: any) => {
-        console.log('载入成功', e.result);
-        _this.model_view = e.result;
-        map.addOverlays({
-          type: 'model3d',
-          defaultSymbol: {
-            type: 'point-2d',
-            url: 'assets/image/Anchor.png',
-            size: [50, 50],
-            anchor: 'center'
-          },
-          overlays: [
-            {
-              id: 'model1',
-              geometry: {x: -14071.811607336222, y: -4342.546650737293},
-              fields: {}
-            }
-          ],
-          iswgs: false
-        });
-        // map.showDgene({
-        //   duration: 0,
-        //   callback: (e: any) => {
-        //     console.log(e);
-        //   }
-        // });
-        //_this.model_view.showVideoDom('HQtest147');
-        //_this.model_view.showVideoDom('HQtest148');
-      }); //载入3维模型
+    // map
+    //   .addDgeneFusion({
+    //     appendDomID: 'gisDiv',
+    //     url: 'dgene',
+    //     showOut: false,
+    //     outvideo: true,
+    //     callback: (a: number, b: number) => {
+    //       console.log(a, b);
+    //     }
+    //   })
+    //   .then((e: any) => {
+    //     console.log('载入成功', e.result);
+    //     _this.model_view = e.result;
+    //     map.addOverlays({
+    //       type: 'model3d',
+    //       defaultSymbol: {
+    //         type: 'point-2d',
+    //         url: 'assets/image/Anchor.png',
+    //         size: [50, 50],
+    //         anchor: 'center'
+    //       },
+    //       overlays: [
+    //         {
+    //           id: 'model1',
+    //           geometry: {x: -14071.811607336222, y: -4342.546650737293},
+    //           fields: {}
+    //         }
+    //       ],
+    //       iswgs: false
+    //     });
+    //   }); //载入3维模型
 
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
@@ -476,18 +468,18 @@ export default class MapConfig {
     //map.showDgene({duration: 0}); //显示三维模型
     //map.showLayer({label: 'fbd1333'});
     //map.clearGeometrySearch();
-    map.deleteHeatImage();
+    //map.deleteHeatImage();
     //map.hideMigrateChart();
     //map.clearRouteSearch(); //清除
     //map.setMapStyle('amap://styles/darkblue');
     //map.locateStreet({id: '10013'});
     // map.showLayer({type: 'traffic'});
-    // map.findLayerFeature({
-    //   layerName: '地铁',
-    //   level: 16,
-    //   ids: ['12'],
-    //   centerResult: true
-    // });
+    map.findFeature({
+      layerName: '路网状况',
+      level: 4,
+      ids: ['NHWY-NI->NHJSJ-NO'],
+      centerResult: true
+    });
     //map.hideLayer({label: '匝道灯'});
     //map.deleteHeatMap();
     //map.deleteOverlaysCluster({types: ['sxj1']});

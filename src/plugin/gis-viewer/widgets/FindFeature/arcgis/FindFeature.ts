@@ -8,11 +8,12 @@ import {
 import {loadModules} from 'esri-loader';
 import HighFeauture3D from '../../Overlays/arcgis/HighFeauture3D';
 import HighFeauture2D from '../../Overlays/arcgis/HighFeauture2D';
+import {getThumbnailUrl} from 'esri/widgets/BasemapToggle/BasemapToggleViewModel';
 
 export class FindFeature {
-  private static findFeature: FindFeature;
+  private static intances: Map<string, any>;
 
-  private overlayLayer!: __esri.GraphicsLayer;
+  private findLayer!: __esri.GraphicsLayer;
   private view!: __esri.MapView | __esri.SceneView;
 
   private constructor(view: __esri.MapView | __esri.SceneView) {
@@ -20,15 +21,31 @@ export class FindFeature {
   }
 
   public static getInstance(view: __esri.MapView | __esri.SceneView) {
-    if (!FindFeature.findFeature) {
-      FindFeature.findFeature = new FindFeature(view);
+    let id = view.container.id;
+    if (!FindFeature.intances) {
+      FindFeature.intances = new Map();
     }
-    return FindFeature.findFeature;
+    let intance = FindFeature.intances.get(id);
+    if (!intance) {
+      intance = new FindFeature(view);
+      FindFeature.intances.set(id, intance);
+    }
+    return intance;
   }
-  public static destroy() {
-    (FindFeature.findFeature as any) = null;
+  private async createOverlayLayer() {
+    type MapModules = [typeof import('esri/layers/GraphicsLayer')];
+    const [GraphicsLayer] = await (loadModules([
+      'esri/layers/GraphicsLayer'
+    ]) as Promise<MapModules>);
+    this.findLayer = new GraphicsLayer();
+    this.view.map.add(this.findLayer);
   }
   public async findLayerFeature(params: IFindParameter): Promise<IResult> {
+    if (!this.findLayer) {
+      await this.createOverlayLayer();
+    } else {
+      this.findLayer.removeAll();
+    }
     let type = params.layerName;
     let ids = params.ids || [];
     let level = params.level || this.view.zoom;
@@ -134,6 +151,7 @@ export class FindFeature {
           'DEVICEID',
           'BM_CODE',
           'FEATUREID',
+          'SECTIONID',
           'FEATUREID'
         ]; // 查询字段 artel
         findParams.searchText = searchText; // 查询内容 artel = searchText
@@ -151,6 +169,24 @@ export class FindFeature {
             return item.feature.attributes;
           });
           //that.startJumpPoint(graphics);
+          that.findLayer.add(
+            new Graphic({
+              geometry: graphics[0].geometry,
+              symbol: {
+                type: 'simple-fill', // autocasts as new SimpleFillSymbol()
+                color: [51, 51, 204, 0],
+                style: 'solid',
+                outline: {
+                  color: [0, 255, 255, 255],
+                  width: 1
+                }
+              } as any,
+              attributes: {}
+            })
+          );
+          setTimeout(() => {
+            that.findLayer.removeAll();
+          }, 3000);
           that.view.goTo({target: graphics[0].geometry, zoom: options.zoom});
           resolve(feats);
         });

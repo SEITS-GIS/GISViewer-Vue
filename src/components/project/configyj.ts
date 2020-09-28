@@ -22,7 +22,7 @@ export let GisConfig = {
       url:
         'http://10.31.214.201:6080/arcgis/rest/services/YJZH/KuaiSuLu_fbd/MapServer',
       refreshInterval: 1,
-      visible: false,
+      visible: true,
       outFields: ['*']
     },
     {
@@ -31,7 +31,7 @@ export let GisConfig = {
       url:
         'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_fbdindex/MapServer',
       refreshInterval: 1,
-      visible: true,
+      visible: false,
       outFields: ['*']
     },
     {
