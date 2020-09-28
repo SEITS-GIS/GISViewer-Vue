@@ -43,7 +43,8 @@ export class FindFeature {
               url: layer.url as string,
               layer: layer,
               layerIds: this.getLayerIds(layer),
-              ids: ids
+              ids: ids,
+              zoom: level
             });
           }
         }
@@ -98,7 +99,7 @@ export class FindFeature {
       //featurelayer查询
       layerids.push(layer.layerId);
     } else if (layer.type == 'map-image') {
-      let sublayers = (layer as __esri.MapImageLayer).sublayers;
+      let sublayers = (layer as __esri.MapImageLayer).allSublayers;
       sublayers.forEach((sublayer) => {
         if (sublayer.visible) {
           layerids.push(sublayer.id);
@@ -129,7 +130,12 @@ export class FindFeature {
         findParams.returnGeometry = true; // true 返回几何信息
         // findParams.layerIds = [0, 1, 2]; // 查询图层id
         findParams.layerIds = options.layerIds; // 查询图层id
-        findParams.searchFields = ['DEVICEID', 'BM_CODE', 'FEATUREID']; // 查询字段 artel
+        findParams.searchFields = [
+          'DEVICEID',
+          'BM_CODE',
+          'FEATUREID',
+          'FEATUREID'
+        ]; // 查询字段 artel
         findParams.searchText = searchText; // 查询内容 artel = searchText
 
         // 执行查询对象
@@ -145,6 +151,7 @@ export class FindFeature {
             return item.feature.attributes;
           });
           //that.startJumpPoint(graphics);
+          that.view.goTo({target: graphics[0].geometry, zoom: options.zoom});
           resolve(feats);
         });
       });

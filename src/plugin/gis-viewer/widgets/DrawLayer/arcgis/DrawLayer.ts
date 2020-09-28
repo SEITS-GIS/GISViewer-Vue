@@ -232,43 +232,38 @@ export class DrawLayer {
   public getRender(): object {
     let renderer = {
       type: 'unique-value', // autocasts as new UniqueValueRenderer()
-      field: 'Name',
+      field: 'STATE',
       defaultSymbol: {
         type: 'simple-fill',
         color: 'rgba(100, 210, 121, 255)',
-        outline: undefined
+        outline: {color: 'rgba(128,128,128,255)', width: 1}
       }, // autocasts as new SimpleFillSymbol()
       uniqueValueInfos: [
         {
           // All features with value of "North" will be blue
-          value: 'North',
+          value: 'free',
           symbol: {
             type: 'simple-fill', // autocasts as new SimpleFillSymbol()
-            color: 'blue'
+            color: 'rgba(100, 210, 121, 255)',
+            outline: {color: 'rgba(128,128,128,255)', width: 1}
           }
         },
         {
           // All features with value of "East" will be green
-          value: 'East',
+          value: 'jam',
           symbol: {
             type: 'simple-fill', // autocasts as new SimpleFillSymbol()
-            color: 'green'
+            color: 'rgba(255, 68, 68, 255)',
+            outline: {color: 'rgba(128,128,128,255)', width: 1}
           }
         },
         {
           // All features with value of "South" will be red
-          value: 'South',
+          value: 'crowd',
           symbol: {
             type: 'simple-fill', // autocasts as new SimpleFillSymbol()
-            color: 'red'
-          }
-        },
-        {
-          // All features with value of "West" will be yellow
-          value: 'West',
-          symbol: {
-            type: 'simple-fill', // autocasts as new SimpleFillSymbol()
-            color: 'yellow'
+            color: 'rgba(255, 187, 51, 255)',
+            outline: {color: 'rgba(128,128,128,255)', width: 1}
           }
         }
       ]

@@ -2,7 +2,9 @@ import {loadModules} from 'esri-loader';
 import {resolve, reject} from 'esri/core/promiseUtils';
 import {offset} from 'esri/geometry/geometryEngine';
 import {IHeatImageParameter} from '@/types/map';
-import wifiGeo from './config/wifi.json';
+import wifiJson from './config/wifi.json';
+import ToolTip from '../../Overlays/arcgis/ToolTip';
+import Axios from 'axios';
 
 export default class HeatImageGL {
   private static intances: Map<string, any>;
@@ -17,6 +19,8 @@ export default class HeatImageGL {
   private heatData: any;
   private options: any;
   private imageOpt: any;
+  private heatClickHandler: any;
+  private tipTimeHangler: any;
 
   private constructor(view: __esri.MapView | __esri.SceneView) {
     // Geometrical transformations that must be recomputed
@@ -43,13 +47,38 @@ export default class HeatImageGL {
       this.heat.parentNode.removeChild(this.heat);
       this.heat = null;
     }
+    if (this.heatClickHandler) {
+      this.heatClickHandler.remove();
+      this.heatClickHandler = null;
+    }
+    ToolTip.clear(this.view, undefined, 'heatTip');
+  }
+  public deleteHeatImage() {
+    this.addHeatImage({points: []});
   }
   public async addHeatImage(params: IHeatImageParameter) {
     this.clear();
-    let options = params.options;
+    if (!params) {
+      params = {};
+    }
+    let options = params.options || {
+      field: 'value',
+      radius: 50,
+      colors: undefined,
+      maxValue: 50,
+      minValue: 1
+    };
     this.options = options;
-    let points = params.points;
-    let imageOpt = params.images;
+    let points = params.points || (await this.getHeatData());
+    let imageOpt = params.images || {
+      geometry: {x: -14553.805845333449, y: -4137.1518463943485},
+      width: 294,
+      height: 103,
+      url: './assets/HQ3.svg',
+      center: {x: -13931.811607336222, y: -4354.546650737293},
+      factor: 4,
+      scale: this.scale
+    };
     this.imageOpt = imageOpt;
     this.scale = imageOpt.scale || this.scale;
     this.factor = imageOpt.factor || this.factor;
@@ -66,7 +95,7 @@ export default class HeatImageGL {
     heatDiv.style.top = '0px';
     heatDiv.style.left = '0px';
     heatDiv.style.opacity = '0.2';
-    let parent = document.getElementsByClassName('esri-overlay-surface')[0];
+    let parent = this.view.container.children[0].children[0];
     parent.appendChild(heatDiv);
     this.heat = heatDiv;
     let _this = this;
@@ -86,8 +115,9 @@ export default class HeatImageGL {
     });
     let fieldName = options.field;
     let pdata = points.map((point: any) => {
-      let pt = point.geometry || (wifiGeo.geo as any)[point.fields.id];
+      let pt = point.geometry || (wifiJson.geo as any)[point.fields.id];
       return {
+        id: point.fields.id,
         x: Math.floor(pt.x),
         y: Math.floor(pt.y),
         value: point.fields[fieldName] || 0
@@ -109,8 +139,98 @@ export default class HeatImageGL {
     image.height = this.imageOpt.height || 600;
     this.allImage = image;
     image.onload = (e: any) => {
-      this.startup(params);
+      this.startup();
     };
+    if (!this.heatClickHandler) {
+      this.heatImageClick();
+    }
+  }
+  private async heatImageClick() {
+    let coords = wifiJson.coords;
+    let _this = this;
+    const [geometryJsonUtils] = await loadModules([
+      'esri/geometry/support/jsonUtils'
+    ]);
+    let poly = geometryJsonUtils.fromJSON({
+      rings: wifiJson.rings,
+      spatialReference: this.view.spatialReference
+    });
+
+    this.heatClickHandler = this.view.on('click', (event: any) => {
+      ToolTip.clear(this.view, undefined, 'heatTip');
+      if (event.mapPoint) {
+        let mp = event.mapPoint;
+        if (poly.contains(mp)) {
+          let clickPoint = {
+            x: mp.x,
+            y: mp.y
+          };
+          let distances = new Array();
+          for (let odid in coords) {
+            let point = (coords as any)[odid];
+            distances.push({
+              id: odid,
+              dis: _this.getDistance(point, clickPoint)
+            });
+          }
+          distances.sort((dis1, dis2) => {
+            return dis1.dis - dis2.dis;
+          });
+          let lastDir_id = distances[0].id;
+          let a = _this.heatData.filter((dt: any) => {
+            return dt.id == lastDir_id;
+          });
+          if (a.length > 0) {
+            _this.showToolTip('流量：' + a[0].value.toString(), clickPoint);
+          }
+        }
+      }
+    });
+  }
+  private showToolTip(content: string, point: any) {
+    if (this.tipTimeHangler) {
+      clearTimeout(this.tipTimeHangler);
+    }
+    let _view = this.view;
+    let tool = new ToolTip(
+      this.view,
+      {
+        title: '',
+        istip: true,
+        content: content,
+        className: 'heatTip'
+      },
+      {
+        geometry: {
+          x: point.x,
+          y: point.y,
+          spatialReference: this.view.spatialReference
+        }
+      }
+    );
+    this.tipTimeHangler = setTimeout(() => {
+      ToolTip.clear(_view, undefined, 'heatTip');
+    }, 5000);
+  }
+  private getDistance(pt: {x: number; y: number}, pt2: {x: number; y: number}) {
+    return Math.sqrt(
+      (pt.x - pt2.x) * (pt.x - pt2.x) + (pt.y - pt2.y) * (pt.y - pt2.y)
+    );
+  }
+  public async getHeatData(): Promise<Array<any>> {
+    return new Promise((resolve: any, reject: any) => {
+      Axios.get(wifiJson.url).then((res: any) => {
+        let results = new Array();
+        if (res.data && res.data.length > 0) {
+          results = res.data.map((dt: any) => {
+            return {
+              fields: {id: dt.WIFI_ID.toString(), value: dt.PEOPLE_NUM + 10}
+            };
+          });
+        }
+        resolve(results);
+      });
+    });
   }
   public getHeatColor(colors: string[] | undefined): any[] | undefined {
     let obj: any = {};
@@ -126,11 +246,11 @@ export default class HeatImageGL {
       return undefined;
     }
   }
-  public async startup(params: IHeatImageParameter) {
+  public async startup() {
     let _that = this;
-    let imageOpt = params.images;
-    let pt = params.images.geometry;
-    let options = params.options;
+    let imageOpt = this.imageOpt;
+    let pt = imageOpt.geometry;
+    let options = this.options;
     await loadModules([
       'esri/views/2d/layers/BaseLayerView2D',
       'esri/geometry/Point',

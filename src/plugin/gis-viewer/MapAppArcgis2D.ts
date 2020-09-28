@@ -588,7 +588,7 @@ export default class MapAppArcGIS2D {
     heat.addHeatImage(params);
   }
   public deleteHeatImage() {
-    const heat = HeatImage.getInstance(this.view);
+    const heat = HeatImageGL.getInstance(this.view);
     heat.deleteHeatImage();
   }
   public async startGeometrySearch(

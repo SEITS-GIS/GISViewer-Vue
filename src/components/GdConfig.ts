@@ -5,8 +5,8 @@ export let GdConfig = {
   baseLayers: [{type: 'traffic', label: '路况', visible: false}],
   options: {
     center: [121.441, 31.159],
-    zoom: 13
+    zoom: 13,
     //viewMode: '3D'
-    //mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
+    mapStyle: 'amap://styles/darkblue' //设置地图的显示样式
   }
 };

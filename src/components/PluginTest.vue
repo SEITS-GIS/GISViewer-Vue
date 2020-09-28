@@ -1,6 +1,6 @@
 <template>
   <div id="gisDiv">
-    <div id="test">
+    <div id="test" style="display:none">
       <button @click="btn_test1">test1</button>
       <button @click="btn_test2">test2</button>
       <button @click="btn_test3">test3</button>
@@ -38,7 +38,7 @@ export default class PluginTest extends Vue {
     this.cg.btn_test3(this.$refs.gisViewer);
   }
   private showGisDeviceInfo(type: string, id: string, detail: any) {
-    console.log(type, id, detail);
+    //console.log(type, id, detail);
     if (type == 'model3d') {
       (this.$refs.gisViewer as any).showDgene({
         duration: 0,
@@ -52,8 +52,8 @@ export default class PluginTest extends Vue {
     //   geometry: detail.geometry
     // });
   }
-  private mapClick(pt: object) {
-    console.log(pt);
+  private mapClick(pt: any) {
+    console.log(pt.lat + ',' + pt.lnt);
   }
 }
 </script>
@@ -68,7 +68,7 @@ export default class PluginTest extends Vue {
 }
 #test {
   position: absolute;
-  z-index: 99;
+  z-index: 999999;
   display: block;
 }
 </style>

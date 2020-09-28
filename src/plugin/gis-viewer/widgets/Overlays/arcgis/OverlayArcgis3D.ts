@@ -240,6 +240,7 @@ export class OverlayArcgis3D {
                   view,
                   {
                     title: '',
+                    istip: true,
                     content: parent.getToolTipContent(result.graphic, content)
                   },
                   result.graphic

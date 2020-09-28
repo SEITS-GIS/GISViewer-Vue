@@ -70,6 +70,28 @@ export default class echartsLayer {
     )
       return;
     let baseExtent = this.view.extent;
+    let adt = this.moudles[0];
+    this.chartOption.series.forEach((serie: any) => {
+      if (serie.markPoint) {
+        let mpData = serie.markPoint.data;
+        serie.markPoint.data = mpData.map((dt: any) => {
+          if (!dt.ox) {
+            dt.ox = dt.x;
+            dt.oy = dt.y;
+          }
+          let a = {
+            type: 'point',
+            x: dt.ox,
+            y: dt.oy,
+            spatialReference: new adt({wkid: 3857})
+          };
+          let newpt = this.view.toScreen(a);
+          dt.x = newpt.x;
+          dt.y = newpt.y;
+          return dt;
+        });
+      }
+    });
     //判断是否使用了mark类型标签，每次重绘要重新转换地理坐标到屏幕坐标
     //根据地图extent,重绘echarts
     this.chartOption.xAxis = {
@@ -83,7 +105,7 @@ export default class echartsLayer {
       max: baseExtent.ymax
     };
     this.chart.setOption(this.chartOption);
-    this.chartOption.animation = false;
+    this.chartOption.animation = true;
   }
   /*创建layer的容器，添加到map的layers下面*/
   private createLayer() {
@@ -183,6 +205,9 @@ export default class echartsLayer {
     CoordSystem.prototype.getRoamTransform = () => {
       //return matrix.create();
     };
+    // CoordSystem.prototype.getOtherAxis = () => {
+    //   //return matrix.create();
+    // };
     return CoordSystem;
   }
 }

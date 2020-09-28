@@ -7,22 +7,26 @@ import {
 import {loadModules} from 'esri-loader';
 import echartsLayer from './echartsLayer';
 import odJson from './config/OD.json';
+import Axios from 'axios';
+import {resolve} from 'esri/core/promiseUtils';
 
 export class MigrateChart {
   private static intances: Map<string, any>;
   private view!: any;
   private echartlayer: any;
   private colors: Array<string> = [
-    'rgba(255,0,255,0.4)',
-    'rgba(75,0,130,0.4)',
-    'rgba(72,61,139,0.4)',
-    'rgba(60,179,113,0.4)',
-    'rgba(0,250,154,0.4)',
-    'rgba(0,255,0,0.4)',
-    'rgba(30,144,255,0.4)',
-    'rgba(0,255,255,0.4)',
-    'rgba(255,215,0,0.4)'
+    'rgba(255,0,255,0.5)',
+    'rgba(75,0,130,0.5)',
+    'rgba(72,61,139,0.5)',
+    'rgba(60,179,113,0.5)',
+    'rgba(0,250,154,0.5)',
+    'rgba(0,255,0,0.5)',
+    'rgba(30,144,255,0.5)',
+    'rgba(0,255,255,0.5)',
+    'rgba(255,215,0,0.5)'
   ];
+  private odColor = {o: 'rgba(0,255,255,255)', d: 'rgba(255,215,0,255)'};
+  private lineClickHandler: any;
 
   private constructor(view: any) {
     this.view = view;
@@ -45,6 +49,10 @@ export class MigrateChart {
 
   public async hideMigrateChart() {
     this.clear();
+    if (this.lineClickHandler) {
+      this.lineClickHandler.remove();
+      this.lineClickHandler = null;
+    }
   }
   private clear() {
     if (this.echartlayer) {
@@ -237,24 +245,38 @@ export class MigrateChart {
     let row = odJson.row;
     let col = odJson.col;
     let _this = this;
-    let busLines = params.coords;
+    let busLines = await this.getODPath(params);
+    //console.log(busLines);
     let lines = busLines;
+    if (lines.length == 0 || lines == undefined) {
+      return;
+    }
+    let markpoint: any[] = [];
     let chartslines = lines.map((line: any, index: number) => {
-      line.coords = line.coords.map((pid: any) => {
+      let centerIndex = line.type == 'o' ? line.coords.length - 1 : 0;
+      let centerPoint: any;
+      line.coords = line.coords.map((pid: any, index: number) => {
         let xy = (odData as any)[pid];
         let pt = [(row as any)[xy[0]], (col as any)[xy[1]]];
+        if (index == centerIndex) {
+          centerPoint = [pt[0], pt[1]];
+        }
         return pt;
       });
+      let color = line.type == 'o' ? _this.odColor.o : _this.odColor.d;
       line.lineStyle = {
         normal: {
-          color:
-            index < _this.colors.length
-              ? _this.colors[index]
-              : _this.getColor(0.3),
-          width: line.value + 1,
+          color: color,
+          width: 3,
           opacity: 0.1
         }
       };
+      markpoint.push({
+        x: centerPoint[0],
+        y: centerPoint[1],
+        value: line.value,
+        itemStyle: {normal: {color: color.replace('0.4', '0.7')}}
+      });
       return line;
     });
     // let planePath =
@@ -283,11 +305,24 @@ export class MigrateChart {
         coordinateSystem: 'arcgis',
         polyline: true,
         data: chartslines,
+        markPoint: {
+          data: markpoint,
+          symbolOffset: [0, '10%'],
+          label: {
+            show: true,
+            color: 'white',
+            fontSize: 14,
+            fontWeight: 'bold'
+          },
+          zIndex: 9,
+          animation: true
+        },
         smooth: true,
         lineStyle: {
           width: 0
         },
         effect: {
+          symbol: 'arrow',
           constantSpeed: 60,
           show: true,
           trailLength: 0.2, //小尾巴长度0.2
@@ -301,5 +336,79 @@ export class MigrateChart {
       series: series
     };
     this.echartlayer.setChartOption(option);
+
+    if (!this.lineClickHandler) {
+      this.imageClick();
+    }
+  }
+  public async getODPath(id: string): Promise<Array<any>> {
+    let os = odJson.os;
+    let ds = odJson.ds;
+    return new Promise((resolve: any, reject: any) => {
+      Axios.get(odJson.url + id).then((res: any) => {
+        let paths = new Array();
+        if (res.data && res.data.length > 0) {
+          paths = res.data.filter((dt: any) => {
+            if (os.indexOf(dt.ORIGIN_ID) < 0) {
+              return false;
+            }
+            if (ds.indexOf(dt.DESTINATION_ID) < 0) {
+              return false;
+            }
+            return true;
+          });
+          paths = paths.map((dt: any) => {
+            let type = '';
+            if (dt.ORIGIN_ID == id) {
+              type = 'o';
+            }
+            if (dt.DESTINATION_ID == id) {
+              type = 'd';
+            }
+            return {
+              coords:
+                type == 'o'
+                  ? [id].concat(dt.PATH_ID.toString().split('_'))
+                  : [dt.ORIGIN_ID.toString()].concat(
+                      dt.PATH_ID.toString().split('_')
+                    ),
+              value: dt.ROUTE_PEDESTRIAN_VOLUME,
+              type: type
+            };
+          });
+        }
+        resolve(paths);
+      });
+    });
+  }
+
+  private async imageClick() {
+    let coords = odJson.coords;
+    let row = odJson.row;
+    let col = odJson.col;
+
+    let regions = odJson.regions;
+    let _this = this;
+    const [geometryJsonUtils] = await loadModules([
+      'esri/geometry/support/jsonUtils'
+    ]);
+
+    this.lineClickHandler = this.view.on('click', (event: any) => {
+      if (event.mapPoint) {
+        let mp = event.mapPoint;
+        for (let odid in regions) {
+          let region = (regions as any)[odid];
+          let poly = geometryJsonUtils.fromJSON({
+            rings: [region],
+            type: 'polygon',
+            spatialReference: this.view.spatialReference
+          });
+          if (poly.contains(mp)) {
+            console.log(odid);
+            _this.showPathChart(odid);
+          }
+        }
+      }
+    });
   }
 }

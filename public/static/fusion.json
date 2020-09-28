@@ -1149,14 +1149,14 @@
       "isInside": false,
       "isreal": true,
       "realposition": {
-        "x:": -270,
+        "x": -270,
         "y": 85.05381,
         "z": 162.780731
       },
       "realtar": {
-        "x:": -270,
-        "y": 85.05381,
-        "z": 162.780731
+        "x": -10,
+        "y": 40,
+        "z": 35
       }
     },
     "HQ0912New153": {
@@ -1191,9 +1191,9 @@
         "z": -163.264099
       },
       "realtar": {
-        "x": 1.65019,
-        "y": -6.161755,
-        "z": 170.746109
+        "x": -500,
+        "y": 50,
+        "z": 130
       }
     },
     "HQ0912New154": {
@@ -1232,6 +1232,64 @@
         "y": 0,
         "z": 0
       }
+    },
+    "HQ0912New155": {
+      "index": "HQ0912New155",
+      "keyCode": "77",
+      "camJson": {
+        "fov": null,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "poseMat4": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        "lookAt": {
+          "x": null,
+          "y": null,
+          "z": null
+        }
+      },
+      "flv": {
+        "type": "flv",
+        "src": "http://10.31.214.206:8081/live?app=rtmp&stream=309077",
+        "url": "http://10.31.214.206:8081/live?app=rtmp&stream=309077"
+      },
+      "modelIndex": null,
+      "isGlobalView": true,
+      "isInside": false,
+      "isreal": true,
+      "realposition": {"x": -382.62, "y": 54.23, "z": 56.19},
+      "realtar": {"x": -126.81, "y": 0, "z": 572.27}
+    },
+    "HQ0912New156": {
+      "index": "HQ0912New156",
+      "keyCode": "72",
+      "camJson": {
+        "fov": null,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "poseMat4": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        "lookAt": {
+          "x": null,
+          "y": null,
+          "z": null
+        }
+      },
+      "flv": {
+        "type": "flv",
+        "src": "http://10.31.214.206:8081/live?app=rtmp&stream=6301",
+        "url": "http://10.31.214.206:8081/live?app=rtmp&stream=6301"
+      },
+      "modelIndex": null,
+      "isGlobalView": true,
+      "isInside": false,
+      "isreal": true,
+      "realposition": {"x": -244.89, "y": 58.09, "z": 736.95},
+      "realtar": {"x": 40, "y": 30, "z": 240}
     }
   }
 }

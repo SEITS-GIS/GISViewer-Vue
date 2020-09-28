@@ -190,15 +190,15 @@ export interface IHeatParameter {
   options: IHeatOptions;
 }
 export interface IHeatImageParameter {
-  points: Array<IHeatPoint>;
-  options: IHeatOptions;
-  images: {
+  points?: Array<IHeatPoint>;
+  options?: IHeatOptions;
+  images?: {
     url: string;
     width: number;
     heigth: number;
     center: {x: number; y: number}; //图片中心位置
     factor: number; //图片显示倍率
-    scale: number; //图片显示比例
+    scale?: number; //图片显示比例
     geometry: {x: number; y: number};
   };
 }

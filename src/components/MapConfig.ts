@@ -11,46 +11,45 @@ export default class MapConfig {
   public gdConfig: any = GdConfig;
   public async mapLoaded(map: any) {
     let _this = this;
-    map
-      .addDgeneFusion({
-        appendDomID: 'gisDiv',
-        url: 'dgene',
-        showOut: false,
-        outvideo: true,
-        callback: (a: number, b: number) => {
-          console.log(a, b);
-        }
-      })
-      .then((e: any) => {
-        console.log('载入成功', e.result);
-        _this.model_view = e.result;
-        map.addOverlays({
-          type: 'model3d',
-          defaultSymbol: {
-            type: 'point-2d',
-            url: 'assets/image/Anchor.png',
-            size: [50, 50],
-            anchor: 'center'
-          },
-          overlays: [
-            {
-              id: 'model1',
-              geometry: {x: -14071.811607336222, y: -4342.546650737293},
-              fields: {}
-            }
-          ],
-          iswgs: false
-        });
-
-        // map.showDgene({
-        //   duration: 0,
-        //   callback: (e: any) => {
-        //     console.log(e);
-        //   }
-        // });
-        //_this.model_view.showVideoDom('HQtest147');
-        //_this.model_view.showVideoDom('HQtest148');
-      }); //载入3维模型
+    // map
+    //   .addDgeneFusion({
+    //     appendDomID: 'gisDiv',
+    //     url: 'dgene',
+    //     showOut: true,
+    //     outvideo: true,
+    //     callback: (a: number, b: number) => {
+    //       console.log(a, b);
+    //     }
+    //   })
+    //   .then((e: any) => {
+    //     console.log('载入成功', e.result);
+    //     _this.model_view = e.result;
+    //     map.addOverlays({
+    //       type: 'model3d',
+    //       defaultSymbol: {
+    //         type: 'point-2d',
+    //         url: 'assets/image/Anchor.png',
+    //         size: [50, 50],
+    //         anchor: 'center'
+    //       },
+    //       overlays: [
+    //         {
+    //           id: 'model1',
+    //           geometry: {x: -14071.811607336222, y: -4342.546650737293},
+    //           fields: {}
+    //         }
+    //       ],
+    //       iswgs: false
+    //     });
+    //     // map.showDgene({
+    //     //   duration: 0,
+    //     //   callback: (e: any) => {
+    //     //     console.log(e);
+    //     //   }
+    //     // });
+    //     //_this.model_view.showVideoDom('HQtest147');
+    //     //_this.model_view.showVideoDom('HQtest148');
+    //   }); //载入3维模型
 
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
@@ -155,9 +154,9 @@ export default class MapConfig {
     //map.showMigrateChart();
 
     //const result = map.addOverlays(points);
-    if (this.model_view) {
-      this.model_view.showVideoDom('HQ0912New151');
-    }
+    // if (this.model_view) {
+    //   this.model_view.showVideoDom('HQ0912New151');
+    // }
     // axios.get('config/2.json').then((res: any) => {
     //   // res.data.points = (res.data.points as any[]).concat(
     //   //   res.data.points as any[]
@@ -185,75 +184,8 @@ export default class MapConfig {
     //   };
     //   const result = map.addOverlaysCluster(res.data);
     // });
-    var points = [
-      {fields: {id: '12', value: 125}},
-      {fields: {id: '8', value: 26}},
-      {fields: {id: '1', value: 24}},
-      {fields: {id: '13', value: 32}},
-      {fields: {id: '2', value: 34}},
-      {fields: {id: '14', value: 40}},
-      {fields: {id: '9', value: 11}},
-      {fields: {id: '3', value: 17}},
-      {fields: {id: '15', value: 19}},
-      {fields: {id: '10', value: 22}},
-      {fields: {id: '4', value: 33}},
-      {fields: {id: '16', value: 31}},
-      {fields: {id: '11', value: 42}},
-      {fields: {id: '5', value: 37}},
-      {fields: {id: '17', value: 39}},
-      {fields: {id: '6', value: 25}},
-      {fields: {id: '18', value: 39}},
-      {fields: {id: '7', value: 33}}
-    ];
-    var x = 0;
-    var y = 0;
-
-    var json = {
-      points: points,
-      images: {
-        geometry: {x: -14553.805845333449, y: -4137.1518463943485},
-        width: 339,
-        height: 150,
-        url: 'http://localhost/HQ2.svg',
-        center: {x: -13833.811607336222, y: -4444.546650737293},
-        factor: 4
-      },
-      options: {
-        field: 'value',
-        radius: 10,
-        maxValue: 100,
-        minValue: 1
-      }
-    };
-    map.addHeatImage(json);
-    // map.showMigrateChart({
-    //   overlays: [
-    //     {
-    //       id: '1111',
-    //       geometry: {
-    //         paths: [
-    //           [
-    //             [121.1341, 31.21201],
-    //             [121.1351, 31.22101],
-    //             [121.1361, 31.21101],
-    //             [121.1371, 31.21201],
-    //             [121.1381, 31.21401],
-    //             [121.1391, 31.21501]
-    //           ]
-    //         ]
-    //       },
-    //       symbol: {color: [255, 0, 0]}
-    //     }
-    //   ]
-    // });
-    // map.startGeometrySearch({
-    //   radius: 12000,
-    //   showResult: true,
-    //   clickHandle: (e: any) => {
-    //     console.log(e);
-    //   }
-    // });
-    map.showMigrateChart();
+    map.addHeatImage();
+    map.showMigrateChart('001');
     // map.addDrawLayer({
     //   layerUrls: './config/fbd/morph_ksl.json',
     //   label: '快速路'
@@ -272,133 +204,133 @@ export default class MapConfig {
     //     console.log(e); //返回结果
     //   });
 
-    // map.showRoutePoint({
-    //   points: [
-    //     {
-    //       geometry: {x: 121.487563, y: 31.395083},
-    //       fields: {content: '牡丹江路-海江路(西向东)'}
-    //     },
-    //     {
-    //       geometry: {x: 121.481867, y: 31.392274},
-    //       fields: {content: '同济路-海江路(北向南)'}
-    //     },
-    //     {
-    //       geometry: {x: 121.479625, y: 31.39665},
-    //       fields: {content: '同济路-宝杨路(南向北)'}
-    //     }
-    //   ],
-    //   showDir: true
-    // });
-
-    // map.showRoutePoint({
-    //   points: [
-    //     {
-    //       geometry: {x: 121.490726, y: 31.378321},
-    //       fields: {content: '同济路-同济支路(南向北)'}
-    //     },
-    //     {
-    //       geometry: {x: 121.488117, y: 31.382392},
-    //       fields: {content: '同济路-水产路(南向北)'}
-    //     },
-    //     {
-    //       geometry: {x: 121.485499, y: 31.386555},
-    //       fields: {content: '同济路-双城路(南向北)'}
-    //     },
-    //     {
-    //       geometry: {x: 121.481947, y: 31.392143},
-    //       fields: {content: '同济路-海江路(南向北)'}
-    //     },
-    //     {
-    //       geometry: {x: 121.479706, y: 31.396507},
-    //       fields: {content: '同济路-宝杨路(南向北)'}
-    //     }
-    //   ],
-    //   showDir: true
-    // });
-    // map.showRoutePoint({
-    //   points: [
-    //     {
-    //       geometry: {x: 121.485116, y: 31.398434},
-    //       fields: {content: '牡丹江路-宝杨路(西向东)'}
-    //     },
-    //     {
-    //       geometry: {x: 121.481686, y: 31.397334},
-    //       fields: {content: '宝杨路-双庆路(北向南)'}
-    //     },
-    //     {
-    //       geometry: {x: 121.479326, y: 31.396519},
-    //       fields: {content: '同济路-宝杨路(北向南)'}
-    //     }
-    //   ],
-    //   showDir: true
-    // });
-
-    // map.showRoutePoint({
-    //   points: [
-    //     {
-    //       geometry: {x: 121.479407, y: 31.396382},
-    //       fields: {content: '同济路-宝杨路(北向南)'}
-    //     },
-    //     {
-    //       geometry: {x: 121.481715, y: 31.39211},
-    //       fields: {content: '同济路-海江路(东向西)'}
-    //     },
-    //     {
-    //       geometry: {x: 121.487563, y: 31.395083},
-    //       fields: {content: '牡丹江路-海江路(东向西)'}
-    //     }
-    //   ],
-    //   showDir: true
-    // });
-
-    // map.showRoutePoint({
-    //   points: [
-    //     {
-    //       geometry: {x: 121.47939, y: 31.396364},
-    //       fields: {content: '同济路-宝杨路(北向南)1'}
-    //     },
-    //     {
-    //       geometry: {x: 121.481715, y: 31.39211},
-    //       fields: {content: '同济路-海江路(东向西)1'}
-    //     },
-    //     {
-    //       geometry: {x: 121.48522, y: 31.386528},
-    //       fields: {content: '同济路-双城路(东向西)1'}
-    //     },
-    //     {
-    //       geometry: {x: 121.487838, y: 31.382367},
-    //       fields: {content: '同济路-水产路(西向东)1'}
-    //     },
-    //     {
-    //       geometry: {x: 121.490515, y: 31.378166},
-    //       fields: {content: '同济路-同济支路(东向西)1'}
-    //     }
-    //   ],
-    //   showDir: true
-    // });
-
-    // map.showRoutePoint({
-    //   points: [
-    //     {
-    //       geometry: {x: 121.479691, y: 31.396509},
-    //       fields: {content: '同济路-宝杨路(北向南)'}
-    //     },
-    //     {
-    //       geometry: {x: 121.481736, y: 31.397235},
-    //       fields: {content: '宝杨路-双庆路(东向西)'}
-    //     },
-    //     {
-    //       geometry: {x: 121.485161, y: 31.398369},
-    //       fields: {content: '牡丹江路-宝杨路(东向西)'}
-    //     }
-    //   ],
-    //   showDir: true
-    // });
-
-    //let map = this.$refs.gisViewer as any;
-    // axios.get('config/point1.json').then((res: any) => {
-    //   map.addOverlaysCluster(res.data);
-    // });
+    map.showRoutePoint([
+      {
+        points: [
+          {
+            geometry: {x: 121.487563, y: 31.395083},
+            fields: {content: '牡丹江路-海江路(西向东)'}
+          },
+          {
+            geometry: {x: 121.481867, y: 31.392274},
+            fields: {content: '同济路-海江路(北向南)'}
+          },
+          {
+            geometry: {x: 121.479625, y: 31.39665},
+            fields: {content: '同济路-宝杨路(南向北)'}
+          }
+        ],
+        showDir: true,
+        color: 'red',
+        width: 5
+      },
+      {
+        points: [
+          {
+            geometry: {x: 121.490726, y: 31.378321},
+            fields: {
+              content: '同济路-同济支路(南向北)'
+            }
+          },
+          {
+            geometry: {x: 121.488117, y: 31.382392},
+            fields: {content: '同济路-水产路(南向北)'}
+          },
+          {
+            geometry: {x: 121.485499, y: 31.386555},
+            fields: {content: '同济路-双城路(南向北)'}
+          },
+          {
+            geometry: {x: 121.481947, y: 31.392143},
+            fields: {content: '同济路-海江路(南向北)'}
+          },
+          {
+            geometry: {x: 121.479706, y: 31.396507},
+            fields: {content: '同济路-宝杨路(南向北)'}
+          }
+        ],
+        showDir: true
+      },
+      {
+        points: [
+          {
+            geometry: {x: 121.485116, y: 31.398434},
+            fields: {content: '牡丹江路-宝杨路(西向东)'}
+          },
+          {
+            geometry: {x: 121.481686, y: 31.397334},
+            fields: {content: '宝杨路-双庆路(北向南)'}
+          },
+          {
+            geometry: {x: 121.479326, y: 31.396519},
+            fields: {content: '同济路-宝杨路(北向南)'}
+          }
+        ],
+        showDir: true
+      },
+      {
+        points: [
+          {
+            geometry: {x: 121.479407, y: 31.396382},
+            fields: {content: '同济路-宝杨路(北向南)'}
+          },
+          {
+            geometry: {x: 121.481715, y: 31.39211},
+            fields: {content: '同济路-海江路(东向西)', dir: 'left'}
+          },
+          {
+            geometry: {x: 121.487563, y: 31.395083},
+            fields: {content: '牡丹江路-海江路(东向西)'}
+          }
+        ],
+        showDir: true
+      },
+      {
+        points: [
+          {
+            geometry: {x: 121.47939, y: 31.396364},
+            fields: {content: '同济路-宝杨路(北向南)1'}
+          },
+          {
+            geometry: {x: 121.481715, y: 31.39211},
+            fields: {content: '同济路-海江路(东向西)1', dir: 'left'}
+          },
+          {
+            geometry: {x: 121.48522, y: 31.386528},
+            fields: {content: '同济路-双城路(东向西)1'}
+          },
+          {
+            geometry: {x: 121.487838, y: 31.382367},
+            fields: {content: '同济路-水产路(西向东)1'}
+          },
+          {
+            geometry: {x: 121.490515, y: 31.378166},
+            fields: {content: '同济路-同济支路(东向西)1'}
+          }
+        ],
+        showDir: true
+      },
+      {
+        points: [
+          {
+            geometry: {x: 121.479691, y: 31.396509},
+            fields: {content: '同济路-宝杨路(北向南)'}
+          },
+          {
+            geometry: {x: 121.481736, y: 31.397235},
+            fields: {content: '宝杨路-双庆路(东向西)'}
+          },
+          {
+            geometry: {x: 121.485161, y: 31.398369},
+            fields: {content: '牡丹江路-宝杨路(东向西)'}
+          }
+        ],
+        showDir: true
+      }
+    ]);
+    axios.get('config/point1.json').then((res: any) => {
+      map.addOverlays(res.data);
+    });
     // axios.get('config/point2.json').then((res: any) => {
     //   map.addOverlaysCluster(res.data);
     // });
@@ -420,6 +352,7 @@ export default class MapConfig {
     //   showMask: true
     // });
   }
+
   public btn_test2(map: any) {
     //map.showLayer({label: 'fbd123'});
     //let map = this.$refs.gisViewer as any;
@@ -539,11 +472,11 @@ export default class MapConfig {
     // }
   }
   public btn_test3(map: any) {
-    map.hideBarChart();
+    //map.hideBarChart();
     //map.showDgene({duration: 0}); //显示三维模型
     //map.showLayer({label: 'fbd1333'});
     //map.clearGeometrySearch();
-    //map.deleteHeatImage();
+    map.deleteHeatImage();
     //map.hideMigrateChart();
     //map.clearRouteSearch(); //清除
     //map.setMapStyle('amap://styles/darkblue');
@@ -559,7 +492,7 @@ export default class MapConfig {
     //map.deleteHeatMap();
     //map.deleteOverlaysCluster({types: ['sxj1']});
     //map.deleteAllOverlays();
-    map.deleteOverlays({types: ['police']});
+    //map.deleteOverlays({types: ['police']});
     //map.hideLayer({label: 'ceshi'});
     //map.setMapCenter({x: 121.12, y: 31.23});
     // map.setMapCenterAndLevel({

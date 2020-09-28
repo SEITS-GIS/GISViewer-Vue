@@ -32,6 +32,11 @@ export class DgeneFusion {
     y: 190,
     z: 342
   };
+  private FlyViewOut: any = {
+    x: 700,
+    y: 700,
+    z: 700
+  };
   private rotateState: string = 'auto';
   private setting: any = {
     isLocal: true, // isLocal?apiBase = 'static/api':apiBase = 'project/api/'+id
@@ -248,7 +253,7 @@ export class DgeneFusion {
         );
       }
     });
-    Axios.get('./static/fusion.json').then((res: any) => {
+    Axios.get(this.setting.url + '/fusion.json').then((res: any) => {
       let videodata = res.data.data;
       if (videodata) {
         for (let data in videodata) {
@@ -359,7 +364,7 @@ export class DgeneFusion {
         setting,
         (name: any) => {
           _this.fusion_view.stopAutoRotate();
-          //console.log(name);
+          console.log(name);
           if (_this.out_video.indexOf(name) > -1) {
             if (_this.fusion_view) {
               _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
@@ -376,7 +381,7 @@ export class DgeneFusion {
           if (_this.showOut && !_this.loadOutState) {
             _this.fusion_view.loadOutSideModel();
             _this.loadOutState = true;
-            _this.fusion_view.addSprite();
+            //_this.fusion_view.addSprite();
           }
         },
         (obj: any) => {
@@ -406,7 +411,7 @@ export class DgeneFusion {
     let carmeraCallback = params.callback;
     this.fusion_view.camFlyTo(this.originView, 1);
     setTimeout(() => {
-      let pos = _this.FlyView;
+      let pos = this.showOut ? _this.FlyViewOut : _this.FlyView;
       _this.fusion_view.camFlyTo(pos, 5000);
     }, 200);
 

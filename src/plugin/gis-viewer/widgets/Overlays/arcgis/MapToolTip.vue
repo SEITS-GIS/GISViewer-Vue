@@ -29,7 +29,7 @@ export default class MapToolTip extends Vue {
   position: absolute;
 }
 .MapText {
-  min-width: 30px;
+  min-width: auto;
   max-width: 260px;
   border-radius: 4px;
 
@@ -42,8 +42,8 @@ export default class MapToolTip extends Vue {
   z-index: 999;
 }
 .TextDiv {
-  border: 1.5px solid #666666;
-  background: #666666;
+  border: 1.5px solid #2098a5;
+  background-color: #02243f;
 }
 
 .TextTriTop {
@@ -51,8 +51,8 @@ export default class MapToolTip extends Vue {
   width: 10px;
   height: 10px;
   z-index: -1;
-  border: 1.5px solid #666666;
-  background: #666666;
+  border: 1px solid #2098a5;
+  background-color: #02243f;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   -ms-transform: rotate(45deg); /* IE 9 */
@@ -63,7 +63,7 @@ export default class MapToolTip extends Vue {
   border-left: none;
   border-top: none;
   margin: auto;
-  margin-top: 4px;
+  margin-top: 3px;
   left: 0;
   right: 0;
 }

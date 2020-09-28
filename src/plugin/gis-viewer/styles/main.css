@@ -41,6 +41,37 @@
   color: #cfffff;
   white-space: nowrap;
 }
+
+.td-point
+  .td-point-content
+  .td-point-detail-wrap
+  .td-point-detail-line
+  .td-point-detail.left {
+  border-left: inherit;
+  border-right: 3px solid #00ffff;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 255, 255, 0),
+    rgba(0, 255, 255, 0.3)
+  );
+  position: absolute;
+  right: 0px;
+}
+.td-point
+  .td-point-content
+  .td-point-detail-wrap
+  .td-point-detail-line
+  .td-point-detail.left.y {
+  border-left: inherit;
+  border-right: 3px solid #ffc12d;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 193, 45, 0),
+    rgba(255, 193, 45, 0.3)
+  );
+  position: absolute;
+  right: 0px;
+}
 .td-point
   .td-point-content
   .td-point-detail-wrap

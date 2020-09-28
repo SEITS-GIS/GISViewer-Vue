@@ -55,10 +55,24 @@ export class HeatImage {
   public async addHeatImage(params: IHeatImageParameter) {
     // Create featurelayer from client-side graphics
     this.clear();
-    let options = params.options;
+    let options = params.options || {
+      field: 'value',
+      radius: 50,
+      colors: undefined,
+      maxValue: 50,
+      minValue: 1
+    };
     this.options = options;
-    let points = params.points;
-    let imageOpt = params.images;
+    let points = params.points || [];
+    let imageOpt = params.images || {
+      geometry: {x: -14553.805845333449, y: -4137.1518463943485},
+      width: 294,
+      height: 103,
+      url: './assets/HQ3.svg',
+      center: {x: -13931.811607336222, y: -4354.546650737293},
+      factor: 4,
+      scale: this.scale
+    };
     this.imageOpt = imageOpt;
     this.step = this.scale / this.view.scale;
     this.modules = await loadModules([

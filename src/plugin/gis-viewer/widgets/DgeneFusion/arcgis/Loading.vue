@@ -28,7 +28,7 @@ export default class Loading extends Vue {
     let _this = this;
     if (value == 100) {
       setTimeout(() => {
-        _this.process = '模型载入成功';
+        _this.process = '载入成功';
         setTimeout(() => {
           _this.show = false;
         }, 1000);
@@ -46,8 +46,8 @@ export default class Loading extends Vue {
 .demo {
   padding: 0;
   position: absolute;
-  left: 0px;
-  bottom: 30px;
+  right: 1rem;
+  top: 0.2rem;
   width: 300px;
   height: 30px;
 }
