@@ -1322,7 +1322,7 @@
         "y": 2,
         "z": -70.98
       },
-      "realtar": {"x": 40, "y": 30, "z": 240}
+      "realtar": {"x": -135, "y": 0, "z": -80}
     },
     "HQ0912New197": {
       "index": "HQ0912New197",
@@ -1351,7 +1351,7 @@
       "isInside": false,
       "isreal": true,
       "realposition": {"x": -2.12, "y": 2, "z": -76.97},
-      "realtar": {"x": 40, "y": 30, "z": 240}
+      "realtar": {"x": 0, "y": 0, "z": -70}
     }
   }
 }
