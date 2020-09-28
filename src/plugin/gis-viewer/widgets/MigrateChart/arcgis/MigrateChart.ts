@@ -9,6 +9,7 @@ import echartsLayer from './echartsLayer';
 import odJson from './config/OD.json';
 import Axios from 'axios';
 import {resolve} from 'esri/core/promiseUtils';
+import {param} from 'jquery';
 
 export class MigrateChart {
   private static intances: Map<string, any>;
@@ -27,6 +28,7 @@ export class MigrateChart {
   ];
   private odColor = {o: 'rgba(0,255,255,255)', d: 'rgba(255,215,0,255)'};
   private lineClickHandler: any;
+  private selectid: string = '001';
 
   private constructor(view: any) {
     this.view = view;
@@ -241,6 +243,9 @@ export class MigrateChart {
   }
   public async showPathChart(params: any) {
     this.clear();
+    if (params == undefined || params == null) {
+      params = this.selectid;
+    }
     let odData = odJson.coords;
     let row = odJson.row;
     let col = odJson.col;
@@ -406,6 +411,7 @@ export class MigrateChart {
           if (poly.contains(mp)) {
             console.log(odid);
             _this.showPathChart(odid);
+            _this.selectid = odid;
           }
         }
       }

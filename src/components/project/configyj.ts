@@ -22,6 +22,15 @@ export let GisConfig = {
       url:
         'http://10.31.214.201:6080/arcgis/rest/services/YJZH/KuaiSuLu_fbd/MapServer',
       refreshInterval: 1,
+      visible: false,
+      outFields: ['*']
+    },
+    {
+      label: '发布段指数',
+      type: 'dynamic',
+      url:
+        'http://10.31.214.201:6080/arcgis/rest/services/YJZH/ShangHai_fbdindex/MapServer',
+      refreshInterval: 1,
       visible: true,
       outFields: ['*']
     },
