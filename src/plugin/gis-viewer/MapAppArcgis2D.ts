@@ -609,9 +609,9 @@ export default class MapAppArcGIS2D {
   }
   public showCustomTip(params: ICustomTip) {
     let className: string = 'custom-popup';
-    params.prop.className = className;
     ToolTip.clear(this.view, undefined, className);
-    if (params.geometry) {
+    if (params && params.geometry) {
+      params.prop.className = className;
       let ctip = new ToolTip(this.view, params.prop, params.geometry);
     }
   }
