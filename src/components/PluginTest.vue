@@ -43,7 +43,7 @@ export default class PluginTest extends Vue {
       (this.$refs.gisViewer as any).showDgene({
         duration: 0,
         callback: (e: any) => {
-          console.log(e);
+          //console.log(e);
         }
       });
     }
