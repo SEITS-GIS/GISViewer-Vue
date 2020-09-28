@@ -437,7 +437,7 @@ export class DgeneFusion {
     $('#' + this.view.container.id).fadeOut(1000);
     this.fusion_control.addEventListener('change', (e: any) => {
       let dir = _this.fusion_view.getCameraPosition();
-      console.log(dir);
+      //console.log(dir);
       let theta = Math.atan2(-dir.x, -dir.z);
       theta = (180 * theta) / Math.PI + 180;
       //var theta = Math.atan2(-dir.x, -dir.z);
