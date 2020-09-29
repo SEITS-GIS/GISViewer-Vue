@@ -16,7 +16,7 @@ export class Cluster {
   private clusterLayer: any;
   public showGisDeviceInfo: any;
   private maxSingleFlareCount = 15;
-  private areaDisplayMode = 'activated';
+  private areaDisplayMode = 'none';
   private clusterGroups: Map<string, any> = new Map();
 
   private constructor(view: any) {
@@ -282,6 +282,12 @@ export class Cluster {
     clusterLayer.label = params.type;
     this.view.map.add(clusterLayer);
     this.clusterGroups.set(params.type, clusterLayer);
+    this.view.on('click', async (event: any) => {
+      const response = await this.view.hitTest(event);
+      if (response.results.length > 0) {
+        console.log(response.results);
+      }
+    });
   }
 
   private clearLayer(types: string[] | undefined) {

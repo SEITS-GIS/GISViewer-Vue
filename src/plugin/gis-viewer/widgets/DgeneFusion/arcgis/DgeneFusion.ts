@@ -365,12 +365,18 @@ export class DgeneFusion {
         setting,
         (name: any) => {
           _this.fusion_view.stopAutoRotate();
-          console.log(name);
+          //console.log(name);
+
           if (_this.out_video.indexOf(name) > -1) {
             if (_this.fusion_view) {
               _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
             }
             _this.fusion_view.showVideoDom(name);
+            if (['HQ0912New197', 'HQ0912New196'].indexOf(name) > -1) {
+              if (document.getElementById(name)) {
+                (document.getElementById(name) as any).style.display = 'block';
+              }
+            }
           } else if (_this.in_video.indexOf(name) > -1) {
             if (_this.fusion_view) {
               _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
@@ -478,28 +484,33 @@ export class DgeneFusion {
     });
   }
   private changeDgeneOut() {
+    let dir = this.fusion_view.getCameraPosition();
     if (this.showOut) {
       //当前显示外面,切换到隐藏外面
       this.fusion_view.newHideOut1({
-        duration1: 3000,
-        duration2: 3000,
+        duration1: 500,
+        duration2: 1000,
         duration3: 1500,
-        firstPos: {x: 700, y: 700, z: 700},
+        firstPos: dir,
         firstTar: {x: 0, y: 0, z: 0},
         nextPos: {
           x: -63.93155359536513,
           y: 259.3165187210438,
           z: 312.28570642332915
         },
-        nextTar: {x: 0, y: 0, z: 0},
+        nextTar: {
+          x: -63.93155359536513,
+          y: 259.3165187210438,
+          z: 312.28570642332915
+        },
         downHeight: -6000
       });
     } else {
       this.fusion_view.newShowOut3({
-        duration1: 3000,
+        duration1: 200,
         duration2: 1000,
-        duration3: 3000,
-        firstPos: {x: 200, y: 200, z: 200},
+        duration3: 1500,
+        firstPos: dir,
         firstTar: {x: 0, y: 0, z: 0},
         nextPos: {x: 700, y: 700, z: 700},
         nextTar: {x: 0, y: 0, z: 0},
@@ -511,7 +522,7 @@ export class DgeneFusion {
     if (this.showOut) {
       setTimeout(() => {
         this.showDgeneOutPoint(this.showOut);
-      }, 6000);
+      }, 2000);
     } else {
       this.showDgeneOutPoint(this.showOut);
     }

@@ -29,6 +29,7 @@ export class MigrateChart {
   private odColor = {o: 'rgba(0,255,255,255)', d: 'rgba(255,215,0,255)'};
   private lineClickHandler: any;
   private selectid: string = '001';
+  private odValue: {min: number; max: number} = {min: 0, max: 0};
 
   private constructor(view: any) {
     this.view = view;
@@ -276,6 +277,9 @@ export class MigrateChart {
           opacity: 0.1
         }
       };
+      line.effect = {
+        symbolSize: _this.getlevel(Number(line.value)) * 3 + 5
+      };
       markpoint.push({
         x: centerPoint[0],
         y: centerPoint[1],
@@ -349,6 +353,9 @@ export class MigrateChart {
   public async getODPath(id: string): Promise<Array<any>> {
     let os = odJson.os;
     let ds = odJson.ds;
+    let min = 0;
+    let max = 0;
+    let _this = this;
     return new Promise((resolve: any, reject: any) => {
       Axios.get(odJson.url + id).then((res: any) => {
         let paths = new Array();
@@ -364,6 +371,8 @@ export class MigrateChart {
           });
           paths = paths.map((dt: any) => {
             let type = '';
+            min = Math.min(min, Number(dt.ROUTE_PEDESTRIAN_VOLUME));
+            max = Math.max(max, Number(dt.ROUTE_PEDESTRIAN_VOLUME));
             if (dt.ORIGIN_ID == id) {
               type = 'o';
             }
@@ -381,12 +390,27 @@ export class MigrateChart {
               type: type
             };
           });
+          _this.odValue.max = max;
+          _this.odValue.min = min;
         }
         resolve(paths);
       });
     });
   }
-
+  private getlevel(v: number) {
+    let min = this.odValue.min;
+    let max = this.odValue.max;
+    let sub = max - min;
+    let step = sub / 5;
+    let level = 100;
+    for (let i = 1; i <= step; i++) {
+      if (v < step * i) {
+        level = i;
+        break;
+      }
+    }
+    return Math.min(level, 5);
+  }
   private async imageClick() {
     let coords = odJson.coords;
     let row = odJson.row;
