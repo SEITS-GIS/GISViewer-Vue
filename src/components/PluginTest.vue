@@ -20,7 +20,7 @@ import {Vue, Component, Prop} from 'vue-property-decorator';
 import axios from 'axios';
 import MapConfig from './MapConfig';
 import PluginGd from './PluginGD.vue';
-import Test from './Test.vue';
+import Test from '../Test.vue';
 @Component
 export default class PluginTest extends Vue {
   private cg = new MapConfig();
