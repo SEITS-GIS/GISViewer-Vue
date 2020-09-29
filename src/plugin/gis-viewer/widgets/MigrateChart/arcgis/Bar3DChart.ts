@@ -182,7 +182,7 @@ export class Bar3DChart {
               value: [item[1], item[0], item[2]],
               label: {
                 textStyle: {
-                  color: index == 1 ? 'rgb(0,215,0)' : 'rgb(255,215,0)'
+                  color: index == 1 ? 'rgb(0,255,255)' : 'rgb(255,215,0)'
                 }
               }
             };
