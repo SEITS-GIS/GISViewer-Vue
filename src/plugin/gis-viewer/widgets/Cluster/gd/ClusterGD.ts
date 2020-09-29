@@ -97,7 +97,9 @@ export class ClusterGD {
           position: [Number(point.geometry.x), Number(point.geometry.y)]
         });
 
-        let content = this.getPopUpHtml(point, defaultTooltip);
+        let content = defaultTooltip
+          ? this.getPopUpHtml(point, defaultTooltip)
+          : this.getInfoWindowContent(point);
         mark.setExtData({
           clickfunc: this.showGisDeviceInfo,
           attributes: point.fields,
@@ -157,6 +159,21 @@ export class ClusterGD {
       }
     }
     return tipContent;
+  }
+  private getInfoWindowContent(graphic: any) {
+    let content = '';
+    //键值对
+    for (let fieldName in graphic.fields) {
+      if (graphic.fields.hasOwnProperty(fieldName)) {
+        if (!(graphic.fields[fieldName] instanceof Array)) {
+          content +=
+            '<b>' + fieldName + ': </b>' + graphic.fields[fieldName] + '<br>';
+        }
+      }
+    }
+    //去掉最后的<br>
+    content = content.substring(0, content.lastIndexOf('<br>'));
+    return content;
   }
   private onOverlayClick(event: any) {
     let mark = event.target;

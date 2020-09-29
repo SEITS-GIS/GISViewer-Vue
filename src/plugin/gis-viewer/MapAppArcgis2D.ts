@@ -619,4 +619,8 @@ export default class MapAppArcGIS2D {
     let dgene = DgeneFusion.getInstance(this.view);
     dgene.showDgeneOutPoint(params);
   }
+  public changeDgeneOut() {
+    let dgene = DgeneFusion.getInstance(this.view);
+    dgene.changeDgeneOut();
+  }
 }

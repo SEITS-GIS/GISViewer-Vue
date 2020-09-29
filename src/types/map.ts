@@ -181,6 +181,7 @@ export interface IMapContainer {
   hideBarChart: () => void;
   showCustomTip: (params: ICustomTip) => void;
   showDgeneOutPoint: (params: any) => void;
+  changeDgeneOut: () => void;
 }
 export interface IPopUpTemplate {
   title?: string;

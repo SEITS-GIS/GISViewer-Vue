@@ -295,4 +295,5 @@ export default class MapAppGaode implements IMapContainer {
   }
   public showCustomTip(params: ICustomTip) {}
   public showDgeneOutPoint(params: any) {}
+  public changeDgeneOut() {}
 }

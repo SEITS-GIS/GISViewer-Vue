@@ -530,4 +530,5 @@ export default class MapAppArcGIS3D implements IMapContainer {
     let ctip = new ToolTip(this.view, params.prop, params.geometry);
   }
   public showDgeneOutPoint(params: any) {}
+  public changeDgeneOut() {}
 }

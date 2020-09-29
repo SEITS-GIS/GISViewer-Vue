@@ -39,8 +39,18 @@ ul {
   margin-top: 0;
   margin-bottom: 0;
 }
-#HQ0912New154 {
+#HQ0912New152,
+#HQ0912New153,
+#HQ0912New154,
+#HQ0912New155,
+#HQ0912New156,
+#HQ0912New157,
+#HQ0912New196,
+#HQ0912New197 {
+  position: relative !important;
   width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 /* div {
   box-sizing: border-box;

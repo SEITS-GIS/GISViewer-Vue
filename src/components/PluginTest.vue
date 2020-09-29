@@ -20,6 +20,7 @@ import {Vue, Component, Prop} from 'vue-property-decorator';
 import axios from 'axios';
 import MapConfig from './MapConfig';
 import PluginGd from './PluginGD.vue';
+import Test from './Test.vue';
 @Component
 export default class PluginTest extends Vue {
   private cg = new MapConfig();
@@ -39,18 +40,18 @@ export default class PluginTest extends Vue {
   }
   private showGisDeviceInfo(type: string, id: string, detail: any) {
     console.log(type, id, detail);
-    if (type == 'model3d') {
-      (this.$refs.gisViewer as any).showDgene({
-        duration: 0,
-        callback: (e: any) => {
-          //console.log(e);
-        }
-      });
-    }
-    // (this.$refs.gisViewer as any).showCustomTip({
-    //   prop: {vue: PluginGd},
-    //   geometry: detail.geometry
-    // });
+    // if (type == 'model3d') {
+    //   (this.$refs.gisViewer as any).showDgene({
+    //     duration: 0,
+    //     callback: (e: any) => {
+    //       //console.log(e);
+    //     }
+    //   });
+    // }
+    (this.$refs.gisViewer as any).showCustomTip({
+      prop: {vue: Test},
+      geometry: detail.geometry
+    });
   }
   private mapClick(pt: any) {
     console.log(pt.lat + ',' + pt.lnt);

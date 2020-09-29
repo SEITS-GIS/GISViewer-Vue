@@ -259,4 +259,5 @@ export default class MapAppBaidu implements IMapContainer {
   }
   public showCustomTip(params: ICustomTip) {}
   public showDgeneOutPoint(params: any) {}
+  public changeDgeneOut() {}
 }

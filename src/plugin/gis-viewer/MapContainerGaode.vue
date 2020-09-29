@@ -173,6 +173,7 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   }
   public showCustomTip(params: ICustomTip) {}
   public showDgeneOutPoint(params: any) {}
+  public changeDgeneOut() {}
 }
 </script>
 

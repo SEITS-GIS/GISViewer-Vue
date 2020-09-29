@@ -267,6 +267,9 @@ export default class MapContainer extends Vue implements IMapContainer {
   public showDgeneOutPoint(params: any) {
     this.mapContainer.showDgeneOutPoint(params);
   }
+  public changeDgeneOut() {
+    this.mapContainer.changeDgeneOut();
+  }
 }
 </script>
 
