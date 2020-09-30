@@ -435,24 +435,24 @@ export class DgeneFusion {
 
     let carmeraCallback = params.callback;
     this.fusion_view.camFlyTo(this.originView, 1);
-    let pos = _this.FlyView;
+    let pos = this.showOut ? _this.FlyViewOut : _this.FlyView;
     setTimeout(() => {
-      _this.fusion_view.camFlyTo(pos, 2000);
-    }, 5);
-    setTimeout(() => {
-      _this.fusion_view.newHideOut1({
-        duration1: 0,
-        duration2: 0,
-        duration3: 1000,
-        firstPos: {x: 0, y: 0, z: 0},
-        firstTar: {x: 0, y: 0, z: 0},
-        nextPos: _this.FlyView,
-        nextTar: {x: 0, y: 0, z: 0},
-        downHeight: -6000
-      });
-      _this.showDgeneOutPoint(false);
-      _this.showOut = false;
-    }, 2000);
+      _this.fusion_view.camFlyTo(pos, 3000);
+    }, 10);
+    // setTimeout(() => {
+    //   _this.fusion_view.newHideOut1({
+    //     duration1: 0,
+    //     duration2: 0,
+    //     duration3: 1000,
+    //     firstPos: {x: 0, y: 0, z: 0},
+    //     firstTar: {x: 0, y: 0, z: 0},
+    //     nextPos: _this.FlyView,
+    //     nextTar: {x: 0, y: 0, z: 0},
+    //     downHeight: -6000
+    //   });
+    //   _this.showDgeneOutPoint(false);
+    //   _this.showOut = false;
+    // }, 2000);
 
     setTimeout(() => {
       _this.rotateState = 'auto';
