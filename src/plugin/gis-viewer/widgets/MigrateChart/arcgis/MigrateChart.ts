@@ -252,6 +252,9 @@ export class MigrateChart {
     let col = odJson.col;
     let _this = this;
     let busLines = await this.getODPath(params);
+    if (!this.lineClickHandler) {
+      this.imageClick();
+    }
     //console.log(busLines);
     let lines = busLines;
     if (lines.length == 0 || lines == undefined) {
@@ -345,10 +348,6 @@ export class MigrateChart {
       series: series
     };
     this.echartlayer.setChartOption(option);
-
-    if (!this.lineClickHandler) {
-      this.imageClick();
-    }
   }
   public async getODPath(id: string): Promise<Array<any>> {
     let os = odJson.os;

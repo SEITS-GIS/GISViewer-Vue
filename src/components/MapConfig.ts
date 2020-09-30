@@ -180,7 +180,7 @@ export default class MapConfig {
     //   const result = map.addOverlaysCluster(res.data);
     // });
     map.addHeatImage();
-    map.showMigrateChart('015');
+    map.showMigrateChart('001');
     // map.addDrawLayer({
     //   layerUrls: './config/fbd/morph_ksl.json',
     //   label: '快速路'
