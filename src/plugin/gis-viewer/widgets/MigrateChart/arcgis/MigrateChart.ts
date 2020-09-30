@@ -28,7 +28,7 @@ export class MigrateChart {
   ];
   private odColor = {o: 'rgba(0,255,255,255)', d: 'rgba(255,215,0,255)'};
   private lineClickHandler: any;
-  private selectid: string = '001';
+  private selectid: string = '015';
   private odValue: {min: number; max: number} = {min: 0, max: 0};
 
   private constructor(view: any) {
@@ -379,13 +379,15 @@ export class MigrateChart {
             if (dt.DESTINATION_ID == id) {
               type = 'd';
             }
+            console.log(dt.PATH_ID.toString());
+            var re = /\[|\]|\"/gi;
+            var newstr = dt.PATH_ID.toString().replace(re, '');
+            console.log(newstr);
             return {
               coords:
                 type == 'o'
-                  ? [id].concat(dt.PATH_ID.toString().split('_'))
-                  : [dt.ORIGIN_ID.toString()].concat(
-                      dt.PATH_ID.toString().split('_')
-                    ),
+                  ? [id].concat(newstr.split('_'))
+                  : [dt.ORIGIN_ID.toString()].concat(newstr.split('_')),
               value: dt.ROUTE_PEDESTRIAN_VOLUME,
               type: type
             };

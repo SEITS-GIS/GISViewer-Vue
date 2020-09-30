@@ -2,8 +2,8 @@ import axios from 'axios';
 import {GdConfig} from './GdConfig';
 //import {GisConfig} from './GisConfig';
 //import {GisConfig} from './project/config';
-import {GisConfig} from './project/configsub';
-//import {GisConfig} from './project/configyj';
+//import {GisConfig} from './project/configsub';
+import {GisConfig} from './project/configyj';
 export default class MapConfig {
   public constructor() {}
   private model_view: any;
@@ -180,7 +180,7 @@ export default class MapConfig {
     //   const result = map.addOverlaysCluster(res.data);
     // });
     map.addHeatImage();
-    map.showMigrateChart('001');
+    map.showMigrateChart('015');
     // map.addDrawLayer({
     //   layerUrls: './config/fbd/morph_ksl.json',
     //   label: '快速路'

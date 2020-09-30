@@ -21,6 +21,7 @@ export default class HeatImageGL {
   private imageOpt: any;
   private heatClickHandler: any;
   private tipTimeHangler: any;
+  private wifiMax: number = 100;
 
   private constructor(view: __esri.MapView | __esri.SceneView) {
     // Geometrical transformations that must be recomputed
@@ -61,15 +62,16 @@ export default class HeatImageGL {
     if (!params) {
       params = {};
     }
+    let points = params.points || (await this.getHeatData());
+    console.log(this.wifiMax);
     let options = params.options || {
       field: 'value',
-      radius: 50,
+      radius: 40,
       colors: undefined,
-      maxValue: 50,
+      maxValue: this.wifiMax * 15,
       minValue: 1
     };
     this.options = options;
-    let points = params.points || (await this.getHeatData());
     let imageOpt = params.images || {
       geometry: {x: -14553.805845333449, y: -4137.1518463943485},
       width: 294,
@@ -218,16 +220,20 @@ export default class HeatImageGL {
     );
   }
   public async getHeatData(): Promise<Array<any>> {
+    let max = 0;
+    let _this = this;
     return new Promise((resolve: any, reject: any) => {
       Axios.get(wifiJson.url).then((res: any) => {
         let results = new Array();
         if (res.data && res.data.length > 0) {
           results = res.data.map((dt: any) => {
+            max = Math.max(Number(dt.PEOPLE_NUM), max);
             return {
-              fields: {id: dt.WIFI_ID.toString(), value: dt.PEOPLE_NUM + 10}
+              fields: {id: dt.WIFI_ID.toString(), value: dt.PEOPLE_NUM}
             };
           });
         }
+        _this.wifiMax = max;
         resolve(results);
       });
     });

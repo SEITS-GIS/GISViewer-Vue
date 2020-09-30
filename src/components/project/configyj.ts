@@ -23,7 +23,25 @@ export let GisConfig = {
         'http://10.31.214.201:6080/arcgis/rest/services/YJZH/KuaiSuLu_fbd/MapServer',
       refreshInterval: 1,
       visible: true,
-      outFields: ['*']
+      outFields: ['*'],
+      popupTemplates: {
+        '0': {
+          title: '',
+          content: '{FSTR_DESC}'
+        },
+        '1': {
+          title: '',
+          content: '{FSTR_DESC}'
+        },
+        '2': {
+          title: '',
+          content: '{FSTR_DESC}'
+        },
+        '3': {
+          title: '',
+          content: '{FSTR_DESC}'
+        }
+      }
     },
     {
       label: '发布段指数',
