@@ -28,9 +28,9 @@ export class DgeneFusion {
     z: 45
   };
   private FlyView: any = {
-    x: 211,
-    y: 190,
-    z: 342
+    x: -63,
+    y: 251,
+    z: 311
   };
   private FlyViewOut: any = {
     x: 700,
@@ -199,11 +199,20 @@ export class DgeneFusion {
     };
     this.showLoading({content: '1%'});
     window.onkeydown = (event: any) => {
+      _this.fusion_view.stopAutoRotate();
+      _this.rotateState = 'stop';
+
+      setTimeout(() => {
+        _this.fusion_view.stopAutoRotate();
+        _this.rotateState = 'stop';
+      }, 2000);
       if (event.keyCode == 32) {
         if (_this.fusion_view) {
           _this.fusion_view.showMapSprite(); //showMapSprite hideMapSprite
           _this.showDgeneOutPoint(_this.showOut);
         }
+      } else {
+        _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
       }
     };
     this.rotateState = 'stop';
@@ -426,29 +435,25 @@ export class DgeneFusion {
 
     let carmeraCallback = params.callback;
     this.fusion_view.camFlyTo(this.originView, 1);
+    let pos = _this.FlyView;
     setTimeout(() => {
-      let pos = this.showOut ? _this.FlyViewOut : _this.FlyView;
-      _this.fusion_view.camFlyTo(pos, 5000);
-    }, 200);
-
+      _this.fusion_view.camFlyTo(pos, 2000);
+    }, 5);
     setTimeout(() => {
       _this.fusion_view.newHideOut1({
-        duration1: 100,
-        duration2: 1500,
+        duration1: 0,
+        duration2: 0,
         duration3: 1000,
-        firstPos: {x: 700, y: 700, z: 700},
+        firstPos: {x: 0, y: 0, z: 0},
         firstTar: {x: 0, y: 0, z: 0},
-        nextPos: {
-          x: -63.93155359536513,
-          y: 259.3165187210438,
-          z: 312.28570642332915
-        },
+        nextPos: _this.FlyView,
         nextTar: {x: 0, y: 0, z: 0},
         downHeight: -6000
       });
       _this.showDgeneOutPoint(false);
       _this.showOut = false;
-    }, 5000);
+    }, 2000);
+
     setTimeout(() => {
       _this.rotateState = 'auto';
       _this.fusion_view.autoRotate();
