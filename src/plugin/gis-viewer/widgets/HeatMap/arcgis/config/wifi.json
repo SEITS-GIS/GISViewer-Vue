@@ -1,5 +1,5 @@
 {
-  "url": "http://10.31.214.237:15021/utcp/trafficemgc/getWifiPeopleView",
+  "url": "http://10.31.214.237:15021/utcp/trafficemgc/getWifiPeople",
   "geo": {
     "12": {"x": 278, "y": 26},
     "8": {"x": 278, "y": 52},

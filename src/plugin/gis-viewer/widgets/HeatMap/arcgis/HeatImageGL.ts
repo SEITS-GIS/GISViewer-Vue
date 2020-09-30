@@ -68,7 +68,7 @@ export default class HeatImageGL {
       field: 'value',
       radius: 40,
       colors: undefined,
-      maxValue: this.wifiMax * 15,
+      maxValue: this.wifiMax,
       minValue: 1
     };
     this.options = options;
