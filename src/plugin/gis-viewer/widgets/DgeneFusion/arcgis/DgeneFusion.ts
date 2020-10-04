@@ -22,6 +22,7 @@ export class DgeneFusion {
   private FlyCenter: any;
   private videocode: string = 'HQ0912New';
   private loadingVm: any;
+  private keyCodes: Array<string> = new Array<string>();
   private originView: any = {
     x: 0,
     y: 2000,
@@ -212,7 +213,13 @@ export class DgeneFusion {
           _this.showDgeneOutPoint(_this.showOut);
         }
       } else {
-        _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
+        //如果存在keycode的视频融合键位,隐藏撒点
+        if (
+          _this.keyCodes.length > 0 &&
+          _this.keyCodes.indexOf(event.keyCode.toString()) > -1
+        ) {
+          _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
+        }
       }
     };
     this.rotateState = 'stop';
@@ -267,7 +274,7 @@ export class DgeneFusion {
       if (videodata) {
         for (let data in videodata) {
           let vdata = (videodata as any)[data];
-
+          _this.keyCodes.push(vdata.keyCode.toString());
           if (vdata.isreal) {
             _this.out_video.push(data);
           } else {
@@ -434,6 +441,7 @@ export class DgeneFusion {
     this.rotateState = 'stop';
 
     let carmeraCallback = params.callback;
+    this.fusion_view.showMapSprite();
     this.fusion_view.camFlyTo(this.originView, 1);
     let pos = this.showOut ? _this.FlyViewOut : _this.FlyView;
     setTimeout(() => {
@@ -490,6 +498,7 @@ export class DgeneFusion {
   }
   private changeDgeneOut() {
     let dir = this.fusion_view.getCameraPosition();
+    this.fusion_view.showMapSprite();
     if (this.showOut) {
       //当前显示外面,切换到隐藏外面
       this.fusion_view.newHideOut1({

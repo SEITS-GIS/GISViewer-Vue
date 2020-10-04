@@ -63,12 +63,12 @@ export default class HeatImageGL {
       params = {};
     }
     let points = params.points || (await this.getHeatData());
-    console.log(this.wifiMax);
     let options = params.options || {
       field: 'value',
       radius: 40,
       colors: undefined,
-      maxValue: this.wifiMax,
+      backgroundColor: 'rgb(0, 255, 0)', // '#121212'
+      maxValue: Math.max(this.wifiMax, 40),
       minValue: 1
     };
     this.options = options;
@@ -110,9 +110,10 @@ export default class HeatImageGL {
       // only container is required, the rest will be defaults
       container: heatDiv,
       radius: options.radius || 25,
+      backgroundColor: 'rgb(0, 0, 255)', // '#121212'
       gradient: this.getHeatColor(options.colors),
       maxOpacity: 1,
-      minOpacity: 0,
+      minOpacity: 0.3,
       blur: 0.75
     });
     let fieldName = options.field;
@@ -221,18 +222,34 @@ export default class HeatImageGL {
   }
   public async getHeatData(): Promise<Array<any>> {
     let max = 0;
+    let min = 1000000;
     let _this = this;
     return new Promise((resolve: any, reject: any) => {
       Axios.get(wifiJson.url).then((res: any) => {
         let results = new Array();
         if (res.data && res.data.length > 0) {
-          results = res.data.map((dt: any) => {
-            max = Math.max(Number(dt.PEOPLE_NUM), max);
+          let arr = new Array<number>(18);
+
+          res.data.forEach((dt: any) => {
+            let index = Number(dt.WIFI_ID) - 1;
+            if (arr[index]) {
+              arr[index] = arr[index] + Number(dt.PEOPLE_NUM);
+            } else {
+              arr[index] = Number(dt.PEOPLE_NUM);
+            }
+          });
+
+          results = arr.map((dt: number, num: number) => {
+            max = Math.max(Number(dt), max);
+            if (dt > 0) {
+              min = Math.min(Number(dt), min);
+            }
             return {
-              fields: {id: dt.WIFI_ID.toString(), value: dt.PEOPLE_NUM}
+              fields: {id: (num + 1).toString(), value: Math.floor(dt)}
             };
           });
         }
+        console.log('max:' + max + ',min:' + min);
         _this.wifiMax = max;
         resolve(results);
       });
@@ -249,7 +266,14 @@ export default class HeatImageGL {
       });
       return colorStops;
     } else {
-      return undefined;
+      //return undefined;
+      return {
+        0.01: 'rgb(0,255,0)',
+        0.3: 'rgb(173,255,47)',
+        0.6: 'rgb(255, 255, 0)',
+        0.8: 'rgb(255,215,0)',
+        1.0: 'rgb(255,0,0)'
+      } as any;
     }
   }
   public async startup() {
@@ -290,10 +314,11 @@ export default class HeatImageGL {
           _that.heat.innerHTML = '';
           let heatmapInstance = h337.create({
             container: _that.heat,
+            backgroundColor: 'rgb(0, 0,255)', // '#121212'
             radius: (options.radius || 25) * step,
             gradient: this.getHeatColor(options.colors),
             maxOpacity: 1,
-            minOpacity: 0,
+            minOpacity: 0.3,
             blur: 0.75
           });
           let pdata = _that.heatData.map((dt: any) => {
