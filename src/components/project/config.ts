@@ -2,19 +2,19 @@ export let GisConfig = {
   arcgis_api: 'http://localhost:8090/arcgis_js_api/library/4.14',
   theme: 'dark', //dark,vec
   baseLayers: [
-    // {
-    //   label: '深色',
-    //   type: 'tiled',
-    //   url:
-    //     'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
-    //   visible: true
-    // }
     {
       label: '深色',
-      type: 'webtiled',
-      url: 'http://114.215.146.210:25003/v3/tile?z={level}&x={col}&y={row}',
+      type: 'tiled',
+      url:
+        'https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
       visible: true
     }
+    // {
+    //   label: '深色',
+    //   type: 'webtiled',
+    //   url: 'http://114.215.146.210:25003/v3/tile?z={level}&x={col}&y={row}',
+    //   visible: true
+    // }
   ],
   operationallayers: [],
   options: {

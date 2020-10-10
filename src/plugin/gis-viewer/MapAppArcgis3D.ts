@@ -154,7 +154,12 @@ export default class MapAppArcGIS3D implements IMapContainer {
             label ||
             undefined;
         }
-        //if (id) {
+        if (
+          graphic.attributes &&
+          (graphic.attributes.isCluster || graphic.attributes.isClusterText)
+        ) {
+          return;
+        }
         this.showGisDeviceInfo(type, id, graphic.toJSON());
       } else {
         this.doIdentifyTask(event.mapPoint).then((results: any) => {

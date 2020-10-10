@@ -16,7 +16,7 @@ export class Cluster {
   private clusterLayer: any;
   public showGisDeviceInfo: any;
   private maxSingleFlareCount = 15;
-  private areaDisplayMode = 'none';
+  private areaDisplayMode = 'activated';
   private clusterGroups: Map<string, any> = new Map();
 
   private constructor(view: any) {
@@ -129,6 +129,7 @@ export class Cluster {
       SpatialReference,
       PopupTemplate,
       ClassBreaksRenderer,
+      PictureMarkerSymbol,
       SimpleFillSymbol,
       SimpleLineSymbol,
       SimpleMarkerSymbol,
@@ -139,6 +140,7 @@ export class Cluster {
       'esri/geometry/SpatialReference',
       'esri/PopupTemplate',
       'esri/renderers/ClassBreaksRenderer',
+      'esri/symbols/PictureMarkerSymbol',
       'esri/symbols/SimpleFillSymbol',
       'esri/symbols/SimpleLineSymbol',
       'esri/symbols/SimpleMarkerSymbol',
@@ -149,7 +151,8 @@ export class Cluster {
     //init the layer, more options are available and explained in the cluster layer constructor
 
     //set up a class breaks renderer to render different symbols based on the cluster count. Use the required clusterCount property to break on.
-    let defaultSym = params.defaultSymbol;
+    let defaultSym = params.defaultSymbol; //params.defaultSymbol;
+    defaultSym.type = 'picture-marker';
 
     let renderer = new ClassBreaksRenderer({
       defaultSymbol: defaultSym
@@ -282,12 +285,6 @@ export class Cluster {
     clusterLayer.label = params.type;
     this.view.map.add(clusterLayer);
     this.clusterGroups.set(params.type, clusterLayer);
-    this.view.on('click', async (event: any) => {
-      const response = await this.view.hitTest(event);
-      if (response.results.length > 0) {
-        console.log(response.results);
-      }
-    });
   }
 
   private clearLayer(types: string[] | undefined) {

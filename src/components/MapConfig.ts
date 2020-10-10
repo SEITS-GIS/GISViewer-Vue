@@ -1,9 +1,9 @@
 import axios from 'axios';
 import {GdConfig} from './GdConfig';
 //import {GisConfig} from './GisConfig';
-//import {GisConfig} from './project/config';
+import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
-import {GisConfig} from './project/configyj';
+//import {GisConfig} from './project/configyj';
 export default class MapConfig {
   public constructor() {}
   private model_view: any;
@@ -11,37 +11,37 @@ export default class MapConfig {
   public gdConfig: any = GdConfig;
   public async mapLoaded(map: any) {
     let _this = this;
-    map
-      .addDgeneFusion({
-        appendDomID: 'gisDiv',
-        url: 'dgene',
-        showOut: true,
-        outvideo: true,
-        callback: (a: number, b: number) => {
-          console.log(a, b);
-        }
-      })
-      .then((e: any) => {
-        console.log('载入成功', e.result);
-        _this.model_view = e.result;
-        map.addOverlays({
-          type: 'model3d',
-          defaultSymbol: {
-            type: 'point-2d',
-            url: 'assets/image/Anchor.png',
-            size: [50, 50],
-            anchor: 'center'
-          },
-          overlays: [
-            {
-              id: 'model1',
-              geometry: {x: -14071.811607336222, y: -4342.546650737293},
-              fields: {}
-            }
-          ],
-          iswgs: false
-        });
-      }); //载入3维模型
+    // map
+    //   .addDgeneFusion({
+    //     appendDomID: 'gisDiv',
+    //     url: 'dgene',
+    //     showOut: true,
+    //     outvideo: true,
+    //     callback: (a: number, b: number) => {
+    //       console.log(a, b);
+    //     }
+    //   })
+    //   .then((e: any) => {
+    //     console.log('载入成功', e.result);
+    //     _this.model_view = e.result;
+    //     map.addOverlays({
+    //       type: 'model3d',
+    //       defaultSymbol: {
+    //         type: 'point-2d',
+    //         url: 'assets/image/Anchor.png',
+    //         size: [50, 50],
+    //         anchor: 'center'
+    //       },
+    //       overlays: [
+    //         {
+    //           id: 'model1',
+    //           geometry: {x: -14071.811607336222, y: -4342.546650737293},
+    //           fields: {}
+    //         }
+    //       ],
+    //       iswgs: false
+    //     });
+    //   }); //载入3维模型
 
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
@@ -143,9 +143,9 @@ export default class MapConfig {
     //const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
-    if (this.model_view) {
-      map.showDgeneOutPoint(false);
-    }
+    // if (this.model_view) {
+    //   this.model_view.setCanvasSize(1920, 1080);
+    // }
     //map.showMigrateChart();
 
     //const result = map.addOverlays(points);
@@ -179,8 +179,8 @@ export default class MapConfig {
     //   };
     //   const result = map.addOverlaysCluster(res.data);
     // });
-    map.addHeatImage();
-    map.showMigrateChart('001');
+    //map.addHeatImage();
+    //map.showMigrateChart('001');
     // map.addDrawLayer({
     //   layerUrls: './config/fbd/morph_ksl.json',
     //   label: '快速路'

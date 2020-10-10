@@ -181,6 +181,12 @@ export default class MapAppArcGIS2D {
             undefined;
         }
         //if (id) {
+        if (
+          graphic.attributes &&
+          (graphic.attributes.isCluster || graphic.attributes.isClusterText)
+        ) {
+          return;
+        }
         this.showGisDeviceInfo(type, id, graphic.toJSON());
         this.showSubBar(graphic.layer, event.mapPoint, graphic);
       } else {

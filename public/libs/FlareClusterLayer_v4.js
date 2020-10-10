@@ -1,4 +1,7 @@
 /// <reference path="../typings/index.d.ts" />
+
+const {Extent} = require('esri/geometry');
+
 var __extends =
   (this && this.__extends) ||
   (function() {
@@ -235,6 +238,10 @@ define([
       var _this = _super.call(this, options) || this;
       _this._viewLoadCount = 0;
       _this._clusters = {};
+      _this.eventzoom = -1;
+      _this.isdrawall = true;
+      _this.allExtent = undefined;
+      _this.areaGrphics = [];
       // set the defaults
       if (!options) {
         // missing required parameters
@@ -325,7 +332,7 @@ define([
           c,
           view
         ) {
-          return _this._viewStationary(isStationary, b, c, view);
+          _this._viewStationary(isStationary, b, c, view);
         });
       }
       if (this._viewLoadCount === 0) {
@@ -361,12 +368,17 @@ define([
           container = query('canvas', v.container)[0];
         }
         // Add pointer move and pointer down. Pointer down to handle touch devices.
-        v.fclPointerMove = v.on('pointer-move', function(evt) {
-          return _this._viewPointerMove(evt);
+
+        v.fclPointerClick = v.on('click', function(evt) {
+          return _this._viewPointerClick(evt);
         });
-        v.fclPointerDown = v.on('pointer-down', function(evt) {
-          return _this._viewPointerMove(evt);
-        });
+        // v.fclPointerMove = v.on('pointer-move', function(evt) {
+
+        // });
+        // v.fclPointerDown = v.on('pointer-down', function(evt) {
+        //   console.log('e');
+        //   return _this._viewPointerMove(evt);
+        // });
       }
     };
     FlareClusterLayer.prototype._viewStationary = function(
@@ -375,9 +387,37 @@ define([
       c,
       view
     ) {
+      this._getAllExtent();
       if (isStationary) {
-        if (this._data) {
-          this.draw();
+        if (this._activeView.type == '2d') {
+          if (this.eventzoom !== view.zoom) {
+            //放大缩小,需要重绘
+            if (this._data) {
+              this.draw();
+            }
+            this.isdrawall = this._activeView.extent.contains(this.allExtent);
+            this.eventzoom = view.zoom;
+          } else {
+            if (!this._activeView.extent.contains(this.allExtent)) {
+              //只画了部分
+              if (this._data) {
+                this.draw();
+              }
+              this.isdrawall = false;
+            } else {
+              //只画了部分之后,需要重绘
+              if (!this.isdrawall) {
+                if (this._data) {
+                  this.draw();
+                }
+              }
+              this.isdrawall = true;
+            }
+          }
+        } else {
+          if (this._data) {
+            this.draw();
+          }
         }
       }
       if (!isStationary && this._activeCluster) {
@@ -386,7 +426,25 @@ define([
       }
     };
     FlareClusterLayer.prototype.clear = function() {
-      this.removeAll();
+      //this.removeAll();
+      var _this = this;
+      var dels = [];
+      var areadel = [];
+      if (this.graphics && this.graphics.items.length > 0) {
+        this.graphics.items.forEach(function(a) {
+          if (a.geometry.type === 'point') {
+            dels.push(a);
+          } else {
+            areadel.push(a);
+          }
+        });
+        this.removeMany(dels);
+        setTimeout(function() {
+          _this.removeMany(areadel);
+          areadel = [];
+        }, 800);
+        dels = [];
+      }
       this._clusters = {};
     };
     FlareClusterLayer.prototype.setData = function(data, drawData) {
@@ -396,6 +454,30 @@ define([
       this._data = data;
       if (drawData) {
         this.draw();
+      }
+    };
+    FlareClusterLayer.prototype._getAllExtent = function() {
+      if (!this.allExtent) {
+        var data = this._data;
+        var xmin = 100000000;
+        var xmax = 0;
+        var ymin = 100000000;
+        var ymax = 0;
+        for (var i = 0; i < data.length; i++) {
+          var d = data[i];
+          xmin = Math.min(xmin, Number(d.x));
+          xmax = Math.max(xmax, Number(d.x));
+
+          ymin = Math.min(ymin, Number(d.y));
+          ymax = Math.max(ymax, Number(d.y));
+        }
+        var wkid = this._activeView.spatialReference.isWebMercator
+          ? 102100
+          : 4326;
+        this.allExtent = webMercatorUtils.project(
+          new Extent({xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax}),
+          new SpatialReference({wkid: wkid})
+        );
       }
     };
     FlareClusterLayer.prototype.draw = function(activeView) {
@@ -818,6 +900,63 @@ define([
         }
       });
     };
+    FlareClusterLayer.prototype._viewPointerClick = function(evt) {
+      var _this = this;
+      var mousePos = this._getMousePos(evt);
+      // if there's an active cluster and the current screen pos is within the bounds of that cluster's group container, don't do anything more.
+      // TODO: would probably be better to check if the point is in the actual circle of the cluster group and it's flares instead of using the rectanglar bounding box.
+      if (this._activeCluster && this._activeCluster.clusterGroup) {
+        var bbox = this._activeCluster.clusterGroup.rawNode.getBoundingClientRect();
+        if (bbox) {
+          if (
+            mousePos.x >= bbox.left &&
+            mousePos.x <= bbox.right &&
+            mousePos.y >= bbox.top &&
+            mousePos.y <= bbox.bottom
+          )
+            return;
+        }
+      }
+      if (!this._activeView.ready) return;
+      var hitTest = this._activeView.hitTest(mousePos);
+      if (!hitTest) return;
+      hitTest.then(function(response) {
+        var graphics = response.results;
+        if (graphics.length === 0) {
+          _this._deactivateCluster();
+          return;
+        }
+        for (var i = 0, len = graphics.length; i < len; i++) {
+          var g = graphics[i].graphic;
+          if (
+            g &&
+            g.attributes.clusterId != null &&
+            !g.attributes.isClusterArea
+          ) {
+            var cluster = _this._clusters[g.attributes.clusterId];
+            var extent = cluster.gridCluster.extent;
+            if (_this.clusterAreaDisplay === 'activated') {
+              _this._showGraphic(cluster.areaGraphic);
+            }
+            var wkid = _this._activeView.spatialReference.isWebMercator
+              ? 102100
+              : 4326;
+            _this._activeView.goTo({
+              target: new Extent({
+                xmin: extent.xmin,
+                ymin: extent.ymin,
+                xmax: extent.xmax,
+                ymax: extent.ymax,
+                spatialReference: new SpatialReference({wkid: wkid})
+              })
+            });
+            return;
+          } else {
+            _this._deactivateCluster();
+          }
+        }
+      });
+    };
     FlareClusterLayer.prototype._activateCluster = function(cluster) {
       if (this._activeCluster === cluster) {
         return; // already active
@@ -1176,7 +1315,7 @@ define([
                       ];
                     case 2:
                       flareTextElement = _a.sent();
-                      flareTextElement.setAttribute('pointer-events', 'none');
+                      //flareTextElement.setAttribute('pointer-events', 'none');
                       f.flareGroup.rawNode.appendChild(flareTextElement);
                       _a.label = 3;
                     case 3:
@@ -1337,7 +1476,7 @@ define([
                     weight: this.flareTextSymbol.font.get('weight')
                   });
                 textShapes.push(textShape);
-                textShape.rawNode.setAttribute('pointer-events', 'none');
+                //textShape.rawNode.setAttribute('pointer-events', 'none');
               }
               rectPadding = 2;
               textBox = tooltipGroup.getBoundingBox();
@@ -1356,7 +1495,7 @@ define([
                   width: 0.5
                 });
               }
-              rectShape.rawNode.setAttribute('pointer-events', 'none');
+              //rectShape.rawNode.setAttribute('pointer-events', 'none');
               flareGroup.moveToFront();
               for (i = 0, len = textShapes.length; i < len; i++) {
                 textShapes[i].moveToFront();
