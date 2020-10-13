@@ -241,7 +241,7 @@ export default class MapConfig {
           },
           {
             geometry: {x: 121.479706, y: 31.396507},
-            fields: {content: ')'}
+            fields: {content: ''}
           }
         ],
         showDir: true
