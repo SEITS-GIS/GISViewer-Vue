@@ -5,12 +5,12 @@ export let GisConfig = {
     {
       label: '深色底图',
       type: 'tiled',
-      url: 'https://10.89.1.99/arcgis/rest/services/bj_xxb/MapServer',
+      url: 'https://10.31.214.248/server/rest/services/bj_xxb/MapServer',
       visible: true
     },
     {
       label: '标线',
-      url: 'https://10.89.1.99/arcgis/rest/services/bx/MapServer',
+      url: 'https://10.31.214.248/server/rest/services/bx/MapServer',
       type: 'tiled',
       visible: true
     }
@@ -123,231 +123,231 @@ export let GisConfig = {
     },
     {
       label: '快速路摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/1',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/1',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '快速路摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/2',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/2',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '快速路摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/3',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/3',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '快速路摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/4',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/4',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '高架摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/6',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/6',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '高架摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/7',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/7',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '高架摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/8',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/8',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '高架摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/9',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/9',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '高架摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/10',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/10',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '地面摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/12',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/12',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '地面摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/13',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/13',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '地面摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/14',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/14',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '地面摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/15',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/15',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '地面摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/16',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/16',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '地面摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/17',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/17',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '主线情报板',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/19',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/19',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '主线情报板',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/20',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/20',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '匝道情报板',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/21',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/21',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '高速情报板',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/22',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/22',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '地面情报板',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/24',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/24',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '地面情报板',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/25',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/25',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '高速收费站',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/27',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/27',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '高速收费站',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/28',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/28',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '高速收费站',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/29',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/29',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '高速收费站',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/30',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/30',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '高速收费站',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/31',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/31',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '匝道通行灯',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/33',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/33',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '匝道通行灯',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/34',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/34',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '匝道通行灯',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/35',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/35',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '匝道通行灯',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/36',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/36',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '匝道通行灯',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/37',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/37',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '匝道通行灯',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/38',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/38',
       type: 'feature',
       outFields: ['*'],
       visible: false
     },
     {
       label: '匝道通行灯',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer/39',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer/39',
       type: 'feature',
       outFields: ['*'],
       visible: false
@@ -355,7 +355,7 @@ export let GisConfig = {
 
     {
       label: '摄像机',
-      url: 'https://10.89.1.99/arcgis/rest/services/sssb_dpt/MapServer',
+      url: 'https://10.31.214.248/server/rest/services/sssb_dpt/MapServer',
       type: 'dynamic',
       visible: false,
       popupTemplates: {

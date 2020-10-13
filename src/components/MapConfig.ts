@@ -326,7 +326,7 @@ export default class MapConfig {
     // axios.get('config/point1.json').then((res: any) => {
     //   map.addOverlays(res.data);
     // });
-    axios.get('config/as.json').then((res: any) => {
+    axios.get('config/aaa.json').then((res: any) => {
       map.addOverlaysCluster(res.data);
     });
     //axios.get("config/Jurisdiction/bsga_v2.geo.json").then((res: any) => {

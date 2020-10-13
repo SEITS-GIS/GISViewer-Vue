@@ -80,10 +80,19 @@ export class Cluster {
     });
     let defaultSym = {};
     if (params.defaultSymbol) {
+      let width =
+        params.defaultSymbol.width || params.defaultSymbol.size instanceof Array
+          ? (params.defaultSymbol.size as number[])[0]
+          : params.defaultSymbol.size;
+      let height =
+        params.defaultSymbol.height ||
+        params.defaultSymbol.size instanceof Array
+          ? (params.defaultSymbol.size as number[])[1]
+          : params.defaultSymbol.size;
       defaultSym = {
         type: 'picture-marker',
-        width: params.defaultSymbol.width + 'px',
-        height: params.defaultSymbol.height + 'px',
+        width: width || 30 + 'px',
+        height: height || 30 + 'px',
         url: params.defaultSymbol.url,
         xoffset: params.defaultSymbol.xoffset || 0,
         yoffset: params.defaultSymbol.yoffset || 0

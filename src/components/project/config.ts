@@ -16,7 +16,30 @@ export let GisConfig = {
     //   visible: true
     // }
   ],
-  operationallayers: [],
+  operationallayers: [
+    {
+      label: '接驳线',
+      type: 'dynamic',
+      url:
+        'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/ShangHai_jieboxian/MapServer',
+      refreshInterval: 1,
+      visible: true,
+      outFields: ['*']
+    },
+    {
+      label: '接驳线1',
+      type: 'feature',
+      url:
+        'http://172.30.30.1:6080/arcgis/rest/services/ShangHaiHarbour/ShangHai_jieboxian/MapServer/1',
+      refreshInterval: 1,
+      visible: false,
+      outFields: ['*'],
+      popupTemplate: {
+        title: '',
+        content: '{FEATURENAME}'
+      }
+    }
+  ],
   options: {
     center: [121.24, 31.235],
     zoom: 12,

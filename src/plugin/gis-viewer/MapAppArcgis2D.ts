@@ -43,6 +43,7 @@ export default class MapAppArcGIS2D {
   public mapClick: any;
   public showFlow: boolean = false;
   private tolerance: number = 3;
+  private HighlightLayer!: __esri.GraphicsLayer;
 
   public async initialize(gisConfig: any, mapContainer: string): Promise<void> {
     //路由跳转是delete mapConfig属性导致报错
@@ -64,6 +65,7 @@ export default class MapAppArcGIS2D {
       typeof import('esri/views/MapView'),
       typeof import('esri/Basemap'),
       typeof import('esri/Map'),
+      typeof import('esri/Graphic'),
       typeof import('esri/layers/TileLayer'),
       typeof import('esri/layers/WebTileLayer'),
       typeof import('esri/layers/MapImageLayer'),
@@ -74,6 +76,7 @@ export default class MapAppArcGIS2D {
       MapView,
       Basemap,
       Map,
+      Graphic,
       TileLayer,
       WebTileLayer,
       MapImageLayer,
@@ -83,6 +86,7 @@ export default class MapAppArcGIS2D {
       'esri/views/MapView',
       'esri/Basemap',
       'esri/Map',
+      'esri/Graphic',
       'esri/layers/TileLayer',
       'esri/layers/WebTileLayer',
       'esri/layers/MapImageLayer',
@@ -139,6 +143,9 @@ export default class MapAppArcGIS2D {
     });
     view.on('click', async (event) => {
       this.hideBarChart();
+      if (this.HighlightLayer) {
+        this.HighlightLayer.removeAll();
+      }
       if (event.mapPoint) {
         let mp = event.mapPoint;
         this.mapClick({
@@ -211,6 +218,16 @@ export default class MapAppArcGIS2D {
               res.feature.attributes[res.displayFieldName];
             //res.feature.attributes.geometry = res.feature.geometry;
             this.showGisDeviceInfo(layername, id, res.feature);
+            this.HighlightLayer.add(
+              new Graphic({
+                geometry: res.feature.geometry,
+                symbol: {
+                  type: 'simple-line', // autocasts as SimpleLineSymbol()
+                  color: [226, 119, 40],
+                  width: 4
+                } as any
+              })
+            );
             let selectLayer = this.getLayerByName(layername, layerid);
             if (selectLayer.popupTemplates) {
               this.showSubBar(selectLayer, event.mapPoint, res.feature);
@@ -384,6 +401,7 @@ export default class MapAppArcGIS2D {
   private async createLayer(view: __esri.MapView, layers: any) {
     type MapModules = [
       typeof import('esri/layers/FeatureLayer'),
+      typeof import('esri/layers/GraphicsLayer'),
       typeof import('esri/layers/WebTileLayer'),
       typeof import('esri/layers/MapImageLayer'),
       typeof import('esri/layers/WMSLayer'),
@@ -395,6 +413,7 @@ export default class MapAppArcGIS2D {
     ];
     const [
       FeatureLayer,
+      GraphicsLayer,
       WebTileLayer,
       MapImageLayer,
       WMSLayer,
@@ -405,6 +424,7 @@ export default class MapAppArcGIS2D {
       TextSymbol
     ] = await (loadModules([
       'esri/layers/FeatureLayer',
+      'esri/layers/GraphicsLayer',
       'esri/layers/WebTileLayer',
       'esri/layers/MapImageLayer',
       'esri/layers/WMSLayer',
@@ -456,6 +476,8 @@ export default class MapAppArcGIS2D {
           return layer !== undefined;
         })
     );
+    this.HighlightLayer = new GraphicsLayer();
+    this.view.map.add(this.HighlightLayer);
   }
   public async showSubwayFlow() {
     const flow = SubwayLine.getInstance(this.view);
