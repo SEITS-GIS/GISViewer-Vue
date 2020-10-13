@@ -4,6 +4,9 @@
   background: url(../assets/images/td2.png) no-repeat;
   background-size: 100% 100%;
 }
+.td-point-detail-hide {
+  display: none;
+}
 
 .td-point .td-point-content .td-point-detail-wrap {
   width: 100%;

@@ -120,6 +120,9 @@ export default class RoutePoint {
     }, this);
   }
   private getRoadName(str: string): string {
+    if (str == undefined || str == '') {
+      return '';
+    }
     let text = str.replace(/[0-9]/gi, '');
     let road = text;
     if (text.indexOf('(') > -1) {
@@ -142,10 +145,15 @@ export default class RoutePoint {
     let points = params.points;
     let showDir = params.showDir === true;
     let paths = new Array();
+
     points.forEach((point: any) => {
       paths.push([point.geometry.x, point.geometry.y]);
       if (point.fields) {
         let content = point.fields.content;
+        let hideStyle = '';
+        if (content == undefined || content == '') {
+          hideStyle = 'td-point-detail-hide';
+        }
         let count = point.fields.count;
         let type = point.fields.type && point.fields.type === '1' ? 'y' : '';
         let dir = '';
@@ -162,6 +170,8 @@ export default class RoutePoint {
           type +
           '">' +
           ' <div class="td-point-detail-wrap ' +
+          hideStyle +
+          ' ' +
           type +
           '">' +
           '    <div class="td-point-detail-line ' +

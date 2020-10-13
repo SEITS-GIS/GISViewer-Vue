@@ -204,15 +204,15 @@ export default class MapConfig {
         points: [
           {
             geometry: {x: 121.487563, y: 31.395083},
-            fields: {content: '牡丹江路-海江路(西向东)'}
+            fields: {content: ''}
           },
           {
             geometry: {x: 121.481867, y: 31.392274},
-            fields: {content: '同济路-海江路(北向南)'}
+            fields: {content: ''}
           },
           {
             geometry: {x: 121.479625, y: 31.39665},
-            fields: {content: '同济路-宝杨路(南向北)'}
+            fields: {content: ''}
           }
         ],
         showDir: true,
@@ -224,24 +224,24 @@ export default class MapConfig {
           {
             geometry: {x: 121.490726, y: 31.378321},
             fields: {
-              content: '同济路-同济支路(南向北)'
+              content: ''
             }
           },
           {
             geometry: {x: 121.488117, y: 31.382392},
-            fields: {content: '同济路-水产路(南向北)'}
+            fields: {content: ''}
           },
           {
             geometry: {x: 121.485499, y: 31.386555},
-            fields: {content: '同济路-双城路(南向北)'}
+            fields: {content: ''}
           },
           {
             geometry: {x: 121.481947, y: 31.392143},
-            fields: {content: '同济路-海江路(南向北)'}
+            fields: {content: ''}
           },
           {
             geometry: {x: 121.479706, y: 31.396507},
-            fields: {content: '同济路-宝杨路(南向北)'}
+            fields: {content: ')'}
           }
         ],
         showDir: true
@@ -299,8 +299,7 @@ export default class MapConfig {
             fields: {content: '同济路-水产路(西向东)1'}
           },
           {
-            geometry: {x: 121.490515, y: 31.378166},
-            fields: {content: '同济路-同济支路(东向西)1'}
+            geometry: {x: 121.490515, y: 31.378166}
           }
         ],
         showDir: true
@@ -326,7 +325,7 @@ export default class MapConfig {
     // axios.get('config/point1.json').then((res: any) => {
     //   map.addOverlays(res.data);
     // });
-    axios.get('config/aaa.json').then((res: any) => {
+    axios.get('config/as.json').then((res: any) => {
       map.addOverlaysCluster(res.data);
     });
     //axios.get("config/Jurisdiction/bsga_v2.geo.json").then((res: any) => {
