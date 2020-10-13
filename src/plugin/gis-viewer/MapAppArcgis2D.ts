@@ -218,16 +218,16 @@ export default class MapAppArcGIS2D {
               res.feature.attributes[res.displayFieldName];
             //res.feature.attributes.geometry = res.feature.geometry;
             this.showGisDeviceInfo(layername, id, res.feature);
-            this.HighlightLayer.add(
-              new Graphic({
-                geometry: res.feature.geometry,
-                symbol: {
-                  type: 'simple-line', // autocasts as SimpleLineSymbol()
-                  color: [226, 119, 40],
-                  width: 4
-                } as any
-              })
-            );
+            // this.HighlightLayer.add(
+            //   new Graphic({
+            //     geometry: res.feature.geometry,
+            //     symbol: {
+            //       type: 'simple-line', // autocasts as SimpleLineSymbol()
+            //       color: [226, 119, 40],
+            //       width: 4
+            //     } as any
+            //   })
+            // );
             let selectLayer = this.getLayerByName(layername, layerid);
             if (selectLayer.popupTemplates) {
               this.showSubBar(selectLayer, event.mapPoint, res.feature);
