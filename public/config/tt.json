@@ -1,0 +1,5676 @@
+{
+  "type": "police",
+  "defaultSymbol": {
+    "type": "point",
+    "url": "imgs/gis/police.png",
+    "size": [30, 40]
+  },
+  "overlays": [
+    {
+      "id": "011740",
+      "geometry": {"x": 121.56468012, "y": 31.34165112},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011740"},
+          {"key": "警员姓名", "value": "赵露斌"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:37"}
+        ],
+        "textField": "显示文字"
+      },
+      "properties": {
+        "policeSn": "011740",
+        "policeName": "赵露斌",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.56468012,
+        "latitude": 31.34165112,
+        "gpsTime": "2020-10-14 13:14:37",
+        "sjdbh": "202010111844175022833424",
+        "zs": 1
+      }
+    },
+    {
+      "id": "011645",
+      "geometry": {"x": 121.773648, "y": 31.189768},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011645"},
+          {"key": "警员姓名", "value": "孙义"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:07"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011645",
+        "policeName": "孙义",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.773648,
+        "latitude": 31.189768,
+        "gpsTime": "2020-10-14 13:16:07",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058333",
+      "geometry": {"x": 121.580333, "y": 31.151905},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058333"},
+          {"key": "警员姓名", "value": "林秀国"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:45"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058333",
+        "policeName": "林秀国",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.580333,
+        "latitude": 31.151905,
+        "gpsTime": "2020-10-14 13:15:45",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010171",
+      "geometry": {"x": 121.505656, "y": 31.1760385},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010171"},
+          {"key": "警员姓名", "value": "李正伟"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:25"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010171",
+        "policeName": "李正伟",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.505656,
+        "latitude": 31.1760385,
+        "gpsTime": "2020-10-14 13:12:25",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057690",
+      "geometry": {"x": 121.5604465, "y": 31.208325},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057690"},
+          {"key": "警员姓名", "value": "沈慧星"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:11:27"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057690",
+        "policeName": "沈慧星",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.5604465,
+        "latitude": 31.208325,
+        "gpsTime": "2020-10-14 13:11:27",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011596",
+      "geometry": {"x": 121.5087075, "y": 31.12768},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011596"},
+          {"key": "警员姓名", "value": "沈晨玮"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:47"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011596",
+        "policeName": "沈晨玮",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.5087075,
+        "latitude": 31.12768,
+        "gpsTime": "2020-10-14 13:14:47",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057566",
+      "geometry": {"x": 121.5887205, "y": 31.112752},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057566"},
+          {"key": "警员姓名", "value": "方勤"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:32"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057566",
+        "policeName": "方勤",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5887205,
+        "latitude": 31.112752,
+        "gpsTime": "2020-10-14 13:16:32",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011512",
+      "geometry": {"x": 121.57228066, "y": 31.12383282},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011512"},
+          {"key": "警员姓名", "value": "单海江"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:23"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011512",
+        "policeName": "单海江",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.57228066,
+        "latitude": 31.12383282,
+        "gpsTime": "2020-10-14 13:13:23",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057419",
+      "geometry": {"x": 121.74827971, "y": 31.05867189},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057419"},
+          {"key": "警员姓名", "value": "李海浪"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:09:12"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057419",
+        "policeName": "李海浪",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.74827971,
+        "latitude": 31.05867189,
+        "gpsTime": "2020-10-14 13:09:12",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057701",
+      "geometry": {"x": 121.5394105, "y": 31.121444},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057701"},
+          {"key": "警员姓名", "value": "周晨晖"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:04:06"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057701",
+        "policeName": "周晨晖",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5394105,
+        "latitude": 31.121444,
+        "gpsTime": "2020-10-14 13:04:06",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057826",
+      "geometry": {"x": 121.7185615, "y": 31.0893795},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057826"},
+          {"key": "警员姓名", "value": "计春丽"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:18"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057826",
+        "policeName": "计春丽",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.7185615,
+        "latitude": 31.0893795,
+        "gpsTime": "2020-10-14 13:16:18",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012080",
+      "geometry": {"x": 121.533921, "y": 31.178924},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012080"},
+          {"key": "警员姓名", "value": "黄晓骏"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:19"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012080",
+        "policeName": "黄晓骏",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.533921,
+        "latitude": 31.178924,
+        "gpsTime": "2020-10-14 13:16:19",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013121",
+      "geometry": {"x": 121.7735755, "y": 31.1891335},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013121"},
+          {"key": "警员姓名", "value": "张威"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:19"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013121",
+        "policeName": "张威",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.7735755,
+        "latitude": 31.1891335,
+        "gpsTime": "2020-10-14 13:16:19",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058914",
+      "geometry": {"x": 121.5119332, "y": 31.23902395},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058914"},
+          {"key": "警员姓名", "value": "姚毅"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:30"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058914",
+        "policeName": "姚毅",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5119332,
+        "latitude": 31.23902395,
+        "gpsTime": "2020-10-14 13:15:30",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011677",
+      "geometry": {"x": 121.7735115, "y": 31.190462},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011677"},
+          {"key": "警员姓名", "value": "周刚"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:07"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011677",
+        "policeName": "周刚",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.7735115,
+        "latitude": 31.190462,
+        "gpsTime": "2020-10-14 13:13:07",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011406",
+      "geometry": {"x": 121.5783475, "y": 31.333054},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011406"},
+          {"key": "警员姓名", "value": "赵轶俊"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:03"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011406",
+        "policeName": "赵轶俊",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.5783475,
+        "latitude": 31.333054,
+        "gpsTime": "2020-10-14 13:14:03",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013913",
+      "geometry": {"x": 121.5050295, "y": 31.1767345},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013913"},
+          {"key": "警员姓名", "value": "唐立军"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:24"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013913",
+        "policeName": "唐立军",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.5050295,
+        "latitude": 31.1767345,
+        "gpsTime": "2020-10-14 13:16:24",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011332",
+      "geometry": {"x": 121.557495, "y": 31.244175},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011332"},
+          {"key": "警员姓名", "value": "徐瑞森"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:10:22"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011332",
+        "policeName": "徐瑞森",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.557495,
+        "latitude": 31.244175,
+        "gpsTime": "2020-10-14 13:10:22",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011443",
+      "geometry": {"x": 121.5648265, "y": 31.342389},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011443"},
+          {"key": "警员姓名", "value": "赵文侠"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:22"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011443",
+        "policeName": "赵文侠",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.5648265,
+        "latitude": 31.342389,
+        "gpsTime": "2020-10-14 13:13:22",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057100",
+      "geometry": {"x": 121.5845585, "y": 31.1107785},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057100"},
+          {"key": "警员姓名", "value": "王伟"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:03"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057100",
+        "policeName": "王伟",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5845585,
+        "latitude": 31.1107785,
+        "gpsTime": "2020-10-14 13:16:03",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011675",
+      "geometry": {"x": 121.564829, "y": 31.340443},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011675"},
+          {"key": "警员姓名", "value": "钟晓龙"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:29"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011675",
+        "policeName": "钟晓龙",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.564829,
+        "latitude": 31.340443,
+        "gpsTime": "2020-10-14 13:16:29",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011894",
+      "geometry": {"x": 121.6426075, "y": 31.174455},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011894"},
+          {"key": "警员姓名", "value": "许军"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:19"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011894",
+        "policeName": "许军",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.6426075,
+        "latitude": 31.174455,
+        "gpsTime": "2020-10-14 13:16:19",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013356",
+      "geometry": {"x": 121.509065, "y": 31.124228},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013356"},
+          {"key": "警员姓名", "value": "吴斌"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:07:49"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013356",
+        "policeName": "吴斌",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.509065,
+        "latitude": 31.124228,
+        "gpsTime": "2020-10-14 13:07:49",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012437",
+      "geometry": {"x": 121.5732, "y": 31.030646},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012437"},
+          {"key": "警员姓名", "value": "董春丹"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:50"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012437",
+        "policeName": "董春丹",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5732,
+        "latitude": 31.030646,
+        "gpsTime": "2020-10-14 13:15:50",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058442",
+      "geometry": {"x": 121.573034, "y": 31.030438},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058442"},
+          {"key": "警员姓名", "value": "贾建国"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:10"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058442",
+        "policeName": "贾建国",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.573034,
+        "latitude": 31.030438,
+        "gpsTime": "2020-10-14 13:16:10",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058022",
+      "geometry": {"x": 121.453069, "y": 31.341101},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058022"},
+          {"key": "警员姓名", "value": "张剑勇"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:06"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058022",
+        "policeName": "张剑勇",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.453069,
+        "latitude": 31.341101,
+        "gpsTime": "2020-10-14 13:16:06",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011956",
+      "geometry": {"x": 121.6880125, "y": 31.2017845},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011956"},
+          {"key": "警员姓名", "value": "朱屹峰"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:16"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011956",
+        "policeName": "朱屹峰",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.6880125,
+        "latitude": 31.2017845,
+        "gpsTime": "2020-10-14 13:14:16",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012707",
+      "geometry": {"x": 121.5029565, "y": 31.178487},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012707"},
+          {"key": "警员姓名", "value": "邱纯杰"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:08"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012707",
+        "policeName": "邱纯杰",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.5029565,
+        "latitude": 31.178487,
+        "gpsTime": "2020-10-14 13:15:08",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011349",
+      "geometry": {"x": 121.497397, "y": 31.238096},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011349"},
+          {"key": "警员姓名", "value": "刘剑"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:23"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011349",
+        "policeName": "刘剑",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.497397,
+        "latitude": 31.238096,
+        "gpsTime": "2020-10-14 13:16:23",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057380",
+      "geometry": {"x": 121.7185615, "y": 31.0893795},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057380"},
+          {"key": "警员姓名", "value": "唐卫军"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:06"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057380",
+        "policeName": "唐卫军",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.7185615,
+        "latitude": 31.0893795,
+        "gpsTime": "2020-10-14 13:16:06",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013073",
+      "geometry": {"x": 121.77371436, "y": 31.19089418},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013073"},
+          {"key": "警员姓名", "value": "陆啸盛"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:06"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013073",
+        "policeName": "陆啸盛",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.77371436,
+        "latitude": 31.19089418,
+        "gpsTime": "2020-10-14 13:16:06",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011812",
+      "geometry": {"x": 121.577642, "y": 31.3329355},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011812"},
+          {"key": "警员姓名", "value": "陈丰有"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:49"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011812",
+        "policeName": "陈丰有",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.577642,
+        "latitude": 31.3329355,
+        "gpsTime": "2020-10-14 13:14:49",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011246",
+      "geometry": {"x": 121.6866845, "y": 31.202429},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011246"},
+          {"key": "警员姓名", "value": "陆军"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:55"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011246",
+        "policeName": "陆军",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.6866845,
+        "latitude": 31.202429,
+        "gpsTime": "2020-10-14 13:12:55",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057374",
+      "geometry": {"x": 121.5887205, "y": 31.112752},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057374"},
+          {"key": "警员姓名", "value": "方桂根"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:07:16"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057374",
+        "policeName": "方桂根",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5887205,
+        "latitude": 31.112752,
+        "gpsTime": "2020-10-14 13:07:16",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011267",
+      "geometry": {"x": 121.5872115, "y": 31.3561365},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011267"},
+          {"key": "警员姓名", "value": "顾永斌"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:53"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011267",
+        "policeName": "顾永斌",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.5872115,
+        "latitude": 31.3561365,
+        "gpsTime": "2020-10-14 13:15:53",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011615",
+      "geometry": {"x": 121.595035, "y": 31.27087},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011615"},
+          {"key": "警员姓名", "value": "陈锡瑞"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:20"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011615",
+        "policeName": "陈锡瑞",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.595035,
+        "latitude": 31.27087,
+        "gpsTime": "2020-10-14 13:16:20",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011489",
+      "geometry": {"x": 121.508708, "y": 31.12768},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011489"},
+          {"key": "警员姓名", "value": "沈曙迪"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:10:41"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011489",
+        "policeName": "沈曙迪",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.508708,
+        "latitude": 31.12768,
+        "gpsTime": "2020-10-14 13:10:41",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011595",
+      "geometry": {"x": 121.508708, "y": 31.12768},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011595"},
+          {"key": "警员姓名", "value": "朱敏"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:18"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011595",
+        "policeName": "朱敏",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.508708,
+        "latitude": 31.12768,
+        "gpsTime": "2020-10-14 13:16:18",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013026",
+      "geometry": {"x": 121.5087075, "y": 31.12768},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013026"},
+          {"key": "警员姓名", "value": "丁勇"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:03"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013026",
+        "policeName": "丁勇",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.5087075,
+        "latitude": 31.12768,
+        "gpsTime": "2020-10-14 13:13:03",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011727",
+      "geometry": {"x": 121.564859, "y": 31.342604},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011727"},
+          {"key": "警员姓名", "value": "盛黎忠"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:17"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011727",
+        "policeName": "盛黎忠",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.564859,
+        "latitude": 31.342604,
+        "gpsTime": "2020-10-14 13:14:17",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011883",
+      "geometry": {"x": 121.59442, "y": 31.271516},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011883"},
+          {"key": "警员姓名", "value": "蔡勇"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:03"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011883",
+        "policeName": "蔡勇",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.59442,
+        "latitude": 31.271516,
+        "gpsTime": "2020-10-14 13:16:03",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012546",
+      "geometry": {"x": 121.5972075, "y": 31.327567},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012546"},
+          {"key": "警员姓名", "value": "陈军"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:14"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012546",
+        "policeName": "陈军",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5972075,
+        "latitude": 31.327567,
+        "gpsTime": "2020-10-14 13:14:14",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011699",
+      "geometry": {"x": 121.564829, "y": 31.3404425},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011699"},
+          {"key": "警员姓名", "value": "张朝晖"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:06:24"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011699",
+        "policeName": "张朝晖",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.564829,
+        "latitude": 31.3404425,
+        "gpsTime": "2020-10-14 13:06:24",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010845",
+      "geometry": {"x": 121.594896, "y": 31.271735},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010845"},
+          {"key": "警员姓名", "value": "何建国"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:30"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010845",
+        "policeName": "何建国",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.594896,
+        "latitude": 31.271735,
+        "gpsTime": "2020-10-14 13:16:30",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011165",
+      "geometry": {"x": 121.5918045, "y": 31.2126895},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011165"},
+          {"key": "警员姓名", "value": "金鑫"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:26"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011165",
+        "policeName": "金鑫",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.5918045,
+        "latitude": 31.2126895,
+        "gpsTime": "2020-10-14 13:13:26",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010600",
+      "geometry": {"x": 121.5643647, "y": 31.34236923},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010600"},
+          {"key": "警员姓名", "value": "陈崧"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:11:01"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010600",
+        "policeName": "陈崧",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.5643647,
+        "latitude": 31.34236923,
+        "gpsTime": "2020-10-14 13:11:01",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011496",
+      "geometry": {"x": 121.55705755, "y": 31.24431193},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011496"},
+          {"key": "警员姓名", "value": "黄亚旭"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:55"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011496",
+        "policeName": "黄亚旭",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.55705755,
+        "latitude": 31.24431193,
+        "gpsTime": "2020-10-14 13:12:55",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010972",
+      "geometry": {"x": 121.6222875, "y": 31.1964075},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010972"},
+          {"key": "警员姓名", "value": "厉英杰"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:10:57"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010972",
+        "policeName": "厉英杰",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.6222875,
+        "latitude": 31.1964075,
+        "gpsTime": "2020-10-14 13:10:57",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014029",
+      "geometry": {"x": 121.5783475, "y": 31.333054},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014029"},
+          {"key": "警员姓名", "value": "唐晓宇"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:00"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014029",
+        "policeName": "唐晓宇",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.5783475,
+        "latitude": 31.333054,
+        "gpsTime": "2020-10-14 13:13:00",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057398",
+      "geometry": {"x": 121.5845555, "y": 31.1107765},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057398"},
+          {"key": "警员姓名", "value": "樊继革"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:06"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057398",
+        "policeName": "樊继革",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5845555,
+        "latitude": 31.1107765,
+        "gpsTime": "2020-10-14 13:15:06",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010410",
+      "geometry": {"x": 121.564292, "y": 31.227903},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010410"},
+          {"key": "警员姓名", "value": "陈耀舜"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:09:47"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010410",
+        "policeName": "陈耀舜",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.564292,
+        "latitude": 31.227903,
+        "gpsTime": "2020-10-14 13:09:47",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011726",
+      "geometry": {"x": 121.5781025, "y": 31.333101},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011726"},
+          {"key": "警员姓名", "value": "顾剑强"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:08:16"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011726",
+        "policeName": "顾剑强",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.5781025,
+        "latitude": 31.333101,
+        "gpsTime": "2020-10-14 13:08:16",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011961",
+      "geometry": {"x": 121.5056555, "y": 31.1760385},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011961"},
+          {"key": "警员姓名", "value": "唐一鸣"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:02"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011961",
+        "policeName": "唐一鸣",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.5056555,
+        "latitude": 31.1760385,
+        "gpsTime": "2020-10-14 13:16:02",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057445",
+      "geometry": {"x": 121.74744995, "y": 31.05847659},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057445"},
+          {"key": "警员姓名", "value": "严忠飞"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:53"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057445",
+        "policeName": "严忠飞",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.74744995,
+        "latitude": 31.05847659,
+        "gpsTime": "2020-10-14 13:14:53",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057486",
+      "geometry": {"x": 121.803254, "y": 30.917939},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057486"},
+          {"key": "警员姓名", "value": "罗智勇"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:40"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057486",
+        "policeName": "罗智勇",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.803254,
+        "latitude": 30.917939,
+        "gpsTime": "2020-10-14 13:16:40",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010712",
+      "geometry": {"x": 121.5269045, "y": 31.209141},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010712"},
+          {"key": "警员姓名", "value": "丁毅"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:04:55"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010712",
+        "policeName": "丁毅",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.5269045,
+        "latitude": 31.209141,
+        "gpsTime": "2020-10-14 13:04:55",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012811",
+      "geometry": {"x": 121.7735755, "y": 31.1891335},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012811"},
+          {"key": "警员姓名", "value": "袁彬"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:41"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012811",
+        "policeName": "袁彬",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.7735755,
+        "latitude": 31.1891335,
+        "gpsTime": "2020-10-14 13:15:41",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011300",
+      "geometry": {"x": 121.583479, "y": 31.204042},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011300"},
+          {"key": "警员姓名", "value": "金建平"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:25"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011300",
+        "policeName": "金建平",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.583479,
+        "latitude": 31.204042,
+        "gpsTime": "2020-10-14 13:13:25",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057381",
+      "geometry": {"x": 121.58607829, "y": 31.11136912},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057381"},
+          {"key": "警员姓名", "value": "孙池平"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:48"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057381",
+        "policeName": "孙池平",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.58607829,
+        "latitude": 31.11136912,
+        "gpsTime": "2020-10-14 13:15:48",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058222",
+      "geometry": {"x": 121.51222272, "y": 31.22525228},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058222"},
+          {"key": "警员姓名", "value": "陈志超"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:35"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058222",
+        "policeName": "陈志超",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.51222272,
+        "latitude": 31.22525228,
+        "gpsTime": "2020-10-14 13:15:35",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011575",
+      "geometry": {"x": 121.5587245, "y": 31.2462345},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011575"},
+          {"key": "警员姓名", "value": "计晓铮"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:17"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011575",
+        "policeName": "计晓铮",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5587245,
+        "latitude": 31.2462345,
+        "gpsTime": "2020-10-14 13:14:17",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057418",
+      "geometry": {"x": 121.5845555, "y": 31.1107765},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057418"},
+          {"key": "警员姓名", "value": "李钧"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:29"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057418",
+        "policeName": "李钧",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5845555,
+        "latitude": 31.1107765,
+        "gpsTime": "2020-10-14 13:12:29",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011351",
+      "geometry": {"x": 121.569311, "y": 31.2506325},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011351"},
+          {"key": "警员姓名", "value": "杨铃华"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:11:08"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011351",
+        "policeName": "杨铃华",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.569311,
+        "latitude": 31.2506325,
+        "gpsTime": "2020-10-14 13:11:08",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011378",
+      "geometry": {"x": 121.508709, "y": 31.128029},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011378"},
+          {"key": "警员姓名", "value": "宋涛"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:20"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011378",
+        "policeName": "宋涛",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.508709,
+        "latitude": 31.128029,
+        "gpsTime": "2020-10-14 13:16:20",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057326",
+      "geometry": {"x": 121.587114, "y": 31.1239845},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057326"},
+          {"key": "警员姓名", "value": "王庆勇"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:11:27"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057326",
+        "policeName": "王庆勇",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.587114,
+        "latitude": 31.1239845,
+        "gpsTime": "2020-10-14 13:11:27",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058034",
+      "geometry": {"x": 121.5846245, "y": 31.110551},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058034"},
+          {"key": "警员姓名", "value": "顾霄骏"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:10:11"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058034",
+        "policeName": "顾霄骏",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5846245,
+        "latitude": 31.110551,
+        "gpsTime": "2020-10-14 13:10:11",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011563",
+      "geometry": {"x": 121.5087075, "y": 31.12768},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011563"},
+          {"key": "警员姓名", "value": "唐建刚"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:11"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011563",
+        "policeName": "唐建刚",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.5087075,
+        "latitude": 31.12768,
+        "gpsTime": "2020-10-14 13:15:11",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011534",
+      "geometry": {"x": 121.6869055, "y": 31.2023085},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011534"},
+          {"key": "警员姓名", "value": "刘建华"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:29"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011534",
+        "policeName": "刘建华",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.6869055,
+        "latitude": 31.2023085,
+        "gpsTime": "2020-10-14 13:15:29",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013015",
+      "geometry": {"x": 121.586352, "y": 31.267749},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013015"},
+          {"key": "警员姓名", "value": "孙一斐"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:29"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013015",
+        "policeName": "孙一斐",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.586352,
+        "latitude": 31.267749,
+        "gpsTime": "2020-10-14 13:16:29",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058055",
+      "geometry": {"x": 121.57789934, "y": 31.33246657},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058055"},
+          {"key": "警员姓名", "value": "张浩"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:20"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058055",
+        "policeName": "张浩",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.57789934,
+        "latitude": 31.33246657,
+        "gpsTime": "2020-10-14 13:15:20",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011558",
+      "geometry": {"x": 121.508456, "y": 31.128785},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011558"},
+          {"key": "警员姓名", "value": "胡鸣"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:43"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011558",
+        "policeName": "胡鸣",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.508456,
+        "latitude": 31.128785,
+        "gpsTime": "2020-10-14 13:14:43",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011275",
+      "geometry": {"x": 121.686906, "y": 31.202157},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011275"},
+          {"key": "警员姓名", "value": "沈利波"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:04"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011275",
+        "policeName": "沈利波",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.686906,
+        "latitude": 31.202157,
+        "gpsTime": "2020-10-14 13:16:04",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011559",
+      "geometry": {"x": 121.508708, "y": 31.12768},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011559"},
+          {"key": "警员姓名", "value": "厉庆华"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:25"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011559",
+        "policeName": "厉庆华",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.508708,
+        "latitude": 31.12768,
+        "gpsTime": "2020-10-14 13:15:25",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057401",
+      "geometry": {"x": 121.71741469, "y": 31.08862872},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057401"},
+          {"key": "警员姓名", "value": "王立悦"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:58"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057401",
+        "policeName": "王立悦",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.71741469,
+        "latitude": 31.08862872,
+        "gpsTime": "2020-10-14 13:14:58",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057563",
+      "geometry": {"x": 121.5587245, "y": 31.2462345},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057563"},
+          {"key": "警员姓名", "value": "乔怡雯"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:38"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057563",
+        "policeName": "乔怡雯",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5587245,
+        "latitude": 31.2462345,
+        "gpsTime": "2020-10-14 13:12:38",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011200",
+      "geometry": {"x": 121.684843, "y": 31.2023325},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011200"},
+          {"key": "警员姓名", "value": "陆伟良"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:41"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011200",
+        "policeName": "陆伟良",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.684843,
+        "latitude": 31.2023325,
+        "gpsTime": "2020-10-14 13:12:41",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057382",
+      "geometry": {"x": 121.585011, "y": 31.111354},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057382"},
+          {"key": "警员姓名", "value": "朱庆国"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:51"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057382",
+        "policeName": "朱庆国",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.585011,
+        "latitude": 31.111354,
+        "gpsTime": "2020-10-14 13:15:51",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011070",
+      "geometry": {"x": 121.520886, "y": 31.199543},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011070"},
+          {"key": "警员姓名", "value": "许伟"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:13"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011070",
+        "policeName": "许伟",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.520886,
+        "latitude": 31.199543,
+        "gpsTime": "2020-10-14 13:16:13",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011565",
+      "geometry": {"x": 121.6880125, "y": 31.2017845},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011565"},
+          {"key": "警员姓名", "value": "金继峰"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:05:17"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011565",
+        "policeName": "金继峰",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.6880125,
+        "latitude": 31.2017845,
+        "gpsTime": "2020-10-14 13:05:17",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057237",
+      "geometry": {"x": 121.5768175, "y": 31.3332145},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057237"},
+          {"key": "警员姓名", "value": "阮婷婷"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:03:26"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057237",
+        "policeName": "阮婷婷",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.5768175,
+        "latitude": 31.3332145,
+        "gpsTime": "2020-10-14 13:03:26",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057444",
+      "geometry": {"x": 121.5858995, "y": 31.111877},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057444"},
+          {"key": "警员姓名", "value": "陆礼君"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:13"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057444",
+        "policeName": "陆礼君",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5858995,
+        "latitude": 31.111877,
+        "gpsTime": "2020-10-14 13:14:13",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011650",
+      "geometry": {"x": 121.5887215, "y": 31.112752},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011650"},
+          {"key": "警员姓名", "value": "洪燕峰"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:05"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011650",
+        "policeName": "洪燕峰",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5887215,
+        "latitude": 31.112752,
+        "gpsTime": "2020-10-14 13:16:05",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011933",
+      "geometry": {"x": 121.60204712, "y": 31.22037692},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011933"},
+          {"key": "警员姓名", "value": "何玉涛"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:42"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011933",
+        "policeName": "何玉涛",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.60204712,
+        "latitude": 31.22037692,
+        "gpsTime": "2020-10-14 13:16:42",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057077",
+      "geometry": {"x": 121.7185615, "y": 31.0893795},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057077"},
+          {"key": "警员姓名", "value": "蔡和平"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:09"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057077",
+        "policeName": "蔡和平",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.7185615,
+        "latitude": 31.0893795,
+        "gpsTime": "2020-10-14 13:15:09",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011262",
+      "geometry": {"x": 121.6868245, "y": 31.2021765},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011262"},
+          {"key": "警员姓名", "value": "吴维持"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:20"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011262",
+        "policeName": "吴维持",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.6868245,
+        "latitude": 31.2021765,
+        "gpsTime": "2020-10-14 13:16:20",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011634",
+      "geometry": {"x": 121.5768175, "y": 31.3332145},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011634"},
+          {"key": "警员姓名", "value": "沈宏宇"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:00"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011634",
+        "policeName": "沈宏宇",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.5768175,
+        "latitude": 31.3332145,
+        "gpsTime": "2020-10-14 13:16:00",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057417",
+      "geometry": {"x": 121.584799, "y": 31.110959},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057417"},
+          {"key": "警员姓名", "value": "张新光"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:01:28"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057417",
+        "policeName": "张新光",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.584799,
+        "latitude": 31.110959,
+        "gpsTime": "2020-10-14 13:01:28",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011495",
+      "geometry": {"x": 121.718345, "y": 31.089453},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011495"},
+          {"key": "警员姓名", "value": "钟际阳"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:05:04"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011495",
+        "policeName": "钟际阳",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.718345,
+        "latitude": 31.089453,
+        "gpsTime": "2020-10-14 13:05:04",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014171",
+      "geometry": {"x": 121.6889235, "y": 31.201919},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014171"},
+          {"key": "警员姓名", "value": "沈正初"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:10:57"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014171",
+        "policeName": "沈正初",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.6889235,
+        "latitude": 31.201919,
+        "gpsTime": "2020-10-14 13:10:57",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011181",
+      "geometry": {"x": 121.682549, "y": 31.197672},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011181"},
+          {"key": "警员姓名", "value": "杨民耀"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:11:16"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011181",
+        "policeName": "杨民耀",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.682549,
+        "latitude": 31.197672,
+        "gpsTime": "2020-10-14 13:11:16",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011664",
+      "geometry": {"x": 121.687892, "y": 31.20183},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011664"},
+          {"key": "警员姓名", "value": "曹青"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:15"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011664",
+        "policeName": "曹青",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.687892,
+        "latitude": 31.20183,
+        "gpsTime": "2020-10-14 13:16:15",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058351",
+      "geometry": {"x": 121.73448685, "y": 31.04081038},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058351"},
+          {"key": "警员姓名", "value": "王刘炜"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:06:20"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058351",
+        "policeName": "王刘炜",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.73448685,
+        "latitude": 31.04081038,
+        "gpsTime": "2020-10-14 13:06:20",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011548",
+      "geometry": {"x": 121.5533005, "y": 31.243855},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011548"},
+          {"key": "警员姓名", "value": "尹晓龙"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:33"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011548",
+        "policeName": "尹晓龙",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5533005,
+        "latitude": 31.243855,
+        "gpsTime": "2020-10-14 13:12:33",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010716",
+      "geometry": {"x": 121.5560795, "y": 31.243664},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010716"},
+          {"key": "警员姓名", "value": "仇天明"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:32"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010716",
+        "policeName": "仇天明",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5560795,
+        "latitude": 31.243664,
+        "gpsTime": "2020-10-14 13:13:32",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011420",
+      "geometry": {"x": 121.50891994, "y": 31.23623454},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011420"},
+          {"key": "警员姓名", "value": "周静佳"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:45"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011420",
+        "policeName": "周静佳",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.50891994,
+        "latitude": 31.23623454,
+        "gpsTime": "2020-10-14 13:12:45",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058313",
+      "geometry": {"x": 121.50313605, "y": 31.17906826},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058313"},
+          {"key": "警员姓名", "value": "李嘉成"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:50"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058313",
+        "policeName": "李嘉成",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.50313605,
+        "latitude": 31.17906826,
+        "gpsTime": "2020-10-14 13:12:50",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011228",
+      "geometry": {"x": 121.7736115, "y": 31.1891195},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011228"},
+          {"key": "警员姓名", "value": "陆曙辉"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:11:39"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011228",
+        "policeName": "陆曙辉",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.7736115,
+        "latitude": 31.1891195,
+        "gpsTime": "2020-10-14 13:11:39",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010268",
+      "geometry": {"x": 121.6871785, "y": 31.2024505},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010268"},
+          {"key": "警员姓名", "value": "高旭峰"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:41"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010268",
+        "policeName": "高旭峰",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.6871785,
+        "latitude": 31.2024505,
+        "gpsTime": "2020-10-14 13:12:41",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011889",
+      "geometry": {"x": 121.688012, "y": 31.2017845},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011889"},
+          {"key": "警员姓名", "value": "殷晓辉"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:06"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011889",
+        "policeName": "殷晓辉",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.688012,
+        "latitude": 31.2017845,
+        "gpsTime": "2020-10-14 13:13:06",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011560",
+      "geometry": {"x": 121.718, "y": 31.089573},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011560"},
+          {"key": "警员姓名", "value": "郑屹峰"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:08:54"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011560",
+        "policeName": "郑屹峰",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.718,
+        "latitude": 31.089573,
+        "gpsTime": "2020-10-14 13:08:54",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013977",
+      "geometry": {"x": 121.5527435, "y": 31.239049},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013977"},
+          {"key": "警员姓名", "value": "周敏杰"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:22"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013977",
+        "policeName": "周敏杰",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.5527435,
+        "latitude": 31.239049,
+        "gpsTime": "2020-10-14 13:13:22",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011729",
+      "geometry": {"x": 121.7738665, "y": 31.189694},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011729"},
+          {"key": "警员姓名", "value": "范良"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:17"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011729",
+        "policeName": "范良",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.7738665,
+        "latitude": 31.189694,
+        "gpsTime": "2020-10-14 13:14:17",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013579",
+      "geometry": {"x": 121.591804, "y": 31.21269},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013579"},
+          {"key": "警员姓名", "value": "朱蓓蕾"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:08:12"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013579",
+        "policeName": "朱蓓蕾",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.591804,
+        "latitude": 31.21269,
+        "gpsTime": "2020-10-14 13:08:12",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057396",
+      "geometry": {"x": 121.7185615, "y": 31.0893795},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057396"},
+          {"key": "警员姓名", "value": "陈仲勤"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:06"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057396",
+        "policeName": "陈仲勤",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.7185615,
+        "latitude": 31.0893795,
+        "gpsTime": "2020-10-14 13:12:06",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011500",
+      "geometry": {"x": 121.505656, "y": 31.1760385},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011500"},
+          {"key": "警员姓名", "value": "龚德平"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:36"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011500",
+        "policeName": "龚德平",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.505656,
+        "latitude": 31.1760385,
+        "gpsTime": "2020-10-14 13:15:36",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058820",
+      "geometry": {"x": 121.780072, "y": 31.068876},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058820"},
+          {"key": "警员姓名", "value": "朱杰"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:15"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058820",
+        "policeName": "朱杰",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.780072,
+        "latitude": 31.068876,
+        "gpsTime": "2020-10-14 13:15:15",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011235",
+      "geometry": {"x": 121.773612, "y": 31.1891195},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011235"},
+          {"key": "警员姓名", "value": "陈晓峰"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:05"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011235",
+        "policeName": "陈晓峰",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.773612,
+        "latitude": 31.1891195,
+        "gpsTime": "2020-10-14 13:14:05",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012614",
+      "geometry": {"x": 121.686574, "y": 31.202833},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012614"},
+          {"key": "警员姓名", "value": "侯佳妮"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:08:22"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012614",
+        "policeName": "侯佳妮",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.686574,
+        "latitude": 31.202833,
+        "gpsTime": "2020-10-14 13:08:22",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057428",
+      "geometry": {"x": 121.716936, "y": 31.0887235},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057428"},
+          {"key": "警员姓名", "value": "周士国"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:43"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057428",
+        "policeName": "周士国",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.716936,
+        "latitude": 31.0887235,
+        "gpsTime": "2020-10-14 13:16:43",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011730",
+      "geometry": {"x": 121.525399, "y": 31.2120925},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011730"},
+          {"key": "警员姓名", "value": "金宏访"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:53"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011730",
+        "policeName": "金宏访",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.525399,
+        "latitude": 31.2120925,
+        "gpsTime": "2020-10-14 13:15:53",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057047",
+      "geometry": {"x": 121.717561, "y": 31.088848},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057047"},
+          {"key": "警员姓名", "value": "李亚军"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:19"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057047",
+        "policeName": "李亚军",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.717561,
+        "latitude": 31.088848,
+        "gpsTime": "2020-10-14 13:14:19",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010781",
+      "geometry": {"x": 121.557599, "y": 31.260451},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010781"},
+          {"key": "警员姓名", "value": "徐奇志"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:30"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010781",
+        "policeName": "徐奇志",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.557599,
+        "latitude": 31.260451,
+        "gpsTime": "2020-10-14 13:13:30",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013890",
+      "geometry": {"x": 121.549244, "y": 31.2438055},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013890"},
+          {"key": "警员姓名", "value": "徐丽平"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:13"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013890",
+        "policeName": "徐丽平",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.549244,
+        "latitude": 31.2438055,
+        "gpsTime": "2020-10-14 13:16:13",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057383",
+      "geometry": {"x": 121.585822, "y": 31.111346},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057383"},
+          {"key": "警员姓名", "value": "陈炯"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:37"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057383",
+        "policeName": "陈炯",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.585822,
+        "latitude": 31.111346,
+        "gpsTime": "2020-10-14 13:14:37",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057363",
+      "geometry": {"x": 121.58662, "y": 31.1525155},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057363"},
+          {"key": "警员姓名", "value": "潘成超"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:13"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057363",
+        "policeName": "潘成超",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.58662,
+        "latitude": 31.1525155,
+        "gpsTime": "2020-10-14 13:12:13",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011234",
+      "geometry": {"x": 121.7736295, "y": 31.1903755},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011234"},
+          {"key": "警员姓名", "value": "刘钱"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:50"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011234",
+        "policeName": "刘钱",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.7736295,
+        "latitude": 31.1903755,
+        "gpsTime": "2020-10-14 13:13:50",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011278",
+      "geometry": {"x": 121.7906105, "y": 31.101809},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011278"},
+          {"key": "警员姓名", "value": "周铭"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:09:36"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011278",
+        "policeName": "周铭",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.7906105,
+        "latitude": 31.101809,
+        "gpsTime": "2020-10-14 13:09:36",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010230",
+      "geometry": {"x": 121.585057, "y": 31.11103},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010230"},
+          {"key": "警员姓名", "value": "张剑骅"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:07:06"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010230",
+        "policeName": "张剑骅",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.585057,
+        "latitude": 31.11103,
+        "gpsTime": "2020-10-14 13:07:06",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013167",
+      "geometry": {"x": 121.5294895, "y": 31.246151},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013167"},
+          {"key": "警员姓名", "value": "沈文琼"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:10:00"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013167",
+        "policeName": "沈文琼",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5294895,
+        "latitude": 31.246151,
+        "gpsTime": "2020-10-14 13:10:00",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011222",
+      "geometry": {"x": 121.7733165, "y": 31.1906765},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011222"},
+          {"key": "警员姓名", "value": "王利华"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:08"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011222",
+        "policeName": "王利华",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.7733165,
+        "latitude": 31.1906765,
+        "gpsTime": "2020-10-14 13:15:08",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014577",
+      "geometry": {"x": 121.558476, "y": 31.2460845},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014577"},
+          {"key": "警员姓名", "value": "马韵飞"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:56"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014577",
+        "policeName": "马韵飞",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.558476,
+        "latitude": 31.2460845,
+        "gpsTime": "2020-10-14 13:15:56",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057376",
+      "geometry": {"x": 121.5845555, "y": 31.1107765},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057376"},
+          {"key": "警员姓名", "value": "张佐华"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:18"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057376",
+        "policeName": "张佐华",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5845555,
+        "latitude": 31.1107765,
+        "gpsTime": "2020-10-14 13:16:18",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011831",
+      "geometry": {"x": 121.688012, "y": 31.2017845},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011831"},
+          {"key": "警员姓名", "value": "周景余"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:35"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011831",
+        "policeName": "周景余",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.688012,
+        "latitude": 31.2017845,
+        "gpsTime": "2020-10-14 13:14:35",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011211",
+      "geometry": {"x": 121.508297, "y": 31.1287895},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011211"},
+          {"key": "警员姓名", "value": "姚雄"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:08:08"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011211",
+        "policeName": "姚雄",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.508297,
+        "latitude": 31.1287895,
+        "gpsTime": "2020-10-14 13:08:08",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011440",
+      "geometry": {"x": 121.5574545, "y": 31.244205},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011440"},
+          {"key": "警员姓名", "value": "汤辉明"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:10:25"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011440",
+        "policeName": "汤辉明",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5574545,
+        "latitude": 31.244205,
+        "gpsTime": "2020-10-14 13:10:25",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011282",
+      "geometry": {"x": 121.555438, "y": 31.251648},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011282"},
+          {"key": "警员姓名", "value": "邱梁"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:06"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011282",
+        "policeName": "邱梁",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.555438,
+        "latitude": 31.251648,
+        "gpsTime": "2020-10-14 13:16:06",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014271",
+      "geometry": {"x": 121.71603114, "y": 31.08880707},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014271"},
+          {"key": "警员姓名", "value": "许嘉斌"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:10:45"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014271",
+        "policeName": "许嘉斌",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.71603114,
+        "latitude": 31.08880707,
+        "gpsTime": "2020-10-14 13:10:45",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011236",
+      "geometry": {"x": 121.68720585, "y": 31.20235109},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011236"},
+          {"key": "警员姓名", "value": "冯晓飞"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:57"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011236",
+        "policeName": "冯晓飞",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.68720585,
+        "latitude": 31.20235109,
+        "gpsTime": "2020-10-14 13:13:57",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010479",
+      "geometry": {"x": 121.749455, "y": 31.0558205},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010479"},
+          {"key": "警员姓名", "value": "潘锋"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:07:21"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010479",
+        "policeName": "潘锋",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.749455,
+        "latitude": 31.0558205,
+        "gpsTime": "2020-10-14 13:07:21",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011659",
+      "geometry": {"x": 121.5098605, "y": 31.1270375},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011659"},
+          {"key": "警员姓名", "value": "陆明"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:00:54"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011659",
+        "policeName": "陆明",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.5098605,
+        "latitude": 31.1270375,
+        "gpsTime": "2020-10-14 13:00:54",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014027",
+      "geometry": {"x": 121.7736105, "y": 31.18912},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014027"},
+          {"key": "警员姓名", "value": "朱俊"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:39"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014027",
+        "policeName": "朱俊",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.7736105,
+        "latitude": 31.18912,
+        "gpsTime": "2020-10-14 13:15:39",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057502",
+      "geometry": {"x": 121.5847975, "y": 31.110958},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057502"},
+          {"key": "警员姓名", "value": "杜芝奇"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:36"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057502",
+        "policeName": "杜芝奇",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5847975,
+        "latitude": 31.110958,
+        "gpsTime": "2020-10-14 13:13:36",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057765",
+      "geometry": {"x": 121.5090495, "y": 31.2355175},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057765"},
+          {"key": "警员姓名", "value": "沈焱"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:30"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057765",
+        "policeName": "沈焱",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5090495,
+        "latitude": 31.2355175,
+        "gpsTime": "2020-10-14 13:15:30",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012628",
+      "geometry": {"x": 121.523478, "y": 31.227019},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012628"},
+          {"key": "警员姓名", "value": "孙斌"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:18"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012628",
+        "policeName": "孙斌",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.523478,
+        "latitude": 31.227019,
+        "gpsTime": "2020-10-14 13:16:18",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012435",
+      "geometry": {"x": 121.700391, "y": 31.200459},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012435"},
+          {"key": "警员姓名", "value": "安军"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:07"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012435",
+        "policeName": "安军",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.700391,
+        "latitude": 31.200459,
+        "gpsTime": "2020-10-14 13:16:07",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057353",
+      "geometry": {"x": 121.584799, "y": 31.110959},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057353"},
+          {"key": "警员姓名", "value": "李恩樑"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:54"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057353",
+        "policeName": "李恩樑",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.584799,
+        "latitude": 31.110959,
+        "gpsTime": "2020-10-14 13:14:54",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058452",
+      "geometry": {"x": 121.545049, "y": 31.1926235},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058452"},
+          {"key": "警员姓名", "value": "胥家斌"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:08:46"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058452",
+        "policeName": "胥家斌",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.545049,
+        "latitude": 31.1926235,
+        "gpsTime": "2020-10-14 13:08:46",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014520",
+      "geometry": {"x": 121.6880125, "y": 31.2017845},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014520"},
+          {"key": "警员姓名", "value": "张宇峰"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:45"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014520",
+        "policeName": "张宇峰",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.6880125,
+        "latitude": 31.2017845,
+        "gpsTime": "2020-10-14 13:13:45",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013951",
+      "geometry": {"x": 121.5436635, "y": 31.1558115},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013951"},
+          {"key": "警员姓名", "value": "冯骏"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:10:00"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013951",
+        "policeName": "冯骏",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.5436635,
+        "latitude": 31.1558115,
+        "gpsTime": "2020-10-14 13:10:00",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058443",
+      "geometry": {"x": 121.6462265, "y": 31.074887},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058443"},
+          {"key": "警员姓名", "value": "史鸿森"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:07:19"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058443",
+        "policeName": "史鸿森",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.6462265,
+        "latitude": 31.074887,
+        "gpsTime": "2020-10-14 13:07:19",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013082",
+      "geometry": {"x": 121.5033065, "y": 31.1781325},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013082"},
+          {"key": "警员姓名", "value": "许博诚"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:08:59"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013082",
+        "policeName": "许博诚",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.5033065,
+        "latitude": 31.1781325,
+        "gpsTime": "2020-10-14 13:08:59",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011755",
+      "geometry": {"x": 121.57327292, "y": 31.33261577},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011755"},
+          {"key": "警员姓名", "value": "顾政平"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:30"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011755",
+        "policeName": "顾政平",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.57327292,
+        "latitude": 31.33261577,
+        "gpsTime": "2020-10-14 13:12:30",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011488",
+      "geometry": {"x": 121.5056555, "y": 31.1760385},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011488"},
+          {"key": "警员姓名", "value": "陈晓"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:11:57"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011488",
+        "policeName": "陈晓",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.5056555,
+        "latitude": 31.1760385,
+        "gpsTime": "2020-10-14 13:11:57",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013407",
+      "geometry": {"x": 121.58370511, "y": 31.21526533},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013407"},
+          {"key": "警员姓名", "value": "张敬林"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:55"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013407",
+        "policeName": "张敬林",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.58370511,
+        "latitude": 31.21526533,
+        "gpsTime": "2020-10-14 13:15:55",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011614",
+      "geometry": {"x": 121.687005, "y": 31.2022105},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011614"},
+          {"key": "警员姓名", "value": "沈金荣"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:36"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011614",
+        "policeName": "沈金荣",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.687005,
+        "latitude": 31.2022105,
+        "gpsTime": "2020-10-14 13:16:36",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011269",
+      "geometry": {"x": 121.6889235, "y": 31.201919},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011269"},
+          {"key": "警员姓名", "value": "周建军"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:43"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011269",
+        "policeName": "周建军",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.6889235,
+        "latitude": 31.201919,
+        "gpsTime": "2020-10-14 13:14:43",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012027",
+      "geometry": {"x": 121.5090625, "y": 31.1242275},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012027"},
+          {"key": "警员姓名", "value": "闵剑晨"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:09:22"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012027",
+        "policeName": "闵剑晨",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.5090625,
+        "latitude": 31.1242275,
+        "gpsTime": "2020-10-14 13:09:22",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011607",
+      "geometry": {"x": 121.7517365, "y": 31.056541},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011607"},
+          {"key": "警员姓名", "value": "倪晓雯"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:09"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011607",
+        "policeName": "倪晓雯",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.7517365,
+        "latitude": 31.056541,
+        "gpsTime": "2020-10-14 13:15:09",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057312",
+      "geometry": {"x": 121.557459, "y": 31.244906},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057312"},
+          {"key": "警员姓名", "value": "施欣慧"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:10"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057312",
+        "policeName": "施欣慧",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.557459,
+        "latitude": 31.244906,
+        "gpsTime": "2020-10-14 13:14:10",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011342",
+      "geometry": {"x": 121.577462, "y": 31.3328915},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011342"},
+          {"key": "警员姓名", "value": "俞建新"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:21"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011342",
+        "policeName": "俞建新",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.577462,
+        "latitude": 31.3328915,
+        "gpsTime": "2020-10-14 13:16:21",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011663",
+      "geometry": {"x": 121.577642, "y": 31.3329355},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011663"},
+          {"key": "警员姓名", "value": "钱志刚"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:17"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011663",
+        "policeName": "钱志刚",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.577642,
+        "latitude": 31.3329355,
+        "gpsTime": "2020-10-14 13:14:17",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058960",
+      "geometry": {"x": 121.71703896, "y": 31.08892994},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058960"},
+          {"key": "警员姓名", "value": "胡家文"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:05:27"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058960",
+        "policeName": "胡家文",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.71703896,
+        "latitude": 31.08892994,
+        "gpsTime": "2020-10-14 13:05:27",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013984",
+      "geometry": {"x": 121.54438, "y": 31.22965},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013984"},
+          {"key": "警员姓名", "value": "康振玲"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:05"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013984",
+        "policeName": "康振玲",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.54438,
+        "latitude": 31.22965,
+        "gpsTime": "2020-10-14 13:14:05",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012015",
+      "geometry": {"x": 121.585835, "y": 31.312413},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012015"},
+          {"key": "警员姓名", "value": "沈晶"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:44"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012015",
+        "policeName": "沈晶",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.585835,
+        "latitude": 31.312413,
+        "gpsTime": "2020-10-14 13:13:44",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014123",
+      "geometry": {"x": 121.7185615, "y": 31.0893795},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014123"},
+          {"key": "警员姓名", "value": "陈浩东"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:47"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014123",
+        "policeName": "陈浩东",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.7185615,
+        "latitude": 31.0893795,
+        "gpsTime": "2020-10-14 13:15:47",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013355",
+      "geometry": {"x": 121.564829, "y": 31.3404425},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013355"},
+          {"key": "警员姓名", "value": "殷仁雪"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:11:39"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013355",
+        "policeName": "殷仁雪",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.564829,
+        "latitude": 31.3404425,
+        "gpsTime": "2020-10-14 13:11:39",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013109",
+      "geometry": {"x": 121.577782, "y": 31.261929},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013109"},
+          {"key": "警员姓名", "value": "赵梦佳"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:51"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013109",
+        "policeName": "赵梦佳",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.577782,
+        "latitude": 31.261929,
+        "gpsTime": "2020-10-14 13:13:51",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012078",
+      "geometry": {"x": 121.47034431, "y": 31.34169725},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012078"},
+          {"key": "警员姓名", "value": "张毅"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:05"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012078",
+        "policeName": "张毅",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.47034431,
+        "latitude": 31.34169725,
+        "gpsTime": "2020-10-14 13:13:05",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011526",
+      "geometry": {"x": 121.508286, "y": 31.1282285},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011526"},
+          {"key": "警员姓名", "value": "孙伟康"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:10:43"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011526",
+        "policeName": "孙伟康",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.508286,
+        "latitude": 31.1282285,
+        "gpsTime": "2020-10-14 13:10:43",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010806",
+      "geometry": {"x": 121.7185615, "y": 31.0893795},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010806"},
+          {"key": "警员姓名", "value": "盛谢玮"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:01"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010806",
+        "policeName": "盛谢玮",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.7185615,
+        "latitude": 31.0893795,
+        "gpsTime": "2020-10-14 13:12:01",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011218",
+      "geometry": {"x": 121.688012, "y": 31.2017845},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011218"},
+          {"key": "警员姓名", "value": "施宏昌"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:20"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011218",
+        "policeName": "施宏昌",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.688012,
+        "latitude": 31.2017845,
+        "gpsTime": "2020-10-14 13:14:20",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057653",
+      "geometry": {"x": 121.511116, "y": 31.2348095},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057653"},
+          {"key": "警员姓名", "value": "俞梦兰"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:06"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057653",
+        "policeName": "俞梦兰",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.511116,
+        "latitude": 31.2348095,
+        "gpsTime": "2020-10-14 13:16:06",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012572",
+      "geometry": {"x": 121.702695, "y": 31.091089},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012572"},
+          {"key": "警员姓名", "value": "王银忠"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:10:12"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012572",
+        "policeName": "王银忠",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.702695,
+        "latitude": 31.091089,
+        "gpsTime": "2020-10-14 13:10:12",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012035",
+      "geometry": {"x": 121.585872, "y": 31.111602},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012035"},
+          {"key": "警员姓名", "value": "许文俊"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:39"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012035",
+        "policeName": "许文俊",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.585872,
+        "latitude": 31.111602,
+        "gpsTime": "2020-10-14 13:16:39",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011345",
+      "geometry": {"x": 121.513551, "y": 31.1526475},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011345"},
+          {"key": "警员姓名", "value": "仲兴才"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:49"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011345",
+        "policeName": "仲兴才",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.513551,
+        "latitude": 31.1526475,
+        "gpsTime": "2020-10-14 13:13:49",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012851",
+      "geometry": {"x": 121.5787435, "y": 31.26716},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012851"},
+          {"key": "警员姓名", "value": "孙骥远"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 12:48:18"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012851",
+        "policeName": "孙骥远",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.5787435,
+        "latitude": 31.26716,
+        "gpsTime": "2020-10-14 12:48:18",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010334",
+      "geometry": {"x": 121.50411293, "y": 31.17069487},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010334"},
+          {"key": "警员姓名", "value": "张文超"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:08:44"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010334",
+        "policeName": "张文超",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.50411293,
+        "latitude": 31.17069487,
+        "gpsTime": "2020-10-14 13:08:44",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010296",
+      "geometry": {"x": 121.686883, "y": 31.202189},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010296"},
+          {"key": "警员姓名", "value": "庄鸣"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:03"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010296",
+        "policeName": "庄鸣",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.686883,
+        "latitude": 31.202189,
+        "gpsTime": "2020-10-14 13:16:03",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011592",
+      "geometry": {"x": 121.68688, "y": 31.20227},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011592"},
+          {"key": "警员姓名", "value": "吴海青"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:58"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011592",
+        "policeName": "吴海青",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.68688,
+        "latitude": 31.20227,
+        "gpsTime": "2020-10-14 13:13:58",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057414",
+      "geometry": {"x": 121.717586, "y": 31.089088},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057414"},
+          {"key": "警员姓名", "value": "周明"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:10"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057414",
+        "policeName": "周明",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.717586,
+        "latitude": 31.089088,
+        "gpsTime": "2020-10-14 13:15:10",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013998",
+      "geometry": {"x": 121.602492, "y": 31.1777055},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013998"},
+          {"key": "警员姓名", "value": "冯伟"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:28"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013998",
+        "policeName": "冯伟",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.602492,
+        "latitude": 31.1777055,
+        "gpsTime": "2020-10-14 13:16:28",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057328",
+      "geometry": {"x": 121.716988, "y": 31.0887105},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057328"},
+          {"key": "警员姓名", "value": "王建峰"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:09:58"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057328",
+        "policeName": "王建峰",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.716988,
+        "latitude": 31.0887105,
+        "gpsTime": "2020-10-14 13:09:58",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057405",
+      "geometry": {"x": 121.717548, "y": 31.089016},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057405"},
+          {"key": "警员姓名", "value": "徐国忠"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:50"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057405",
+        "policeName": "徐国忠",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.717548,
+        "latitude": 31.089016,
+        "gpsTime": "2020-10-14 13:14:50",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011683",
+      "geometry": {"x": 121.577642, "y": 31.3329355},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011683"},
+          {"key": "警员姓名", "value": "瞿骏"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:39"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011683",
+        "policeName": "瞿骏",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.577642,
+        "latitude": 31.3329355,
+        "gpsTime": "2020-10-14 13:15:39",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011550",
+      "geometry": {"x": 121.4965315, "y": 31.16643},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011550"},
+          {"key": "警员姓名", "value": "颜少华"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:30"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011550",
+        "policeName": "颜少华",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.4965315,
+        "latitude": 31.16643,
+        "gpsTime": "2020-10-14 13:16:30",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011260",
+      "geometry": {"x": 121.7074315, "y": 31.1830785},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011260"},
+          {"key": "警员姓名", "value": "唐华杰"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:07:47"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011260",
+        "policeName": "唐华杰",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.7074315,
+        "latitude": 31.1830785,
+        "gpsTime": "2020-10-14 13:07:47",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "062560",
+      "geometry": {"x": 121.663919, "y": 31.3077065},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "062560"},
+          {"key": "警员姓名", "value": "顾晓东"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:37"}
+        ]
+      },
+      "properties": {
+        "policeSn": "062560",
+        "policeName": "顾晓东",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.663919,
+        "latitude": 31.3077065,
+        "gpsTime": "2020-10-14 13:13:37",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011863",
+      "geometry": {"x": 121.618791, "y": 31.210756},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011863"},
+          {"key": "警员姓名", "value": "吕斌"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:10:31"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011863",
+        "policeName": "吕斌",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.618791,
+        "latitude": 31.210756,
+        "gpsTime": "2020-10-14 13:10:31",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014338",
+      "geometry": {"x": 121.50872397, "y": 31.23625253},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014338"},
+          {"key": "警员姓名", "value": "朱玉婷"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:11:12"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014338",
+        "policeName": "朱玉婷",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.50872397,
+        "latitude": 31.23625253,
+        "gpsTime": "2020-10-14 13:11:12",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014418",
+      "geometry": {"x": 121.509001, "y": 31.2355535},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014418"},
+          {"key": "警员姓名", "value": "黄莉洁"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:34"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014418",
+        "policeName": "黄莉洁",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.509001,
+        "latitude": 31.2355535,
+        "gpsTime": "2020-10-14 13:13:34",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057676",
+      "geometry": {"x": 121.5847975, "y": 31.110958},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057676"},
+          {"key": "警员姓名", "value": "龚建伟"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:12"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057676",
+        "policeName": "龚建伟",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5847975,
+        "latitude": 31.110958,
+        "gpsTime": "2020-10-14 13:16:12",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012814",
+      "geometry": {"x": 121.508708, "y": 31.12768},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012814"},
+          {"key": "警员姓名", "value": "尢家昀"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 12:58:02"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012814",
+        "policeName": "尢家昀",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.508708,
+        "latitude": 31.12768,
+        "gpsTime": "2020-10-14 12:58:02",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013461",
+      "geometry": {"x": 121.576958, "y": 31.3331525},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013461"},
+          {"key": "警员姓名", "value": "杨思佳"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:38"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013461",
+        "policeName": "杨思佳",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.576958,
+        "latitude": 31.3331525,
+        "gpsTime": "2020-10-14 13:14:38",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011907",
+      "geometry": {"x": 121.5062235, "y": 31.1326105},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011907"},
+          {"key": "警员姓名", "value": "张强"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:15"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011907",
+        "policeName": "张强",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.5062235,
+        "latitude": 31.1326105,
+        "gpsTime": "2020-10-14 13:12:15",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011566",
+      "geometry": {"x": 121.502894, "y": 31.178424},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011566"},
+          {"key": "警员姓名", "value": "顾叶清"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:35"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011566",
+        "policeName": "顾叶清",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.502894,
+        "latitude": 31.178424,
+        "gpsTime": "2020-10-14 13:15:35",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057583",
+      "geometry": {"x": 121.7171245, "y": 31.088628},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057583"},
+          {"key": "警员姓名", "value": "冯嘉俊"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:04"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057583",
+        "policeName": "冯嘉俊",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.7171245,
+        "latitude": 31.088628,
+        "gpsTime": "2020-10-14 13:14:04",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010119",
+      "geometry": {"x": 121.508362, "y": 31.128528},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010119"},
+          {"key": "警员姓名", "value": "乔梁"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:33"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010119",
+        "policeName": "乔梁",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.508362,
+        "latitude": 31.128528,
+        "gpsTime": "2020-10-14 13:16:33",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011390",
+      "geometry": {"x": 121.6882815, "y": 31.201868},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011390"},
+          {"key": "警员姓名", "value": "李俊"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:00:29"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011390",
+        "policeName": "李俊",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.6882815,
+        "latitude": 31.201868,
+        "gpsTime": "2020-10-14 13:00:29",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010170",
+      "geometry": {"x": 121.773232, "y": 31.190724},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010170"},
+          {"key": "警员姓名", "value": "吴静波"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:10:43"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010170",
+        "policeName": "吴静波",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.773232,
+        "latitude": 31.190724,
+        "gpsTime": "2020-10-14 13:10:43",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010312",
+      "geometry": {"x": 121.56466094, "y": 31.3421848},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010312"},
+          {"key": "警员姓名", "value": "张松"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:06"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010312",
+        "policeName": "张松",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.56466094,
+        "latitude": 31.3421848,
+        "gpsTime": "2020-10-14 13:16:06",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011506",
+      "geometry": {"x": 121.688133, "y": 31.201739},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011506"},
+          {"key": "警员姓名", "value": "金露"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:04"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011506",
+        "policeName": "金露",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.688133,
+        "latitude": 31.201739,
+        "gpsTime": "2020-10-14 13:15:04",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011487",
+      "geometry": {"x": 121.5083455, "y": 31.128575},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011487"},
+          {"key": "警员姓名", "value": "周志伟"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:50"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011487",
+        "policeName": "周志伟",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.5083455,
+        "latitude": 31.128575,
+        "gpsTime": "2020-10-14 13:15:50",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010687",
+      "geometry": {"x": 121.586396, "y": 31.356026},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010687"},
+          {"key": "警员姓名", "value": "耿坚"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:00:49"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010687",
+        "policeName": "耿坚",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.586396,
+        "latitude": 31.356026,
+        "gpsTime": "2020-10-14 13:00:49",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013147",
+      "geometry": {"x": 121.687577, "y": 31.187098},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013147"},
+          {"key": "警员姓名", "value": "孟超然"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:11:26"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013147",
+        "policeName": "孟超然",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.687577,
+        "latitude": 31.187098,
+        "gpsTime": "2020-10-14 13:11:26",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058002",
+      "geometry": {"x": 121.5847975, "y": 31.110958},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058002"},
+          {"key": "警员姓名", "value": "余东"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:51"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058002",
+        "policeName": "余东",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.5847975,
+        "latitude": 31.110958,
+        "gpsTime": "2020-10-14 13:15:51",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011612",
+      "geometry": {"x": 121.59465605, "y": 31.27166635},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011612"},
+          {"key": "警员姓名", "value": "张鸣"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:49"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011612",
+        "policeName": "张鸣",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.59465605,
+        "latitude": 31.27166635,
+        "gpsTime": "2020-10-14 13:15:49",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011248",
+      "geometry": {"x": 121.7734515, "y": 31.1892085},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011248"},
+          {"key": "警员姓名", "value": "张强"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:38"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011248",
+        "policeName": "张强",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.7734515,
+        "latitude": 31.1892085,
+        "gpsTime": "2020-10-14 13:14:38",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011779",
+      "geometry": {"x": 121.773684, "y": 31.18916},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011779"},
+          {"key": "警员姓名", "value": "张惠民"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:23"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011779",
+        "policeName": "张惠民",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.773684,
+        "latitude": 31.18916,
+        "gpsTime": "2020-10-14 13:16:23",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011065",
+      "geometry": {"x": 121.508709, "y": 31.128029},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011065"},
+          {"key": "警员姓名", "value": "朱金伟"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:34"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011065",
+        "policeName": "朱金伟",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.508709,
+        "latitude": 31.128029,
+        "gpsTime": "2020-10-14 13:16:34",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011912",
+      "geometry": {"x": 121.508708, "y": 31.12768},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011912"},
+          {"key": "警员姓名", "value": "周志强"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:12"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011912",
+        "policeName": "周志强",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.508708,
+        "latitude": 31.12768,
+        "gpsTime": "2020-10-14 13:16:12",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011809",
+      "geometry": {"x": 121.549744, "y": 31.1761145},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011809"},
+          {"key": "警员姓名", "value": "缪建华"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:48"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011809",
+        "policeName": "缪建华",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.549744,
+        "latitude": 31.1761145,
+        "gpsTime": "2020-10-14 13:12:48",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013949",
+      "geometry": {"x": 121.5918045, "y": 31.2126895},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013949"},
+          {"key": "警员姓名", "value": "诸卫中"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:30"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013949",
+        "policeName": "诸卫中",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.5918045,
+        "latitude": 31.2126895,
+        "gpsTime": "2020-10-14 13:16:30",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011778",
+      "geometry": {"x": 121.577477, "y": 31.3329515},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011778"},
+          {"key": "警员姓名", "value": "沈志祥"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:07:08"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011778",
+        "policeName": "沈志祥",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.577477,
+        "latitude": 31.3329515,
+        "gpsTime": "2020-10-14 13:07:08",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058077",
+      "geometry": {"x": 121.591804, "y": 31.21269},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058077"},
+          {"key": "警员姓名", "value": "申皓"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:15"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058077",
+        "policeName": "申皓",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.591804,
+        "latitude": 31.21269,
+        "gpsTime": "2020-10-14 13:14:15",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011404",
+      "geometry": {"x": 121.5560795, "y": 31.243664},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011404"},
+          {"key": "警员姓名", "value": "顾睿臻"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:02"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011404",
+        "policeName": "顾睿臻",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5560795,
+        "latitude": 31.243664,
+        "gpsTime": "2020-10-14 13:16:02",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011435",
+      "geometry": {"x": 121.5944385, "y": 31.271423},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011435"},
+          {"key": "警员姓名", "value": "沈黎勇"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:20"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011435",
+        "policeName": "沈黎勇",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.5944385,
+        "latitude": 31.271423,
+        "gpsTime": "2020-10-14 13:16:20",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011381",
+      "geometry": {"x": 121.557289, "y": 31.244365},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011381"},
+          {"key": "警员姓名", "value": "张惠谊"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 12:51:35"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011381",
+        "policeName": "张惠谊",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.557289,
+        "latitude": 31.244365,
+        "gpsTime": "2020-10-14 12:51:35",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011963",
+      "geometry": {"x": 121.5533005, "y": 31.243855},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011963"},
+          {"key": "警员姓名", "value": "尹春浩"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:09:47"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011963",
+        "policeName": "尹春浩",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5533005,
+        "latitude": 31.243855,
+        "gpsTime": "2020-10-14 13:09:47",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011676",
+      "geometry": {"x": 121.564829, "y": 31.3404425},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011676"},
+          {"key": "警员姓名", "value": "顾晨辉"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 12:59:58"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011676",
+        "policeName": "顾晨辉",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.564829,
+        "latitude": 31.3404425,
+        "gpsTime": "2020-10-14 12:59:58",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013039",
+      "geometry": {"x": 121.558477, "y": 31.246085},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013039"},
+          {"key": "警员姓名", "value": "顾准"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:15"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013039",
+        "policeName": "顾准",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.558477,
+        "latitude": 31.246085,
+        "gpsTime": "2020-10-14 13:16:15",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012588",
+      "geometry": {"x": 121.656868, "y": 31.2788675},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012588"},
+          {"key": "警员姓名", "value": "周佳俊"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:02:53"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012588",
+        "policeName": "周佳俊",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.656868,
+        "latitude": 31.2788675,
+        "gpsTime": "2020-10-14 13:02:53",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010374",
+      "geometry": {"x": 121.7494545, "y": 31.0558205},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010374"},
+          {"key": "警员姓名", "value": "黄文斌"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:35"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010374",
+        "policeName": "黄文斌",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.7494545,
+        "latitude": 31.0558205,
+        "gpsTime": "2020-10-14 13:15:35",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "012527",
+      "geometry": {"x": 121.552114, "y": 31.1765295},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "012527"},
+          {"key": "警员姓名", "value": "朱丹君"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:22"}
+        ]
+      },
+      "properties": {
+        "policeSn": "012527",
+        "policeName": "朱丹君",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.552114,
+        "latitude": 31.1765295,
+        "gpsTime": "2020-10-14 13:16:22",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014173",
+      "geometry": {"x": 121.591804, "y": 31.21269},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014173"},
+          {"key": "警员姓名", "value": "计翔"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:04"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014173",
+        "policeName": "计翔",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.591804,
+        "latitude": 31.21269,
+        "gpsTime": "2020-10-14 13:13:04",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013846",
+      "geometry": {"x": 121.55716729, "y": 31.24456275},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013846"},
+          {"key": "警员姓名", "value": "刘文轩"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:12:58"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013846",
+        "policeName": "刘文轩",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.55716729,
+        "latitude": 31.24456275,
+        "gpsTime": "2020-10-14 13:12:58",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058363",
+      "geometry": {"x": 121.71704, "y": 31.0887265},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058363"},
+          {"key": "警员姓名", "value": "王黎丽"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:46"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058363",
+        "policeName": "王黎丽",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.71704,
+        "latitude": 31.0887265,
+        "gpsTime": "2020-10-14 13:13:46",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014146",
+      "geometry": {"x": 121.558774, "y": 31.246786},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014146"},
+          {"key": "警员姓名", "value": "陆振晴"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:12"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014146",
+        "policeName": "陆振晴",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.558774,
+        "latitude": 31.246786,
+        "gpsTime": "2020-10-14 13:14:12",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011360",
+      "geometry": {"x": 121.558616, "y": 31.245781},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011360"},
+          {"key": "警员姓名", "value": "虞文"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:14"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011360",
+        "policeName": "虞文",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.558616,
+        "latitude": 31.245781,
+        "gpsTime": "2020-10-14 13:16:14",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011950",
+      "geometry": {"x": 121.5594735, "y": 31.210225},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011950"},
+          {"key": "警员姓名", "value": "蔡陈荣"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:49"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011950",
+        "policeName": "蔡陈荣",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.5594735,
+        "latitude": 31.210225,
+        "gpsTime": "2020-10-14 13:13:49",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011743",
+      "geometry": {"x": 121.591804, "y": 31.21269},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011743"},
+          {"key": "警员姓名", "value": "沈忠"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 12:59:54"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011743",
+        "policeName": "沈忠",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.591804,
+        "latitude": 31.21269,
+        "gpsTime": "2020-10-14 12:59:54",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010617",
+      "geometry": {"x": 121.5574345, "y": 31.244281},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010617"},
+          {"key": "警员姓名", "value": "邵昌钱"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:44"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010617",
+        "policeName": "邵昌钱",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5574345,
+        "latitude": 31.244281,
+        "gpsTime": "2020-10-14 13:14:44",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011546",
+      "geometry": {"x": 121.505351, "y": 31.1767835},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011546"},
+          {"key": "警员姓名", "value": "蔡永平"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:06:23"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011546",
+        "policeName": "蔡永平",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.505351,
+        "latitude": 31.1767835,
+        "gpsTime": "2020-10-14 13:06:23",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057643",
+      "geometry": {"x": 121.66726676, "y": 31.13571634},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057643"},
+          {"key": "警员姓名", "value": "邵屹敏"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:51"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057643",
+        "policeName": "邵屹敏",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.66726676,
+        "latitude": 31.13571634,
+        "gpsTime": "2020-10-14 13:13:51",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013886",
+      "geometry": {"x": 121.558476, "y": 31.2460845},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013886"},
+          {"key": "警员姓名", "value": "徐劲松"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:11:09"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013886",
+        "policeName": "徐劲松",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.558476,
+        "latitude": 31.2460845,
+        "gpsTime": "2020-10-14 13:11:09",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011716",
+      "geometry": {"x": 121.5783475, "y": 31.333054},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011716"},
+          {"key": "警员姓名", "value": "胡文"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:03"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011716",
+        "policeName": "胡文",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.5783475,
+        "latitude": 31.333054,
+        "gpsTime": "2020-10-14 13:16:03",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014032",
+      "geometry": {"x": 121.5587245, "y": 31.2462345},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014032"},
+          {"key": "警员姓名", "value": "唐慕鹄"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:18"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014032",
+        "policeName": "唐慕鹄",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5587245,
+        "latitude": 31.2462345,
+        "gpsTime": "2020-10-14 13:16:18",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010648",
+      "geometry": {"x": 121.5087075, "y": 31.12768},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010648"},
+          {"key": "警员姓名", "value": "陆敏"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:18"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010648",
+        "policeName": "陆敏",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.5087075,
+        "latitude": 31.12768,
+        "gpsTime": "2020-10-14 13:15:18",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058228",
+      "geometry": {"x": 121.7737095, "y": 31.1903935},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058228"},
+          {"key": "警员姓名", "value": "沈磊明"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:26"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058228",
+        "policeName": "沈磊明",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.7737095,
+        "latitude": 31.1903935,
+        "gpsTime": "2020-10-14 13:14:26",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013972",
+      "geometry": {"x": 121.5918045, "y": 31.2126895},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013972"},
+          {"key": "警员姓名", "value": "卞金荣"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:49"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013972",
+        "policeName": "卞金荣",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5918045,
+        "latitude": 31.2126895,
+        "gpsTime": "2020-10-14 13:14:49",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057329",
+      "geometry": {"x": 121.71698, "y": 31.08879},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057329"},
+          {"key": "警员姓名", "value": "陆永斌"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:57"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057329",
+        "policeName": "陆永斌",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.71698,
+        "latitude": 31.08879,
+        "gpsTime": "2020-10-14 13:14:57",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011424",
+      "geometry": {"x": 121.5574635, "y": 31.244183},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011424"},
+          {"key": "警员姓名", "value": "王勇军"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:12"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011424",
+        "policeName": "王勇军",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.5574635,
+        "latitude": 31.244183,
+        "gpsTime": "2020-10-14 13:16:12",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013028",
+      "geometry": {"x": 121.6051695, "y": 31.297562},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013028"},
+          {"key": "警员姓名", "value": "陶杰"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:11:57"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013028",
+        "policeName": "陶杰",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.6051695,
+        "latitude": 31.297562,
+        "gpsTime": "2020-10-14 13:11:57",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013885",
+      "geometry": {"x": 121.50503, "y": 31.1767355},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013885"},
+          {"key": "警员姓名", "value": "张勇"},
+          {"key": "警员单位", "value": "浦东交警二大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:47"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013885",
+        "policeName": "张勇",
+        "deptId": "310115174200",
+        "deptName": "浦东交警二大队",
+        "longitude": 121.50503,
+        "latitude": 31.1767355,
+        "gpsTime": "2020-10-14 13:13:47",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058303",
+      "geometry": {"x": 121.717263, "y": 31.0886825},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058303"},
+          {"key": "警员姓名", "value": "陈俊杰"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:13:06"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058303",
+        "policeName": "陈俊杰",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.717263,
+        "latitude": 31.0886825,
+        "gpsTime": "2020-10-14 13:13:06",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011324",
+      "geometry": {"x": 121.747315, "y": 31.058701},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011324"},
+          {"key": "警员姓名", "value": "陈晓峰"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:36"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011324",
+        "policeName": "陈晓峰",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.747315,
+        "latitude": 31.058701,
+        "gpsTime": "2020-10-14 13:16:36",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011741",
+      "geometry": {"x": 121.508826, "y": 31.128296},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011741"},
+          {"key": "警员姓名", "value": "张良军"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:17"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011741",
+        "policeName": "张良军",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.508826,
+        "latitude": 31.128296,
+        "gpsTime": "2020-10-14 13:16:17",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "058327",
+      "geometry": {"x": 121.7736115, "y": 31.18912},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "058327"},
+          {"key": "警员姓名", "value": "杨惠光"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:15"}
+        ]
+      },
+      "properties": {
+        "policeSn": "058327",
+        "policeName": "杨惠光",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.7736115,
+        "latitude": 31.18912,
+        "gpsTime": "2020-10-14 13:14:15",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014695",
+      "geometry": {"x": 121.558616, "y": 31.245781},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014695"},
+          {"key": "警员姓名", "value": "刘龙"},
+          {"key": "警员单位", "value": "浦东交警一大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:43"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014695",
+        "policeName": "刘龙",
+        "deptId": "310115174100",
+        "deptName": "浦东交警一大队",
+        "longitude": 121.558616,
+        "latitude": 31.245781,
+        "gpsTime": "2020-10-14 13:16:43",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011651",
+      "geometry": {"x": 121.5831015, "y": 31.3569735},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011651"},
+          {"key": "警员姓名", "value": "朱建刚"},
+          {"key": "警员单位", "value": "浦东交警高速大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:06"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011651",
+        "policeName": "朱建刚",
+        "deptId": "310115175000",
+        "deptName": "浦东交警高速大队",
+        "longitude": 121.5831015,
+        "latitude": 31.3569735,
+        "gpsTime": "2020-10-14 13:14:06",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011649",
+      "geometry": {"x": 121.686998, "y": 31.2022155},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011649"},
+          {"key": "警员姓名", "value": "张志峰"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:36"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011649",
+        "policeName": "张志峰",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.686998,
+        "latitude": 31.2022155,
+        "gpsTime": "2020-10-14 13:16:36",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "010340",
+      "geometry": {"x": 121.5081475, "y": 31.128885},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "010340"},
+          {"key": "警员姓名", "value": "潘炜杰"},
+          {"key": "警员单位", "value": "浦东交警五大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:58"}
+        ]
+      },
+      "properties": {
+        "policeSn": "010340",
+        "policeName": "潘炜杰",
+        "deptId": "310115174500",
+        "deptName": "浦东交警五大队",
+        "longitude": 121.5081475,
+        "latitude": 31.128885,
+        "gpsTime": "2020-10-14 13:15:58",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "013486",
+      "geometry": {"x": 121.68673103, "y": 31.20273821},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "013486"},
+          {"key": "警员姓名", "value": "谭军"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:45"}
+        ]
+      },
+      "properties": {
+        "policeSn": "013486",
+        "policeName": "谭军",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.68673103,
+        "latitude": 31.20273821,
+        "gpsTime": "2020-10-14 13:15:45",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057953",
+      "geometry": {"x": 121.68655476, "y": 31.20294133},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057953"},
+          {"key": "警员姓名", "value": "李文亮"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:03"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057953",
+        "policeName": "李文亮",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.68655476,
+        "latitude": 31.20294133,
+        "gpsTime": "2020-10-14 13:15:03",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "014643",
+      "geometry": {"x": 121.585854, "y": 31.111657},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "014643"},
+          {"key": "警员姓名", "value": "丁传文"},
+          {"key": "警员单位", "value": "浦东交警六大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:16:13"}
+        ]
+      },
+      "properties": {
+        "policeSn": "014643",
+        "policeName": "丁传文",
+        "deptId": "310115174600",
+        "deptName": "浦东交警六大队",
+        "longitude": 121.585854,
+        "latitude": 31.111657,
+        "gpsTime": "2020-10-14 13:16:13",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "011719",
+      "geometry": {"x": 121.683646, "y": 31.200079},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011719"},
+          {"key": "警员姓名", "value": "唐永铭"},
+          {"key": "警员单位", "value": "浦东交警四大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:15:54"}
+        ]
+      },
+      "properties": {
+        "policeSn": "011719",
+        "policeName": "唐永铭",
+        "deptId": "310115174400",
+        "deptName": "浦东交警四大队",
+        "longitude": 121.683646,
+        "latitude": 31.200079,
+        "gpsTime": "2020-10-14 13:15:54",
+        "sjdbh": null,
+        "zs": 0
+      }
+    },
+    {
+      "id": "057824",
+      "geometry": {"x": 121.73144082, "y": 31.06114092},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "057824"},
+          {"key": "警员姓名", "value": "叶引福"},
+          {"key": "警员单位", "value": "浦东交警七大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:04:31"}
+        ]
+      },
+      "properties": {
+        "policeSn": "057824",
+        "policeName": "叶引福",
+        "deptId": "310115174700",
+        "deptName": "浦东交警七大队",
+        "longitude": 121.73144082,
+        "latitude": 31.06114092,
+        "gpsTime": "2020-10-14 13:04:31",
+        "sjdbh": null,
+        "zs": 0
+      }
+    }
+  ],
+  "showPopup": false,
+  "custom": {
+    "color": "yellow",
+    "content": "{textField}",
+    "fontSize": 14,
+    "weight": "nomal"
+  }
+}

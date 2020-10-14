@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {GdConfig} from './GdConfig';
 //import {GisConfig} from './GisConfig';
+//import {GisConfig} from './project/config_jbh';
 import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
@@ -62,7 +63,7 @@ export default class MapConfig {
         type: 'point',
         // primitive: "square",
         url: 'assets/image/Anchor.png',
-        size: [50, 50],
+        size: [30, 30],
         anchor: 'center'
         // color: "red",
         // outline: {
@@ -77,58 +78,56 @@ export default class MapConfig {
         //size: 20000,
         //anchor: "bottom",
       },
-      // overlays: [
-      //   {
-      //     id: 'test001',
-      //     geometry: {x: 148.448924, y: 31.157101},
-      //     fields: {name: '测试2', featureid: '0002'}
-      //   },
-      //   {
-      //     id: 'test002',
-      //     geometry: {x: 121.418924, y: 31.157101},
-      //     fields: {name: '测试3', featureid: '0003'}
-      //   },
-      //   {
-      //     id: '1111',
-      //     geometry: {
-      //       paths: [
-      //         [
-      //           [121.31, 31.01],
-      //           [121.2, 31.22],
-      //           [121.1, 31.33],
-      //           [121.45, 30.89]
-      //         ]
-      //       ]
-      //     },
-      //     symbol: {color: 'red'},
-      //     fields: {name: '测试222', featureid: '0003'}
-      //   },
-      //   {
-      //     id: 'test003',
-      //     geometry: {x: 121.418924, y: 31.257101},
-      //     fields: {name: '测试4', featureid: '0001'}
-      //   }
-      // ],
       overlays: [
         {
           id: 'test001',
-          geometry: {x: -13834.446598916875, y: -4445.604986187298},
+          geometry: {x: 121.448924, y: 31.157101},
           fields: {name: '测试2', featureid: '0002'}
         },
         {
           id: 'test002',
-          geometry: {x: -13834.446598916875, y: -4445.604986187298},
+          geometry: {x: 121.418924, y: 31.157101},
           fields: {name: '测试3', featureid: '0003'}
+        },
+        {
+          id: '1111',
+          geometry: {
+            paths: [
+              [
+                [121.31, 31.01],
+                [121.2, 31.22],
+                [121.1, 31.33],
+                [121.45, 30.89]
+              ]
+            ]
+          },
+          symbol: {color: 'red'},
+          fields: {name: '测试222', featureid: '0003'}
+        },
+        {
+          id: 'test003',
+          geometry: {x: 121.418924, y: 31.257101},
+          fields: {name: '测试4', featureid: '0001'}
         }
       ],
+      // overlays: [
+      //   {
+      //     id: 'test001',
+      //     geometry: {x: -13834.446598916875, y: -4445.604986187298},
+      //     fields: {name: '测试2', featureid: '0002'}
+      //   },
+      //   {
+      //     id: 'test002',
+      //     geometry: {x: -13834.446598916875, y: -4445.604986187298},
+      //     fields: {name: '测试3', featureid: '0003'}
+      //   }
+      // ],
       showPopup: false,
       autoPopup: false,
-      iswgs: false,
       defaultInfoTemplate: {
         title: '1212',
         content: '<div class="accc">name:{name}</div>'
       },
-      // showToolTip: true,
       // toolTipContent: '{featureid}',
       // toolTipOption: {
       //   content: '{featureid}',
@@ -136,11 +135,11 @@ export default class MapConfig {
       //   yoffset: 10
       // },
       custom: {
-        content: "<div style='background:red'>333333</div>"
-      },
-      defaultButtons: [{label: '确认报警', type: 'confirmAlarm'}]
+        content: "<div style='background:white'>1111</div>",
+        zooms: [15, 20]
+      }
     };
-    //const result = await map.addOverlays(points);
+    const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
     // if (this.model_view) {
@@ -322,10 +321,10 @@ export default class MapConfig {
         showDir: true
       }
     ]);
-    // axios.get('config/point1.json').then((res: any) => {
+    // axios.get('config/tt.json').then((res: any) => {
     //   map.addOverlays(res.data);
     // });
-    axios.get('config/as.json').then((res: any) => {
+    axios.get('config/tt.json').then((res: any) => {
       map.addOverlaysCluster(res.data);
     });
     //axios.get("config/Jurisdiction/bsga_v2.geo.json").then((res: any) => {
@@ -333,12 +332,10 @@ export default class MapConfig {
     //  console.log(res.data);
     //});
     //map.hideLayer({label: '匝道灯'});
-    // map.findFeature({
-    //   layerName: 'police',
-    //   level: 16,
-    //   ids: ['test003'],
-    //   centerResult: true
-    // });
+    map.findFeature({
+      layerName: '接驳线',
+      ids: ['TCC2'] //GJYJ001
+    });
     // map.hideLayer({type: 'traffic'});
     // map.showRoad({ids: [1]});
     // map.showDistrictMask({
@@ -449,17 +446,12 @@ export default class MapConfig {
     //   centerResult: true
     // });
     //map.restoreDegeneFsion();
-    // map
-    //   .startGeometrySearch({
-    //     radius: 5000,
-    //     showResult: true,
-    //     clickHandle: (e: any) => {
-    //       console.log(e);
-    //     }
-    //   })
-    //   .then((res: any) => {
-    //     console.log(res.result);
-    //   });
+    // map.startGeometrySearch({
+    //   types: ['aaaaa'],
+    //   center: [121.31, 31.23],
+    //   radius: 5000000,
+    //   showResult: true
+    // });
     // if (this.model_view) {
     //   this.model_view.newHideOut(
     //     {x: -13.011890024929382, y: 250.93535559918166, z: 395.3027167055879},

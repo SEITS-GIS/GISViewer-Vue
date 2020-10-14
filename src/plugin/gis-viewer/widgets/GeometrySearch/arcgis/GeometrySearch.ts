@@ -147,6 +147,7 @@ export class GeometrySearch {
         style: 'solid',
         color: [23, 145, 252, 0.4],
         outline: {
+          style: 'dash',
           color: [255, 0, 0, 0.8],
           width: 2
         }

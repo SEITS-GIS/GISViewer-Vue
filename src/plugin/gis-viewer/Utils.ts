@@ -36,6 +36,15 @@ export class Utils {
     );
     return zoom;
   }
+  public static getGeometryPoint(geometry: any) {
+    if (geometry.type == 'point') {
+      return geometry;
+    } else if (geometry.type == 'polyline') {
+      return geometry.getPoint(0, 0);
+    } else if (geometry.type == 'polygon') {
+      return geometry.centroid;
+    }
+  }
   public static getScale(
     view: __esri.MapView | __esri.SceneView,
     zoom: number

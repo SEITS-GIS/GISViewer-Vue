@@ -218,16 +218,7 @@ export default class MapAppArcGIS2D {
               res.feature.attributes[res.displayFieldName];
             //res.feature.attributes.geometry = res.feature.geometry;
             this.showGisDeviceInfo(layername, id, res.feature);
-            // this.HighlightLayer.add(
-            //   new Graphic({
-            //     geometry: res.feature.geometry,
-            //     symbol: {
-            //       type: 'simple-line', // autocasts as SimpleLineSymbol()
-            //       color: [226, 119, 40],
-            //       width: 4
-            //     } as any
-            //   })
-            // );
+            //this.HighFeature(res.feature.geometry);
             let selectLayer = this.getLayerByName(layername, layerid);
             if (selectLayer.popupTemplates) {
               this.showSubBar(selectLayer, event.mapPoint, res.feature);
@@ -513,6 +504,12 @@ export default class MapAppArcGIS2D {
     // return await overlay.findFeature(params);
     const findfeature = FindFeature.getInstance(this.view);
     return await findfeature.findLayerFeature(params);
+  }
+  public async HighFeature(geometry?: any) {
+    // const overlay = OverlayArcgis2D.getInstance(this.view);
+    // return await overlay.findFeature(params);
+    const findfeature = FindFeature.getInstance(this.view);
+    findfeature.startHighlightOverlays(geometry);
   }
   public async showLayer(params: ILayerConfig) {
     console.log(params);

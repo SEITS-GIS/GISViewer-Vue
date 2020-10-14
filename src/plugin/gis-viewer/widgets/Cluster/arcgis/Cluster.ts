@@ -51,11 +51,14 @@ export class Cluster {
     this.clearLayer([params.type] as string[]);
 
     let points = params.points || params.overlays || [];
-
+    let clusterPic = params.ispic !== false;
     let popup = params.defaultTooltip;
     let zoom = params.zoom;
+    let custom = params.custom;
     let scale = 0;
     let data: any = [];
+    let width = 30;
+    let height = 30;
 
     this.view.map.allLayers.getItemAt(0).tileInfo.lods.forEach((lod: any) => {
       if (lod.level == zoom) {
@@ -80,15 +83,17 @@ export class Cluster {
     });
     let defaultSym = {};
     if (params.defaultSymbol) {
-      let width =
+      width = Number(
         params.defaultSymbol.width || params.defaultSymbol.size instanceof Array
           ? (params.defaultSymbol.size as number[])[0]
-          : params.defaultSymbol.size;
-      let height =
+          : params.defaultSymbol.size
+      );
+      height = Number(
         params.defaultSymbol.height ||
-        params.defaultSymbol.size instanceof Array
+          params.defaultSymbol.size instanceof Array
           ? (params.defaultSymbol.size as number[])[1]
-          : params.defaultSymbol.size;
+          : params.defaultSymbol.size
+      );
       defaultSym = {
         type: 'picture-marker',
         width: width || 30 + 'px',
@@ -109,9 +114,12 @@ export class Cluster {
     this.initLayer({
       data: data,
       defaultSymbol: defaultSym,
+      custom: custom,
       scale: scale,
       popup: popup,
       type: label,
+      clusterPic: clusterPic,
+      size: [width, height],
       subType: params.subType
     });
   }
@@ -162,12 +170,14 @@ export class Cluster {
     //set up a class breaks renderer to render different symbols based on the cluster count. Use the required clusterCount property to break on.
     let defaultSym = params.defaultSymbol; //params.defaultSymbol;
     defaultSym.type = 'picture-marker';
+    let size = params.size;
+    let clusterPic = params.clusterPic;
+    let custom = params.custom;
 
     let renderer = new ClassBreaksRenderer({
       defaultSymbol: defaultSym
     });
     renderer.field = 'clusterCount';
-
     let smSymbol = new SimpleMarkerSymbol({
       size: 22,
       outline: new SimpleLineSymbol({color: [221, 159, 34, 0.8]}),
@@ -188,6 +198,41 @@ export class Cluster {
       outline: new SimpleLineSymbol({color: [200, 52, 59, 0.8]}),
       color: [250, 65, 74, 0.8]
     });
+
+    if (clusterPic) {
+      smSymbol = {
+        type: 'picture-marker',
+        width: size[0] * 1.5 + 'px',
+        height: size[1] * 1.5 + 'px',
+        url: defaultSym.url,
+        xoffset: defaultSym.xoffset,
+        yoffset: defaultSym.yoffset
+      };
+      mdSymbol = {
+        type: 'picture-marker',
+        width: size[0] * 2 + 'px',
+        height: size[1] * 2 + 'px',
+        url: defaultSym.url,
+        xoffset: defaultSym.xoffset,
+        yoffset: defaultSym.yoffset
+      };
+      lgSymbol = {
+        type: 'picture-marker',
+        width: size[0] * 2.5 + 'px',
+        height: size[1] * 2.5 + 'px',
+        url: defaultSym.url,
+        xoffset: defaultSym.xoffset,
+        yoffset: defaultSym.yoffset
+      };
+      xlSymbol = {
+        type: 'picture-marker',
+        width: size[0] * 3 + 'px',
+        height: size[1] * 3 + 'px',
+        url: defaultSym.url,
+        xoffset: defaultSym.xoffset,
+        yoffset: defaultSym.yoffset
+      };
+    }
 
     renderer.addClassBreakInfo(0, 1, defaultSym);
     renderer.addClassBreakInfo(1, 19, smSymbol);
@@ -275,6 +320,8 @@ export class Cluster {
 
     let options = {
       id: 'flare-cluster-layer',
+      clusterPic: true,
+      custom: custom,
       clusterRenderer: renderer,
       areaRenderer: areaRenderer,
       flareRenderer: flareRenderer,
