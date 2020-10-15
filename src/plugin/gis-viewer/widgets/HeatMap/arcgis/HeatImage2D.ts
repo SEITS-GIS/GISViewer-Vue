@@ -1,13 +1,16 @@
+import {IHeatImageParameter} from '@/types/map';
 import {loadModules} from 'esri-loader';
 import {resolve, reject} from 'esri/core/promiseUtils';
+import {param} from 'jquery';
 export default class HeatImage2D {
   private static intances: Map<string, any>;
   public view: any;
   private heatmapInstance: any;
   private customLayer: any;
   private heat: any;
-  private scale: number = 144447;
+  private scale: number = 8000;
   private allImage: any;
+  private heatData: any;
 
   private constructor(view: __esri.MapView | __esri.SceneView) {
     // Geometrical transformations that must be recomputed
@@ -38,7 +41,8 @@ export default class HeatImage2D {
       this.heat = null;
     }
   }
-  public async startup() {
+  public async addImage(params: IHeatImageParameter) {
+    console.log(params);
     const [h337] = await loadModules(['libs/heatmap.min.js']);
     let heatDiv = document.createElement('div');
     heatDiv.style.width = this.view.width + 'px';
@@ -50,38 +54,39 @@ export default class HeatImage2D {
     let parent = document.getElementsByClassName('esri-overlay-surface')[0];
     parent.appendChild(heatDiv);
     this.heat = heatDiv;
-
+    let data = params.points;
+    let imageOpt = params.images || {
+      url: '',
+      width: 600,
+      heigth: 600,
+      center: {x: 0, y: 0}
+    };
     let heatmapInstance = h337.create({
       // only container is required, the rest will be defaults
       container: heatDiv,
       radius: 23
     });
-    var data = {
-      max: 1000,
-      min: 0,
-      data: [
-        {x: 1500, y: 60, value: 500},
-        {x: 1300, y: 650, value: 500},
-        {x: 1870, y: 825, value: 1500}
-      ]
-    };
-    heatmapInstance.setData(data);
+    this.heatData = data;
+    if (data && data.length > 0) {
+      heatmapInstance.setData(data);
+    }
     this.heatmapInstance = heatmapInstance;
+
     heatDiv.style.display = 'none';
     let image = new Image();
-    image.src = 'http://localhost/gz.svg';
-    image.width = 600;
-    image.height = 600;
+    image.src = imageOpt.url;
+    image.width = imageOpt.width;
+    image.height = imageOpt.heigth;
     this.allImage = image;
     image.onload = (e: any) => {
-      this.adds();
+      this.adds(imageOpt);
     };
   }
-  public async adds() {
+  public async adds(imageOpt: any) {
     //this.clear();
     //this.graphics = graphics;
     let _that = this;
-    let pt = [121.43, 31.15];
+    let pt = imageOpt.geometry;
     await loadModules([
       'esri/views/2d/layers/BaseLayerView2D',
       'esri/layers/BaseDynamicLayer',
@@ -120,57 +125,47 @@ export default class HeatImage2D {
             let step = _that.scale / _that.view.scale;
 
             let point = new Point({
-              x: pt[0],
-              y: pt[1],
-              spatialReference: new SpatialReference({wkid: 4326})
+              x: pt.x,
+              y: pt.y,
+              spatialReference: _that.view.spatialReference
             });
 
             let pcc = _that.view.toScreen(point);
-            console.log(pcc);
-            let heatmapInstance = h337.create({
-              // only container is required, the rest will be defaults
-              container: _that.heat,
-              radius: 23 * step
-            });
-            let pdata: any = [];
-            for (let i = 0; i < 400; i++) {
-              var temp = Math.floor(Math.random() * 1000) % 2 == 0 ? 1 : -1;
-              var temp2 = Math.floor(Math.random() * 1000) % 3 == 0 ? 1 : -1;
-              var x1 = 1 + (1 * (Math.random() * 1000 - 1)) / 2;
-              var y1 = 1 + (1 * (Math.random() * 300 - 1)) / 2;
-              var value = Math.floor(1000 * Math.random() + 1);
-              pdata.push({
-                x: Math.floor(x1 * step + pcc.x),
-                y: Math.floor(y1 * step + pcc.y),
-                value: value
+
+            if (_that.heatData) {
+              let heatmapInstance = h337.create({
+                // only container is required, the rest will be defaults
+                container: _that.heat,
+                radius: 23 * step
               });
+              let pdata = _that.heatData.map((dt: any) => {
+                let dx = Math.floor(dt.x * step + pcc.x);
+                let dy = Math.floor(dt.y * step + pcc.y);
+                return {
+                  x: dx,
+                  y: dy,
+                  value: dt.value
+                };
+              });
+              var resdata = {
+                max: 1000,
+                min: 0,
+                data: pdata
+              };
+              heatmapInstance.setData(resdata);
             }
-            var resdata = {
-              max: 1000,
-              min: 0,
-              data: pdata
-            };
-            heatmapInstance.setData(resdata);
             //console.log(step);
             return new Promise((resolve, reject) => {
-              //   let image = new Image();
-              //   image.src = 'http://localhost/gz.svg';
-              //   image.width = 1133;
-              //   image.height = 300;
-              //   image.onload = (e: any) => {};
               let canvas = _that.heat.firstChild;
-              //   canvas.width = width * step;
-              //   canvas.height = height * step;
               let context = canvas.getContext('2d');
 
-              console.log('2222::::' + pcc.x + ',' + pcc.y);
               context.globalCompositeOperation = 'destination-atop';
               context.drawImage(
                 _that.allImage,
                 pcc.x,
                 pcc.y,
-                600 * step,
-                600 * step
+                imageOpt.width * step,
+                imageOpt.height * step
               );
 
               resolve(canvas);
@@ -207,7 +202,7 @@ export default class HeatImage2D {
           // }
         });
         let wmsLayer = new CustomWMSLayer({
-          mapUrl: 'http://localhost/gz.svg',
+          mapUrl: imageOpt.url,
           mapParameters: {
             WIDTH: '{width}',
             HEIGHT: '{height}',
@@ -216,7 +211,7 @@ export default class HeatImage2D {
           }
         });
         _that.customLayer = wmsLayer;
-        _that.view.map.layers.add(wmsLayer);
+        _that.view.map.layers.add(wmsLayer, 0);
       }
     );
   }

@@ -1,8 +1,17 @@
 import axios from 'axios';
 import {GdConfig} from './GdConfig';
 //import {GisConfig} from './GisConfig';
+//import {GisConfig} from './project/JinBoHui/config_video';
+//import {GisConfig} from './project/JinBoHui/config_yy';
+//import {GisConfig} from './project/JinBoHui/config_zh';
+//import {GisConfig} from './project/JinBoHui/config_bus';
+//import {GisConfig} from './project/JinBoHui/config_gz';
+//import {GisConfig} from './project/JinBoHui/config_jbh';
+//import {GisConfig} from './project/JinBoHui/config_jbx';
+import {GisConfig} from './project/JinBoHui/config_sub';
+//import {GisConfig} from './project/JinBoHui/config_toll';
 //import {GisConfig} from './project/config_jbh';
-import {GisConfig} from './project/config';
+//import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
 export default class MapConfig {
@@ -62,84 +71,20 @@ export default class MapConfig {
         //symbol for 2d
         type: 'point',
         // primitive: "square",
-        url: 'assets/image/Anchor.png',
-        size: [30, 30],
+        url: 'assets/image/gz.svg',
+        size: [562, 510],
         anchor: 'center'
-        // color: "red",
-        // outline: {
-        //   color: "white",
-        //   size: 4
-        // },
-        // anchor: "top"
-        //symbol for 3d
-        //type: "point-3d",
-        //primitive: "cube",
-        //color: "red",
-        //size: 20000,
-        //anchor: "bottom",
       },
       overlays: [
         {
-          id: 'test001',
-          geometry: {x: 121.448924, y: 31.157101},
-          fields: {name: '测试2', featureid: '0002'}
-        },
-        {
-          id: 'test002',
-          geometry: {x: 121.418924, y: 31.157101},
-          fields: {name: '测试3', featureid: '0003'}
-        },
-        {
-          id: '1111',
-          geometry: {
-            paths: [
-              [
-                [121.31, 31.01],
-                [121.2, 31.22],
-                [121.1, 31.33],
-                [121.45, 30.89]
-              ]
-            ]
-          },
-          symbol: {color: 'red'},
-          fields: {name: '测试222', featureid: '0003'}
-        },
-        {
           id: 'test003',
-          geometry: {x: 121.418924, y: 31.257101},
+          geometry: {x: -0.14524301945078105, y: -0.04341336216483233},
           fields: {name: '测试4', featureid: '0001'}
         }
-      ],
-      // overlays: [
-      //   {
-      //     id: 'test001',
-      //     geometry: {x: -13834.446598916875, y: -4445.604986187298},
-      //     fields: {name: '测试2', featureid: '0002'}
-      //   },
-      //   {
-      //     id: 'test002',
-      //     geometry: {x: -13834.446598916875, y: -4445.604986187298},
-      //     fields: {name: '测试3', featureid: '0003'}
-      //   }
-      // ],
-      showPopup: false,
-      autoPopup: false,
-      defaultInfoTemplate: {
-        title: '1212',
-        content: '<div class="accc">name:{name}</div>'
-      },
-      // toolTipContent: '{featureid}',
-      // toolTipOption: {
-      //   content: '{featureid}',
-      //   xoffset: 0,
-      //   yoffset: 10
-      // },
-      custom: {
-        content: "<div style='background:white'>1111</div>",
-        zooms: [15, 20]
-      }
+      ]
     };
-    const result = await map.addOverlays(points);
+
+    //const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
     // if (this.model_view) {
@@ -178,7 +123,7 @@ export default class MapConfig {
     //   };
     //   const result = map.addOverlaysCluster(res.data);
     // });
-    //map.addHeatImage();
+
     //map.showMigrateChart('001');
     // map.addDrawLayer({
     //   layerUrls: './config/fbd/morph_ksl.json',
@@ -334,7 +279,7 @@ export default class MapConfig {
     //map.hideLayer({label: '匝道灯'});
     map.findFeature({
       layerName: '接驳线',
-      ids: ['TCC2'] //GJYJ001
+      ids: ['TCC2'] //GJYJ001,GJ5-002,BS1,TCC2
     });
     // map.hideLayer({type: 'traffic'});
     // map.showRoad({ids: [1]});

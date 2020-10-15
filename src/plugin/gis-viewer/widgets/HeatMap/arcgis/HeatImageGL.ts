@@ -84,7 +84,7 @@ export default class HeatImageGL {
     this.imageOpt = imageOpt;
     this.scale = imageOpt.scale || this.scale;
     this.factor = imageOpt.factor || this.factor;
-    this.imageCenter = imageOpt.center || imageOpt.geometry;
+    this.imageCenter = imageOpt.center;
 
     let step = this.scale / this.view.scale;
 
@@ -134,10 +134,11 @@ export default class HeatImageGL {
     this.heatData = pdata;
     heatmapInstance.setData(data);
     this.heatmapInstance = heatmapInstance;
-    heatDiv.style.display = 'none';
+    //heatDiv.style.display = 'none';
     let image = new Image();
     image.src = imageOpt.url;
     image.setAttribute('crossOrigin', 'anonymous');
+    //image.style.transform = 'rotate(45deg)';
     image.width = this.imageOpt.width || 600;
     image.height = this.imageOpt.height || 600;
     this.allImage = image;
@@ -346,6 +347,11 @@ export default class HeatImageGL {
             cts.globalCompositeOperation = 'destination-atop';
           }
           let devicePixelRatio = window.devicePixelRatio || 1;
+          // cts.translate(
+          //   (_that.allImage.width * step) / 2,
+          //   (_that.allImage.height * step) / 2
+          // );
+          // cts.rotate((30 * Math.PI) / 180);
           cts.drawImage(
             _that.allImage,
             xoffset,

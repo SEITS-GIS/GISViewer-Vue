@@ -218,7 +218,7 @@ export default class MapAppArcGIS2D {
               res.feature.attributes[res.displayFieldName];
             //res.feature.attributes.geometry = res.feature.geometry;
             this.showGisDeviceInfo(layername, id, res.feature);
-            //this.HighFeature(res.feature.geometry);
+            this.HighFeature(res.feature.geometry);
             let selectLayer = this.getLayerByName(layername, layerid);
             if (selectLayer.popupTemplates) {
               this.showSubBar(selectLayer, event.mapPoint, res.feature);
@@ -241,10 +241,10 @@ export default class MapAppArcGIS2D {
       }
     });
     await view.when();
+    this.view = view;
     if (mapConfig.operationallayers) {
       this.createLayer(view, mapConfig.operationallayers);
     }
-    this.view = view;
     (this.view as any).mapOptions = mapConfig.options;
     if (mapConfig.options && mapConfig.options.tolerance) {
       this.tolerance = mapConfig.options && mapConfig.options.tolerance;
@@ -457,6 +457,10 @@ export default class MapAppArcGIS2D {
               const drawlayer = DrawLayer.getInstance(view);
               drawlayer.addDrawLayer(layerConfig);
               break;
+            case 'image':
+              const heat = HeatImage2D.getInstance(view);
+              heat.addImage({images: layerConfig, points: []});
+              break;
           }
           // if (layer) {
           //   layer.id = layerConfig.id || layerConfig.label;
@@ -470,6 +474,7 @@ export default class MapAppArcGIS2D {
     this.HighlightLayer = new GraphicsLayer();
     this.view.map.add(this.HighlightLayer);
   }
+
   public async showSubwayFlow() {
     const flow = SubwayLine.getInstance(this.view);
     flow.showSubwayFlow();

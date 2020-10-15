@@ -54,7 +54,7 @@ export default class PluginTest extends Vue {
     // });
   }
   private mapClick(pt: any) {
-    console.log(pt.x + ',' + pt.y);
+    console.log(pt);
   }
 }
 </script>

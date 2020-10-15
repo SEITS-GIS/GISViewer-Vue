@@ -45,6 +45,37 @@ export class Utils {
       return geometry.centroid;
     }
   }
+  public static getMostScale(
+    view: __esri.MapView | __esri.SceneView,
+    maxScale: number,
+    minSacle: number
+  ) {
+    let most: number = 0;
+    if (maxScale == 0 && minSacle == 0) {
+      return 0;
+    }
+    let last: number = 0;
+    let layer: any = view.map.allLayers.getItemAt(0);
+    if (layer.tileInfo && layer.tileInfo.lods) {
+      let lods = (view.map.allLayers.getItemAt(0) as any).tileInfo.lods;
+      for (let i = 0; i < lods.length; i++) {
+        let lod = lods[i];
+        if (maxScale != 0) {
+          if (lod.scale < maxScale) {
+            most = last;
+            break;
+          }
+        } else if (minSacle != 0 && lod.scale < minSacle) {
+          most = lod.scale;
+          break;
+        }
+        last = lod.scale;
+      }
+    }
+
+    console.log(most);
+    return most;
+  }
   public static getScale(
     view: __esri.MapView | __esri.SceneView,
     zoom: number

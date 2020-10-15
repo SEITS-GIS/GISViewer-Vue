@@ -11,6 +11,7 @@ import HighFeauture2D from '../../Overlays/arcgis/HighFeauture2D';
 import {getThumbnailUrl} from 'esri/widgets/BasemapToggle/BasemapToggleViewModel';
 import {param} from 'jquery';
 import {Utils} from '@/plugin/gis-viewer/Utils';
+import ToolTip from '../../Overlays/arcgis/ToolTip';
 
 export class FindFeature {
   private static intances: Map<string, any>;
@@ -51,6 +52,7 @@ export class FindFeature {
       await this.createOverlayLayer();
     } else {
       this.findLayer.removeAll();
+      this.view.popup.close();
     }
     let type = params.layerName;
     let ids = params.ids || [];
@@ -166,16 +168,7 @@ export class FindFeature {
           resLayer.parent.maxScale == undefined ? 0 : resLayer.parent.maxScale;
       }
     }
-    if (minScale > 0 && minScale > 0) {
-      scale = maxScale;
-    }
-    if (minScale == 0) {
-      scale = maxScale;
-    }
-    if (maxScale == 0) {
-      scale = minScale;
-    }
-
+    scale = Utils.getMostScale(this.view, maxScale, minScale);
     return {layer: parentlayer, scale: scale};
   }
   //使toolTip中支持{字段}的形式
@@ -304,6 +297,7 @@ export class FindFeature {
       await this.createOverlayLayer();
     } else {
       this.findLayer.removeAll();
+      this.view.popup.close();
     }
     this.highState = false;
     this.highCount = 0;
@@ -359,6 +353,7 @@ export class FindFeature {
         _this.HighlightOverlays();
       } else {
         _this.findLayer.removeAll();
+        _this.view.popup.close();
       }
     }, 70);
   }
