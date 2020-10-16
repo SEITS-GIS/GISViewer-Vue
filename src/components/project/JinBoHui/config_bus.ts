@@ -23,7 +23,9 @@ export let GisConfig = {
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_jieboxian/MapServer/10',
       type: 'feature',
       visible: true,
-      outFields: ['*']
+      outFields: ['*'],
+      minScale: 0,
+      maxScale: 0
     }
   ],
   options: {

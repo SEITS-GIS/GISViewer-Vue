@@ -54,6 +54,7 @@
       ],
       "isGlobalView": true,
       "isInside": false,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -117,6 +118,7 @@
       ],
       "isGlobalView": true,
       "isInside": false,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -182,6 +184,7 @@
       ],
       "isGlobalView": true,
       "isInside": false,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": -37.22919385534843,
@@ -247,6 +250,7 @@
       ],
       "isGlobalView": true,
       "isInside": false,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -313,6 +317,7 @@
       ],
       "isGlobalView": true,
       "isInside": false,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -377,6 +382,7 @@
       ],
       "isGlobalView": true,
       "isInside": false,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": -12.823407057986252,
@@ -441,6 +447,7 @@
       ],
       "isGlobalView": true,
       "isInside": false,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -460,13 +467,13 @@
         "fov": 33.63196727902251,
         "position": {
           "x": -176.5,
-          "y": 5.331321265059508,
-          "z": -58
+          "y": 5.3,
+          "z": -55
         },
         "poseMat4": [
           -0.994990759138005,
           -0.06937902038091723,
-          0.0719718053195886,
+          0.1519718053195886,
           -176.5,
           0.040024950390299574,
           -0.9362115252233749,
@@ -475,16 +482,16 @@
           0.09160454451734668,
           -0.3445207273443885,
           0.9342987080446288,
-          -58,
+          -55,
           0,
           0,
           0,
           1
         ],
         "lookAt": {
-          "x": -175.06056389360825,
-          "y": -1.6516862069449791,
-          "z": -39.31402583910742
+          "x": -173.46056389360822,
+          "y": -1.683007472004487,
+          "z": -36.31402583910742
         }
       },
       "flv": {
@@ -508,6 +515,7 @@
       ],
       "isGlobalView": true,
       "isInside": false,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -597,6 +605,7 @@
       ],
       "isGlobalView": true,
       "isInside": false,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -675,6 +684,7 @@
       ],
       "isGlobalView": true,
       "isInside": false,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -747,6 +757,7 @@
       ],
       "isGlobalView": true,
       "isInside": true,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -825,6 +836,7 @@
       ],
       "isGlobalView": true,
       "isInside": true,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -912,6 +924,7 @@
       ],
       "isGlobalView": true,
       "isInside": false,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -979,6 +992,7 @@
       ],
       "isGlobalView": true,
       "isInside": false,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -1046,6 +1060,7 @@
       ],
       "isGlobalView": true,
       "isInside": true,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -1110,6 +1125,7 @@
       ],
       "isGlobalView": true,
       "isInside": true,
+      "isOut": false,
       "isreal": false,
       "realposition": {
         "x": 0,
@@ -1147,6 +1163,7 @@
       "modelIndex": null,
       "isGlobalView": true,
       "isInside": false,
+      "isOut": true,
       "isreal": true,
       "realposition": {
         "x": -270,
@@ -1184,11 +1201,12 @@
       "modelIndex": null,
       "isGlobalView": true,
       "isInside": false,
+      "isOut": true,
       "isreal": true,
       "realposition": {
-        "x": 131.977112,
-        "y": 85.053818,
-        "z": -163.264099
+        "x": 355.06794,
+        "y": 91.1154,
+        "z": -318.2925
       },
       "realtar": {
         "x": -500,
@@ -1221,6 +1239,7 @@
       "modelIndex": null,
       "isGlobalView": true,
       "isInside": false,
+      "isOut": true,
       "isreal": true,
       "realposition": {
         "x": -516.981628,
@@ -1258,6 +1277,7 @@
       "modelIndex": null,
       "isGlobalView": true,
       "isInside": false,
+      "isOut": true,
       "isreal": true,
       "realposition": {"x": -382.62, "y": 54.23, "z": 56.19},
       "realtar": {"x": -126.81, "y": 0, "z": 572.27}
@@ -1287,13 +1307,14 @@
       "modelIndex": null,
       "isGlobalView": true,
       "isInside": false,
+      "isOut": true,
       "isreal": true,
       "realposition": {"x": -244.89, "y": 58.09, "z": 736.95},
       "realtar": {"x": 40, "y": 30, "z": 240}
     },
     "HQ0912New196": {
       "index": "HQ0912New196",
-      "keyCode": "72",
+      "keyCode": "73",
       "camJson": {
         "fov": null,
         "position": {
@@ -1314,8 +1335,9 @@
         "url": "http://10.31.214.206:8081/live?app=rtmp&stream=309021"
       },
       "modelIndex": null,
-      "isGlobalView": true,
-      "isInside": false,
+      "isGlobalView": false,
+      "isInside": true,
+      "isOut": false,
       "isreal": true,
       "realposition": {
         "x": -135.707,
@@ -1326,7 +1348,7 @@
     },
     "HQ0912New197": {
       "index": "HQ0912New197",
-      "keyCode": "72",
+      "keyCode": "74",
       "camJson": {
         "fov": null,
         "position": {
@@ -1347,11 +1369,166 @@
         "url": "http://10.31.214.206:8081/live?app=rtmp&stream=309018"
       },
       "modelIndex": null,
-      "isGlobalView": true,
-      "isInside": false,
+      "isGlobalView": false,
+      "isInside": true,
+      "isOut": false,
       "isreal": true,
       "realposition": {"x": -2.12, "y": 2, "z": -76.97},
       "realtar": {"x": 0, "y": 0, "z": -70}
+    },
+    "HQ0912New190": {
+      "index": "HQ0912New190",
+      "keyCode": "75",
+      "camJson": {
+        "fov": null,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "poseMat4": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        "lookAt": {
+          "x": null,
+          "y": null,
+          "z": null
+        }
+      },
+      "flv": {
+        "type": "flv",
+        "src": "http://10.31.214.206:8081/live?app=rtmp&stream=309184",
+        "url": "http://10.31.214.206:8081/live?app=rtmp&stream=309184"
+      },
+      "modelIndex": null,
+      "isGlobalView": false,
+      "isInside": true,
+      "isOut": true,
+      "isreal": true,
+      "realposition": {
+        "x": -155.5314,
+        "y": 54.062,
+        "z": -837.46554
+      },
+      "realtar": {"x": -155.5314, "y": 54.062, "z": -837.46554}
+    },
+    "HQ0912New191": {
+      "index": "HQ0912New191",
+      "keyCode": "76",
+      "camJson": {
+        "fov": null,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "poseMat4": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        "lookAt": {
+          "x": null,
+          "y": null,
+          "z": null
+        }
+      },
+      "flv": {
+        "type": "flv",
+        "src": "http://10.31.214.206:8081/live?app=rtmp&stream=309033",
+        "url": "http://10.31.214.206:8081/live?app=rtmp&stream=309033"
+      },
+      "modelIndex": null,
+      "isGlobalView": false,
+      "isInside": true,
+      "isOut": true,
+      "isreal": true,
+      "realposition": {"x": 197.24832275, "y": 39.18025415, "z": 951.342913},
+      "realtar": {"x": 197.24832275, "y": 39.18025415, "z": 951.342913}
+    },
+    "HQ0912New192": {
+      "index": "HQ0912New192",
+      "keyCode": "77",
+      "camJson": {
+        "fov": null,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "poseMat4": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        "lookAt": {
+          "x": null,
+          "y": null,
+          "z": null
+        }
+      },
+      "flv": {
+        "type": "flv",
+        "src": "http://10.31.214.206:8081/live?app=rtmp&stream=309324",
+        "url": "http://10.31.214.206:8081/live?app=rtmp&stream=309324"
+      },
+      "modelIndex": null,
+      "isGlobalView": false,
+      "isInside": true,
+      "isOut": false,
+      "isreal": true,
+      "realposition": {"x": -182.8298, "y": 10.55914, "z": 27.28889},
+      "realtar": {"x": -182.8298, "y": 2, "z": 27.28889}
+    },
+    "HQ0912New193": {
+      "index": "HQ0912New193",
+      "keyCode": "78",
+      "camJson": {
+        "fov": null,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "poseMat4": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        "lookAt": {
+          "x": null,
+          "y": null,
+          "z": null
+        }
+      },
+      "flv": {
+        "type": "flv",
+        "src": "http://10.31.214.206:8081/live?app=rtmp&stream=309103",
+        "url": "http://10.31.214.206:8081/live?app=rtmp&stream=309103"
+      },
+      "modelIndex": null,
+      "isGlobalView": false,
+      "isInside": true,
+      "isOut": false,
+      "isreal": true,
+      "realposition": {"x": -178.3675, "y": 10.5718691, "z": 33.11605},
+      "realtar": {"x": -178.3675, "y": 2, "z": 33.11605}
+    },
+    "HQ0912New194": {
+      "index": "HQ0912New194",
+      "keyCode": "79",
+      "camJson": {
+        "fov": null,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "poseMat4": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        "lookAt": {
+          "x": null,
+          "y": null,
+          "z": null
+        }
+      },
+      "flv": {
+        "type": "flv",
+        "src": "http://10.31.214.206:8081/live?app=rtmp&stream=610123",
+        "url": "http://10.31.214.206:8081/live?app=rtmp&stream=610123"
+      },
+      "modelIndex": null,
+      "isGlobalView": false,
+      "isInside": true,
+      "isOut": false,
+      "isreal": true,
+      "realposition": {"x": -186.2396, "y": 10.552955, "z": 32.65011},
+      "realtar": {"x": -186.2396, "y": 2, "z": 32.65011}
     }
   }
 }

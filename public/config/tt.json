@@ -5671,6 +5671,6 @@
     "color": "yellow",
     "content": "{textField}",
     "fontSize": 14,
-    "weight": "nomal"
+    "weight": 12
   }
 }
