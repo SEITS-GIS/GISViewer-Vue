@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GdConfig} from './GdConfig';
+import { GdConfig } from './GdConfig';
 //import {GisConfig} from './GisConfig';
 //import {GisConfig} from './project/JinBoHui/config_video';
 //import {GisConfig} from './project/JinBoHui/config_yy';
@@ -8,14 +8,16 @@ import {GdConfig} from './GdConfig';
 //import {GisConfig} from './project/JinBoHui/config_gz';
 //import {GisConfig} from './project/JinBoHui/config_jbh';
 //import {GisConfig} from './project/JinBoHui/config_jbx';
-import {GisConfig} from './project/JinBoHui/config_sub';
+// import {GisConfig} from './project/JinBoHui/config_sub';
 //import {GisConfig} from './project/JinBoHui/config_toll';
 //import {GisConfig} from './project/config_jbh';
 //import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
+import { GisConfig } from './project/PuDong/config_RoadSelect';
+
 export default class MapConfig {
-  public constructor() {}
+  public constructor() { }
   private model_view: any;
   public mapConfig: any = GisConfig;
   public gdConfig: any = GdConfig;
@@ -78,8 +80,8 @@ export default class MapConfig {
       overlays: [
         {
           id: 'test003',
-          geometry: {x: -0.14524301945078105, y: -0.04341336216483233},
-          fields: {name: '测试4', featureid: '0001'}
+          geometry: { x: -0.14524301945078105, y: -0.04341336216483233 },
+          fields: { name: '测试4', featureid: '0001' }
         }
       ]
     };
@@ -147,16 +149,16 @@ export default class MapConfig {
       {
         points: [
           {
-            geometry: {x: 121.487563, y: 31.395083},
-            fields: {content: ''}
+            geometry: { x: 121.487563, y: 31.395083 },
+            fields: { content: '' }
           },
           {
-            geometry: {x: 121.481867, y: 31.392274},
-            fields: {content: ''}
+            geometry: { x: 121.481867, y: 31.392274 },
+            fields: { content: '' }
           },
           {
-            geometry: {x: 121.479625, y: 31.39665},
-            fields: {content: ''}
+            geometry: { x: 121.479625, y: 31.39665 },
+            fields: { content: '' }
           }
         ],
         showDir: true,
@@ -166,26 +168,26 @@ export default class MapConfig {
       {
         points: [
           {
-            geometry: {x: 121.490726, y: 31.378321},
+            geometry: { x: 121.490726, y: 31.378321 },
             fields: {
               content: ''
             }
           },
           {
-            geometry: {x: 121.488117, y: 31.382392},
-            fields: {content: ''}
+            geometry: { x: 121.488117, y: 31.382392 },
+            fields: { content: '' }
           },
           {
-            geometry: {x: 121.485499, y: 31.386555},
-            fields: {content: ''}
+            geometry: { x: 121.485499, y: 31.386555 },
+            fields: { content: '' }
           },
           {
-            geometry: {x: 121.481947, y: 31.392143},
-            fields: {content: ''}
+            geometry: { x: 121.481947, y: 31.392143 },
+            fields: { content: '' }
           },
           {
-            geometry: {x: 121.479706, y: 31.396507},
-            fields: {content: ''}
+            geometry: { x: 121.479706, y: 31.396507 },
+            fields: { content: '' }
           }
         ],
         showDir: true
@@ -193,16 +195,16 @@ export default class MapConfig {
       {
         points: [
           {
-            geometry: {x: 121.485116, y: 31.398434},
-            fields: {content: '牡丹江路-宝杨路(西向东)'}
+            geometry: { x: 121.485116, y: 31.398434 },
+            fields: { content: '牡丹江路-宝杨路(西向东)' }
           },
           {
-            geometry: {x: 121.481686, y: 31.397334},
-            fields: {content: '宝杨路-双庆路(北向南)'}
+            geometry: { x: 121.481686, y: 31.397334 },
+            fields: { content: '宝杨路-双庆路(北向南)' }
           },
           {
-            geometry: {x: 121.479326, y: 31.396519},
-            fields: {content: '同济路-宝杨路(北向南)'}
+            geometry: { x: 121.479326, y: 31.396519 },
+            fields: { content: '同济路-宝杨路(北向南)' }
           }
         ],
         showDir: true
@@ -210,16 +212,16 @@ export default class MapConfig {
       {
         points: [
           {
-            geometry: {x: 121.479407, y: 31.396382},
-            fields: {content: '同济路-宝杨路(北向南)'}
+            geometry: { x: 121.479407, y: 31.396382 },
+            fields: { content: '同济路-宝杨路(北向南)' }
           },
           {
-            geometry: {x: 121.481715, y: 31.39211},
-            fields: {content: '同济路-海江路(东向西)', dir: 'left'}
+            geometry: { x: 121.481715, y: 31.39211 },
+            fields: { content: '同济路-海江路(东向西)', dir: 'left' }
           },
           {
-            geometry: {x: 121.487563, y: 31.395083},
-            fields: {content: '牡丹江路-海江路(东向西)'}
+            geometry: { x: 121.487563, y: 31.395083 },
+            fields: { content: '牡丹江路-海江路(东向西)' }
           }
         ],
         showDir: true
@@ -227,23 +229,23 @@ export default class MapConfig {
       {
         points: [
           {
-            geometry: {x: 121.47939, y: 31.396364},
-            fields: {content: '同济路-宝杨路(北向南)1'}
+            geometry: { x: 121.47939, y: 31.396364 },
+            fields: { content: '同济路-宝杨路(北向南)1' }
           },
           {
-            geometry: {x: 121.481715, y: 31.39211},
-            fields: {content: '同济路-海江路(东向西)1', dir: 'left'}
+            geometry: { x: 121.481715, y: 31.39211 },
+            fields: { content: '同济路-海江路(东向西)1', dir: 'left' }
           },
           {
-            geometry: {x: 121.48522, y: 31.386528},
-            fields: {content: '同济路-双城路(东向西)1'}
+            geometry: { x: 121.48522, y: 31.386528 },
+            fields: { content: '同济路-双城路(东向西)1' }
           },
           {
-            geometry: {x: 121.487838, y: 31.382367},
-            fields: {content: '同济路-水产路(西向东)1'}
+            geometry: { x: 121.487838, y: 31.382367 },
+            fields: { content: '同济路-水产路(西向东)1' }
           },
           {
-            geometry: {x: 121.490515, y: 31.378166}
+            geometry: { x: 121.490515, y: 31.378166 }
           }
         ],
         showDir: true
@@ -251,16 +253,16 @@ export default class MapConfig {
       {
         points: [
           {
-            geometry: {x: 121.479691, y: 31.396509},
-            fields: {content: '同济路-宝杨路(北向南)'}
+            geometry: { x: 121.479691, y: 31.396509 },
+            fields: { content: '同济路-宝杨路(北向南)' }
           },
           {
-            geometry: {x: 121.481736, y: 31.397235},
-            fields: {content: '宝杨路-双庆路(东向西)'}
+            geometry: { x: 121.481736, y: 31.397235 },
+            fields: { content: '宝杨路-双庆路(东向西)' }
           },
           {
-            geometry: {x: 121.485161, y: 31.398369},
-            fields: {content: '牡丹江路-宝杨路(东向西)'}
+            geometry: { x: 121.485161, y: 31.398369 },
+            fields: { content: '牡丹江路-宝杨路(东向西)' }
           }
         ],
         showDir: true
