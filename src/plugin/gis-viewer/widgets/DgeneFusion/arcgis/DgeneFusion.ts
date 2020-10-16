@@ -279,18 +279,18 @@ export class DgeneFusion {
           // console.log(data, position);
           if (showOutVideo || !vdata.isOut) {
             //console.log(data, position);
-            if (true) {
-              this.fusion_view.loadMapSprite2(
-                './assets/mapIcons/text/' + data + '.png',
-                'test',
-                {
-                  x: position.x,
-                  y: position.y + 2.5 * size,
-                  z: position.z
-                },
-                size * 10
-              );
-            }
+            // if (true) {
+            //   this.fusion_view.loadMapSprite2(
+            //     './assets/mapIcons/text/' + data + '.png',
+            //     'test',
+            //     {
+            //       x: position.x,
+            //       y: position.y + 2.5 * size,
+            //       z: position.z
+            //     },
+            //     size * 10
+            //   );
+            // }
             this.fusion_view.loadMapSprite(
               data,
               {
