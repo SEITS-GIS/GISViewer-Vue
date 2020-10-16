@@ -271,7 +271,7 @@ export class DgeneFusion {
             isreal: vdata.isreal,
             fly: vdata.isGlobalView
           });
-          let size = vdata.isOut ? 2 : 8;
+          let size = vdata.isOut ? 8 : 2;
 
           let position = vdata.isreal
             ? vdata.realposition
@@ -438,7 +438,7 @@ export class DgeneFusion {
     if (this.fusion_view) {
       this.all_video.forEach((item: any) => {
         if (item.isout) {
-          this.fusion_view.getScene().getObjectByName(item).visible = show;
+          this.fusion_view.getScene().getObjectByName(item.name).visible = show;
         }
       });
     }
