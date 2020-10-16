@@ -329,7 +329,7 @@ export default class MapConfig {
     //     minValue: 0
     //   }
     // };
-    map.addHeatMap(json);
+    //map.addHeatMap(json);
     // let points2 = {
     //   type: 'police',
     //   defaultVisible: true,
