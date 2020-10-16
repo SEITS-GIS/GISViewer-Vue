@@ -13,7 +13,8 @@ import { GdConfig } from './GdConfig';
 //import {GisConfig} from './project/config_jbh';
 //import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
-import {GisConfig} from './project/configyj';
+// import {GisConfig} from './project/configyj';
+import { GisConfig } from './project/PuDong/config_SelectRoute';
 export default class MapConfig {
   public constructor() { }
   private model_view: any;
@@ -21,37 +22,37 @@ export default class MapConfig {
   public gdConfig: any = GdConfig;
   public async mapLoaded(map: any) {
     let _this = this;
-    map
-      .addDgeneFusion({
-        appendDomID: 'gisDiv',
-        url: 'dgene',
-        showOut: true,
-        outvideo: true,
-        callback: (a: number, b: number) => {
-          console.log(a, b);
-        }
-      })
-      .then((e: any) => {
-        console.log('载入成功', e.result);
-        _this.model_view = e.result;
-        map.addOverlays({
-          type: 'model3d',
-          defaultSymbol: {
-            type: 'point-2d',
-            url: 'assets/image/Anchor.png',
-            size: [50, 50],
-            anchor: 'center'
-          },
-          overlays: [
-            {
-              id: 'model1',
-              geometry: {x: -14071.811607336222, y: -4342.546650737293},
-              fields: {}
-            }
-          ],
-          iswgs: false
-        });
-      }); //载入3维模型
+    // map
+    //   .addDgeneFusion({
+    //     appendDomID: 'gisDiv',
+    //     url: 'dgene',
+    //     showOut: true,
+    //     outvideo: true,
+    //     callback: (a: number, b: number) => {
+    //       console.log(a, b);
+    //     }
+    //   })
+    //   .then((e: any) => {
+    //     console.log('载入成功', e.result);
+    //     _this.model_view = e.result;
+    //     map.addOverlays({
+    //       type: 'model3d',
+    //       defaultSymbol: {
+    //         type: 'point-2d',
+    //         url: 'assets/image/Anchor.png',
+    //         size: [50, 50],
+    //         anchor: 'center'
+    //       },
+    //       overlays: [
+    //         {
+    //           id: 'model1',
+    //           geometry: {x: -14071.811607336222, y: -4342.546650737293},
+    //           fields: {}
+    //         }
+    //       ],
+    //       iswgs: false
+    //     });
+    //   }); //载入3维模型
 
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
@@ -63,26 +64,26 @@ export default class MapConfig {
     //map.showJurisdiction();
     // map.deleteAllOverlays();
     // map.deleteOverlays({types: ['police']});
-    let overStr = '';
-    let points = {
-      type: 'police',
-      defaultVisible: true,
-      defaultSymbol: {
-        //symbol for 2d
-        type: 'point',
-        // primitive: "square",
-        url: 'assets/image/gz.svg',
-        size: [562, 510],
-        anchor: 'center'
-      },
-      overlays: [
-        {
-          id: 'test003',
-          geometry: { x: -0.14524301945078105, y: -0.04341336216483233 },
-          fields: { name: '测试4', featureid: '0001' }
-        }
-      ]
-    };
+    // let overStr = '';
+    // let points = {
+    //   type: 'police',
+    //   defaultVisible: true,
+    //   defaultSymbol: {
+    //     //symbol for 2d
+    //     type: 'point',
+    //     // primitive: "square",
+    //     url: 'assets/image/gz.svg',
+    //     size: [562, 510],
+    //     anchor: 'center'
+    //   },
+    //   overlays: [
+    //     {
+    //       id: 'test003',
+    //       geometry: { x: -0.14524301945078105, y: -0.04341336216483233 },
+    //       fields: { name: '测试4', featureid: '0001' }
+    //     }
+    //   ]
+    // };
 
     //const result = await map.addOverlays(points);
   }

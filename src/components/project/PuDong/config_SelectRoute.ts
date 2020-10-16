@@ -41,8 +41,8 @@ export let GisConfig = {
     // }
   ],
   options: {
-    center: [121.24, 31.235],
-    zoom: 12,
+    center: [121.56795107621652, 31.2283997923292],
+    zoom: 3,
     //viewingMode: 'global',
     // ground: {opacity: 1},
     // alphaCompositingEnabled: true,
