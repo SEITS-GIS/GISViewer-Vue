@@ -75,8 +75,7 @@ export class DgeneFusion {
   };
   private fusion_view: any;
   private fusion_control: any;
-  private out_video = new Array();
-  private in_video = new Array();
+  private all_video = new Array();
 
   private constructor(view: any) {
     this.view = view;
@@ -172,8 +171,7 @@ export class DgeneFusion {
   }
   public async addDgeneFusion(params: any): Promise<IResult> {
     let _this = this;
-    this.out_video = [];
-    this.in_video = [];
+    this.all_video = [];
     let parentid = params.appendDomID || 'app';
     this.showOut = params.showOut !== false;
 
@@ -267,22 +265,32 @@ export class DgeneFusion {
       if (videodata) {
         for (let data in videodata) {
           let vdata = (videodata as any)[data];
+          _this.all_video.push({
+            name: data,
+            isout: vdata.isOut,
+            isreal: vdata.isreal,
+            fly: vdata.isGlobalView
+          });
+          let size = vdata.isOut ? 2 : 8;
 
-          if (vdata.isreal) {
-            _this.out_video.push(data);
-          } else {
-            _this.in_video.push(data);
-          }
-          let size = vdata.isreal ? 8 : 2;
           let position = vdata.isreal
             ? vdata.realposition
             : vdata.camJson.position;
-          if (['HQ0912New197', 'HQ0912New196'].indexOf(data) > -1) {
-            size = 2;
-          }
           // console.log(data, position);
-          if (showOutVideo || !vdata.isreal) {
+          if (showOutVideo || !vdata.isOut) {
             //console.log(data, position);
+            // if (true) {
+            //   this.fusion_view.loadMapSprite2(
+            //     './assets/mapIcons/text/' + data + '.png',
+            //     'test',
+            //     {
+            //       x: position.x,
+            //       y: position.y + 2.5 * size,
+            //       z: position.z
+            //     },
+            //     size * 10
+            //   );
+            // }
             this.fusion_view.loadMapSprite(
               data,
               {
@@ -374,23 +382,29 @@ export class DgeneFusion {
         setting,
         (name: any) => {
           _this.fusion_view.stopAutoRotate();
-          //console.log(name);
-
-          if (_this.out_video.indexOf(name) > -1) {
+          console.log(name);
+          let a = _this.all_video.filter((item: any) => {
+            if (item.name == name) {
+              return true;
+            }
+            return false;
+          });
+          if (a.length > 0) {
+            let data = a[0];
+            let fly = data.fly !== false;
             if (_this.fusion_view) {
               _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
             }
-            _this.fusion_view.showVideoDom(name);
-            if (['HQ0912New197', 'HQ0912New196'].indexOf(name) > -1) {
+            if (data.isreal) {
+              _this.fusion_view.showVideoDom(name);
+            } else {
+              _this.fusion_view.activeFuse(name);
+            }
+            if (!fly) {
               if (document.getElementById(name)) {
                 (document.getElementById(name) as any).style.display = 'block';
               }
             }
-          } else if (_this.in_video.indexOf(name) > -1) {
-            if (_this.fusion_view) {
-              _this.fusion_view.hideMapSprite(); //showMapSprite hideMapSprite
-            }
-            _this.fusion_view.activeFuse(name);
           }
         },
         () => {
@@ -422,8 +436,8 @@ export class DgeneFusion {
   }
   private showDgeneOutPoint(show: boolean) {
     if (this.fusion_view) {
-      this.out_video.forEach((item: string) => {
-        if (['HQ0912New197', 'HQ0912New196'].indexOf(item) < 0) {
+      this.all_video.forEach((item: any) => {
+        if (item.isout) {
           this.fusion_view.getScene().getObjectByName(item).visible = show;
         }
       });

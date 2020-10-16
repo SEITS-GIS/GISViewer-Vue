@@ -7,10 +7,8 @@ export default class HeatImage2D {
   public view: any;
   private heatmapInstance: any;
   private customLayer: any;
-  private heat: any;
   private scale: number = 8000;
-  private allImage: any;
-  private heatData: any;
+  private heatDivs: Array<any> = new Array<any>();
 
   private constructor(view: __esri.MapView | __esri.SceneView) {
     // Geometrical transformations that must be recomputed
@@ -36,24 +34,25 @@ export default class HeatImage2D {
     if (this.customLayer) {
       this.view.map.remove(this.customLayer);
     }
-    if (this.heat) {
-      this.heat.parentNode.removeChild(this.heat);
-      this.heat = null;
+    if (this.heatDivs && this.heatDivs.length > 0) {
+      this.heatDivs.forEach((div: any) => {
+        div.parentNode.removeChild(div);
+      });
+      this.heatDivs = new Array<any>();
     }
   }
   public async addImage(params: IHeatImageParameter) {
-    console.log(params);
     const [h337] = await loadModules(['libs/heatmap.min.js']);
     let heatDiv = document.createElement('div');
     heatDiv.style.width = this.view.width + 'px';
     heatDiv.style.height = this.view.height + 'px';
-    heatDiv.setAttribute('id', 'heatmapdiv');
+    heatDiv.setAttribute('id', 'heatmapdiv' + this.view.container.id);
     heatDiv.style.position = 'absolute';
     heatDiv.style.top = '0px';
     heatDiv.style.left = '0px';
     let parent = document.getElementsByClassName('esri-overlay-surface')[0];
     parent.appendChild(heatDiv);
-    this.heat = heatDiv;
+    this.heatDivs.push(heatDiv);
     let data = params.points;
     let imageOpt = params.images || {
       url: '',
@@ -66,7 +65,6 @@ export default class HeatImage2D {
       container: heatDiv,
       radius: 23
     });
-    this.heatData = data;
     if (data && data.length > 0) {
       heatmapInstance.setData(data);
     }
@@ -77,16 +75,20 @@ export default class HeatImage2D {
     image.src = imageOpt.url;
     image.width = imageOpt.width;
     image.height = imageOpt.heigth;
-    this.allImage = image;
     image.onload = (e: any) => {
-      this.adds(imageOpt);
+      this.adds({
+        image: image,
+        imageOpt: imageOpt,
+        heatDiv: heatDiv,
+        heatData: data
+      });
     };
   }
-  public async adds(imageOpt: any) {
+  public async adds(opt: any) {
     //this.clear();
     //this.graphics = graphics;
     let _that = this;
-    let pt = imageOpt.geometry;
+    let pt = opt.imageOpt.geometry;
     await loadModules([
       'esri/views/2d/layers/BaseLayerView2D',
       'esri/layers/BaseDynamicLayer',
@@ -120,7 +122,7 @@ export default class HeatImage2D {
             // create a canvas with teal fill
             //this.getImageUrl(extent, width, height);
             //options.signal =
-            _that.heat.innerHTML = '';
+            opt.heatDiv.innerHTML = '';
 
             let step = _that.scale / _that.view.scale;
 
@@ -132,13 +134,13 @@ export default class HeatImage2D {
 
             let pcc = _that.view.toScreen(point);
 
-            if (_that.heatData) {
+            if (opt.heatData) {
               let heatmapInstance = h337.create({
                 // only container is required, the rest will be defaults
-                container: _that.heat,
+                container: opt.heatDiv,
                 radius: 23 * step
               });
-              let pdata = _that.heatData.map((dt: any) => {
+              let pdata = opt.heatData.map((dt: any) => {
                 let dx = Math.floor(dt.x * step + pcc.x);
                 let dy = Math.floor(dt.y * step + pcc.y);
                 return {
@@ -156,16 +158,16 @@ export default class HeatImage2D {
             }
             //console.log(step);
             return new Promise((resolve, reject) => {
-              let canvas = _that.heat.firstChild;
+              let canvas = opt.heatDiv.firstChild;
               let context = canvas.getContext('2d');
 
               context.globalCompositeOperation = 'destination-atop';
               context.drawImage(
-                _that.allImage,
+                opt.image,
                 pcc.x,
                 pcc.y,
-                imageOpt.width * step,
-                imageOpt.height * step
+                opt.imageOpt.width * step,
+                opt.imageOpt.height * step
               );
 
               resolve(canvas);
@@ -202,7 +204,7 @@ export default class HeatImage2D {
           // }
         });
         let wmsLayer = new CustomWMSLayer({
-          mapUrl: imageOpt.url,
+          mapUrl: opt.imageOpt.url,
           mapParameters: {
             WIDTH: '{width}',
             HEIGHT: '{height}',
@@ -210,6 +212,8 @@ export default class HeatImage2D {
             BBOX: '{xmin},{ymin},{xmax},{ymax}'
           }
         });
+        wmsLayer.maxScale = opt.imageOpt.maxScale || 0;
+        wmsLayer.minScale = opt.imageOpt.minScale || 0;
         _that.customLayer = wmsLayer;
         _that.view.map.layers.add(wmsLayer, 0);
       }
