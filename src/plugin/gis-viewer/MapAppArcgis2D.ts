@@ -485,7 +485,7 @@ export default class MapAppArcGIS2D {
     return await overlay.addOverlays(params);
   }
   public async addOverlaysCluster(params: IOverlayClusterParameter) {
-    const cluster = Cluster2D.getInstance(this.view);
+    const cluster = Cluster.getInstance(this.view);
     cluster.showGisDeviceInfo = this.showGisDeviceInfo;
     await cluster.addOverlaysCluster(params);
   }
@@ -498,11 +498,11 @@ export default class MapAppArcGIS2D {
     return await overlay.deleteAllOverlays();
   }
   public async deleteOverlaysCluster(params: IOverlayDelete) {
-    const cluster = Cluster2D.getInstance(this.view);
+    const cluster = Cluster.getInstance(this.view);
     return await cluster.deleteOverlaysCluster(params);
   }
   public async deleteAllOverlaysCluster() {
-    const cluster = Cluster2D.getInstance(this.view);
+    const cluster = Cluster.getInstance(this.view);
     return await cluster.deleteAllOverlaysCluster();
   }
   public async findFeature(params: IFindParameter) {

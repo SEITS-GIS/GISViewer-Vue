@@ -6,7 +6,7 @@ export let GisConfig = {
       label: '深色',
       type: 'tiled',
       url:
-        'http://10.31.214.201:6080/arcgis/rest/services/ShangHai/ShangHai_base_PurplishBlue/MapServer',
+        ' https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer',
       visible: true
     }
     // {
@@ -106,7 +106,7 @@ export let GisConfig = {
   ],
   options: {
     center: [121.53, 31.17],
-    zoom: 3,
+    zoom: 13,
     //viewingMode: 'global',
     // ground: {opacity: 1},
     // alphaCompositingEnabled: true,

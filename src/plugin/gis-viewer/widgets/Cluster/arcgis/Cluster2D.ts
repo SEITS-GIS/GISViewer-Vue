@@ -65,7 +65,7 @@ export class Cluster2D {
     ]) as Promise<MapModules>);
 
     let points = params.points || params.overlays || [];
-    let custom = params.custom;
+    let custom = params.custom || {};
     let defaultSymbol = params.defaultSymbol;
     let graphics: any[] = [];
     let fields: any[] = [
@@ -73,6 +73,21 @@ export class Cluster2D {
         name: 'ObjectID',
         alias: 'ObjectID',
         type: 'oid'
+      },
+      {
+        name: 'ObjectType',
+        alias: 'ObjectType',
+        type: 'string'
+      },
+      {
+        name: 'id',
+        alias: 'id',
+        type: 'string'
+      },
+      {
+        name: 'type',
+        alias: 'type',
+        type: 'string'
       }
     ];
     let fieldName = points[0].fields;
@@ -81,7 +96,14 @@ export class Cluster2D {
       fields.push({name: str, alias: str, type: fieldtype});
     }
     graphics = points.map((point: any) => {
-      return new Graphic({
+      for (let str in point.fields) {
+        if (point.fields[str] instanceof Array) {
+          point.fields[str] = JSON.stringify(point.fields[str]);
+        }
+      }
+      point.fields.id = point.id || point.fields.id || '';
+      point.fields.type = params.type || point.fields.type || '';
+      let gra = new Graphic({
         geometry: {
           type: 'point',
           x: point.geometry.x,
@@ -89,8 +111,11 @@ export class Cluster2D {
         } as any,
         attributes: point.fields
       });
+      return gra;
     });
-    let expression = custom.content.replace('{', '$feature.');
+    let expression = custom.content
+      ? custom.content.replace('{', '$feature.')
+      : '';
     expression = expression.replace('}', '');
     let labelinfo = [
       {
@@ -151,6 +176,7 @@ export class Cluster2D {
       geometryType: 'point',
       labelingInfo: labelinfo
     });
+    clusterlayer.outFields = ['*'];
 
     let maxzoom = params.zoom || 100;
     let simpleRenderer = this.getRender(defaultSymbol);

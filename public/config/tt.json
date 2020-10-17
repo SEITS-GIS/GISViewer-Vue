@@ -5670,9 +5670,9 @@
   "ispic": false,
   "custom": {
     "color": "yellow",
-    "content": "{type}",
     "fontSize": 14,
+    "content": "{id}",
     "weight": "bold"
   },
-  "zoom": 3
+  "zoom": 13
 }
