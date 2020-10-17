@@ -12,10 +12,10 @@ export let GisConfig = {
   operationallayers: [
     {
       type: 'image',
-      url: 'assets/mapIcons/JinBoHui/gzzx.svg',
-      geometry: {x: -16775.35204963667, y: -4222.84795454},
-      width: 618,
-      height: 561
+      url: 'assets/mapIcons/JinBoHui/flower.png',
+      geometry: {x: -16465.35204963667, y: -4542.84795454},
+      width: 282,
+      height: 282
     },
     {
       label: '巴士线路',
@@ -25,7 +25,11 @@ export let GisConfig = {
       visible: true,
       outFields: ['*'],
       minScale: 0,
-      maxScale: 0
+      maxScale: 0,
+      popupTemplate: {
+        title: '',
+        content: '{BUS_NUM}<br/>总乘客数：{PERSON_NUM}<br/>描述：{BUSLINE_DESC}'
+      }
     }
   ],
   options: {

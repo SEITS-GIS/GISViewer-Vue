@@ -11,9 +11,9 @@ import {GdConfig} from './GdConfig';
 //import {GisConfig} from './project/JinBoHui/config_sub';
 //import {GisConfig} from './project/JinBoHui/config_toll';
 //import {GisConfig} from './project/config_jbh';
-//import {GisConfig} from './project/config';
+import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
-import {GisConfig} from './project/configyj';
+//import {GisConfig} from './project/configyj';
 export default class MapConfig {
   public constructor() {}
   private model_view: any;
@@ -21,37 +21,37 @@ export default class MapConfig {
   public gdConfig: any = GdConfig;
   public async mapLoaded(map: any) {
     let _this = this;
-    map
-      .addDgeneFusion({
-        appendDomID: 'gisDiv',
-        url: 'dgene',
-        showOut: true,
-        outvideo: true,
-        callback: (a: number, b: number) => {
-          console.log(a, b);
-        }
-      })
-      .then((e: any) => {
-        console.log('载入成功', e.result);
-        _this.model_view = e.result;
-        map.addOverlays({
-          type: 'model3d',
-          defaultSymbol: {
-            type: 'point-2d',
-            url: 'assets/image/Anchor.png',
-            size: [50, 50],
-            anchor: 'center'
-          },
-          overlays: [
-            {
-              id: 'model1',
-              geometry: {x: -14071.811607336222, y: -4342.546650737293},
-              fields: {}
-            }
-          ],
-          iswgs: false
-        });
-      }); //载入3维模型
+    // map
+    //   .addDgeneFusion({
+    //     appendDomID: 'gisDiv',
+    //     url: 'dgene',
+    //     showOut: true,
+    //     outvideo: true,
+    //     callback: (a: number, b: number) => {
+    //       console.log(a, b);
+    //     }
+    //   })
+    //   .then((e: any) => {
+    //     console.log('载入成功', e.result);
+    //     _this.model_view = e.result;
+    //     map.addOverlays({
+    //       type: 'model3d',
+    //       defaultSymbol: {
+    //         type: 'point-2d',
+    //         url: 'assets/image/Anchor.png',
+    //         size: [50, 50],
+    //         anchor: 'center'
+    //       },
+    //       overlays: [
+    //         {
+    //           id: 'model1',
+    //           geometry: {x: -14071.811607336222, y: -4342.546650737293},
+    //           fields: {}
+    //         }
+    //       ],
+    //       iswgs: false
+    //     });
+    //   }); //载入3维模型
 
     //map.showLayer({label: 'fbd1333'});
     // console.log('Map Loaded.');
@@ -71,20 +71,20 @@ export default class MapConfig {
         //symbol for 2d
         type: 'point',
         // primitive: "square",
-        url: 'assets/image/gz.svg',
-        size: [562, 510],
+        url: 'assets/image/a.png',
+        size: [20, 20],
         anchor: 'center'
       },
       overlays: [
         {
           id: 'test003',
-          geometry: {x: -0.14524301945078105, y: -0.04341336216483233},
+          geometry: {x: 121.45, y: 31.23},
           fields: {name: '测试4', featureid: '0001'}
         }
       ]
     };
 
-    //const result = await map.addOverlays(points);
+    const result = await map.addOverlays(points);
   }
   public btn_test1(map: any) {
     // if (this.model_view) {
@@ -267,10 +267,30 @@ export default class MapConfig {
         showDir: true
       }
     ]);
-    // axios.get('config/tt.json').then((res: any) => {
-    //   map.addOverlays(res.data);
-    // });
     axios.get('config/tt.json').then((res: any) => {
+      map.addOverlaysCluster(res.data);
+    });
+    axios.get('config/tt.json').then((res: any) => {
+      res.data.type = 'ccv';
+      var points = [];
+      var x = 121.43;
+      var y = 31.15;
+      for (var i = 0; i < 1000; i++) {
+        var x1 = x + (Math.random() * 2 - 1) / 20;
+        var y1 = y + (Math.random() * 2 - 1) / 20;
+        var value = Math.floor(1000000 * Math.random() + 1);
+        var a = i % 2 == 0 ? '1' : '0';
+        points.push({
+          geometry: {x: x1.toString(), y: y1.toString()},
+          fields: {
+            desc: '上海体育馆停车场',
+            value: 5,
+            type: a
+          }
+        });
+      }
+      res.data.zoom = 2;
+      res.data.overlays = points;
       map.addOverlaysCluster(res.data);
     });
     //axios.get("config/Jurisdiction/bsga_v2.geo.json").then((res: any) => {
@@ -278,10 +298,10 @@ export default class MapConfig {
     //  console.log(res.data);
     //});
     //map.hideLayer({label: '匝道灯'});
-    map.findFeature({
-      layerName: '接驳线',
-      ids: ['TCC2'] //GJYJ001,GJ5-002,BS1,TCC2
-    });
+    // map.findFeature({
+    //   layerName: '接驳线',
+    //   ids: ['TCC2'] //GJYJ001,GJ5-002,BS1,TCC2
+    // });
     // map.hideLayer({type: 'traffic'});
     // map.showRoad({ids: [1]});
     // map.showDistrictMask({
@@ -384,6 +404,7 @@ export default class MapConfig {
     // //   showMask: true
     // // });
     // map.locateStreet({id: '10003'});
+    //map.deleteOverlaysCluster({types: ['police']});
     //map.deleteAllOverlaysCluster();
     // map.findFeature({
     //   layerName: 'sxj1',
@@ -392,12 +413,12 @@ export default class MapConfig {
     //   centerResult: true
     // });
     //map.restoreDegeneFsion();
-    map.startGeometrySearch({
-      types: ['aaaaa'],
-      center: [121.31, 31.23],
-      radius: 5000000,
-      showResult: true
-    });
+    // map.startGeometrySearch({
+    //   types: ['aaaaa'],
+    //   center: [121.31, 31.23],
+    //   radius: 5000000,
+    //   showResult: true
+    // });
     // if (this.model_view) {
     //   this.model_view.newHideOut(
     //     {x: -13.011890024929382, y: 250.93535559918166, z: 395.3027167055879},
@@ -425,7 +446,7 @@ export default class MapConfig {
     // });
     //map.hideLayer({label: '匝道灯'});
     //map.deleteHeatMap();
-    //map.deleteOverlaysCluster({types: ['sxj1']});
+
     //map.deleteAllOverlays();
     //map.deleteOverlays({types: ['police']});
     //map.hideLayer({label: 'ceshi'});

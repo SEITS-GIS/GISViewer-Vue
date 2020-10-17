@@ -239,6 +239,9 @@ define([
       _this._viewLoadCount = 0;
       _this._clusters = {};
       _this.eventzoom = -1;
+      _this._zoomExtent = undefined;
+      _this._clusterScale = undefined;
+      _this._scaleSub = 1;
       _this.customText = options.custom || {};
       _this.isdrawall = true;
       _this.allExtent = undefined;
@@ -392,33 +395,19 @@ define([
       view
     ) {
       this._getAllExtent();
+      this._scaleSub = this._clusterScale / this._activeView.scale;
       if (isStationary) {
         if (this._activeView.type == '2d') {
           if (this.eventzoom !== view.zoom) {
             //放大缩小,需要重绘
+            this._zoomExtent = this._activeView.extent;
             if (this._data) {
               this.draw();
             }
-            this.isdrawall = this._activeView.extent.contains(this.allExtent);
             this.eventzoom = view.zoom;
-          } else {
-            if (!this._activeView.extent.contains(this.allExtent)) {
-              //只画了部分
-              if (this._data) {
-                this.draw();
-              }
-              this.isdrawall = false;
-            } else {
-              //只画了部分之后,需要重绘
-              if (!this.isdrawall) {
-                if (this._data) {
-                  this.draw();
-                }
-              }
-              this.isdrawall = true;
-            }
           }
         } else {
+          this._zoomExtent = this._activeView.extent;
           if (this._data) {
             this.draw();
           }
@@ -462,6 +451,7 @@ define([
     };
     FlareClusterLayer.prototype._getAllExtent = function() {
       if (!this.allExtent) {
+        this._clusterScale = this._activeView.scale;
         var data = this._data;
         var xmin = 100000000;
         var xmax = 0;
@@ -483,6 +473,7 @@ define([
           new SpatialReference({wkid: wkid})
         );
       }
+      return this.allExtent;
     };
     FlareClusterLayer.prototype.draw = function(activeView) {
       var _this = this;
@@ -499,7 +490,7 @@ define([
         this._queuedInitialDraw = true;
         return;
       }
-      var currentExtent = this._extent();
+      var currentExtent = this._getAllExtent();
       if (!this._activeView || !this._data || !currentExtent) return;
       this._is2d = this._activeView.type === '2d';
       // check for required renderer
@@ -863,9 +854,11 @@ define([
       webExtent,
       extentIsUnioned
     ) {
+      var clusterWidth = this._activeView.width * this._scaleSub;
+      var clusterHeight = this._activeView.height * this._scaleSub;
       // get the total amount of grid spaces based on the height and width of the map (divide it by clusterRatio) - then get the degrees for x and y
-      var xCount = Math.round(this._activeView.width / this.clusterRatio);
-      var yCount = Math.round(this._activeView.height / this.clusterRatio);
+      var xCount = Math.round(clusterWidth / this.clusterRatio);
+      var yCount = Math.round(clusterHeight / this.clusterRatio);
       // if the extent has been unioned due to normalization, double the count of x in the cluster grid as the unioning will halve it.
       if (extentIsUnioned) {
         xCount *= 2;
@@ -1583,6 +1576,9 @@ define([
     // #region helper functions
     FlareClusterLayer.prototype._extent = function() {
       return this._activeView ? this._activeView.extent : undefined;
+    };
+    FlareClusterLayer.prototype._extent2 = function() {
+      return this._zoomExtent ? this._zoomExtent : this._activeView.extent;
     };
     FlareClusterLayer.prototype._scale = function() {
       return this._activeView ? this._activeView.scale : undefined;

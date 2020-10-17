@@ -15,7 +15,16 @@ export let GisConfig = {
       url: 'assets/mapIcons/JinBoHui/gzzx.svg',
       geometry: {x: -16775.35204963667, y: -4222.84795454},
       width: 618,
-      height: 561
+      height: 561,
+      minScale: 16000
+    },
+    {
+      type: 'image',
+      url: 'assets/mapIcons/JinBoHui/flower.png',
+      geometry: {x: -16465.35204963667, y: -4542.84795454},
+      width: 282,
+      height: 282,
+      maxScale: 32000
     }
   ],
   options: {

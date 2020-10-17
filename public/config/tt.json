@@ -2,7 +2,7 @@
   "type": "police",
   "defaultSymbol": {
     "type": "point",
-    "url": "imgs/gis/police.png",
+    "url": "assets/image/chedao.png",
     "size": [30, 40]
   },
   "overlays": [
@@ -5667,10 +5667,12 @@
     }
   ],
   "showPopup": false,
+  "ispic": false,
   "custom": {
     "color": "yellow",
-    "content": "{textField}",
+    "content": "{type}",
     "fontSize": 14,
-    "weight": 12
-  }
+    "weight": "bold"
+  },
+  "zoom": 3
 }

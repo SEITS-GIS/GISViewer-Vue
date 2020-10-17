@@ -36,6 +36,7 @@ import AnimateLine from './widgets/MigrateChart/AnimateLine';
 import {Bar3DChart} from './widgets/MigrateChart/arcgis/Bar3DChart';
 import {Utils} from './Utils';
 import ToolTip from './widgets/Overlays/arcgis/ToolTip';
+import {Cluster2D} from './widgets/Cluster/arcgis/Cluster2D';
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
@@ -484,7 +485,7 @@ export default class MapAppArcGIS2D {
     return await overlay.addOverlays(params);
   }
   public async addOverlaysCluster(params: IOverlayClusterParameter) {
-    const cluster = Cluster.getInstance(this.view);
+    const cluster = Cluster2D.getInstance(this.view);
     cluster.showGisDeviceInfo = this.showGisDeviceInfo;
     await cluster.addOverlaysCluster(params);
   }
@@ -497,11 +498,11 @@ export default class MapAppArcGIS2D {
     return await overlay.deleteAllOverlays();
   }
   public async deleteOverlaysCluster(params: IOverlayDelete) {
-    const cluster = Cluster.getInstance(this.view);
+    const cluster = Cluster2D.getInstance(this.view);
     return await cluster.deleteOverlaysCluster(params);
   }
   public async deleteAllOverlaysCluster() {
-    const cluster = Cluster.getInstance(this.view);
+    const cluster = Cluster2D.getInstance(this.view);
     return await cluster.deleteAllOverlaysCluster();
   }
   public async findFeature(params: IFindParameter) {

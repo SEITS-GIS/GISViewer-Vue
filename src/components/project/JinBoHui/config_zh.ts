@@ -15,18 +15,30 @@ export let GisConfig = {
       url: 'assets/mapIcons/JinBoHui/gzzx.svg',
       geometry: {x: -16775.35204963667, y: -4222.84795454},
       width: 618,
-      height: 561
+      height: 561,
+      minScale: 16000
+    },
+    {
+      type: 'image',
+      url: 'assets/mapIcons/JinBoHui/flower.png',
+      geometry: {x: -16465.35204963667, y: -4542.84795454},
+      width: 282,
+      height: 282,
+      maxScale: 32000
     },
     {
       label: '地铁线',
       url:
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Subway/MapServer/2',
       type: 'feature',
-      showLabels: false,
       minScale: 144449,
       mode: 0,
       visible: true,
-      outFields: ['*']
+      outFields: ['*'],
+      popupTemplate: {
+        title: '',
+        context: '线路：${Name_chn}'
+      }
     },
     {
       label: '接驳线',
@@ -35,22 +47,52 @@ export let GisConfig = {
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_jieboxian/MapServer',
       refreshInterval: 1,
       visible: true,
-      outFields: ['*']
+      outFields: ['*'],
+      popupTemplates: {
+        1: {
+          title: '',
+          content:
+            '<div>总班次：{BUSLINE_SHIFT}<br/>总乘客数：{FLOW}<br/>描述：{BUSLINE_DESC}</div>'
+        },
+        6: {
+          title: '',
+          content:
+            '<div>总班次：{BUSLINE_SHIFT}<br/>总乘客数：{FLOW}<br/>描述：{BUSLINE_DESC}</div>'
+        },
+        8: {
+          title: '',
+          content:
+            '<div>总班次：{BUSLINE_SHIFT}<br/>总乘客数：{FLOW}<br/>描述：{BUSLINE_DESC}</div>'
+        },
+        10: {
+          title: '',
+          content:
+            '<div>总班次：{BUS_NUM}<br/>总乘客数：{PERSON_NUM}<br/>描述：{BUSLINE_DESC}</div>'
+        },
+        11: {
+          title: '',
+          content:
+            '<div>总班次：{BUSLINE_SHIFT}<br/>总乘客数：{FLOW}<br/>描述：{BUSLINE_DESC}</div>'
+        }
+      }
     },
     {
       label: '地铁标注点',
       url:
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Subway/MapServer/1',
       type: 'feature',
-      showLabels: false,
-      mode: 0,
       visible: true,
       maxScale: 32000,
       minScale: 128000,
       outFields: ['*'],
+      popupTemplate: {
+        title: '',
+        content:
+          '${LINE_DESC}<br/>地铁站：${STATION_DESC}<br/>进站人数：${FINT_IN}<br/>出站人数：${FINT_OUT}'
+      },
       renderer: {
         type: 'unique-value',
-        field: 'JWPT.RAILWAY_VOL_SATURATION.STATUS',
+        field: 'STATUS',
         defaultSymbol: {
           type: 'picture-marker',
           url: 'assets/mapIcons/JinBoHui/point_green.png',
@@ -103,6 +145,11 @@ export let GisConfig = {
       outFields: ['*'],
       definitionExpression:
         "地铁标注点.Name in ('徐泾东','诸光路','虹桥火车站')",
+      popupTemplate: {
+        title: '',
+        content:
+          '${LINE_DESC}<br/>地铁站：${STATION_DESC}<br/>进站人数：${FINT_IN}<br/>出站人数：${FINT_OUT}'
+      },
       renderer: {
         type: 'unique-value',
         field: 'JWPT.RAILWAY_VOL_SATURATION.STATUS',
@@ -148,13 +195,55 @@ export let GisConfig = {
       }
     },
     {
+      label: '国展周边发布段',
+      url:
+        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/Kuaisulu_fbd_GZZB/MapServer',
+      type: 'dynamic',
+      refreshInterval: 1,
+      visible: true,
+      outFields: ['*'],
+      popupTemplates: {
+        '0': {
+          title: '',
+          content: '描述：${DES}'
+        },
+        '1': {
+          title: '',
+          content: '描述：${DES}'
+        },
+
+        '2': {
+          title: '',
+          content: '描述：${DES}'
+        }
+      }
+    },
+    {
       label: '发布段',
       type: 'dynamic',
       url:
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/Kuaisulu_fbd/MapServer',
       refreshInterval: 1,
       visible: true,
-      outFields: ['*']
+      outFields: ['*'],
+      popupTemplates: {
+        '0': {
+          title: '',
+          content: '描述：${FSTR_DESC}'
+        },
+        '1': {
+          title: '',
+          content: '描述：${FSTR_DESC}'
+        },
+        '2': {
+          title: '',
+          content: '描述：${FSTR_DESC}'
+        },
+        '3': {
+          title: '',
+          content: '描述：${FSTR_DESC}'
+        }
+      }
     },
     {
       label: '国展周边地面道路',
@@ -163,10 +252,13 @@ export let GisConfig = {
       type: 'feature',
       visible: false,
       outFields: ['*'],
-      mode: 0,
       refreshInterval: 5,
       maxScale: 0,
-      minScale: 128000
+      minScale: 128000,
+      popupTemplate: {
+        title: '',
+        context: '描述：${FSTR_DESC}'
+      }
     },
     {
       label: '轮廓线',

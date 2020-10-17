@@ -39,18 +39,23 @@ export let GisConfig = {
       url:
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Subway/MapServer/2',
       type: 'feature',
-      showLabels: false,
-      mode: 0,
       visible: true,
-      outFields: ['*']
+      outFields: ['*'],
+      popupTemplate: {
+        title: '',
+        content: '线路：{Name_chn}'
+      }
     },
     {
       label: '停车场-点',
       url:
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Parking/MapServer/1',
       type: 'feature',
-      showLabels: false,
-      mode: 0,
+      popupTemplate: {
+        title: '',
+        content:
+          '描述：{PARK_DESC}<br/>总泊位数（大车）：{B_PARKNUM}<br/>总泊位数（小车）：{S_PARKNUM}<br/>总剩余泊位数（大车）：{B_REMAIN_PARKNUM}<br/>总剩余泊位数（小车）：{S_REMAIN_PARKNUM}<br/>泊位占用率（大车）：{B_PARKRATE}<br/>泊位占用率（小车）：{S_PARKRATE}<br/>预约到达率（大车）：{B_APPOINT_INRATE}<br/>预约到达率（小车）：{S_APPOINT_INRATE}'
+      },
       visible: true,
       refreshInterval: 5,
       outFields: ['*'],
@@ -113,8 +118,11 @@ export let GisConfig = {
       url:
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Parking/MapServer/5',
       type: 'feature',
-      showLabels: false,
-      mode: 0,
+      popupTemplate: {
+        title: '',
+        content:
+          '描述：{PARK_DESC}<br/>总泊位数（小车）：{S_PARKNUM}<br/>总剩余泊位数（小车）：{S_REMAIN_PARKNUM}<br/>泊位占用率（小车）：{S_PARKRATE}<br/>预约到达率（小车）：{S_APPOINT_INRATE}'
+      },
       visible: true,
       refreshInterval: 5,
       outFields: ['*'],
@@ -177,8 +185,11 @@ export let GisConfig = {
       url:
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Parking/MapServer/4',
       type: 'feature',
-      showLabels: false,
-      mode: 0,
+      popupTemplate: {
+        title: '',
+        content:
+          '描述：{PARK_DESC}<br/>总泊位数（大车）：{B_PARKNUM}<br/>总剩余泊位数（大车）：{B_REMAIN_PARKNUM}<br/>泊位占用率（大车）：{B_PARKRATE}<br/>预约到达率（大车）：{B_APPOINT_INRATE}'
+      },
       visible: true,
       refreshInterval: 5,
       outFields: ['*'],
@@ -241,8 +252,11 @@ export let GisConfig = {
       url:
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Parking/MapServer/6',
       type: 'feature',
-      showLabels: false,
-      mode: 0,
+      popupTemplate: {
+        title: '',
+        content:
+          '描述：{PARK_DESC}<br/>累计进场车次（大车）：{B_STAT_INNUM}<br/>累计进场车次（小车）：{S_STAT_INMUM}<br/>预约进场率（大车）：{B_APPOINT_INRATE}%<br/>预约进场率（小车）：{S_APPOINT_INRATE}%'
+      },
       visible: true,
       refreshInterval: 5,
       outFields: ['*'],
@@ -300,14 +314,16 @@ export let GisConfig = {
         ]
       }
     },
-
     {
       label: '地铁标注点',
       url:
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Subway/MapServer/1',
       type: 'feature',
-      showLabels: false,
-      mode: 0,
+      popupTemplate: {
+        title: '',
+        content:
+          '地铁线：{LINE_DESC}<br/>地铁站：{STATION_DESC}<br/>进站人数：{FINT_IN}<br/>出站人数：{FINT_OUT}'
+      },
       refreshInterval: 5,
       visible: true,
       outFields: ['*'],
@@ -316,7 +332,7 @@ export let GisConfig = {
         field: 'JWPT.RAILWAY_VOL_SATURATION.STATUS',
         defaultSymbol: {
           type: 'picture-marker',
-          url: 'assets/mapIcons/JinBoHui/point_green.png',
+          url: 'assets/mapIcons/JinBoHui/point_red.png',
           width: 36,
           height: 36,
           yoffset: 0
