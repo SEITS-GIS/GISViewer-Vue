@@ -1,4 +1,4 @@
-import {loadScript, getScript, ILoadScriptOptions} from 'esri-loader';
+import { loadScript, getScript, ILoadScriptOptions } from "esri-loader";
 import {
   IMapContainer,
   IOverlayParameter,
@@ -15,18 +15,19 @@ import {
   routeParameter,
   IHeatImageParameter,
   IGeometrySearchParameter,
-  ICustomTip
-} from '@/types/map';
-import {OverlayGaode} from '@/plugin/gis-viewer/widgets/Overlays/gd/OverlayGaode';
-import {JurisdictionPoliceGD} from './widgets/JurisdictionPolice/gd/JurisdictionPoliceGD';
-import {HeatMapGD} from './widgets/HeatMap/gd/HeatMapGD';
-import {ClusterGD} from './widgets/Cluster/gd/ClusterGD';
-import '@amap/amap-jsapi-types';
-import AMapLoader from '@amap/amap-jsapi-loader';
-import {DrawSteet} from './widgets/DrawStreet/gd/DrawStreet';
-import Route from './widgets/Route/Route';
-import RoutePoint from './widgets/XinKong/RoutePoint';
-import {GeometrySearchGD} from './widgets/GeometrySearch/gd/GeometrySearchGD';
+  ICustomTip,
+  ISelectRouteParam,
+} from "@/types/map";
+import { OverlayGaode } from "@/plugin/gis-viewer/widgets/Overlays/gd/OverlayGaode";
+import { JurisdictionPoliceGD } from "./widgets/JurisdictionPolice/gd/JurisdictionPoliceGD";
+import { HeatMapGD } from "./widgets/HeatMap/gd/HeatMapGD";
+import { ClusterGD } from "./widgets/Cluster/gd/ClusterGD";
+import "@amap/amap-jsapi-types";
+import AMapLoader from "@amap/amap-jsapi-loader";
+import { DrawSteet } from "./widgets/DrawStreet/gd/DrawStreet";
+import Route from "./widgets/Route/Route";
+import RoutePoint from "./widgets/XinKong/RoutePoint";
+import { GeometrySearchGD } from "./widgets/GeometrySearch/gd/GeometrySearchGD";
 
 export default class MapAppGaode implements IMapContainer {
   public view!: AMap.Map;
@@ -38,38 +39,43 @@ export default class MapAppGaode implements IMapContainer {
   public async initialize(mapConfig: any, mapContainer: string) {
     let apiUrl = mapConfig.arcgis_api || mapConfig.api_url;
     let plugins = [
-      'AMap.DistrictSearch',
-      'AMap.CustomLayer',
-      'AMap.ControlBar',
-      'AMap.MarkerClusterer',
-      'AMap.Driving',
-      'AMap.Walking',
-      'AMap.Riding'
+      "AMap.DistrictSearch",
+      "AMap.CustomLayer",
+      "AMap.ControlBar",
+      "AMap.MarkerClusterer",
+      "AMap.Driving",
+      "AMap.Walking",
+      "AMap.Riding",
     ];
-    let version = '1.0';
-    if (apiUrl.indexOf('v=2') > -1) {
-      plugins.push('AMap.HeatMap');
-      version = '2.0';
+    let version = "1.0";
+    if (apiUrl.indexOf("v=2") > -1) {
+      plugins.push("AMap.HeatMap");
+      version = "2.0";
     } else {
-      plugins.push('AMap.Heatmap');
+      plugins.push("AMap.Heatmap");
     }
-    let key = this.getQueryString(apiUrl, 'key');
-    let v = this.getQueryString(apiUrl, 'v');
+    let key = this.getQueryString(apiUrl, "key");
+    let v = this.getQueryString(apiUrl, "v");
     await AMapLoader.load({
       key: key,
       version: v,
-      plugins: plugins
+      plugins: plugins,
     });
     //this.destroy();
     this.view = new AMap.Map(mapContainer, mapConfig.options);
     (this.view as any).version = version;
     (this.view as any).mapOptions = mapConfig.options;
-    this.view.on('click', async (evt) => {
+    this.view.on("click", async (evt) => {
       let mp = evt.lnglat;
-      this.mapClick({x: mp.lng, y: mp.lat, lng: mp.lng, lat: mp.lat});
+      this.mapClick({
+        x: mp.lng,
+        y: mp.lat,
+        lng: mp.lng,
+        lat: mp.lat,
+      });
     });
     return new Promise((resole) => {
-      this.view.on('complete', () => {
+      this.view.on("complete", () => {
         if (mapConfig.baseLayers) {
           mapConfig.baseLayers.forEach((element: any) => {
             this.createLayer(this.view, element);
@@ -81,32 +87,32 @@ export default class MapAppGaode implements IMapContainer {
   }
 
   private getQueryString(url: string, name: string): string {
-    let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)'); //构造一个含有目标参数的正则表达式对象
-    let search = url.split('?')[1];
+    let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    let search = url.split("?")[1];
     let r = search.match(reg); //匹配目标参数
     if (r != null) {
       return decodeURIComponent(r[2]);
     }
-    return ''; //返回参数值
+    return ""; //返回参数值
   }
   public createLayer(view: any, layer: any) {
     switch (layer.type) {
-      case 'traffic':
+      case "traffic":
         let trafficlayer = new AMap.TileLayer.Traffic({
           autoRefresh: true, //是否自动刷新，默认为false
           interval: layer.interval || 60, //刷新间隔，默认180s
           zooms: layer.zooms || [3, 17],
           opacity: layer.opacity || 1,
-          zIndex: layer.zIndex || 4
+          zIndex: layer.zIndex || 4,
         });
         if (layer.visible !== false) {
           view.add(trafficlayer);
         }
         this.baseLayers.push({
-          label: layer.label || '',
-          type: layer.type || '',
+          label: layer.label || "",
+          type: layer.type || "",
           layer: trafficlayer,
-          visible: layer.visible !== false
+          visible: layer.visible !== false,
         });
         break;
     }
@@ -221,7 +227,7 @@ export default class MapAppGaode implements IMapContainer {
     const jurisdiction = JurisdictionPoliceGD.getInstance(this.view);
     await jurisdiction.hideDistrictMask();
   }
-  public async showRoad(param: {ids: string[]}) {
+  public async showRoad(param: { ids: string[] }) {
     const road = DrawSteet.getInstance(this.view);
     await road.showRoad(param);
   }
@@ -262,7 +268,7 @@ export default class MapAppGaode implements IMapContainer {
   }
 
   public async addDrawLayer(params: any): Promise<IResult> {
-    return {status: 0, message: ''};
+    return { status: 0, message: "" };
   }
   public clearDrawLayer(params: ILayerConfig) {}
 
@@ -284,16 +290,18 @@ export default class MapAppGaode implements IMapContainer {
     geometrySearch.clearGeometrySearch();
   }
   public async showDgene(params: any): Promise<IResult> {
-    return {status: 0, message: ''};
+    return { status: 0, message: "" };
   }
   public hideDgene() {}
   public async addDgeneFusion(params: any): Promise<IResult> {
-    return {status: 0, message: ''};
+    return { status: 0, message: "" };
   }
   public async restoreDegeneFsion(): Promise<IResult> {
-    return {status: 0, message: ''};
+    return { status: 0, message: "" };
   }
   public showCustomTip(params: ICustomTip) {}
   public showDgeneOutPoint(params: any) {}
   public changeDgeneOut() {}
+
+  public async initializeRouteSelect(params: ISelectRouteParam) {}
 }

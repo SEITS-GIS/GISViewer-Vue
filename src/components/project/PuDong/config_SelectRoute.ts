@@ -1,14 +1,14 @@
 export let GisConfig = {
-  arcgis_api: 'http://localhost:8090/arcgis_js_api_4',
-  theme: 'dark', //dark,vec
+  arcgis_api: "http://localhost:8090/arcgis_js_api_4",
+  theme: "dark", //dark,vec
   baseLayers: [
     {
-      label: '深色',
-      type: 'tiled',
+      label: "深色",
+      type: "tiled",
       url:
-        'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/background_zz/MapServer',
-      visible: true
-    }
+        "https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer",
+      visible: true,
+    },
     // {
     //   label: '深色',
     //   type: 'webtiled',
@@ -42,7 +42,7 @@ export let GisConfig = {
   ],
   options: {
     center: [121.56795107621652, 31.2283997923292],
-    zoom: 3,
+    zoom: 12,
     //viewingMode: 'global',
     // ground: {opacity: 1},
     // alphaCompositingEnabled: true,
@@ -57,8 +57,8 @@ export let GisConfig = {
     //viewMode: '3D',
     constraints: {
       rotationEnabled: false,
-      minZoom: 0
-    }
+      minZoom: 0,
+    },
     //for arcgis-3d
     // camera: {
     //   heading: 0,
@@ -69,5 +69,5 @@ export let GisConfig = {
     //     z: 7000000
     //   }
     // }
-  }
+  },
 };

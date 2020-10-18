@@ -8,10 +8,10 @@ export interface IResult {
 }
 
 export enum Platforms {
-  ArcGIS3D = 'arcgis3d',
-  ArcGIS2D = 'arcgis2d',
-  BDMap = 'bd',
-  AMap = 'gd'
+  ArcGIS3D = "arcgis3d",
+  ArcGIS2D = "arcgis2d",
+  BDMap = "bd",
+  AMap = "gd",
 }
 
 export interface ILayerConfig {
@@ -63,10 +63,10 @@ export interface IPolylineSymbol {
   color?: string;
   opacity?: number;
   width?: number;
-  style?: 'solid' | 'dashed' | undefined;
+  style?: "solid" | "dashed" | undefined;
   dashArray?: [number, number] | [number, number, number, number] | undefined;
-  lineJoin?: 'miter' | 'bevel' | 'round' | undefined;
-  lineCap?: 'round' | 'butt' | 'square' | undefined;
+  lineJoin?: "miter" | "bevel" | "round" | undefined;
+  lineCap?: "round" | "butt" | "square" | undefined;
   zIndex?: number;
 }
 
@@ -122,7 +122,7 @@ export interface IOverlayParameter {
   toolTipContent?: string; //悬浮窗内容
   defaultVisible?: boolean;
   iswgs?: boolean;
-  custom: {content: string; zooms: [number, number]; visible: true};
+  custom: { content: string; zooms: [number, number]; visible: true };
 }
 export interface IOverlayClusterParameter {
   points?: Array<IOverlay>;
@@ -157,7 +157,7 @@ export interface IMapContainer {
   showDistrictMask: (param: IDistrictParameter) => void;
   hideDistrictMask: () => void;
   findFeature: (param: IFindParameter) => void;
-  showRoad: (param: {ids: string[]}) => void;
+  showRoad: (param: { ids: string[] }) => void;
   hideRoad: () => void;
   showStreet: () => void;
   hideStreet: () => void;
@@ -184,6 +184,7 @@ export interface IMapContainer {
   showCustomTip: (params: ICustomTip) => void;
   showDgeneOutPoint: (params: any) => void;
   changeDgeneOut: () => void;
+  initializeRouteSelect: (params: ISelectRouteParam) => Promise<void>;
 }
 export interface IPopUpTemplate {
   title?: string;
@@ -200,10 +201,10 @@ export interface IHeatImageParameter {
     url: string;
     width: number;
     heigth: number;
-    center: {x: number; y: number}; //图片中心位置
+    center: { x: number; y: number }; //图片中心位置
     factor: number; //图片显示倍率
     scale?: number; //图片显示比例
-    geometry: {x: number; y: number};
+    geometry: { x: number; y: number };
   };
 }
 export interface IHeatOptions {
@@ -258,4 +259,7 @@ export interface IGeometrySearchParameter {
 export interface ICustomTip {
   prop: any;
   geometry: IPointGeometry;
+}
+export interface ISelectRouteParam {
+  enableXHJ?: boolean;
 }

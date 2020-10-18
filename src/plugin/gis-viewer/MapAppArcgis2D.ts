@@ -1,5 +1,5 @@
-import {setDefaultOptions, loadCss, loadModules} from 'esri-loader';
-import {Vue, Component, Emit, Prop, PropSync} from 'vue-property-decorator';
+import { setDefaultOptions, loadCss, loadModules } from "esri-loader";
+// import { Vue, Component, Emit, Prop, PropSync } from "vue-property-decorator";
 import {
   ILayerConfig,
   IOverlayParameter,
@@ -14,33 +14,39 @@ import {
   routeParameter,
   IHeatImageParameter,
   IGeometrySearchParameter,
-  ICustomTip
-} from '@/types/map';
-import {OverlayArcgis2D} from '@/plugin/gis-viewer/widgets/Overlays/arcgis/OverlayArcgis2D';
-import {FindFeature} from './widgets/FindFeature/arcgis/FindFeature';
-import {HeatMap} from './widgets/HeatMap/arcgis/HeatMap';
-import {blendColors} from 'esri/Color';
-import {TextSymbol} from 'esri/symbols';
-import {Cluster} from './widgets/Cluster/arcgis/Cluster';
-import {DrawLayer} from './widgets/DrawLayer/arcgis/DrawLayer';
-import {MigrateChart} from './widgets/MigrateChart/arcgis/MigrateChart';
-import {SubwayLine} from './widgets/MigrateChart/arcgis/SubwayLine';
-import {HeatImage} from './widgets/HeatMap/arcgis/HeatImage';
-import HeatImage2D from './widgets/HeatMap/arcgis/HeatImage2D';
-import HeatImageGL from './widgets/HeatMap/arcgis/HeatImageGL';
-import {GeometrySearchGD} from './widgets/GeometrySearch/gd/GeometrySearchGD';
-import {GeometrySearch} from './widgets/GeometrySearch/arcgis/GeometrySearch';
-import {DgeneFusion} from './widgets/DgeneFusion/arcgis/DgeneFusion';
-import {ChengDiLayer} from './widgets/ChengDi/ChengDiLayer';
-import AnimateLine from './widgets/MigrateChart/AnimateLine';
-import {Bar3DChart} from './widgets/MigrateChart/arcgis/Bar3DChart';
-import {Utils} from './Utils';
-import ToolTip from './widgets/Overlays/arcgis/ToolTip';
+  ICustomTip,
+  ISelectRouteParam,
+} from "@/types/map";
+import { OverlayArcgis2D } from "@/plugin/gis-viewer/widgets/Overlays/arcgis/OverlayArcgis2D";
+import { FindFeature } from "./widgets/FindFeature/arcgis/FindFeature";
+import { HeatMap } from "./widgets/HeatMap/arcgis/HeatMap";
+import { blendColors } from "esri/Color";
+import { TextSymbol } from "esri/symbols";
+import { Cluster } from "./widgets/Cluster/arcgis/Cluster";
+import { DrawLayer } from "./widgets/DrawLayer/arcgis/DrawLayer";
+import { MigrateChart } from "./widgets/MigrateChart/arcgis/MigrateChart";
+import { SubwayLine } from "./widgets/MigrateChart/arcgis/SubwayLine";
+import { HeatImage } from "./widgets/HeatMap/arcgis/HeatImage";
+import HeatImage2D from "./widgets/HeatMap/arcgis/HeatImage2D";
+import HeatImageGL from "./widgets/HeatMap/arcgis/HeatImageGL";
+import { GeometrySearchGD } from "./widgets/GeometrySearch/gd/GeometrySearchGD";
+import { GeometrySearch } from "./widgets/GeometrySearch/arcgis/GeometrySearch";
+import { DgeneFusion } from "./widgets/DgeneFusion/arcgis/DgeneFusion";
+import { ChengDiLayer } from "./widgets/ChengDi/ChengDiLayer";
+import AnimateLine from "./widgets/MigrateChart/AnimateLine";
+import { Bar3DChart } from "./widgets/MigrateChart/arcgis/Bar3DChart";
+import { Utils } from "./Utils";
+import ToolTip from "./widgets/Overlays/arcgis/ToolTip";
+import SelectRoute2D from "@/plugin/gis-viewer/widgets/SelectRoute/arcgis/SelectRoute2D";
 
 export default class MapAppArcGIS2D {
   public view!: __esri.MapView;
-  public showGisDeviceInfo: any;
-  public mapClick: any;
+
+  /** 触发后向父组件传参的函数 */
+  public showGisDeviceInfo!: (type: string, id: string, detail: any) => void;
+  public mapClick!: (point: object) => void;
+  public selectRouteFinished!: (routeInfo: object) => void;
+
   public showFlow: boolean = false;
   private tolerance: number = 3;
   private HighlightLayer!: __esri.GraphicsLayer;
@@ -49,28 +55,28 @@ export default class MapAppArcGIS2D {
     //路由跳转是delete mapConfig属性导致报错
     let mapConfig = Utils.copyObject(gisConfig);
     const apiUrl =
-      mapConfig.arcgis_api || mapConfig.apiUrl || 'https://js.arcgis.com/4.14/';
+      mapConfig.arcgis_api || mapConfig.apiUrl || "https://js.arcgis.com/4.14/";
     setDefaultOptions({
-      url: `${apiUrl}/init.js`
+      url: `${apiUrl}/init.js`,
     });
     const cssFile: string = mapConfig.theme
       ? `themes/${mapConfig.theme}/main.css`
-      : 'css/main.css';
+      : "css/main.css";
     loadCss(`${apiUrl}/esri/${cssFile}`);
 
-    if (mapConfig.theme == 'custom') {
+    if (mapConfig.theme == "custom") {
       this.loadCustomCss();
     }
     type MapModules = [
-      typeof import('esri/views/MapView'),
-      typeof import('esri/Basemap'),
-      typeof import('esri/Map'),
-      typeof import('esri/Graphic'),
-      typeof import('esri/layers/TileLayer'),
-      typeof import('esri/layers/WebTileLayer'),
-      typeof import('esri/layers/MapImageLayer'),
-      typeof import('esri/core/Collection'),
-      typeof import('esri/config')
+      typeof import("esri/views/MapView"),
+      typeof import("esri/Basemap"),
+      typeof import("esri/Map"),
+      typeof import("esri/Graphic"),
+      typeof import("esri/layers/TileLayer"),
+      typeof import("esri/layers/WebTileLayer"),
+      typeof import("esri/layers/MapImageLayer"),
+      typeof import("esri/core/Collection"),
+      typeof import("esri/config")
     ];
     const [
       MapView,
@@ -81,31 +87,31 @@ export default class MapAppArcGIS2D {
       WebTileLayer,
       MapImageLayer,
       Collection,
-      esriConfig
+      esriConfig,
     ] = await (loadModules([
-      'esri/views/MapView',
-      'esri/Basemap',
-      'esri/Map',
-      'esri/Graphic',
-      'esri/layers/TileLayer',
-      'esri/layers/WebTileLayer',
-      'esri/layers/MapImageLayer',
-      'esri/core/Collection',
-      'esri/config'
+      "esri/views/MapView",
+      "esri/Basemap",
+      "esri/Map",
+      "esri/Graphic",
+      "esri/layers/TileLayer",
+      "esri/layers/WebTileLayer",
+      "esri/layers/MapImageLayer",
+      "esri/core/Collection",
+      "esri/config",
     ]) as Promise<MapModules>);
-    esriConfig.fontsUrl = apiUrl + '/font/';
+    esriConfig.fontsUrl = apiUrl + "/font/";
     let baseLayers: __esri.Collection = new Collection();
     baseLayers.addMany(
       mapConfig.baseLayers.map((layerConfig: ILayerConfig) => {
-        if (layerConfig.type === 'tiled') {
+        if (layerConfig.type === "tiled") {
           delete layerConfig.type;
           return new TileLayer(layerConfig);
-        } else if (layerConfig.type === 'webtiled') {
+        } else if (layerConfig.type === "webtiled") {
           return new WebTileLayer({
             urlTemplate: layerConfig.url,
-            subDomains: layerConfig.subDomains || undefined
+            subDomains: layerConfig.subDomains || undefined,
           });
-        } else if (layerConfig.type === 'dynamic') {
+        } else if (layerConfig.type === "dynamic") {
           delete layerConfig.type;
           if ((layerConfig as any).showFlow) {
             this.showFlow = true;
@@ -116,32 +122,32 @@ export default class MapAppArcGIS2D {
     );
     //this.destroy();
     let basemap: __esri.Basemap = new Basemap({
-      baseLayers
+      baseLayers,
     });
     const view: __esri.MapView = new MapView({
       map: new Map({
-        basemap
+        basemap,
       }),
       container: mapContainer,
-      ...mapConfig.options
+      ...mapConfig.options,
     });
-    view.ui.remove('attribution');
-    view.ui.remove('zoom');
-    view.ui.remove('compass');
-    view.popup.watch('visible', async (newValue) => {
+    view.ui.remove("attribution");
+    view.ui.remove("zoom");
+    view.ui.remove("compass");
+    view.popup.watch("visible", async (newValue) => {
       if (newValue) {
         let content = view.popup.content;
         if (
-          content == 'Null' ||
-          content == '' ||
+          content == "Null" ||
+          content == "" ||
           content == null ||
-          content.toString().indexOf('Null') > -1
+          content.toString().indexOf("Null") > -1
         ) {
           view.popup.close();
         }
       }
     });
-    view.on('click', async (event) => {
+    view.on("click", async (event) => {
       this.hideBarChart();
       if (this.HighlightLayer) {
         this.HighlightLayer.removeAll();
@@ -153,7 +159,7 @@ export default class MapAppArcGIS2D {
           y: mp.latitude,
           lat: mp.x,
           lnt: mp.y,
-          wkid: mp.spatialReference.wkid
+          wkid: mp.spatialReference.wkid,
         });
       } else {
         this.mapClick(event);
@@ -165,25 +171,25 @@ export default class MapAppArcGIS2D {
         // });
         let result = response.results[0];
         const graphic = result.graphic;
-        let {type, id} = graphic.attributes;
-        let label = graphic.layer ? (graphic.layer as any).label : '';
+        let { type, id } = graphic.attributes;
+        let label = graphic.layer ? (graphic.layer as any).label : "";
         if (
           graphic.layer &&
-          (graphic.layer.type == 'feature' || graphic.layer.type == 'graphics')
+          (graphic.layer.type == "feature" || graphic.layer.type == "graphics")
         ) {
           id =
-            graphic.attributes['DEVICEID'] ||
-            graphic.attributes['FEATUREID'] ||
-            graphic.attributes['SECTIONID'] ||
-            graphic.attributes['id'] ||
-            graphic.attributes['ID'] ||
+            graphic.attributes["DEVICEID"] ||
+            graphic.attributes["FEATUREID"] ||
+            graphic.attributes["SECTIONID"] ||
+            graphic.attributes["id"] ||
+            graphic.attributes["ID"] ||
             undefined;
           type =
-            graphic.attributes['DEVICETYPE'] ||
-            graphic.attributes['FEATURETYPE'] ||
-            graphic.attributes['FEATURETYP'] ||
-            graphic.attributes['type'] ||
-            graphic.attributes['TYPE'] ||
+            graphic.attributes["DEVICETYPE"] ||
+            graphic.attributes["FEATURETYPE"] ||
+            graphic.attributes["FEATURETYP"] ||
+            graphic.attributes["type"] ||
+            graphic.attributes["TYPE"] ||
             label ||
             undefined;
         }
@@ -212,9 +218,9 @@ export default class MapAppArcGIS2D {
             let layername = res.layerName;
             let layerid = res.layerId;
             let id =
-              res.feature.attributes['DEVICEID'] ||
-              res.feature.attributes['FEATUREID'] ||
-              res.feature.attributes['SECTIONID'] ||
+              res.feature.attributes["DEVICEID"] ||
+              res.feature.attributes["FEATUREID"] ||
+              res.feature.attributes["SECTIONID"] ||
               res.feature.attributes[res.displayFieldName];
             //res.feature.attributes.geometry = res.feature.geometry;
             this.showGisDeviceInfo(layername, id, res.feature);
@@ -230,12 +236,12 @@ export default class MapAppArcGIS2D {
                     res.feature.attributes,
                     popup.content
                   ),
-                  location: event.mapPoint
+                  location: event.mapPoint,
                 });
               }
             }
           } else {
-            ToolTip.clear(this.view, undefined, 'custom-popup');
+            ToolTip.clear(this.view, undefined, "custom-popup");
           }
         });
       }
@@ -251,7 +257,7 @@ export default class MapAppArcGIS2D {
     }
     (this.view.popup as any).visibleElements = {
       featureNavigation: false,
-      closeButton: false
+      closeButton: false,
     };
     if (this.showFlow) {
       this.showSubwayFlow();
@@ -259,7 +265,7 @@ export default class MapAppArcGIS2D {
   }
   private showSubBar(layer: any, point: any, feature: any) {
     if (layer && layer.showBar) {
-      this.view.popup.alignment = 'bottom-center';
+      this.view.popup.alignment = "bottom-center";
       //console.log(res.feature);
       this.showBarChart({
         points: [
@@ -267,28 +273,28 @@ export default class MapAppArcGIS2D {
             geometry: {
               x: point.x,
               y: point.y,
-              spatialReference: this.view.spatialReference
+              spatialReference: this.view.spatialReference,
             },
             fields: {
               inflow:
-                feature.attributes['IN_FLX_NR'] ||
-                feature.attributes['VOLUME_YESTERDAY'] ||
-                feature.attributes['YJZH.STAT_METROLINEFLOW.VOLUME_YESTERDAY'],
+                feature.attributes["IN_FLX_NR"] ||
+                feature.attributes["VOLUME_YESTERDAY"] ||
+                feature.attributes["YJZH.STAT_METROLINEFLOW.VOLUME_YESTERDAY"],
               outflow:
-                feature.attributes['OUT_FLX_NR'] ||
-                feature.attributes['VOLUME_TODAY'] ||
-                feature.attributes['YJZH.STAT_METROLINEFLOW.VOLUME_TODAY']
-            }
-          }
+                feature.attributes["OUT_FLX_NR"] ||
+                feature.attributes["VOLUME_TODAY"] ||
+                feature.attributes["YJZH.STAT_METROLINEFLOW.VOLUME_TODAY"],
+            },
+          },
         ],
-        name: '地铁线路图'
+        name: "地铁线路图",
       });
     } else {
-      this.view.popup.alignment = 'auto';
+      this.view.popup.alignment = "auto";
     }
   }
   private loadCustomCss() {
-    require('./styles/custom.css');
+    require("./styles/custom.css");
   }
   private destroy() {}
   //使toolTip中支持{字段}的形式
@@ -299,7 +305,7 @@ export default class MapAppArcGIS2D {
       for (let fieldName in attr) {
         if (attr.hasOwnProperty(fieldName)) {
           tipContent = tipContent.replace(
-            '{' + fieldName + '}',
+            "{" + fieldName + "}",
             attr[fieldName]
           );
         }
@@ -309,10 +315,10 @@ export default class MapAppArcGIS2D {
   }
   private getLayerIds(layer: any): any[] {
     let layerids = [];
-    if (layer.type == 'feature') {
+    if (layer.type == "feature") {
       //featurelayer查询
       layerids.push(layer.layerId);
-    } else if (layer.type == 'map-image') {
+    } else if (layer.type == "map-image") {
       let sublayers = (layer as __esri.MapImageLayer).sublayers;
       sublayers.forEach((sublayer) => {
         if (sublayer.visible) {
@@ -325,7 +331,7 @@ export default class MapAppArcGIS2D {
   private getLayerByName(layername: string, id: string): any {
     let selLayer;
     let layers = this.view.map.allLayers.toArray().forEach((layer: any) => {
-      if (layer.type == 'imagery' || layer.type == 'map-image') {
+      if (layer.type == "imagery" || layer.type == "map-image") {
         let sublayers = (layer as __esri.MapImageLayer).allSublayers;
         sublayers.forEach((sublayer) => {
           if (sublayer.title == layername && sublayer.id.toString() == id) {
@@ -341,7 +347,7 @@ export default class MapAppArcGIS2D {
     let layers = this.view.map.allLayers.filter((layer: any) => {
       if (
         layer.visible &&
-        (layer.type == 'imagery' || layer.type == 'map-image')
+        (layer.type == "imagery" || layer.type == "map-image")
       ) {
         return true;
       }
@@ -349,14 +355,14 @@ export default class MapAppArcGIS2D {
     });
     let that = this;
     type MapModules = [
-      typeof import('esri/Graphic'),
-      typeof import('esri/tasks/IdentifyTask'),
-      typeof import('esri/tasks/support/IdentifyParameters')
+      typeof import("esri/Graphic"),
+      typeof import("esri/tasks/IdentifyTask"),
+      typeof import("esri/tasks/support/IdentifyParameters")
     ];
     const [Graphic, IdentifyTask, IdentifyParameters] = await (loadModules([
-      'esri/Graphic',
-      'esri/tasks/IdentifyTask',
-      'esri/tasks/support/IdentifyParameters'
+      "esri/Graphic",
+      "esri/tasks/IdentifyTask",
+      "esri/tasks/support/IdentifyParameters",
     ]) as Promise<MapModules>);
     let promises: any = layers.toArray().map((layer: any) => {
       return new Promise((resolve, reject) => {
@@ -365,7 +371,7 @@ export default class MapAppArcGIS2D {
         let identifyParams = new IdentifyParameters(); //创建属性查询参数
         identifyParams.tolerance = this.tolerance;
         identifyParams.layerIds = that.getLayerIds(layer);
-        identifyParams.layerOption = 'visible'; //"top"|"visible"|"all"
+        identifyParams.layerOption = "visible"; //"top"|"visible"|"all"
         identifyParams.width = that.view.width;
         identifyParams.height = that.view.height;
         identifyParams.geometry = clickpoint;
@@ -391,16 +397,16 @@ export default class MapAppArcGIS2D {
   }
   private async createLayer(view: __esri.MapView, layers: any) {
     type MapModules = [
-      typeof import('esri/layers/FeatureLayer'),
-      typeof import('esri/layers/GraphicsLayer'),
-      typeof import('esri/layers/WebTileLayer'),
-      typeof import('esri/layers/MapImageLayer'),
-      typeof import('esri/layers/WMSLayer'),
-      typeof import('esri/layers/Layer'),
-      typeof import('esri/layers/support/LabelClass'),
-      typeof import('esri/Color'),
-      typeof import('esri/symbols/Font'),
-      typeof import('esri/symbols/TextSymbol')
+      typeof import("esri/layers/FeatureLayer"),
+      typeof import("esri/layers/GraphicsLayer"),
+      typeof import("esri/layers/WebTileLayer"),
+      typeof import("esri/layers/MapImageLayer"),
+      typeof import("esri/layers/WMSLayer"),
+      typeof import("esri/layers/Layer"),
+      typeof import("esri/layers/support/LabelClass"),
+      typeof import("esri/Color"),
+      typeof import("esri/symbols/Font"),
+      typeof import("esri/symbols/TextSymbol")
     ];
     const [
       FeatureLayer,
@@ -412,18 +418,18 @@ export default class MapAppArcGIS2D {
       LabelClass,
       Color,
       Font,
-      TextSymbol
+      TextSymbol,
     ] = await (loadModules([
-      'esri/layers/FeatureLayer',
-      'esri/layers/GraphicsLayer',
-      'esri/layers/WebTileLayer',
-      'esri/layers/MapImageLayer',
-      'esri/layers/WMSLayer',
-      'esri/layers/Layer',
-      'esri/layers/support/LabelClass',
-      'esri/Color',
-      'esri/symbols/Font',
-      'esri/symbols/TextSymbol'
+      "esri/layers/FeatureLayer",
+      "esri/layers/GraphicsLayer",
+      "esri/layers/WebTileLayer",
+      "esri/layers/MapImageLayer",
+      "esri/layers/WMSLayer",
+      "esri/layers/Layer",
+      "esri/layers/support/LabelClass",
+      "esri/Color",
+      "esri/symbols/Font",
+      "esri/symbols/TextSymbol",
     ]) as Promise<MapModules>);
     let map = view.map;
 
@@ -434,32 +440,32 @@ export default class MapAppArcGIS2D {
           let type = layerConfig.type.toLowerCase();
           delete layerConfig.type;
           switch (type) {
-            case 'feature':
+            case "feature":
               layer = new FeatureLayer(layerConfig);
               break;
-            case 'dynamic':
+            case "dynamic":
               layer = new MapImageLayer(layerConfig);
               break;
-            case 'wms':
+            case "wms":
               layer = new WMSLayer(layerConfig);
               break;
-            case 'webtiled':
+            case "webtiled":
               layer = new WebTileLayer({
                 urlTemplate: layerConfig.url,
-                subDomains: layerConfig.subDomains || undefined
+                subDomains: layerConfig.subDomains || undefined,
               });
               break;
-            case 'chengdi':
+            case "chengdi":
               const cd = ChengDiLayer.getInstance(view);
               cd.addChengDiLayer(layerConfig);
               break;
-            case 'json':
+            case "json":
               const drawlayer = DrawLayer.getInstance(view);
               drawlayer.addDrawLayer(layerConfig);
               break;
-            case 'image':
+            case "image":
               const heat = HeatImage2D.getInstance(view);
-              heat.addImage({images: layerConfig, points: []});
+              heat.addImage({ images: layerConfig, points: [] });
               break;
           }
           // if (layer) {
@@ -542,7 +548,7 @@ export default class MapAppArcGIS2D {
 
     if (!isNaN(x) && !isNaN(y)) {
       this.view.goTo({
-        center: [x, y]
+        center: [x, y],
       });
     }
   }
@@ -554,7 +560,7 @@ export default class MapAppArcGIS2D {
     if (!isNaN(x) && !isNaN(y) && !isNaN(level) && level >= 0) {
       this.view.goTo({
         zoom: level,
-        center: [x, y]
+        center: [x, y],
       });
     }
   }
@@ -574,7 +580,7 @@ export default class MapAppArcGIS2D {
   public setMapStyle(param: string) {}
 
   public async routeSearch(params: routeParameter): Promise<IResult> {
-    return {status: 0, message: ''};
+    return { status: 0, message: "" };
   }
   public clearRouteSearch() {}
   public showRoutePoint(params: any) {}
@@ -638,7 +644,7 @@ export default class MapAppArcGIS2D {
     dgene.hideDgene();
   }
   public showCustomTip(params: ICustomTip) {
-    let className: string = 'custom-popup';
+    let className: string = "custom-popup";
     ToolTip.clear(this.view, undefined, className);
     if (params && params.geometry) {
       params.prop.className = className;
@@ -652,5 +658,11 @@ export default class MapAppArcGIS2D {
   public changeDgeneOut() {
     let dgene = DgeneFusion.getInstance(this.view);
     dgene.changeDgeneOut();
+  }
+
+  /** 初始化特勤线路基础数据，并进入路段选择状态 */
+  public async initializeRouteData(params: ISelectRouteParam) {
+    const selectRoute = SelectRoute2D.getInstance(this.view);
+    await selectRoute.initializeRoute();
   }
 }

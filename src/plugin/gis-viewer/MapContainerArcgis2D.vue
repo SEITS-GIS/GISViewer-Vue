@@ -22,6 +22,7 @@ import {
   IHeatImageParameter,
   IGeometrySearchParameter,
   ICustomTip,
+  ISelectRouteParam,
 } from "@/types/map";
 
 @Component({
@@ -40,11 +41,14 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
     await this.mapApp.initialize(this.mapConfig, this.mapId);
     this.mapApp.showGisDeviceInfo = this.showGisDeviceInfo;
     this.mapApp.mapClick = this.mapClick;
+    this.mapApp.selectRouteFinished = this.selectedRouteFinished;
   }
   @Emit("map-click")
   public mapClick(point: object) {}
+
   @Emit("marker-click")
   public showGisDeviceInfo(type: string, id: string, detail: any) {}
+
   @Emit("marker-mouse")
   public mouseGisDeviceInfo(
     event: any,
@@ -52,6 +56,9 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
     id: string,
     detail: any
   ) {}
+
+  @Emit("select-route-finished")
+  public selectedRouteFinished(routeInfo: object) {}
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     return await this.mapApp.addOverlays(params);
@@ -160,6 +167,18 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   }
   public changeDgeneOut() {
     this.mapApp.changeDgeneOut();
+  }
+
+  /**
+   * 路段选择
+   * 选择起点路段，显示后续路段，最终完成一个完整路段
+   */
+  /**
+   * 初始化路段选择数据，地图上显示路段，进入路段选择状态
+   * @param enableXHJ 是否自动选择信号机
+   * */
+  public async initializeRouteSelect(params: ISelectRouteParam) {
+    await this.mapApp.initializeRouteData(params);
   }
 }
 </script>
