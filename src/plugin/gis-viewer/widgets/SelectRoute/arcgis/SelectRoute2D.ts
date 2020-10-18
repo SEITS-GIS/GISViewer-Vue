@@ -61,6 +61,13 @@ export default class SelectRoute2D {
             ],
           },
         ],
+        actions: [
+          {
+            title: "路线起点",
+            id: "setRouteStart",
+            className: "esri-icon-play",
+          },
+        ],
       },
       renderer: {
         type: "simple",
