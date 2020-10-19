@@ -2,11 +2,13 @@ import {
   IOverlayParameter,
   IResult,
   IHeatParameter,
-  IHeatPoint
+  IHeatPoint,
+  ILayerConfig
 } from '@/types/map';
 import {loadModules} from 'esri-loader';
 import echartsLayer from './echartsLayer';
 import odJson from './config/OD.json';
+import subJson from './config/SubOD.json';
 import Axios from 'axios';
 import {resolve} from 'esri/core/promiseUtils';
 import {param} from 'jquery';
@@ -30,6 +32,7 @@ export class MigrateChart {
   private lineClickHandler: any;
   private selectid: string = '015';
   private odValue: {min: number; max: number} = {min: 0, max: 0};
+  private subStations: any = undefined;
 
   private constructor(view: any) {
     this.view = view;
@@ -64,63 +67,64 @@ export class MigrateChart {
       this.echartlayer = null;
     }
   }
-  public async showMigrateChart(params: IHeatParameter) {
+  private async doQueryTask(queryUrl: any): Promise<any> {
+    type MapModules = [
+      typeof import('esri/tasks/QueryTask'),
+      typeof import('esri/tasks/support/Query')
+    ];
+    const [QueryTask, Query] = await (loadModules([
+      'esri/tasks/QueryTask',
+      'esri/tasks/support/Query'
+    ]) as Promise<MapModules>);
+    return new Promise((resolve, reject) => {
+      var queryTask = new QueryTask({
+        url: queryUrl
+      });
+      var query = new Query();
+      query.returnGeometry = true;
+      query.outFields = ['*'];
+      query.where = '1=1';
+      // When resolved, returns features and graphics that satisfy the query.
+      queryTask.execute(query).then(function(results) {
+        resolve(results.features);
+      });
+    });
+  }
+  public async showSubwayChart(params: any) {
     this.clear();
-    var x = 121.43;
-    var y = 31.15;
-
-    let geoCoordMap: any = {};
-    geoCoordMap[1] = [121.388, 31.199];
-    geoCoordMap[2] = [121.384, 31.152];
-    geoCoordMap[3] = [121.437, 31.147];
-    for (var i = 4; i < 21; i++) {
-      var x1 = x + (Math.random() * 2 - 1) / 20;
-      var y1 = y + (Math.random() * 2 - 1) / 20;
-      var value = Math.floor(1000 * Math.random() + 1);
-      geoCoordMap[i] = [x1, y1];
+    if (params == undefined || params == null) {
+      return;
+    }
+    let selectid = params.id;
+    let layerUrl = subJson.url;
+    let idField = subJson.idField;
+    let ODField = subJson.ODField;
+    let odtype = params.type || 'd';
+    let features: any = this.subStations;
+    if (this.subStations == undefined) {
+      features = await this.doQueryTask(layerUrl);
+      this.subStations = features;
     }
 
-    let BJData = [
-      [{name: '3'}, {name: '10', value: 95}],
-      [{name: '3'}, {name: '1', value: 90}],
-      [{name: '3'}, {name: '2', value: 80}],
-      [{name: '3'}, {name: '20', value: 70}],
-      [{name: '3'}, {name: '4', value: 60}],
-      [{name: '3'}, {name: '5', value: 50}],
-      [{name: '3'}, {name: '6', value: 40}],
-      [{name: '3'}, {name: '7', value: 30}],
-      [{name: '3'}, {name: '12', value: 20}],
-      [{name: '3'}, {name: '15', value: 10}]
-    ];
-
-    let SHData = [
-      [{name: '2'}, {name: '13', value: 95}],
-      [{name: '2'}, {name: '5', value: 90}],
-      [{name: '2'}, {name: '1', value: 80}],
-      [{name: '2'}, {name: '17', value: 70}],
-      [{name: '2'}, {name: '14', value: 60}],
-      [{name: '2'}, {name: '3', value: 50}],
-      [{name: '2'}, {name: '15', value: 40}],
-      [{name: '2'}, {name: '20', value: 30}],
-      [{name: '2'}, {name: '16', value: 20}],
-      [{name: '2'}, {name: '10', value: 10}]
-    ];
-
-    let GZData = [
-      [{name: '1'}, {name: '4', value: 95}],
-      [{name: '1'}, {name: '6', value: 90}],
-      [{name: '1'}, {name: '7', value: 80}],
-      [{name: '1'}, {name: '8', value: 70}],
-      [{name: '1'}, {name: '9', value: 60}],
-      [{name: '1'}, {name: '12', value: 50}],
-      [{name: '1'}, {name: '12', value: 40}],
-      [{name: '1'}, {name: '20', value: 30}],
-      [{name: '1'}, {name: '19', value: 20}],
-      [{name: '1'}, {name: '5', value: 10}]
-    ];
-
-    let planePath =
-      'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
+    let geoCoordMap: any = new Object();
+    let all_sub: Array<string> = new Array<string>();
+    features.forEach((graphic: any) => {
+      let id = graphic.attributes[idField].toString();
+      if (graphic.attributes[ODField] == '1') {
+        geoCoordMap[id] = [graphic.geometry.x, graphic.geometry.y];
+        all_sub.push(id);
+      }
+    });
+    if (all_sub.length < 2 || all_sub.indexOf(selectid) < 0) {
+      return;
+    }
+    let BJData: any[] = [];
+    all_sub.forEach((id: string) => {
+      let value = Math.floor(Math.random() * 100) + 10;
+      if (id !== selectid) {
+        BJData.push([{name: selectid}, {name: id, value: value}]);
+      }
+    });
 
     let convertData = (data: any) => {
       var res = [];
@@ -129,105 +133,107 @@ export class MigrateChart {
         let fromCoord = geoCoordMap[dataItem[0].name];
         let toCoord = geoCoordMap[dataItem[1].name];
         if (fromCoord && toCoord) {
-          res.push({
-            fromName: dataItem[0].name,
-            toName: dataItem[1].name,
-            coords: [fromCoord, toCoord],
-            value: dataItem[1].value
-          });
+          if (odtype == 'o') {
+            res.push({
+              fromName: dataItem[0].name,
+              toName: dataItem[1].name,
+              coords: [fromCoord, toCoord],
+              value: dataItem[1].value
+            });
+          } else {
+            res.push({
+              fromName: dataItem[1].name,
+              toName: dataItem[0].name,
+              coords: [toCoord, fromCoord],
+              value: dataItem[1].value
+            });
+          }
         }
       }
       return res;
     };
     let color = ['#00FFFF', '#00FFFF', '#00FFFF'];
-    let series: any = [];
-    [
-      ['20', BJData],
-      ['10', SHData],
-      ['1', GZData]
-    ].forEach(function(item, i) {
-      series.push(
-        {
-          name: item[0] + ' Top10',
-          type: 'lines',
-          coordinateSystem: 'arcgis',
-          zlevel: 1,
-          effect: {
-            show: true,
-            period: 6,
-            trailLength: 0.7,
-            color: '#fff',
-            symbolSize: 3
-          },
-          blendMode: 'lighter',
+    let series = [
+      {
+        name: '',
+        type: 'lines',
+        coordinateSystem: 'arcgis',
+        zlevel: 1,
+        effect: {
+          show: true,
+          period: 6,
+          trailLength: 0.7,
+          color: '#fff',
+          symbolSize: 3
+        },
+        blendMode: 'lighter',
 
-          lineStyle: {
-            normal: {
-              color: color[i],
-              width: 0.5,
-              opacity: 0.1,
-              curveness: 0.0
-            }
-          },
-          data: convertData(item[1])
+        lineStyle: {
+          normal: {
+            color: color[0],
+            width: 0.5,
+            opacity: 0.1,
+            curveness: 0.2
+          }
         },
-        {
-          name: item[0] + ' Top10',
-          type: 'lines',
-          coordinateSystem: 'arcgis',
-          zlevel: 2,
-          symbol: ['none', 'none'],
-          symbolSize: 10,
-          effect: {
-            show: true,
-            period: 4,
-            trailLength: 0.1,
-            symbolSize: 1
-          },
-          //blendMode: 'lighter',
-          lineStyle: {
-            normal: {
-              color: color[i],
-              width: 0.1,
-              opacity: 0.6,
-              curveness: 0.2
-            }
-          },
-          data: convertData(item[1])
+        data: convertData(BJData)
+      },
+      {
+        name: '',
+        type: 'lines',
+        coordinateSystem: 'arcgis',
+        zlevel: 2,
+        symbol: ['none', 'none'],
+        symbolSize: 10,
+        effect: {
+          show: true,
+          period: 4,
+          trailLength: 0.1,
+          symbolSize: 1
         },
-        {
-          name: item[0] + ' Top10',
-          type: 'effectScatter',
-          coordinateSystem: 'arcgis',
-          zlevel: 2,
-          rippleEffect: {
-            brushType: 'stroke'
-          },
-          label: {
-            normal: {
-              show: true,
-              position: 'left',
-              formatter: '{b}'
-            }
-          },
-          symbolSize: (val: any) => {
-            return val[2] / 3;
-          },
-          itemStyle: {
-            normal: {
-              color: color[i],
-              opacity: 0.4
-            }
-          },
-          data: (item[1] as []).map((dataItem: any) => {
-            return {
-              name: dataItem[1].name,
-              value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
-            };
-          })
-        }
-      );
-    });
+        //blendMode: 'lighter',
+        lineStyle: {
+          normal: {
+            color: color[0],
+            width: 0.1,
+            opacity: 0.6,
+            curveness: 0.2
+          }
+        },
+        data: convertData(BJData)
+      },
+      {
+        name: '',
+        type: 'effectScatter',
+        coordinateSystem: 'arcgis',
+        zlevel: 2,
+        rippleEffect: {
+          brushType: 'stroke'
+        },
+        label: {
+          normal: {
+            show: false,
+            position: 'left',
+            formatter: '{b}'
+          }
+        },
+        symbolSize: (val: any) => {
+          return val[2] / 3;
+        },
+        itemStyle: {
+          normal: {
+            color: color[0],
+            opacity: 0.4
+          }
+        },
+        data: (BJData as []).map((dataItem: any) => {
+          return {
+            name: dataItem[1].name,
+            value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
+          };
+        })
+      }
+    ];
     this.echartlayer = new echartsLayer(this.view);
     var option = {
       series: series

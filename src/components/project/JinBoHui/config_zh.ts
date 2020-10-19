@@ -31,13 +31,13 @@ export let GisConfig = {
       url:
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Subway/MapServer/2',
       type: 'feature',
-      minScale: 144449,
+      minScale: 256000,
       mode: 0,
       visible: true,
       outFields: ['*'],
       popupTemplate: {
         title: '',
-        context: '线路：${Name_chn}'
+        context: '线路：{Name_chn}'
       }
     },
     {
@@ -83,12 +83,12 @@ export let GisConfig = {
       type: 'feature',
       visible: true,
       maxScale: 32000,
-      minScale: 128000,
+      minScale: 256000,
       outFields: ['*'],
       popupTemplate: {
         title: '',
         content:
-          '${LINE_DESC}<br/>地铁站：${STATION_DESC}<br/>进站人数：${FINT_IN}<br/>出站人数：${FINT_OUT}'
+          '地铁线：{LINE_DESC}<br/>地铁站：{STATION_DESC}<br/>进站人数：{FINT_IN}<br/>出站人数：{FINT_OUT}'
       },
       renderer: {
         type: 'unique-value',
@@ -148,7 +148,7 @@ export let GisConfig = {
       popupTemplate: {
         title: '',
         content:
-          '${LINE_DESC}<br/>地铁站：${STATION_DESC}<br/>进站人数：${FINT_IN}<br/>出站人数：${FINT_OUT}'
+          '{LINE_DESC}<br/>地铁站：{STATION_DESC}<br/>进站人数：{FINT_IN}<br/>出站人数：{FINT_OUT}'
       },
       renderer: {
         type: 'unique-value',
@@ -205,16 +205,16 @@ export let GisConfig = {
       popupTemplates: {
         '0': {
           title: '',
-          content: '描述：${DES}'
+          content: '描述：{DES}'
         },
         '1': {
           title: '',
-          content: '描述：${DES}'
+          content: '描述：{DES}'
         },
 
         '2': {
           title: '',
-          content: '描述：${DES}'
+          content: '描述：{DES}'
         }
       }
     },
@@ -229,35 +229,37 @@ export let GisConfig = {
       popupTemplates: {
         '0': {
           title: '',
-          content: '描述：${FSTR_DESC}'
+          content: '描述：{FSTR_DESC}'
         },
         '1': {
           title: '',
-          content: '描述：${FSTR_DESC}'
+          content: '描述：{FSTR_DESC}'
         },
         '2': {
           title: '',
-          content: '描述：${FSTR_DESC}'
+          content: '描述：{FSTR_DESC}'
         },
         '3': {
           title: '',
-          content: '描述：${FSTR_DESC}'
+          content: '描述：{FSTR_DESC}'
         }
       }
     },
     {
       label: '国展周边地面道路',
       url:
-        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_GZZX_dmfbd/MapServer/0',
-      type: 'feature',
+        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_GZZX_dmfbd/MapServer',
+      type: 'dynamic',
       visible: false,
       outFields: ['*'],
       refreshInterval: 5,
       maxScale: 0,
-      minScale: 128000,
-      popupTemplate: {
-        title: '',
-        context: '描述：${FSTR_DESC}'
+      minScale: 256000,
+      popupTemplates: {
+        0: {
+          title: '',
+          content: '描述：{FSTR_DESC}'
+        }
       }
     },
     {

@@ -240,8 +240,6 @@ define([
       _this._clusters = {};
       _this.eventzoom = -1;
       _this._zoomExtent = undefined;
-      _this._clusterScale = undefined;
-      _this._scaleSub = 1;
       _this.customText = options.custom || {};
       _this.isdrawall = true;
       _this.allExtent = undefined;
@@ -258,7 +256,7 @@ define([
       _this.singlePopupTemplate = options.singlePopupTemplate;
       _this.clusterPic = options.clusterPic;
       // set up the clustering properties
-      _this.clusterRatio = options.clusterRatio || 75; // sets the size of each clusters bounds
+      _this.clusterRatio = 75; // sets the size of each clusters bounds
       _this.clusterToScale = options.clusterToScale || 2000000; // the scale to stop clustering at and just display single points
       _this.clusterMinCount = options.clusterMinCount || 2; // the min amount of points required in a cluster bounds to justify creating a cluster
       _this.singleFlareTooltipProperty =
@@ -395,7 +393,6 @@ define([
       view
     ) {
       this._getAllExtent();
-      this._scaleSub = this._clusterScale / this._activeView.scale;
       if (isStationary) {
         if (this._activeView.type == '2d') {
           if (this.eventzoom !== view.zoom) {
@@ -451,19 +448,20 @@ define([
     };
     FlareClusterLayer.prototype._getAllExtent = function() {
       if (!this.allExtent) {
-        this._clusterScale = this._activeView.scale;
         var data = this._data;
-        var xmin = 100000000;
+        var xmin = 10000000;
         var xmax = 0;
-        var ymin = 100000000;
+        var ymin = 10000000;
         var ymax = 0;
         for (var i = 0; i < data.length; i++) {
           var d = data[i];
-          xmin = Math.min(xmin, Number(d.x));
-          xmax = Math.max(xmax, Number(d.x));
+          if (d.x > 100 && d.y > 20) {
+            xmin = Math.min(xmin, Number(d.x));
+            xmax = Math.max(xmax, Number(d.x));
 
-          ymin = Math.min(ymin, Number(d.y));
-          ymax = Math.max(ymax, Number(d.y));
+            ymin = Math.min(ymin, Number(d.y));
+            ymax = Math.max(ymax, Number(d.y));
+          }
         }
         var wkid = this._activeView.spatialReference.isWebMercator
           ? 102100
@@ -473,6 +471,15 @@ define([
           new SpatialReference({wkid: wkid})
         );
       }
+      // var mapext = this._extent();
+      // var newExt = new Extent({
+      //   xmin: Math.min(mapext.xmin, this.allExtent.xmin),
+      //   ymin: Math.min(mapext.ymin, this.allExtent.ymin),
+      //   xmax: Math.max(mapext.xmax, this.allExtent.xmax),
+      //   ymax: Math.max(mapext.ymax, this.allExtent.ymax),
+      //   spatialReference: this._activeView.spatialReference
+      // });
+      // console.log(newExt);
       return this.allExtent;
     };
     FlareClusterLayer.prototype.draw = function(activeView) {
@@ -490,7 +497,7 @@ define([
         this._queuedInitialDraw = true;
         return;
       }
-      var currentExtent = this._getAllExtent();
+      var currentExtent = this._getAllExtent(); //this._extent();
       if (!this._activeView || !this._data || !currentExtent) return;
       this._is2d = this._activeView.type === '2d';
       // check for required renderer
@@ -854,14 +861,34 @@ define([
       webExtent,
       extentIsUnioned
     ) {
-      var clusterWidth = this._activeView.width * this._scaleSub;
-      var clusterHeight = this._activeView.height * this._scaleSub;
+      var pmin = new Point({
+        x: webExtent.xmin,
+        y: webExtent.ymin,
+        spatialReference: new SpatialReference({wkid: 102100})
+      });
+      var pmax = new Point({
+        x: webExtent.xmax,
+        y: webExtent.ymax,
+        spatialReference: new SpatialReference({wkid: 102100})
+      });
+      var pmin_screen = this._activeView.toScreen(pmin);
+      var pmax_screen = this._activeView.toScreen(pmax);
+      //console.log('++++++++++++', pmin_screen, pmax_screen);
+      var clusterWidth = Math.abs(pmax_screen.x - pmin_screen.x);
+      var clusterHeight = Math.abs(pmin_screen.y - pmax_screen.y);
+
+      clusterWidth = Math.max(75, clusterWidth);
+      clusterHeight = Math.max(75, clusterHeight);
+
+      // var clusterWidth = this._activeView.width;
+      // var clusterHeight = this._activeView.height;
       // get the total amount of grid spaces based on the height and width of the map (divide it by clusterRatio) - then get the degrees for x and y
       var xCount = Math.round(clusterWidth / this.clusterRatio);
       var yCount = Math.round(clusterHeight / this.clusterRatio);
       // if the extent has been unioned due to normalization, double the count of x in the cluster grid as the unioning will halve it.
-      if (extentIsUnioned) {
-        xCount *= 2;
+      if (1) {
+        xCount /= 2;
+        yCount /= 2;
       }
       var xw = (webExtent.xmax - webExtent.xmin) / xCount;
       var yh = (webExtent.ymax - webExtent.ymin) / yCount;

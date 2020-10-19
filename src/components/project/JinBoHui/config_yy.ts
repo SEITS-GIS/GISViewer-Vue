@@ -29,15 +29,14 @@ export let GisConfig = {
     {
       label: '国展周边地面道路',
       url:
-        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_GZZX_dmfbd/MapServer/0',
-      type: 'feature',
+        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_GZZX_dmfbd/MapServer',
+      type: 'dynamic',
       visible: true,
-      outFields: ['*'],
       maxScale: 0,
       minScale: 128000,
       popupTemplate: {
         title: '',
-        content: '描述：${FSTR_DESC}'
+        content: '描述：{FSTR_DESC}'
       }
     },
     {

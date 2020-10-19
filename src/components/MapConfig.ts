@@ -6,12 +6,12 @@ import {GdConfig} from './GdConfig';
 //import {GisConfig} from './project/JinBoHui/config_zh';
 //import {GisConfig} from './project/JinBoHui/config_bus';
 //import {GisConfig} from './project/JinBoHui/config_gz';
-//import {GisConfig} from './project/JinBoHui/config_jbh';
+import {GisConfig} from './project/JinBoHui/config_jbh';
 //import {GisConfig} from './project/JinBoHui/config_jbx';
 //import {GisConfig} from './project/JinBoHui/config_sub';
 //import {GisConfig} from './project/JinBoHui/config_toll';
 //import {GisConfig} from './project/config_jbh';
-import {GisConfig} from './project/config';
+//import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
 export default class MapConfig {
@@ -61,65 +61,69 @@ export default class MapConfig {
     // });
     // map.showStreet();
     //map.showJurisdiction();
-    map.deleteAllOverlays();
-    // map.deleteOverlays({types: ['police']});
-    let overStr = '';
-    let points = {
-      type: 'police',
-      defaultVisible: true,
-      defaultSymbol: {
-        //symbol for 2d
-        type: 'point',
-        // primitive: "square",
-        url: 'assets/image/a.png',
-        size: [20, 20],
-        anchor: 'center'
-      },
-      overlays: [
-        {
-          id: 'test003',
-          geometry: {x: 121.45, y: 31.23},
-          fields: {name: '测试4', featureid: '0001'}
-        }
-      ]
-    };
+    // map.deleteAllOverlays();
+    // // map.deleteOverlays({types: ['police']});
+    // let overStr = '';
+    // let points = {
+    //   type: 'police',
+    //   defaultVisible: true,
+    //   defaultSymbol: {
+    //     //symbol for 2d
+    //     type: 'point',
+    //     // primitive: "square",
+    //     url: 'assets/image/a.png',
+    //     size: [20, 20],
+    //     anchor: 'center'
+    //   },
+    //   overlays: [
+    //     {
+    //       id: 'test003',
+    //       geometry: {x: 121.45, y: 31.23},
+    //       fields: {name: '测试4', featureid: '0001'}
+    //     }
+    //   ]
+    // };
 
-    const result = await map.addOverlays(points);
-    map.setMapCenterAndLevel({
-      x: 121.45,
-      y: 31.23,
-      level: 15
-    });
+    // map.addOverlays(points);
+    // map.setMapCenterAndLevel({
+    //   x: 121.45,
+    //   y: 31.23,
+    //   level: 15
+    // });
   }
   public btn_test1(map: any) {
-    map.deleteAllOverlays();
-    let overStr = '';
-    let points = {
-      type: 'police',
-      defaultVisible: true,
-      defaultSymbol: {
-        //symbol for 2d
-        type: 'point',
-        // primitive: "square",
-        url: 'assets/image/a.png',
-        size: [20, 20],
-        anchor: 'center'
-      },
-      overlays: [
-        {
-          id: 'test003',
-          geometry: {x: 121.45, y: 31.23},
-          fields: {name: '测试4', featureid: '0001'}
-        }
-      ]
-    };
-
-    const result = map.addOverlays(points);
-    map.setMapCenterAndLevel({
-      x: 121.45,
-      y: 31.23,
-      level: 15
+    map.findFeature({
+      layerName: '大停车场-点',
+      ids: ['qp31022900127'] //GJYJ001,GJ5-002,BS1,TCC2
     });
+    // map.deleteAllOverlays();
+    // let overStr = '';
+    // let points = {
+    //   type: 'police',
+    //   defaultVisible: true,
+    //   defaultSymbol: {
+    //     //symbol for 2d
+    //     type: 'point',
+    //     // primitive: "square",
+    //     url: 'assets/image/a.png',
+    //     size: [20, 20],
+    //     anchor: 'center'
+    //   },
+    //   overlays: [
+    //     {
+    //       id: 'test003',
+    //       geometry: {x: 121.45, y: 31.23},
+    //       fields: {name: '测试4', featureid: '0001'}
+    //     }
+    //   ]
+    // };
+
+    //const result = map.addOverlays(points);
+    // map.setMapCenterAndLevel({
+    //   x: 121.45,
+    //   y: 31.23,
+    //   level: 15
+    // });
     // if (this.model_view) {
     //   this.model_view.setCanvasSize(1920, 1080);
     // }
@@ -300,9 +304,9 @@ export default class MapConfig {
         showDir: true
       }
     ]);
-    axios.get('config/tt.json').then((res: any) => {
-      map.addOverlaysCluster(res.data);
-    });
+    // axios.get('config/tt.json').then((res: any) => {
+    //   map.addOverlaysCluster(res.data);
+    // });
     // axios.get('config/tt.json').then((res: any) => {
     //   res.data.type = 'ccv';
     //   var points = [];
@@ -344,6 +348,32 @@ export default class MapConfig {
   }
 
   public btn_test2(map: any) {
+    let points = {
+      type: 'police',
+      defaultVisible: true,
+      defaultSymbol: {
+        //symbol for 2d
+        type: 'point',
+        // primitive: "square",
+        url: 'assets/image/a.png',
+        size: [20, 20],
+        anchor: 'center'
+      },
+      overlays: [
+        {
+          id: 'test003',
+          geometry: {x: 121.145, y: 31.123},
+          fields: {name: '测试4', featureid: '0001'}
+        }
+      ]
+    };
+
+    map.addOverlays(points);
+    map.setMapCenterAndLevel({
+      x: 121.145,
+      y: 31.123,
+      level: 16
+    });
     if (this.model_view) {
       map.showDgeneOutPoint(true);
     }

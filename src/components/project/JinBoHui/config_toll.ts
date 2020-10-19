@@ -34,9 +34,11 @@ export let GisConfig = {
       visible: true,
       outFields: ['*'],
       refreshInterval: 5,
-      popupTemplate: {
-        title: '',
-        content: '描述：${FSTR_DESC}'
+      popupTemplates: {
+        0: {
+          title: '',
+          content: '描述：{FSTR_DESC}'
+        }
       }
     },
     {
@@ -50,16 +52,16 @@ export let GisConfig = {
       popupTemplates: {
         '0': {
           title: '',
-          content: '描述：${DES}'
+          content: '描述：{DES}'
         },
         '1': {
           title: '',
-          content: '描述：${DES}'
+          content: '描述：{DES}'
         },
 
         '2': {
           title: '',
-          content: '描述：${DES}'
+          content: '描述：{DES}'
         }
       }
     },
@@ -74,19 +76,19 @@ export let GisConfig = {
       popupTemplates: {
         '0': {
           title: '',
-          content: '描述：${FSTR_DESC}'
+          content: '描述：{FSTR_DESC}'
         },
         '1': {
           title: '',
-          content: '描述：${FSTR_DESC}'
+          content: '描述：{FSTR_DESC}'
         },
         '2': {
           title: '',
-          content: '描述：${FSTR_DESC}'
+          content: '描述：{FSTR_DESC}'
         },
         '3': {
           title: '',
-          content: '描述：${FSTR_DESC}'
+          content: '描述：{FSTR_DESC}'
         }
       }
     },
@@ -98,7 +100,7 @@ export let GisConfig = {
       visible: true,
       popupTemplate: {
         title: '',
-        content: '描述：${FSTR_DESC}'
+        content: '描述：{FSTR_DESC}'
       },
       outFields: ['*'],
       renderer: {
@@ -120,7 +122,7 @@ export let GisConfig = {
       visible: false,
       popupTemplate: {
         title: '',
-        content: '描述：${FSTR_DESC}'
+        content: '描述：{FSTR_DESC}'
       },
       outFields: ['*'],
       renderer: {
@@ -142,7 +144,7 @@ export let GisConfig = {
       visible: false,
       popupTemplate: {
         title: '',
-        content: '描述：${FSTR_DESC}'
+        content: '描述：{FSTR_DESC}'
       },
       outFields: ['*'],
       renderer: {

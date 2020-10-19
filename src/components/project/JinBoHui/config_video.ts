@@ -82,11 +82,7 @@ export let GisConfig = {
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Subway/MapServer/2',
       type: 'feature',
       visible: true,
-      outFields: ['*'],
-      popupTemplate: {
-        title: '',
-        content: '线路：${Name_chn}'
-      }
+      outFields: ['*']
     },
     {
       label: '停车场-点',
@@ -96,7 +92,7 @@ export let GisConfig = {
       popupTemplate: {
         title: '',
         content:
-          '描述：${PARK_DESC}<br/>总泊位数（大车）：${B_PARKNUM}<br/>总泊位数（小车）：${S_PARKNUM}<br/>总剩余泊位数（大车）：${B_REMAIN_PARKNUM}<br/>总剩余泊位数（小车）：${S_REMAIN_PARKNUM}<br/>泊位占用率（大车）：${B_PARKRATE}<br/>泊位占用率（小车）：${S_PARKRATE}<br/>预约到达率（大车）：${B_APPOINT_INRATE}<br/>预约到达率（小车）：${S_APPOINT_INRATE}'
+          '描述：{PARK_DESC}<br/>总泊位数（大车）：{B_PARKNUM}<br/>总泊位数（小车）：{S_PARKNUM}<br/>总剩余泊位数（大车）：{B_REMAIN_PARKNUM}<br/>总剩余泊位数（小车）：{S_REMAIN_PARKNUM}<br/>泊位占用率（大车）：{B_PARKRATE}<br/>泊位占用率（小车）：{S_PARKRATE}<br/>预约到达率（大车）：{B_APPOINT_INRATE}<br/>预约到达率（小车）：{S_APPOINT_INRATE}'
       },
       visible: false,
       outFields: ['*'],

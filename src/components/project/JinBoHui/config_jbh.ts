@@ -40,11 +40,7 @@ export let GisConfig = {
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Subway/MapServer/2',
       type: 'feature',
       visible: true,
-      outFields: ['*'],
-      popupTemplate: {
-        title: '',
-        content: '线路：{Name_chn}'
-      }
+      outFields: ['*']
     },
     {
       label: '停车场-点',
@@ -319,6 +315,12 @@ export let GisConfig = {
       url:
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Subway/MapServer/1',
       type: 'feature',
+      showBar: true,
+      barFields: {
+        inField: 'JWPT.RAILWAY_VOL_SATURATION.FINT_IN',
+        outField: 'JWPT.RAILWAY_VOL_SATURATION.FINT_OUT'
+      },
+      showMigrate: true,
       popupTemplate: {
         title: '',
         content:

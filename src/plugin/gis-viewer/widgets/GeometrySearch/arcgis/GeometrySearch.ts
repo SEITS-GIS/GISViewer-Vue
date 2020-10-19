@@ -181,7 +181,8 @@ export class GeometrySearch {
         if (layer.type == 'graphics') {
           layer.graphics.forEach((overlay: any) => {
             let point = overlay.geometry;
-            let overlayType = overlay.type || overlay.attributes.type;
+            let overlayType =
+              overlay.type || overlay.attributes ? overlay.attributes.type : '';
             if (
               (searchTypes.indexOf(overlayType) >= 0 ||
                 searchTypes.toString() == ['*'].toString()) &&

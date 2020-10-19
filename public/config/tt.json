@@ -5667,12 +5667,11 @@
     }
   ],
   "showPopup": false,
-  "ispic": false,
   "custom": {
     "color": "yellow",
     "fontSize": 14,
     "content": "{id}",
     "weight": "bold"
   },
-  "zoom": 13
+  "zoom": 17
 }
