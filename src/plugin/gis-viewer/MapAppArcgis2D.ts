@@ -663,6 +663,7 @@ export default class MapAppArcGIS2D {
   /** 初始化特勤线路基础数据，并进入路段选择状态 */
   public async initializeRouteData(params: ISelectRouteParam) {
     const selectRoute = SelectRoute2D.getInstance(this.view);
+    selectRoute.selectRouteFinished = this.selectRouteFinished;
     await selectRoute.initializeRoute();
   }
 }

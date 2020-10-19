@@ -12,15 +12,16 @@
       @map-loaded="mapLoaded"
       @marker-click="showGisDeviceInfo"
       @map-click="mapClick"
+      @select-route-finished="selectRouteFinished"
     />
   </div>
 </template>
 <script lang="ts">
-import {Vue, Component, Prop} from 'vue-property-decorator';
-import axios from 'axios';
-import MapConfig from './MapConfig';
-import PluginGd from './PluginGD.vue';
-import Test from './Test.vue';
+import { Vue, Component, Prop } from "vue-property-decorator";
+import axios from "axios";
+import MapConfig from "./MapConfig";
+import PluginGd from "./PluginGD.vue";
+import Test from "./Test.vue";
 @Component
 export default class PluginTest extends Vue {
   private cg = new MapConfig();
@@ -40,12 +41,12 @@ export default class PluginTest extends Vue {
   }
   private showGisDeviceInfo(type: string, id: string, detail: any) {
     console.log(type, id, detail);
-    if (type == 'model3d') {
+    if (type == "model3d") {
       (this.$refs.gisViewer as any).showDgene({
         duration: 0,
         callback: (e: any) => {
           //console.log(e);
-        }
+        },
       });
     }
     // (this.$refs.gisViewer as any).showCustomTip({
@@ -55,6 +56,10 @@ export default class PluginTest extends Vue {
   }
   private mapClick(pt: any) {
     console.log(pt);
+  }
+
+  private selectRouteFinished(routeInfo: object) {
+    console.log(routeInfo);
   }
 }
 </script>

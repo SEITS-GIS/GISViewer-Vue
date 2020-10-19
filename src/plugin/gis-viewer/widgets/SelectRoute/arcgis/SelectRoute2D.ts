@@ -4,10 +4,11 @@ import { loadModules } from "esri-loader";
 export default class SelectRoute2D {
   private static intances: Map<string, SelectRoute2D>;
 
-  private selectedRoadIdArray: Array<string> = [];
+  private selectedRoadGraphicArray: Array<__esri.Graphic> = [];
 
   private view!: __esri.MapView;
   private allRoadLayer!: __esri.FeatureLayer;
+  private selectedRoadLayer!: __esri.GraphicsLayer;
   private candidateRoadLayer!: __esri.GraphicsLayer;
 
   private beginRouteButton = {
@@ -19,13 +20,13 @@ export default class SelectRoute2D {
   private endRouteButton = {
     title: "结束",
     id: "endRoute",
-    className: "esri-icon-close",
+    className: "esri-icon-check-mark",
   };
 
   private addRoadButton = {
     title: "添加",
     id: "addRoad",
-    className: "esri-icon-check-mark",
+    className: "esri-icon-plus",
   };
 
   private reSelectNextRoadButton = {
@@ -33,6 +34,31 @@ export default class SelectRoute2D {
     id: "reSelectNextRoad",
     className: "esri-icon-rotate",
   };
+
+  private popupTemplate = {
+    title: "{NAME_CHN}",
+    content: [
+      {
+        type: "fields",
+        fieldInfos: [
+          {
+            fieldName: "S_LANES",
+            label: "车道数",
+          },
+          {
+            fieldName: "WIDTH",
+            label: "宽度",
+          },
+          {
+            fieldName: "LENGTH",
+            label: "长度",
+          },
+        ],
+      },
+    ],
+  };
+
+  public selectRouteFinished!: (routeInfo: object) => void;
 
   public static getInstance(view: __esri.MapView) {
     const id = view.container.id;
@@ -66,33 +92,12 @@ export default class SelectRoute2D {
       "esri/layers/FeatureLayer",
       "esri/Graphic",
     ]) as Promise<MapModules>);
-    this.candidateRoadLayer = new GraphicsLayer();
-    this.view.map.add(this.candidateRoadLayer);
 
     this.allRoadLayer = new FeatureLayer({
       url: roadNetworkUrl,
       definitionExpression: "ROAD_CLASS <> 47000",
       popupTemplate: {
-        title: "{NAME_CHN}",
-        content: [
-          {
-            type: "fields",
-            fieldInfos: [
-              {
-                fieldName: "S_LANES",
-                label: "车道数",
-              },
-              {
-                fieldName: "WIDTH",
-                label: "宽度",
-              },
-              {
-                fieldName: "LENGTH",
-                label: "长度",
-              },
-            ],
-          },
-        ],
+        ...this.popupTemplate,
         actions: [this.beginRouteButton as any],
       },
       renderer: {
@@ -105,32 +110,26 @@ export default class SelectRoute2D {
       } as any,
     });
     this.view.map.add(this.allRoadLayer);
-    // this.view.popup.viewModel.actions.getItemAt(0).visible = false
+
+    this.selectedRoadLayer = new GraphicsLayer();
+    this.candidateRoadLayer = new GraphicsLayer();
+    this.view.map.addMany([this.selectedRoadLayer, this.candidateRoadLayer]);
 
     this.view.popup.on("trigger-action", async (event) => {
       this.view.popup.close();
 
       switch (event.action.id) {
         case "beginRoute": {
+          // 选好起点后路网不再能点击
+          this.allRoadLayer.popupEnabled = false;
+
           // popup.selectedFeature.attributes只包含popupTemplate中配置的字段
           // 只能用FID来查找ROAD_ID
           const { FID } = this.view.popup.selectedFeature.attributes;
           const selectedGraphic = await this.getRoadGraphicByFID(FID);
           if (selectedGraphic) {
-            const {
-              ROAD_ID: roadId,
-              TROAD_ID: nextRoadIds,
-            } = selectedGraphic.attributes;
-            this.selectedRoadIdArray = [roadId];
-
-            /** 已选定的路段，显示重选按钮 */
-            this.allRoadLayer.popupTemplate.actions.removeAll();
-            this.allRoadLayer.popupTemplate.actions.add(
-              this.reSelectNextRoadButton as any
-            );
-            this.showSelectedRoad();
-
-            await this.showNextRoad(nextRoadIds);
+            this.selectedRoadGraphicArray = [selectedGraphic.clone()];
+            this.addSelectedRoad();
           }
 
           break;
@@ -140,16 +139,21 @@ export default class SelectRoute2D {
           const { FID } = this.view.popup.selectedFeature.attributes;
           const selectedGraphic = await this.getRoadGraphicByFID(FID);
           if (selectedGraphic) {
-            const {
-              ROAD_ID: roadId,
-              TROAD_ID: nextRoadIds,
-            } = selectedGraphic.attributes;
-            this.selectedRoadIdArray.push(roadId);
-            this.showSelectedRoad();
-            await this.showNextRoad(nextRoadIds);
-
-            break;
+            this.selectedRoadGraphicArray.push(selectedGraphic.clone());
+            this.addSelectedRoad();
           }
+          break;
+        }
+
+        case "endRoute": {
+          const { FID } = this.view.popup.selectedFeature.attributes;
+          const selectedGraphic = await this.getRoadGraphicByFID(FID);
+          if (selectedGraphic) {
+            this.selectedRoadGraphicArray.push(selectedGraphic.clone());
+            this.addSelectedRoad(true);
+            this.selectRouteFinished({ data: "111" });
+          }
+          break;
         }
       }
     });
@@ -183,18 +187,34 @@ export default class SelectRoute2D {
     }
   }
 
-  /** 显示当前已选定的路段 */
-  private showSelectedRoad() {
-    let ids = "";
-    this.selectedRoadIdArray.forEach((id) => (ids += "'" + id + "',"));
-    ids = ids.substr(0, ids.length - 1);
-    this.allRoadLayer.definitionExpression = `ROAD_ID in (${ids})`;
+  /**
+   * 显示当前已选定的路段
+   * @param isLastRoad 是否为最后一个路段
+   * */
+  private addSelectedRoad(isLastRoad: boolean = false) {
+    const lastGraphic = this.selectedRoadGraphicArray[
+      this.selectedRoadGraphicArray.length - 1
+    ];
+    lastGraphic.symbol = {
+      type: "simple-line",
+      color: "deepskyblue",
+      width: "4px",
+    } as any;
+    lastGraphic.popupTemplate = {
+      ...this.popupTemplate,
+      actions: [this.reSelectNextRoadButton as any],
+    } as any;
+    this.selectedRoadLayer.add(lastGraphic);
+
+    // 不是最后一个路段，则显示候选路段
+    this.candidateRoadLayer.removeAll();
+    if (!isLastRoad) {
+      this.showNextRoad(lastGraphic.attributes["TROAD_ID"]);
+    }
   }
 
   /** 显示多条待选路段 */
   private async showNextRoad(roadIds: string) {
-    this.candidateRoadLayer.removeAll();
-
     const roadIdArray = roadIds.split(",");
     roadIdArray.forEach(async (roadId) => {
       const roadGraphic = await this.getRoadGraphicByRoadId(roadId);
@@ -203,30 +223,11 @@ export default class SelectRoute2D {
         candidateRoad.symbol = {
           type: "simple-line",
           color: "forestgreen",
-          width: "2px",
+          width: "4px",
         } as any;
         candidateRoad.popupTemplate = {
-          title: "{NAME_CHN}",
-          content: [
-            {
-              type: "fields",
-              fieldInfos: [
-                {
-                  fieldName: "S_LANES",
-                  label: "车道数",
-                },
-                {
-                  fieldName: "WIDTH",
-                  label: "宽度",
-                },
-                {
-                  fieldName: "LENGTH",
-                  label: "长度",
-                },
-              ],
-            },
-          ],
-          actions: [this.addRoadButton as any],
+          ...this.popupTemplate,
+          actions: [this.addRoadButton, this.endRouteButton],
         } as any;
         this.candidateRoadLayer.add(candidateRoad);
       }
