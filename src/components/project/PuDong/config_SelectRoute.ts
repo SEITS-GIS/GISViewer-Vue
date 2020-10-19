@@ -6,7 +6,7 @@ export let GisConfig = {
       label: "深色",
       type: "tiled",
       url:
-        "https://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer",
+        "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/background_zz/MapServer",
       visible: true,
     },
     // {
@@ -42,7 +42,7 @@ export let GisConfig = {
   ],
   options: {
     center: [121.56795107621652, 31.2283997923292],
-    zoom: 12,
+    zoom: 3,
     //viewingMode: 'global',
     // ground: {opacity: 1},
     // alphaCompositingEnabled: true,
