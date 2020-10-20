@@ -217,7 +217,14 @@ export class FindFeature {
         findParams.returnGeometry = true; // true 返回几何信息
         // findParams.layerIds = [0, 1, 2]; // 查询图层id
         findParams.layerIds = options.layerIds; // 查询图层id
-        //findParams.searchFields = ['*']; // 查询字段 artel
+        // findParams.searchFields = [
+        //   'DEVICEID',
+        //   'BM_CODE',
+        //   'FEATUREID',
+        //   'SECTIONID',
+        //   'FEATUREID',
+        //   'JT_CJGL_2_PG.SECTIONID'
+        // ]; // 查询字段 artel
         findParams.searchText = searchText; // 查询内容 artel = searchText
 
         // 执行查询对象
