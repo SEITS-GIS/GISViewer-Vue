@@ -11,6 +11,19 @@ export let GisConfig = {
   ],
   operationallayers: [
     {
+      label: '国展中心面',
+      url:
+        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Exhibition/MapServer',
+      type: 'dynamic',
+      outFields: ['*'],
+      popupTemplates: {
+        0: {
+          title: '',
+          content: '客流：{FSTR_VOLUME}'
+        }
+      }
+    },
+    {
       type: 'image',
       url: 'assets/mapIcons/JinBoHui/flower.png',
       geometry: {x: -16465.35204963667, y: -4542.84795454},
