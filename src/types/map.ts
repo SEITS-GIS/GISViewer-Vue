@@ -263,3 +263,8 @@ export interface ICustomTip {
 export interface ISelectRouteParam {
   enableXHJ?: boolean;
 }
+
+export interface ISelectRouteResult {
+  roadIds: Array<string>;
+  xhjIds?: Array<string>;
+}

@@ -4,12 +4,21 @@ import { loadModules } from "esri-loader";
 export default class SelectRoute2D {
   private static intances: Map<string, SelectRoute2D>;
 
+  private view!: __esri.MapView;
+
+  /** 显示全部路网的图层 */
+  private allRoadLayer!: __esri.FeatureLayer;
+  /** 显示已选定道路的图层 */
+  private selectedRoadLayer!: __esri.GraphicsLayer;
+  /** 显示候选道路的图层 */
+  private candidateRoadLayer!: __esri.GraphicsLayer;
+  /** 已选定的道路graphic */
   private selectedRoadGraphicArray: Array<__esri.Graphic> = [];
 
-  private view!: __esri.MapView;
-  private allRoadLayer!: __esri.FeatureLayer;
-  private selectedRoadLayer!: __esri.GraphicsLayer;
-  private candidateRoadLayer!: __esri.GraphicsLayer;
+  /** 显示全部信号机的图层 */
+  private allTrafficSignalLayer!: __esri.FeatureLayer;
+  /** 显示已选定信号机的图层 */
+  private selectedTrafficSignalLayer!: __esri.GraphicsLayer;
 
   private beginRouteButton = {
     title: "开始",
@@ -80,17 +89,17 @@ export default class SelectRoute2D {
   /** 读取路段数据，并显示路段 */
   public async initializeRoute() {
     const roadNetworkUrl =
-      "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/1";
+      "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2";
+    const trafficSignalUrl =
+      "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0";
 
     type MapModules = [
       typeof import("esri/layers/GraphicsLayer"),
-      typeof import("esri/layers/FeatureLayer"),
-      typeof import("esri/Graphic")
+      typeof import("esri/layers/FeatureLayer")
     ];
-    const [GraphicsLayer, FeatureLayer, Graphic] = await (loadModules([
+    const [GraphicsLayer, FeatureLayer] = await (loadModules([
       "esri/layers/GraphicsLayer",
       "esri/layers/FeatureLayer",
-      "esri/Graphic",
     ]) as Promise<MapModules>);
 
     this.allRoadLayer = new FeatureLayer({
@@ -109,18 +118,42 @@ export default class SelectRoute2D {
         },
       } as any,
     });
-    this.view.map.add(this.allRoadLayer);
-
     this.selectedRoadLayer = new GraphicsLayer();
     this.candidateRoadLayer = new GraphicsLayer();
-    this.view.map.addMany([this.selectedRoadLayer, this.candidateRoadLayer]);
+    this.view.map.addMany([
+      this.allRoadLayer,
+      this.selectedRoadLayer,
+      this.candidateRoadLayer,
+    ]);
+
+    this.allTrafficSignalLayer = new FeatureLayer({
+      url: trafficSignalUrl,
+      renderer: {
+        type: "simple",
+        symbol: {
+          type: "simple-marker",
+          style: "circle",
+          color: "lawngreen",
+          size: "8px",
+          outline: {
+            color: "white",
+            width: 1,
+          },
+        },
+      } as any,
+    });
+    this.selectedTrafficSignalLayer = new GraphicsLayer();
+    this.view.map.addMany([
+      this.allTrafficSignalLayer,
+      this.selectedTrafficSignalLayer,
+    ]);
 
     this.view.popup.on("trigger-action", async (event) => {
       this.view.popup.close();
 
       switch (event.action.id) {
         case "beginRoute": {
-          // 选好起点后路网不再能点击
+          // 选好起点后路网不再能点击，只能点击候选路段
           this.allRoadLayer.popupEnabled = false;
 
           // popup.selectedFeature.attributes只包含popupTemplate中配置的字段
@@ -151,7 +184,12 @@ export default class SelectRoute2D {
           if (selectedGraphic) {
             this.selectedRoadGraphicArray.push(selectedGraphic.clone());
             this.addSelectedRoad(true);
-            this.selectRouteFinished({ data: "111" });
+            if (this.selectRouteFinished) {
+              const roadIds = this.selectedRoadGraphicArray.map(
+                (graphic) => graphic.attributes["ROAD_ID"]
+              );
+              this.selectRouteFinished({ roadIds });
+            }
           }
           break;
         }
@@ -187,24 +225,69 @@ export default class SelectRoute2D {
     }
   }
 
+  /** 搜索指定点周边的信号机 */
+  private async searchTrafficSignalByPoint(point: __esri.Point) {
+    // 生成缓冲区
+    type MapModules = [
+      typeof import("esri/geometry/geometryEngineAsync"),
+      typeof import("esri/Graphic")
+    ];
+    const [geometryEngineAsync, Graphic] = await (loadModules([
+      "esri/geometry/geometryEngineAsync",
+      "esri/Graphic",
+    ]) as Promise<MapModules>);
+    const buffer = (await geometryEngineAsync.geodesicBuffer(
+      point,
+      10,
+      "meters"
+    )) as __esri.Polygon;
+    const bufferGraphic: __esri.Graphic = new Graphic({
+      geometry: buffer,
+      symbol: {
+        type: "simple-fill",
+        color: [51, 51, 204, 0.9],
+        outline: {
+          color: "white",
+          width: 1
+        }
+      } as any,
+    });
+    this.selectedTrafficSignalLayer.add(bufferGraphic)
+
+    const query = this.allTrafficSignalLayer.createQuery();
+    query.geometry = buffer;
+    query.spatialRelationship = "contains";
+    query.returnGeometry = true;
+    query.outFields = ["*"];
+    const results = await this.allTrafficSignalLayer.queryFeatures(query);
+    console.log(results);
+  }
+
   /**
    * 显示当前已选定的路段
    * @param isLastRoad 是否为最后一个路段
    * */
-  private addSelectedRoad(isLastRoad: boolean = false) {
+  private async addSelectedRoad(isLastRoad: boolean = false) {
+    // 将选定路段列表中的最后一个添加到地图上
     const lastGraphic = this.selectedRoadGraphicArray[
       this.selectedRoadGraphicArray.length - 1
     ];
     lastGraphic.symbol = {
       type: "simple-line",
-      color: "deepskyblue",
-      width: "4px",
+      color: "darkslateblue",
+      width: 4,
     } as any;
     lastGraphic.popupTemplate = {
       ...this.popupTemplate,
       actions: [this.reSelectNextRoadButton as any],
     } as any;
     this.selectedRoadLayer.add(lastGraphic);
+
+    // 在路段最后一个点周边搜索信号机
+    const polyline = lastGraphic.geometry as __esri.Polyline;
+    const path = polyline.paths[0];
+    const lastPoint = polyline.getPoint(0, path.length - 1);
+    await this.searchTrafficSignalByPoint(lastPoint);
 
     // 不是最后一个路段，则显示候选路段
     this.candidateRoadLayer.removeAll();
@@ -222,8 +305,8 @@ export default class SelectRoute2D {
         const candidateRoad = roadGraphic.clone();
         candidateRoad.symbol = {
           type: "simple-line",
-          color: "forestgreen",
-          width: "4px",
+          color: "dodgerblue",
+          width: 4,
         } as any;
         candidateRoad.popupTemplate = {
           ...this.popupTemplate,

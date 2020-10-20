@@ -136,9 +136,7 @@ export default class MapContainer extends Vue implements IMapContainer {
     detail: any
   ) {}
   @Emit("select-route-finished")
-  public selectedRouteFinished(routeInfo: object) {
-    console.log(routeInfo);
-  }
+  public selectedRouteFinished(routeInfo: object) {}
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
     return await this.mapContainer.addOverlays(params);
