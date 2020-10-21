@@ -334,6 +334,19 @@ export class FindFeature {
           width: 2
         }
       };
+    } else if (geometry.type == 'point') {
+      symbol = {
+        type: 'simple-marker', // autocasts as new SimpleFillSymbol()
+        color: [0, 0, 0, 0],
+        style: 'none',
+        size: 12,
+        outline: {
+          // autocasts as new SimpleLineSymbol()
+          color: [0, 255, 255],
+          style: 'solid',
+          width: 2
+        }
+      };
     }
     let highGraphic = new Graphic({
       geometry: geometry,

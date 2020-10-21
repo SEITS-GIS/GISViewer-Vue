@@ -78,39 +78,13 @@ export class Cluster {
             obj[field] = point.fields[field];
           }
         }
+        if (point.symbol) {
+          obj.symbol = this.makeSymbol(point.symbol);
+        }
         data.push(obj);
       }
-    });
-    let defaultSym = {};
-    if (params.defaultSymbol) {
-      width = Number(
-        params.defaultSymbol.width || params.defaultSymbol.size instanceof Array
-          ? (params.defaultSymbol.size as number[])[0]
-          : params.defaultSymbol.size
-      );
-      height = Number(
-        params.defaultSymbol.height ||
-          params.defaultSymbol.size instanceof Array
-          ? (params.defaultSymbol.size as number[])[1]
-          : params.defaultSymbol.size
-      );
-      defaultSym = {
-        type: 'picture-marker',
-        width: width || 30 + 'px',
-        height: height || 30 + 'px',
-        url: params.defaultSymbol.url,
-        xoffset: params.defaultSymbol.xoffset || 0,
-        yoffset: params.defaultSymbol.yoffset || 0
-      };
-    } else {
-      defaultSym = {
-        type: 'simple-marker',
-        size: 6,
-        color: '#FF0000',
-        outline: null
-      } as any;
-    }
-
+    }, this);
+    let defaultSym = this.makeSymbol(params.defaultSymbol);
     this.initLayer({
       data: data,
       defaultSymbol: defaultSym,
@@ -122,6 +96,42 @@ export class Cluster {
       size: [width, height],
       subType: params.subType
     });
+  }
+  private makeSymbol(sym: any): any {
+    if (!sym) {
+      return undefined;
+    }
+    let width = 30;
+    let height = 30;
+    let defaultSym = {};
+    if (sym) {
+      width = Number(
+        sym.width || sym.size instanceof Array
+          ? (sym.size as number[])[0]
+          : sym.size
+      );
+      height = Number(
+        sym.height || sym.size instanceof Array
+          ? (sym.size as number[])[1]
+          : sym.size
+      );
+      defaultSym = {
+        type: 'picture-marker',
+        width: width || 30 + 'px',
+        height: height || 30 + 'px',
+        url: sym.url,
+        xoffset: sym.xoffset || 0,
+        yoffset: sym.yoffset || 0
+      };
+    } else {
+      defaultSym = {
+        type: 'simple-marker',
+        size: 6,
+        color: '#FF0000',
+        outline: null
+      } as any;
+    }
+    return defaultSym;
   }
   //使toolTip中支持{字段}的形式
   private getToolTipContent(attrs: any, content: string): string {

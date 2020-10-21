@@ -45,13 +45,11 @@ export let GisConfig = {
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_GZZX_dmfbd/MapServer',
       type: 'dynamic',
       visible: true,
-      outFields: ['*'],
       refreshInterval: 5,
-      popupTemplates: {
-        0: {
-          title: '',
-          content: '描述：{FSTR_DESC}'
-        }
+      minScale: 32000,
+      popupTemplate: {
+        title: '',
+        content: '描述：{FSTR_DESC}'
       }
     },
     {
@@ -60,7 +58,7 @@ export let GisConfig = {
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/Kuaisulu_fbd_GZZB/MapServer',
       type: 'dynamic',
       refreshInterval: 5,
-      visible: true,
+      visible: false,
       outFields: ['*'],
       popupTemplates: {
         '0': {
@@ -204,8 +202,8 @@ export let GisConfig = {
     }
   ],
   options: {
-    center: [-0.14532287775028, -0.0435806907338],
-    zoom: 5,
+    center: [-0.14532287775028, -0.0405806907338],
+    zoom: 6,
     constraints: {
       rotationEnabled: false,
       minZoom: 0

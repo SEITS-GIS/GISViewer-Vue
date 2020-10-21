@@ -6,7 +6,7 @@ import {GdConfig} from './GdConfig';
 //import {GisConfig} from './project/JinBoHui/config_zh';
 //import {GisConfig} from './project/JinBoHui/config_bus';
 //import {GisConfig} from './project/JinBoHui/config_gz';
-import {GisConfig} from './project/JinBoHui/config_jbh';
+//import {GisConfig} from './project/JinBoHui/config_jbh';
 //import {GisConfig} from './project/JinBoHui/config_jbx';
 //import {GisConfig} from './project/JinBoHui/config_sub';
 //import {GisConfig} from './project/JinBoHui/config_toll';
@@ -14,6 +14,7 @@ import {GisConfig} from './project/JinBoHui/config_jbh';
 //import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
+import {GisConfig} from './project/PuDong/config_RoadSelect';
 export default class MapConfig {
   public constructor() {}
   private model_view: any;
@@ -64,27 +65,27 @@ export default class MapConfig {
     // map.deleteAllOverlays();
     // // map.deleteOverlays({types: ['police']});
     // let overStr = '';
-    // let points = {
-    //   type: 'police',
-    //   defaultVisible: true,
-    //   defaultSymbol: {
-    //     //symbol for 2d
-    //     type: 'point',
-    //     // primitive: "square",
-    //     url: 'assets/image/a.png',
-    //     size: [20, 20],
-    //     anchor: 'center'
-    //   },
-    //   overlays: [
-    //     {
-    //       id: 'test003',
-    //       geometry: {x: 121.45, y: 31.23},
-    //       fields: {name: '测试4', featureid: '0001'}
-    //     }
-    //   ]
-    // };
+    let points = {
+      type: 'police',
+      defaultVisible: false,
+      defaultSymbol: {
+        //symbol for 2d
+        type: 'point',
+        // primitive: "square",
+        url: 'assets/image/camera.png',
+        size: [20, 20],
+        anchor: 'center'
+      },
+      overlays: [
+        {
+          id: 'test003',
+          geometry: {x: 121.63984297555015, y: 31.305949717282704},
+          fields: {name: '测试4', featureid: '0001'}
+        }
+      ]
+    };
 
-    // map.addOverlays(points);
+    map.addOverlays(points);
     // map.setMapCenterAndLevel({
     //   x: 121.45,
     //   y: 31.23,
@@ -93,8 +94,8 @@ export default class MapConfig {
   }
   public btn_test1(map: any) {
     map.findFeature({
-      layerName: '大停车场-点',
-      ids: ['qp31022900127'] //GJYJ001,GJ5-002,BS1,TCC2
+      layerName: 'police',
+      ids: ['test003'] //GJYJ001,GJ5-002,BS1,TCC2
     });
     // map.deleteAllOverlays();
     // let overStr = '';
@@ -127,8 +128,8 @@ export default class MapConfig {
     // if (this.model_view) {
     //   this.model_view.setCanvasSize(1920, 1080);
     // }
-    //map.addHeatImage();
-    //map.showMigrateChart();
+    // map.addHeatImage();
+    // map.showMigrateChart();
 
     //const result = map.addOverlays(points);
     // if (this.model_view) {
@@ -307,29 +308,49 @@ export default class MapConfig {
     // axios.get('config/tt.json').then((res: any) => {
     //   map.addOverlaysCluster(res.data);
     // });
-    // axios.get('config/tt.json').then((res: any) => {
-    //   res.data.type = 'ccv';
-    //   var points = [];
-    //   var x = 121.43;
-    //   var y = 31.15;
-    //   for (var i = 0; i < 1000; i++) {
-    //     var x1 = x + (Math.random() * 2 - 1) / 20;
-    //     var y1 = y + (Math.random() * 2 - 1) / 20;
-    //     var value = Math.floor(1000000 * Math.random() + 1);
-    //     var a = i % 2 == 0 ? '1' : '0';
-    //     points.push({
-    //       geometry: {x: x1.toString(), y: y1.toString()},
-    //       fields: {
-    //         desc: '上海体育馆停车场',
-    //         value: 5,
-    //         type: a
-    //       }
-    //     });
-    //   }
-    //   res.data.zoom = 2;
-    //   res.data.overlays = points;
-    //   map.addOverlaysCluster(res.data);
-    // });
+    axios.get('config/tt.json').then((res: any) => {
+      res.data.type = 'ccv';
+      var points = [];
+      var x = 121.43;
+      var y = 31.15;
+      for (var i = 0; i < 1000; i++) {
+        var x1 = x + (Math.random() * 2 - 1) / 20;
+        var y1 = y + (Math.random() * 2 - 1) / 20;
+        var value = Math.floor(1000000 * Math.random() + 1);
+        var a = i % 2 == 0 ? '1' : '0';
+        let sym =
+          i % 3 == 0
+            ? {
+                type: 'point',
+                url: 'assets/image/camera.png',
+                size: [30, 40]
+              }
+            : undefined;
+        if (sym) {
+          points.push({
+            geometry: {x: x1.toString(), y: y1.toString()},
+            fields: {
+              desc: '上海体育馆停车场',
+              value: 5,
+              type: a
+            },
+            symbol: sym
+          });
+        } else {
+          points.push({
+            geometry: {x: x1.toString(), y: y1.toString()},
+            fields: {
+              desc: '上海体育馆停车场',
+              value: 5,
+              type: a
+            }
+          });
+        }
+      }
+      res.data.zoom = 15;
+      res.data.overlays = points;
+      map.addOverlaysCluster(res.data);
+    });
     //axios.get("config/Jurisdiction/bsga_v2.geo.json").then((res: any) => {
     //map.addOverlaysCluster(res.data);
     //  console.log(res.data);

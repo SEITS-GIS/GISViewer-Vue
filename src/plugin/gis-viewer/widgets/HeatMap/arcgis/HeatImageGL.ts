@@ -251,7 +251,7 @@ export default class HeatImageGL {
           });
         }
         console.log('max:' + max + ',min:' + min);
-        _this.wifiMax = max;
+        _this.wifiMax = 10000;
         resolve(results);
       });
     });
@@ -269,12 +269,20 @@ export default class HeatImageGL {
     } else {
       //return undefined;
       return {
-        0.01: 'rgb(0,255,0)',
-        0.3: 'rgb(173,255,47)',
-        0.6: 'rgb(255, 255, 0)',
-        0.8: 'rgb(255,215,0)',
+        0.1: 'rgb(0,22,255)', //'rgb(0,255,0)',
+        0.3: 'rgb(0,0,255)',
+        0.5: 'rgb(0, 255, 255)',
+        0.7: 'rgb(0, 255, 0)',
+        0.9: 'rgb(255,255,0)',
         1.0: 'rgb(255,0,0)'
       } as any;
+      // return {
+      //   0.01: 'rgb(80,22,223)', //'rgb(0,255,0)',
+      //   0.3: 'rgb(173,255,47)',
+      //   0.6: 'rgb(255, 255, 0)',
+      //   0.8: 'rgb(255,215,0)',
+      //   1.0: 'rgb(255,0,0)'
+      // } as any;
     }
   }
   public async startup() {
