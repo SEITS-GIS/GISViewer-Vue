@@ -1,4 +1,4 @@
-import { ISelectRouteParam } from "@/types/map";
+import { ISelectRouteParam, ISelectRouteResult } from "@/types/map";
 import Axios from "axios";
 import { loadModules } from "esri-loader";
 
@@ -79,7 +79,7 @@ export default class SelectRoute2D {
     ],
   };
 
-  public selectRouteFinished!: (routeInfo: object) => void;
+  public selectRouteFinished!: (routeInfo: ISelectRouteResult) => void;
 
   public static getInstance(view: __esri.MapView) {
     const id = view.container.id;
@@ -200,7 +200,21 @@ export default class SelectRoute2D {
         case "endRoute": {
           const { FID } = this.view.popup.selectedFeature.attributes;
           const selectedGraphic = await this.getRoadGraphicByFID(FID);
-          this.addSelectedRoad(selectedGraphic.clone(), true);
+          await this.addSelectedRoad(selectedGraphic.clone(), true);
+
+          const startLine = this.selectedRoadGraphicArray[0]
+            .geometry as __esri.Polyline;
+          const firstPoint = startLine.getPoint(0, 0);
+          const endLine = this.selectedRoadGraphicArray[
+            this.selectedRoadGraphicArray.length - 1
+          ].geometry as __esri.Polyline;
+          const lastPoint = endLine.getPoint(0, endLine.paths[0].length - 1);
+
+          let routeLength = 0;
+          this.selectedRoadGraphicArray.forEach((graphic) => {
+            const roadLength = graphic.attributes["LENGTH"];
+            routeLength += roadLength;
+          });
 
           // 向父组件回传本次路径选择结果
           if (this.selectRouteFinished) {
@@ -208,8 +222,15 @@ export default class SelectRoute2D {
               (graphic) => graphic.attributes["ROAD_ID"]
             );
             this.selectRouteFinished({
-              roadIds,
-              signalIds: this.selectedTrafficSignalIdArray,
+              routeInfo: {
+                ids: roadIds,
+                startPoint: [firstPoint.x, firstPoint.y],
+                endPoint: [lastPoint.x, lastPoint.y],
+                length: routeLength,
+              },
+              signalInfo: {
+                ids: this.selectedTrafficSignalIdArray,
+              },
             });
           }
           break;
@@ -294,15 +315,12 @@ export default class SelectRoute2D {
     } as any;
     graphic.popupTemplate = {
       ...this.popupTemplate,
-      actions: [this.reSelectNextRoadButton],
+      actions: [this.reSelectNextRoadButton, this.endRouteButton],
     } as any;
     this.selectedRoadLayer.add(graphic);
     this.selectedRoadGraphicArray.push(graphic);
 
-    // 在路段最后一个点周边搜索信号机
-    // const polyline = graphic.geometry as __esri.Polyline;
-    // const path = polyline.paths[0];
-    // const lastPoint = polyline.getPoint(0, path.length - 1);
+    // 搜索周边信号机
     await this.searchTrafficSignal(graphic.geometry);
 
     // 显示候选路段

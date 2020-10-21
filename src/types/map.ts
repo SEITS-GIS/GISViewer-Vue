@@ -264,10 +264,17 @@ export interface ICustomTip {
 export interface ISelectRouteParam {
   enableXHJ?: boolean;
   roadUrl?: string;
-  trafficSignalUrl?: string
+  trafficSignalUrl?: string;
 }
 
 export interface ISelectRouteResult {
-  roadIds: Array<string>;
-  xhjIds?: Array<string>;
+  routeInfo: {
+    ids: Array<string>;
+    length: number;
+    startPoint: [number, number];
+    endPoint: [number, number];
+  };
+  signalInfo: {
+    ids: Array<string>;
+  };
 }
