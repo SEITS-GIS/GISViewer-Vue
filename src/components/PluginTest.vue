@@ -58,7 +58,7 @@ export default class PluginTest extends Vue {
     console.log(pt);
   }
 
-  private selectRouteFinished(routeInfo: object) {
+  private selectRouteFinished(routeInfo: any) {
     console.log(routeInfo);
   }
 }

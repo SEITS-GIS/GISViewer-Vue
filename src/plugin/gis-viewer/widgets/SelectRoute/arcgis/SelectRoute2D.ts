@@ -1,4 +1,4 @@
-import { ISelectRouteParam } from '@/types/map';
+import { ISelectRouteParam } from "@/types/map";
 import Axios from "axios";
 import { loadModules } from "esri-loader";
 
@@ -128,7 +128,7 @@ export default class SelectRoute2D {
         symbol: {
           type: "simple-line",
           color: "lightblue",
-          width: "2px",
+          width: 2,
         },
       } as any,
     });
@@ -353,9 +353,11 @@ export default class SelectRoute2D {
       }
     }
 
+    // 如果只有一条待选路段，打开弹出框
     if (this.candidateRoadLayer.graphics.length === 1) {
       this.view.popup.open({
-        location: this.candidateRoadLayer.graphics.getItemAt(0).geometry,
+        location: (this.candidateRoadLayer.graphics.getItemAt(0)
+          .geometry as __esri.Polyline).extent.center,
         features: [this.candidateRoadLayer.graphics.getItemAt(0)],
       });
     }
