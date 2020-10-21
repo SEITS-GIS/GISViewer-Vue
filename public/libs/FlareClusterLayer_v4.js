@@ -1035,15 +1035,22 @@ define([
             // var wkid = _this._activeView.spatialReference.isWebMercator
             //   ? 102100
             //   : 4326;
-            _this._activeView.goTo({
-              target: new Extent({
-                xmin: extent.xmin,
-                ymin: extent.ymin,
-                xmax: extent.xmax,
-                ymax: extent.ymax,
-                spatialReference: new SpatialReference({wkid: 102100})
-              })
-            });
+            if (cluster.areaGraphic) {
+              _this._activeView.goTo({
+                target: cluster.areaGraphic
+              });
+            } else {
+              _this._activeView.goTo({
+                target: new Extent({
+                  xmin: extent.xmin,
+                  ymin: extent.ymin,
+                  xmax: extent.xmax,
+                  ymax: extent.ymax,
+                  spatialReference: new SpatialReference({wkid: 102100})
+                })
+              });
+            }
+
             return;
           } else {
             _this._deactivateCluster();

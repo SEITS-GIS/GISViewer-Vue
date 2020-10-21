@@ -258,6 +258,7 @@ export interface IGeometrySearchParameter {
 }
 export interface ICustomTip {
   prop: any;
+  clear: boolean;
   geometry: IPointGeometry;
 }
 export interface ISelectRouteParam {

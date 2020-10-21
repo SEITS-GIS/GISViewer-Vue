@@ -62,25 +62,30 @@ export class FindFeature {
 
     this.view.map.allLayers.forEach((layer: any) => {
       if (params.layerName && layer.label === params.layerName) {
-        if (layer.visible) {
-          //console.log(layer);
-          if (layer.type == 'feature' || layer.type == 'map-image') {
-            this.doFindTask({
-              url: layer.url as string,
-              layer: layer,
-              layerIds: layerIds || this.getLayerIds(layer),
-              ids: ids,
-              zoom: level
-            });
-          }
+        //if (layer.visible) {
+        //console.log(layer);
+        if (layer.type == 'feature' || layer.type == 'map-image') {
+          this.doFindTask({
+            url: layer.url as string,
+            layer: layer,
+            layerIds: layerIds || this.getLayerIds(layer),
+            ids: ids,
+            zoom: level
+          });
         }
+        //}
       }
       if (layer.type == 'graphics') {
         if (layer.graphics) {
           //addoverlay撒点图层
           let overlays = layer.graphics;
           overlays.forEach((overlay: any) => {
-            if (type == overlay.type && ids.indexOf(overlay.id) >= 0) {
+            if (
+              (type == overlay.type && ids.indexOf(overlay.id) >= 0) ||
+              (overlay.attributes &&
+                overlay.attributes.type == type &&
+                ids.indexOf(overlay.attributes.id) >= 0)
+            ) {
               if (centerResult) {
                 this.view.goTo({
                   target: overlay.geometry,
@@ -96,21 +101,31 @@ export class FindFeature {
         if (layer.data) {
           //cluster点聚合图层
           let overlays = layer.data;
+          let _this = this;
           overlays.forEach((overlay: any) => {
             if (type == overlay.type && ids.indexOf(overlay.id) >= 0) {
               if (centerResult) {
-                this.view.goTo({
-                  center: [overlay.x, overlay.y],
-                  zoom: Math.max(this.view.zoom, level)
-                });
+                this.view
+                  .goTo({
+                    center: [overlay.x, overlay.y],
+                    zoom: Math.max(this.view.zoom, level)
+                  })
+                  .then(() => {
+                    setTimeout(() => {
+                      for (let i = 0; i < layer.graphics.length; i++) {
+                        let graphic = layer.graphics.getItemAt(i);
+                        if (
+                          graphic.attributes &&
+                          graphic.attributes.type == type &&
+                          ids.indexOf(graphic.attributes.id) >= 0
+                        ) {
+                          _this.startJumpPoint([graphic]);
+                          break;
+                        }
+                      }
+                    }, 800);
+                  });
               }
-              this.startJumpPoint([
-                {
-                  geometry: {type: 'point', x: overlay.x, y: overlay.y},
-                  symbol: layer.flareRenderer.defaultSymbol,
-                  attributes: overlays
-                }
-              ]);
             }
           }, this);
         }
@@ -217,14 +232,13 @@ export class FindFeature {
         findParams.returnGeometry = true; // true 返回几何信息
         // findParams.layerIds = [0, 1, 2]; // 查询图层id
         findParams.layerIds = options.layerIds; // 查询图层id
-        // findParams.searchFields = [
-        //   'DEVICEID',
-        //   'BM_CODE',
-        //   'FEATUREID',
-        //   'SECTIONID',
-        //   'FEATUREID',
-        //   'JT_CJGL_2_PG.SECTIONID'
-        // ]; // 查询字段 artel
+        findParams.searchFields = [
+          'DEVICEID',
+          'BM_CODE',
+          'FEATUREID',
+          'SECTIONID',
+          'FEATUREID'
+        ]; // 查询字段 artel
         findParams.searchText = searchText; // 查询内容 artel = searchText
 
         // 执行查询对象

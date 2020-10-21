@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Emit, Prop } from "vue-property-decorator";
-import MapApp from "@/plugin/gis-viewer/MapAppArcgis2D";
+import {Vue, Component, Emit, Prop} from 'vue-property-decorator';
+import MapApp from '@/plugin/gis-viewer/MapAppArcgis2D';
 import {
   IMapContainer,
   IOverlayParameter,
@@ -22,20 +22,20 @@ import {
   IHeatImageParameter,
   IGeometrySearchParameter,
   ICustomTip,
-  ISelectRouteParam,
-} from "@/types/map";
+  ISelectRouteParam
+} from '@/types/map';
 
 @Component({
-  name: "MapContainerArcgisTwoD",
+  name: 'MapContainerArcgisTwoD'
 })
 export default class MapContainerArcgis extends Vue implements IMapContainer {
   private mapApp!: MapApp;
 
-  private mapId: string = "divArcGISMap2D" + (Math.random() * 10000).toFixed(0);
+  private mapId: string = 'divArcGISMap2D' + (Math.random() * 10000).toFixed(0);
   //地图配置
-  @Prop({ type: Object }) readonly mapConfig!: Object;
+  @Prop({type: Object}) readonly mapConfig!: Object;
 
-  @Emit("map-loaded")
+  @Emit('map-loaded')
   async mounted() {
     this.mapApp = new MapApp();
     await this.mapApp.initialize(this.mapConfig, this.mapId);
@@ -43,13 +43,12 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
     this.mapApp.mapClick = this.mapClick;
     this.mapApp.selectRouteFinished = this.selectedRouteFinished;
   }
-  @Emit("map-click")
+  @Emit('map-click')
   public mapClick(point: object) {}
-
-  @Emit("marker-click")
+  @Emit('marker-click')
   public showGisDeviceInfo(type: string, id: string, detail: any) {}
 
-  @Emit("marker-mouse")
+  @Emit('marker-mouse')
   public mouseGisDeviceInfo(
     event: any,
     type: string,
@@ -57,7 +56,7 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
     detail: any
   ) {}
 
-  @Emit("select-route-finished")
+  @Emit('select-route-finished')
   public selectedRouteFinished(routeInfo: object) {}
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
@@ -110,7 +109,7 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public locateStreet(param: IStreetParameter) {}
   public setMapStyle(param: string) {}
   public async routeSearch(params: routeParameter): Promise<IResult> {
-    return { status: 0, message: "" };
+    return {status: 0, message: ''};
   }
   public clearRouteSearch() {}
   public showRoutePoint(params: any) {}
@@ -184,8 +183,8 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
 </script>
 
 <style scoped>
-@import "./styles/cluter.css";
-@import "./styles/dgeneapp.css";
+@import './styles/cluter.css';
+@import './styles/dgeneapp.css';
 .my-map-div {
   padding: 0;
   margin: 0;
@@ -194,7 +193,7 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
 }
 
 .esri-view .esri-view-surface--inset-outline:focus::after {
-  content: "";
+  content: '';
   box-sizing: border-box;
   position: absolute;
   z-index: 999;
