@@ -1,0 +1,41 @@
+{
+  "type": "police",
+  "defaultSymbol": {
+    "type": "point",
+    "url": "imgs/gis/police.png",
+    "size": [30, 40]
+  },
+  "overlays": [
+    {
+      "id": "011740",
+      "geometry": {"x": 121.56468012, "y": 31.34165112},
+      "fields": {
+        "data": [
+          {"key": "警员编号", "value": "011740"},
+          {"key": "警员姓名", "value": "赵露斌"},
+          {"key": "警员单位", "value": "浦东交警三大队"},
+          {"key": "更新时间", "value": "2020-10-14 13:14:37"}
+        ],
+        "textField": "显示文字"
+      },
+      "properties": {
+        "policeSn": "011740",
+        "policeName": "赵露斌",
+        "deptId": "310115174300",
+        "deptName": "浦东交警三大队",
+        "longitude": 121.56468012,
+        "latitude": 31.34165112,
+        "gpsTime": "2020-10-14 13:14:37",
+        "sjdbh": "202010111844175022833424",
+        "zs": 1
+      }
+    }
+  ],
+  "showPopup": false,
+  "custom": {
+    "color": "yellow",
+    "content": "{textField}",
+    "fontSize": 14,
+    "weight": 12
+  }
+}

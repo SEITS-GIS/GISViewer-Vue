@@ -271,7 +271,7 @@ export class DgeneFusion {
             isreal: vdata.isreal,
             fly: vdata.isGlobalView
           });
-          let size = vdata.isOut ? 2 : 8;
+          let size = vdata.isOut ? 8 : 2;
 
           let position = vdata.isreal
             ? vdata.realposition
@@ -279,18 +279,18 @@ export class DgeneFusion {
           // console.log(data, position);
           if (showOutVideo || !vdata.isOut) {
             //console.log(data, position);
-            // if (true) {
-            //   this.fusion_view.loadMapSprite2(
-            //     './assets/mapIcons/text/' + data + '.png',
-            //     'test',
-            //     {
-            //       x: position.x,
-            //       y: position.y + 2.5 * size,
-            //       z: position.z
-            //     },
-            //     size * 10
-            //   );
-            // }
+            if (true) {
+              this.fusion_view.loadMapSprite2(
+                './assets/mapIcons/text/' + data + '.png',
+                'test',
+                {
+                  x: position.x,
+                  y: position.y + 2.5 * size,
+                  z: position.z
+                },
+                size * 10
+              );
+            }
             this.fusion_view.loadMapSprite(
               data,
               {
@@ -438,7 +438,7 @@ export class DgeneFusion {
     if (this.fusion_view) {
       this.all_video.forEach((item: any) => {
         if (item.isout) {
-          this.fusion_view.getScene().getObjectByName(item).visible = show;
+          this.fusion_view.getScene().getObjectByName(item.name).visible = show;
         }
       });
     }

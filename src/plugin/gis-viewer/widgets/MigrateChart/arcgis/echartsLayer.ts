@@ -105,7 +105,7 @@ export default class echartsLayer {
       max: baseExtent.ymax
     };
     this.chart.setOption(this.chartOption);
-    this.chartOption.animation = true;
+    this.chartOption.animation = false;
   }
   /*创建layer的容器，添加到map的layers下面*/
   private createLayer() {

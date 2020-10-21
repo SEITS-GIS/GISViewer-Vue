@@ -37,6 +37,7 @@ import AnimateLine from "./widgets/MigrateChart/AnimateLine";
 import { Bar3DChart } from "./widgets/MigrateChart/arcgis/Bar3DChart";
 import { Utils } from "./Utils";
 import ToolTip from "./widgets/Overlays/arcgis/ToolTip";
+import {Cluster2D} from './widgets/Cluster/arcgis/Cluster2D';
 import SelectRoute2D from "@/plugin/gis-viewer/widgets/SelectRoute/arcgis/SelectRoute2D";
 
 export default class MapAppArcGIS2D {
@@ -137,6 +138,17 @@ export default class MapAppArcGIS2D {
     view.popup.watch("visible", async (newValue) => {
       if (newValue) {
         let content = view.popup.content;
+        if (view.popup.selectedFeature) {
+          var attributes = view.popup.selectedFeature.attributes;
+          var newAttr: any = new Object();
+          for (let field in attributes) {
+            let fieldArr: string[] = field.toString().split('.');
+            let newfield = fieldArr.pop() as string;
+            attributes[newfield] = attributes[field]
+              ? attributes[field].toString()
+              : '';
+          }
+        }
         if (
           content == "Null" ||
           content == "" ||
@@ -149,6 +161,7 @@ export default class MapAppArcGIS2D {
     });
     view.on("click", async (event) => {
       this.hideBarChart();
+      this.showSubwayChart();
       if (this.HighlightLayer) {
         this.HighlightLayer.removeAll();
       }
@@ -202,6 +215,7 @@ export default class MapAppArcGIS2D {
         }
         this.showGisDeviceInfo(type, id, graphic.toJSON());
         this.showSubBar(graphic.layer, event.mapPoint, graphic);
+        this.showSubwayChart(graphic.layer, graphic);
       } else {
         this.doIdentifyTask(event.mapPoint).then((results: any) => {
           if (results.length > 0) {
@@ -267,6 +281,12 @@ export default class MapAppArcGIS2D {
     if (layer && layer.showBar) {
       this.view.popup.alignment = "bottom-center";
       //console.log(res.feature);
+      let inField;
+      let outField;
+      if (layer.barFields) {
+        inField = layer.barFields.inField;
+        outField = layer.barFields.outField;
+      }
       this.showBarChart({
         points: [
           {
@@ -277,20 +297,41 @@ export default class MapAppArcGIS2D {
             },
             fields: {
               inflow:
-                feature.attributes["IN_FLX_NR"] ||
-                feature.attributes["VOLUME_YESTERDAY"] ||
-                feature.attributes["YJZH.STAT_METROLINEFLOW.VOLUME_YESTERDAY"],
+                feature.attributes[inField] ||
+                feature.attributes['IN_FLX_NR'] ||
+                feature.attributes['VOLUME_YESTERDAY'] ||
+                feature.attributes['YJZH.STAT_METROLINEFLOW.VOLUME_YESTERDAY'],
               outflow:
-                feature.attributes["OUT_FLX_NR"] ||
-                feature.attributes["VOLUME_TODAY"] ||
-                feature.attributes["YJZH.STAT_METROLINEFLOW.VOLUME_TODAY"],
-            },
-          },
+                feature.attributes[outField] ||
+                feature.attributes['OUT_FLX_NR'] ||
+                feature.attributes['VOLUME_TODAY'] ||
+                feature.attributes['YJZH.STAT_METROLINEFLOW.VOLUME_TODAY']
+            }
+          }
         ],
         name: "地铁线路图",
       });
     } else {
       this.view.popup.alignment = "auto";
+    }
+  }
+  private showSubwayChart(layer?: any, feature?: any) {
+    if (layer && layer.showMigrate) {
+      let attr = feature.attributes;
+      let id = '';
+      for (let field in attr) {
+        if (
+          field.indexOf('FEATUREID') > -1 ||
+          field.indexOf('DEVICEID') > -1 ||
+          field.indexOf('SECTIONID') > -1 ||
+          field.indexOf('ID') > -1
+        ) {
+          id = attr[field];
+        }
+      }
+      this.showSubwayMigrateChart({id: id, type: 'd'});
+    } else {
+      this.showSubwayMigrateChart(undefined);
     }
   }
   private loadCustomCss() {
@@ -593,6 +634,10 @@ export default class MapAppArcGIS2D {
     const drawlayer = DrawLayer.getInstance(this.view);
     drawlayer.clearDrawLayer(params);
   }
+  public async showSubwayMigrateChart(params: any) {
+    const chart = MigrateChart.getInstance(this.view);
+    chart.showSubwayChart(params);
+  }
   public showMigrateChart(params: any) {
     const chart = MigrateChart.getInstance(this.view);
     chart.showPathChart(params);
@@ -664,6 +709,6 @@ export default class MapAppArcGIS2D {
   public async initializeRouteData(params: ISelectRouteParam) {
     const selectRoute = SelectRoute2D.getInstance(this.view);
     selectRoute.selectRouteFinished = this.selectRouteFinished;
-    await selectRoute.initializeRoute();
+    await selectRoute.initializeRoute(params);
   }
 }

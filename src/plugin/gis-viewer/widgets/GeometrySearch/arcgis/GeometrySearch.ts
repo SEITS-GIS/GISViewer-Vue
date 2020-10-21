@@ -181,7 +181,8 @@ export class GeometrySearch {
         if (layer.type == 'graphics') {
           layer.graphics.forEach((overlay: any) => {
             let point = overlay.geometry;
-            let overlayType = overlay.type || overlay.attributes.type;
+            let overlayType =
+              overlay.type || overlay.attributes ? overlay.attributes.type : '';
             if (
               (searchTypes.indexOf(overlayType) >= 0 ||
                 searchTypes.toString() == ['*'].toString()) &&
@@ -194,23 +195,38 @@ export class GeometrySearch {
                 overlay.visible = true;
                 searchRses.push(overlay);
               } else {
-                overlay.visible = false;
+                overlay.visible = showResult;
               }
             }
           });
+        } else if (layer.type == 'feature' && layer.source) {
+          layer.source.items.forEach((graphic: any) => {
+            let point = graphic.geometry;
+            let overlayType = graphic.attributes.type;
+            if (
+              (searchTypes.indexOf(overlayType) >= 0 ||
+                searchTypes.toString() == ['*'].toString()) &&
+              overlayType !== 'geometrysearch'
+            ) {
+              if (circleGeo.contains(point)) {
+                searchRses.push(graphic);
+              }
+            }
+          });
+          layer.refresh();
         }
       });
 
-      let searchResult = searchRses.map((result: any) => {
-        return {
-          positon: result.geometry,
-          attr: result.attributes
-        };
-      });
+      // let searchResult = searchRses.map((result: any) => {
+      //   return {
+      //     positon: result.geometry,
+      //     attr: result.attributes
+      //   };
+      // });
       let searchResults = {
         center: center,
         radius: radius,
-        searchResults: searchResult
+        searchResults: searchRses
       };
       if (clickHandle) {
         clickHandle(searchResults);

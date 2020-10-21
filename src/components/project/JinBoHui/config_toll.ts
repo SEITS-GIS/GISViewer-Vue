@@ -11,81 +11,71 @@ export let GisConfig = {
   ],
   operationallayers: [
     {
+      label: '国展中心面',
+      url:
+        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Exhibition/MapServer',
+      type: 'dynamic',
+      outFields: ['*'],
+      popupTemplates: {
+        0: {
+          title: '',
+          content: '客流：{FSTR_VOLUME}'
+        }
+      }
+    },
+    {
       type: 'image',
       url: 'assets/mapIcons/JinBoHui/gzzx.svg',
       geometry: {x: -16775.35204963667, y: -4222.84795454},
       width: 618,
-      height: 561
+      height: 561,
+      minScale: 8000
+    },
+    {
+      type: 'image',
+      url: 'assets/mapIcons/JinBoHui/flower.png',
+      geometry: {x: -16465.35204963667, y: -4542.84795454},
+      width: 282,
+      height: 282,
+      maxScale: 16000
     },
     {
       label: '国展周边地面道路',
       url:
-        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_GZZX_dmfbd/MapServer/0',
-      type: 'feature',
+        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_GZZX_dmfbd/MapServer',
+      type: 'dynamic',
       visible: true,
       outFields: ['*'],
       refreshInterval: 5,
-      maxScale: 0,
-      minScale: 128000,
-      mode: 0,
-      renderer: {
-        type: 'unique-value',
-        field: 'JWPT.HIST_FBD.FINT_STATUS',
-        defaultSymbol: {
-          type: 'esriSFS',
-          style: 'esriSFSSolid',
-          color: [85, 255, 0, 255],
-          outline: {
-            type: 'esriSLS',
-            style: 'esriSLSSolid',
-            color: [0, 25, 46, 255],
-            width: 0
-          }
+      popupTemplates: {
+        0: {
+          title: '',
+          content: '描述：{FSTR_DESC}'
+        }
+      }
+    },
+    {
+      label: '国展周边发布段',
+      url:
+        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/Kuaisulu_fbd_GZZB/MapServer',
+      type: 'dynamic',
+      refreshInterval: 5,
+      visible: true,
+      outFields: ['*'],
+      popupTemplates: {
+        '0': {
+          title: '',
+          content: '描述：{DES}'
         },
-        uniqueValueInfos: [
-          {
-            value: '1',
-            symbol: {
-              type: 'esriSFS',
-              style: 'esriSFSSolid',
-              color: [85, 255, 0, 255],
-              outline: {
-                type: 'esriSLS',
-                style: 'esriSLSSolid',
-                color: [0, 25, 46, 255],
-                width: 0
-              }
-            }
-          },
-          {
-            value: '2',
-            symbol: {
-              type: 'esriSFS',
-              style: 'esriSFSSolid',
-              color: [255, 255, 0, 255],
-              outline: {
-                type: 'esriSLS',
-                style: 'esriSLSSolid',
-                color: [0, 25, 46, 255],
-                width: 0
-              }
-            }
-          },
-          {
-            value: '3',
-            symbol: {
-              type: 'esriSFS',
-              style: 'esriSFSSolid',
-              color: [255, 85, 0, 255],
-              outline: {
-                type: 'esriSLS',
-                style: 'esriSLSSolid',
-                color: [0, 25, 46, 255],
-                width: 0
-              }
-            }
-          }
-        ]
+        '1': {
+          title: '',
+          content: '描述：{DES}'
+        },
+
+        '2': {
+          title: '',
+          content: '描述：{DES}'
+        }
       }
     },
     {
@@ -93,9 +83,27 @@ export let GisConfig = {
       type: 'dynamic',
       url:
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/Kuaisulu_fbd/MapServer',
-      refreshInterval: 1,
+      refreshInterval: 5,
       visible: true,
-      outFields: ['*']
+      outFields: ['*'],
+      popupTemplates: {
+        '0': {
+          title: '',
+          content: '描述：{FSTR_DESC}'
+        },
+        '1': {
+          title: '',
+          content: '描述：{FSTR_DESC}'
+        },
+        '2': {
+          title: '',
+          content: '描述：{FSTR_DESC}'
+        },
+        '3': {
+          title: '',
+          content: '描述：{FSTR_DESC}'
+        }
+      }
     },
     {
       label: '收费站',
@@ -103,7 +111,10 @@ export let GisConfig = {
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_shoufeizhan/MapServer/1',
       type: 'feature',
       visible: true,
-      mode: 0,
+      popupTemplate: {
+        title: '',
+        content: '描述：{FSTR_DESC}'
+      },
       outFields: ['*'],
       renderer: {
         type: 'simple',
@@ -122,7 +133,10 @@ export let GisConfig = {
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/Kuaisulu_devices/MapServer/1',
       type: 'feature',
       visible: false,
-      mode: 0,
+      popupTemplate: {
+        title: '',
+        content: '描述：{FSTR_DESC}'
+      },
       outFields: ['*'],
       renderer: {
         type: 'simple',
@@ -141,7 +155,10 @@ export let GisConfig = {
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/Kuaisulu_devices/MapServer/0',
       type: 'feature',
       visible: false,
-      mode: 0,
+      popupTemplate: {
+        title: '',
+        content: '描述：{FSTR_DESC}'
+      },
       outFields: ['*'],
       renderer: {
         type: 'simple',
@@ -162,6 +179,10 @@ export let GisConfig = {
       visible: true,
       refreshInterval: 1,
       outFields: ['*'],
+      popupTemplate: {
+        title: '',
+        content: '{YJZH.EVENT.DEVICEDESC}'
+      },
       renderer: {
         type: 'simple',
         symbol: {
@@ -178,15 +199,13 @@ export let GisConfig = {
       url:
         'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/morph_yy_frame/MapServer/0',
       type: 'feature',
-      showLabels: false,
       maxScale: 32000,
-      visible: true,
-      outFields: ['*']
+      visible: true
     }
   ],
   options: {
     center: [-0.14532287775028, -0.0435806907338],
-    zoom: 6,
+    zoom: 5,
     constraints: {
       rotationEnabled: false,
       minZoom: 0
