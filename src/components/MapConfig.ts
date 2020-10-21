@@ -1,5 +1,5 @@
-import axios from "axios";
-import { GdConfig } from "./GdConfig";
+import axios from 'axios';
+import {GdConfig} from './GdConfig';
 //import {GisConfig} from './GisConfig';
 //import {GisConfig} from './project/JinBoHui/config_video';
 //import {GisConfig} from './project/JinBoHui/config_yy';
@@ -14,7 +14,8 @@ import { GdConfig } from "./GdConfig";
 //import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
-import {GisConfig} from './project/PuDong/config_SelectRoute';
+//import {GisConfig} from './project/PuDong/config_SelectRoute';
+import {GisConfig} from './project/PuDong/config';
 export default class MapConfig {
   public constructor() {}
   private model_view: any;
@@ -89,9 +90,9 @@ export default class MapConfig {
 
     await map.initializeRouteSelect({
       roadUrl:
-        "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2",
+        'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2',
       trafficSignalUrl:
-        "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0",
+        'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0'
     });
     map.addOverlays(points);
     // map.setMapCenterAndLevel({
@@ -101,10 +102,10 @@ export default class MapConfig {
     // });
   }
   public btn_test1(map: any) {
-    map.findFeature({
-      layerName: 'police',
-      ids: ['test003'] //GJYJ001,GJ5-002,BS1,TCC2
-    });
+    // map.findFeature({
+    //   layerName: '发布段',
+    //   ids: ['2157312112'] //GJYJ001,GJ5-002,BS1,TCC2
+    // });
     // map.deleteAllOverlays();
     // let overStr = '';
     // let points = {
@@ -207,16 +208,16 @@ export default class MapConfig {
           }
         ],
         showDir: true,
-        color: "red",
-        width: 5,
+        color: 'red',
+        width: 5
       },
       {
         points: [
           {
             geometry: {x: 121.490726, y: 31.378321},
             fields: {
-              content: "",
-            },
+              content: ''
+            }
           },
           {
             geometry: {x: 121.488117, y: 31.382392},
@@ -235,7 +236,7 @@ export default class MapConfig {
             fields: {content: ''}
           }
         ],
-        showDir: true,
+        showDir: true
       },
       {
         points: [
@@ -252,7 +253,7 @@ export default class MapConfig {
             fields: {content: '同济路-宝杨路(北向南)'}
           }
         ],
-        showDir: true,
+        showDir: true
       },
       {
         points: [
@@ -269,7 +270,7 @@ export default class MapConfig {
             fields: {content: '牡丹江路-海江路(东向西)'}
           }
         ],
-        showDir: true,
+        showDir: true
       },
       {
         points: [
@@ -293,7 +294,7 @@ export default class MapConfig {
             geometry: {x: 121.490515, y: 31.378166}
           }
         ],
-        showDir: true,
+        showDir: true
       },
       {
         points: [
@@ -310,55 +311,55 @@ export default class MapConfig {
             fields: {content: '牡丹江路-宝杨路(东向西)'}
           }
         ],
-        showDir: true,
-      },
-    ]);
-    // axios.get('config/tt.json').then((res: any) => {
-    //   map.addOverlaysCluster(res.data);
-    // });
-    axios.get('config/tt.json').then((res: any) => {
-      res.data.type = 'ccv';
-      var points = [];
-      var x = 121.43;
-      var y = 31.15;
-      for (var i = 0; i < 1000; i++) {
-        var x1 = x + (Math.random() * 2 - 1) / 20;
-        var y1 = y + (Math.random() * 2 - 1) / 20;
-        var value = Math.floor(1000000 * Math.random() + 1);
-        var a = i % 2 == 0 ? '1' : '0';
-        let sym =
-          i % 3 == 0
-            ? {
-                type: 'point',
-                url: 'assets/image/camera.png',
-                size: [30, 40]
-              }
-            : undefined;
-        if (sym) {
-          points.push({
-            geometry: {x: x1.toString(), y: y1.toString()},
-            fields: {
-              desc: '上海体育馆停车场',
-              value: 5,
-              type: a
-            },
-            symbol: sym
-          });
-        } else {
-          points.push({
-            geometry: {x: x1.toString(), y: y1.toString()},
-            fields: {
-              desc: '上海体育馆停车场',
-              value: 5,
-              type: a
-            }
-          });
-        }
+        showDir: true
       }
-      res.data.zoom = 15;
-      res.data.overlays = points;
+    ]);
+    axios.get('config/tt.json').then((res: any) => {
       map.addOverlaysCluster(res.data);
     });
+    // axios.get('config/tt.json').then((res: any) => {
+    //   res.data.type = 'ccv';
+    //   var points = [];
+    //   var x = 121.43;
+    //   var y = 31.15;
+    //   for (var i = 0; i < 1000; i++) {
+    //     var x1 = x + (Math.random() * 2 - 1) / 20;
+    //     var y1 = y + (Math.random() * 2 - 1) / 20;
+    //     var value = Math.floor(1000000 * Math.random() + 1);
+    //     var a = i % 2 == 0 ? '1' : '0';
+    //     let sym =
+    //       i % 3 == 0
+    //         ? {
+    //             type: 'point',
+    //             url: 'assets/image/camera.png',
+    //             size: [30, 40]
+    //           }
+    //         : undefined;
+    //     if (sym) {
+    //       points.push({
+    //         geometry: {x: x1.toString(), y: y1.toString()},
+    //         fields: {
+    //           desc: '上海体育馆停车场',
+    //           value: 5,
+    //           type: a
+    //         },
+    //         symbol: sym
+    //       });
+    //     } else {
+    //       points.push({
+    //         geometry: {x: x1.toString(), y: y1.toString()},
+    //         fields: {
+    //           desc: '上海体育馆停车场',
+    //           value: 5,
+    //           type: a
+    //         }
+    //       });
+    //     }
+    //   }
+    //   res.data.zoom = 15;
+    //   res.data.overlays = points;
+    //   map.addOverlaysCluster(res.data);
+    // });
     //axios.get("config/Jurisdiction/bsga_v2.geo.json").then((res: any) => {
     //map.addOverlaysCluster(res.data);
     //  console.log(res.data);
@@ -377,35 +378,40 @@ export default class MapConfig {
   }
 
   public btn_test2(map: any) {
-    let points = {
-      type: 'police',
-      defaultVisible: true,
-      defaultSymbol: {
-        //symbol for 2d
-        type: 'point',
-        // primitive: "square",
-        url: 'assets/image/a.png',
-        size: [20, 20],
-        anchor: 'center'
-      },
-      overlays: [
-        {
-          id: 'test003',
-          geometry: {x: 121.145, y: 31.123},
-          fields: {name: '测试4', featureid: '0001'}
-        }
-      ]
-    };
-
-    map.addOverlays(points);
-    map.setMapCenterAndLevel({
-      x: 121.145,
-      y: 31.123,
-      level: 16
+    map.findFeature({
+      layerName: 'police',
+      ids: ['011740'], //GJYJ001,GJ5-002,BS1,TCC2,
+      level: 7
     });
-    if (this.model_view) {
-      map.showDgeneOutPoint(true);
-    }
+    // let points = {
+    //   type: 'police',
+    //   defaultVisible: true,
+    //   defaultSymbol: {
+    //     //symbol for 2d
+    //     type: 'point',
+    //     // primitive: "square",
+    //     url: 'assets/image/a.png',
+    //     size: [20, 20],
+    //     anchor: 'center'
+    //   },
+    //   overlays: [
+    //     {
+    //       id: 'test003',
+    //       geometry: {x: 121.145, y: 31.123},
+    //       fields: {name: '测试4', featureid: '0001'}
+    //     }
+    //   ]
+    // };
+
+    // map.addOverlays(points);
+    // map.setMapCenterAndLevel({
+    //   x: 121.145,
+    //   y: 31.123,
+    //   level: 16
+    // });
+    // if (this.model_view) {
+    //   map.showDgeneOutPoint(true);
+    // }
     //map.showLayer({label: 'fbd123'});
     //let map = this.$refs.gisViewer as any;
     // var points = [];
