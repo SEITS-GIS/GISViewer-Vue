@@ -681,7 +681,11 @@ define([
         graphic.symbol = this.singleSymbol;
       } else {
         // no symbology for singles defined, use the default symbol from the cluster renderer
-        graphic.symbol = this.clusterRenderer.defaultSymbol;
+        if (graphic.attributes.symbol) {
+          graphic.symbol = graphic.attributes.symbol;
+        } else {
+          graphic.symbol = this.clusterRenderer.defaultSymbol;
+        }
       }
       this.texts.push(graphic);
       this.add(graphic);
