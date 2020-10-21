@@ -15,7 +15,7 @@ import {GdConfig} from './GdConfig';
 //import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
 //import {GisConfig} from './project/PuDong/config_SelectRoute';
-import {GisConfig} from './project/PuDong/config';
+import {GisConfig} from './project/PuDong/config_SelectRoute';
 export default class MapConfig {
   public constructor() {}
   private model_view: any;
