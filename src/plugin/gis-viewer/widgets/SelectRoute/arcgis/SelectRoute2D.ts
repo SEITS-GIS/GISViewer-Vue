@@ -1,3 +1,4 @@
+import { ISelectRouteParam } from '@/types/map';
 import Axios from "axios";
 import { loadModules } from "esri-loader";
 
@@ -21,6 +22,9 @@ export default class SelectRoute2D {
   private selectedTrafficSignalLayer!: __esri.GraphicsLayer;
   /** 已选定的信号机编号 */
   private selectedTrafficSignalIdArray: Array<string> = [];
+
+  /** 搜索信号机的缓冲距离 */
+  private readonly bufferDistance = 20;
 
   private beginRouteButton = {
     title: "开始",
@@ -95,10 +99,12 @@ export default class SelectRoute2D {
   }
 
   /** 读取路段数据，并显示路段 */
-  public async initializeRoute() {
+  public async initializeRoute(params: ISelectRouteParam) {
     const roadNetworkUrl =
+      params?.roadUrl ||
       "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2";
     const trafficSignalUrl =
+      params?.trafficSignalUrl ||
       "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0";
 
     type MapModules = [
@@ -186,6 +192,7 @@ export default class SelectRoute2D {
           const selectedGraphic = await this.getRoadGraphicByFID(FID);
 
           //从已选定路段中移除当前及之后路段
+          this.reSelectRoad(selectedGraphic.attributes["ROAD_ID"]);
 
           break;
         }
@@ -234,15 +241,15 @@ export default class SelectRoute2D {
   }
 
   /** 搜索指定点周边的信号机 */
-  private async searchTrafficSignalByPoint(point: __esri.Point) {
+  private async searchTrafficSignal(center: __esri.Geometry) {
     // 生成缓冲区
     type MapModules = [typeof import("esri/geometry/geometryEngineAsync")];
     const [geometryEngineAsync] = await (loadModules([
       "esri/geometry/geometryEngineAsync",
     ]) as Promise<MapModules>);
     const buffer = (await geometryEngineAsync.geodesicBuffer(
-      point,
-      10,
+      center,
+      this.bufferDistance,
       "meters"
     )) as __esri.Polygon;
 
@@ -252,8 +259,8 @@ export default class SelectRoute2D {
     query.returnGeometry = true;
     query.outFields = ["*"];
     const results = await this.allTrafficSignalLayer.queryFeatures(query);
-    if (results.features.length > 0) {
-      const signalGraphic = results.features[0].clone();
+    results.features.forEach((graphic) => {
+      const signalGraphic = graphic.clone();
       const signalId: string = signalGraphic.attributes["SYNODE_ID"];
       if (!this.selectedTrafficSignalIdArray.includes(signalId)) {
         signalGraphic.symbol = {
@@ -269,7 +276,7 @@ export default class SelectRoute2D {
         this.selectedTrafficSignalLayer.add(signalGraphic);
         this.selectedTrafficSignalIdArray.push(signalId);
       }
-    }
+    });
   }
 
   /**
@@ -293,10 +300,10 @@ export default class SelectRoute2D {
     this.selectedRoadGraphicArray.push(graphic);
 
     // 在路段最后一个点周边搜索信号机
-    const polyline = graphic.geometry as __esri.Polyline;
-    const path = polyline.paths[0];
-    const lastPoint = polyline.getPoint(0, path.length - 1);
-    await this.searchTrafficSignalByPoint(lastPoint);
+    // const polyline = graphic.geometry as __esri.Polyline;
+    // const path = polyline.paths[0];
+    // const lastPoint = polyline.getPoint(0, path.length - 1);
+    await this.searchTrafficSignal(graphic.geometry);
 
     // 显示候选路段
     this.candidateRoadLayer.removeAll();
@@ -305,24 +312,52 @@ export default class SelectRoute2D {
     }
   }
 
+  private reSelectRoad(roadId: string) {
+    let roadIndex = 0;
+    for (let i = 0; i < this.selectedRoadGraphicArray.length; i++) {
+      const graphic = this.selectedRoadGraphicArray[i];
+      if (graphic.attributes["ROAD_ID"] === roadId) {
+        roadIndex = i;
+        break;
+      }
+    }
+    const removeGraphics = this.selectedRoadGraphicArray.slice(roadIndex);
+    this.selectedRoadGraphicArray = this.selectedRoadGraphicArray.slice(
+      0,
+      roadIndex
+    );
+    this.selectedRoadLayer.removeMany(removeGraphics);
+    this.addSelectedRoad(removeGraphics[0]);
+  }
+
   /** 显示多条待选路段 */
   private async showNextRoad(roadIds: string) {
     const roadIdArray = roadIds.split(",");
-    roadIdArray.forEach(async (roadId) => {
-      const roadGraphic = await this.getRoadGraphicByRoadId(roadId);
-      if (roadGraphic) {
-        const candidateRoad = roadGraphic.clone();
-        candidateRoad.symbol = {
-          type: "simple-line",
-          color: "dodgerblue",
-          width: 4,
-        } as any;
-        candidateRoad.popupTemplate = {
-          ...this.popupTemplate,
-          actions: [this.addRoadButton, this.endRouteButton],
-        } as any;
-        this.candidateRoadLayer.add(candidateRoad);
+    for (let i = 0; i < roadIdArray.length; i++) {
+      const roadId = roadIdArray[i];
+      if (roadId !== "") {
+        const roadGraphic = await this.getRoadGraphicByRoadId(roadId);
+        if (roadGraphic) {
+          const candidateRoad = roadGraphic.clone();
+          candidateRoad.symbol = {
+            type: "simple-line",
+            color: "dodgerblue",
+            width: 4,
+          } as any;
+          candidateRoad.popupTemplate = {
+            ...this.popupTemplate,
+            actions: [this.addRoadButton, this.endRouteButton],
+          } as any;
+          this.candidateRoadLayer.add(candidateRoad);
+        }
       }
-    });
+    }
+
+    if (this.candidateRoadLayer.graphics.length === 1) {
+      this.view.popup.open({
+        location: this.candidateRoadLayer.graphics.getItemAt(0).geometry,
+        features: [this.candidateRoadLayer.graphics.getItemAt(0)],
+      });
+    }
   }
 }

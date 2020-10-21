@@ -87,7 +87,12 @@ export default class MapConfig {
 
     //const result = await map.addOverlays(points);
 
-    await map.initializeRouteSelect();
+    await map.initializeRouteSelect({
+      roadUrl:
+        "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2",
+      trafficSignalUrl:
+        "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0",
+    });
   }
   public btn_test1(map: any) {
     // if (this.model_view) {

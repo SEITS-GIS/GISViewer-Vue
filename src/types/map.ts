@@ -262,6 +262,8 @@ export interface ICustomTip {
 }
 export interface ISelectRouteParam {
   enableXHJ?: boolean;
+  roadUrl?: string;
+  trafficSignalUrl?: string
 }
 
 export interface ISelectRouteResult {
