@@ -21,7 +21,8 @@ import {
   IHeatImageParameter,
   IGeometrySearchParameter,
   ICustomTip,
-  ISelectRouteParam,, ISelectRouteResult
+  ISelectRouteParam,
+  ISelectRouteResult,
 } from "@/types/map";
 @Component({
   name: "MapAppBaidu",

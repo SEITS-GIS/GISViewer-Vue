@@ -277,11 +277,11 @@ export default class MapContainer extends Vue implements IMapContainer {
   }
 
   public async initializeRouteSelect(params: ISelectRouteParam) {
-    this.mapContainer.initializeRouteSelect(params);
+    await this.mapContainer.initializeRouteSelect(params);
   }
 
   public async showSelectedRoute(params: ISelectRouteResult) {
-    this.mapContainer.showSelectedRoute(params);
+    await this.mapContainer.showSelectedRoute(params);
   }
 }
 </script>

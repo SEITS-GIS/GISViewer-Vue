@@ -22,7 +22,8 @@ import {
   IHeatImageParameter,
   IGeometrySearchParameter,
   ICustomTip,
-  ISelectRouteParam,, ISelectRouteResult
+  ISelectRouteParam,
+  ISelectRouteResult,
 } from "@/types/map";
 
 @Component({
@@ -161,6 +162,7 @@ export default class MapContainerArcgis3D extends Vue implements IMapContainer {
 
   public async initializeRouteSelect(params: ISelectRouteParam) {}
   public async showSelectedRoute(params: ISelectRouteResult) {}
+}
 </script>
 
 <style scoped>

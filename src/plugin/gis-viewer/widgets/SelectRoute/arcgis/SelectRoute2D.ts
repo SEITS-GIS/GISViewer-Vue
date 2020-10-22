@@ -1,5 +1,4 @@
 import { ISelectRouteParam, ISelectRouteResult } from "@/types/map";
-import Axios from "axios";
 import { loadModules } from "esri-loader";
 
 export default class SelectRoute2D {
@@ -79,6 +78,7 @@ export default class SelectRoute2D {
     ],
   };
 
+  /** 选择路径结束后的回调事件 */
   public selectRouteFinished!: (routeInfo: ISelectRouteResult) => void;
 
   public static getInstance(view: __esri.MapView) {
@@ -96,71 +96,6 @@ export default class SelectRoute2D {
 
   private constructor(view: __esri.MapView) {
     this.view = view;
-  }
-
-  /** 读取路段数据，并显示路段 */
-  public async initializeRoute(params: ISelectRouteParam) {
-    const roadNetworkUrl =
-      params?.roadUrl ||
-      "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2";
-    const trafficSignalUrl =
-      params?.trafficSignalUrl ||
-      "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0";
-
-    type MapModules = [
-      typeof import("esri/layers/GraphicsLayer"),
-      typeof import("esri/layers/FeatureLayer")
-    ];
-    const [GraphicsLayer, FeatureLayer] = await (loadModules([
-      "esri/layers/GraphicsLayer",
-      "esri/layers/FeatureLayer",
-    ]) as Promise<MapModules>);
-
-    this.allRoadLayer = new FeatureLayer({
-      url: roadNetworkUrl,
-      definitionExpression: "ROAD_CLASS <> 47000",
-      popupTemplate: {
-        ...this.popupTemplate,
-        actions: [this.beginRouteButton],
-      },
-      renderer: {
-        type: "simple",
-        symbol: {
-          type: "simple-line",
-          color: "lightblue",
-          width: 2,
-        },
-      } as any,
-    });
-    this.selectedRoadLayer = new GraphicsLayer();
-    this.candidateRoadLayer = new GraphicsLayer();
-    this.view.map.addMany([
-      this.allRoadLayer,
-      this.selectedRoadLayer,
-      this.candidateRoadLayer,
-    ]);
-
-    this.allTrafficSignalLayer = new FeatureLayer({
-      url: trafficSignalUrl,
-      renderer: {
-        type: "simple",
-        symbol: {
-          type: "simple-marker",
-          style: "circle",
-          color: "lawngreen",
-          size: "8px",
-          outline: {
-            color: "white",
-            width: 1,
-          },
-        },
-      } as any,
-    });
-    this.selectedTrafficSignalLayer = new GraphicsLayer();
-    this.view.map.addMany([
-      this.allTrafficSignalLayer,
-      this.selectedTrafficSignalLayer,
-    ]);
 
     this.view.popup.on("trigger-action", async (event) => {
       this.view.popup.close();
@@ -239,10 +174,95 @@ export default class SelectRoute2D {
     });
   }
 
+  /** 读取路段数据，并显示路段 */
+  public async initializeRoute(params: ISelectRouteParam) {
+    const roadNetworkUrl =
+      params?.roadUrl ||
+      "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2";
+    const trafficSignalUrl =
+      params?.trafficSignalUrl ||
+      "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0";
+
+    type MapModules = [
+      typeof import("esri/layers/GraphicsLayer"),
+      typeof import("esri/layers/FeatureLayer")
+    ];
+    const [GraphicsLayer, FeatureLayer] = await (loadModules([
+      "esri/layers/GraphicsLayer",
+      "esri/layers/FeatureLayer",
+    ]) as Promise<MapModules>);
+
+    if (this.allRoadLayer) {
+      this.allRoadLayer.popupEnabled = true;
+    } else {
+      this.allRoadLayer = new FeatureLayer({
+        url: roadNetworkUrl,
+        definitionExpression: "ROAD_CLASS <> 47000",
+        popupTemplate: {
+          ...this.popupTemplate,
+          actions: [this.beginRouteButton],
+        },
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-line",
+            color: "lightblue",
+            width: 2,
+          },
+        } as any,
+      });
+      this.view.map.add(this.allRoadLayer);
+    }
+
+    if (this.selectedRoadLayer) {
+      this.selectedRoadLayer.removeAll();
+    } else {
+      this.selectedRoadLayer = new GraphicsLayer();
+      this.view.map.add(this.selectedRoadLayer);
+    }
+
+    if (this.candidateRoadLayer) {
+      this.candidateRoadLayer.removeAll();
+    } else {
+      this.candidateRoadLayer = new GraphicsLayer();
+      this.view.map.add(this.candidateRoadLayer);
+    }
+
+    if (!this.allTrafficSignalLayer) {
+      this.allTrafficSignalLayer = new FeatureLayer({
+        url: trafficSignalUrl,
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-marker",
+            style: "circle",
+            color: "lawngreen",
+            size: "8px",
+            outline: {
+              color: "white",
+              width: 1,
+            },
+          },
+        } as any,
+      });
+      this.view.map.add(this.allTrafficSignalLayer);
+    }
+
+    if (this.selectedTrafficSignalLayer) {
+      this.selectedTrafficSignalLayer.removeAll();
+    } else {
+      this.selectedTrafficSignalLayer = new GraphicsLayer();
+      this.view.map.add(this.selectedTrafficSignalLayer);
+    }
+
+    this.selectedRoadGraphicArray = [];
+    this.selectedTrafficSignalIdArray = [];
+  }
+
   /** 根据FID查找道路Graphic */
   private async getRoadGraphicByFID(fid: string): Promise<__esri.Graphic> {
-    const query: __esri.Query = this.allRoadLayer.createQuery();
-    query.where = `FID = ${fid}`;
+    const query = this.allRoadLayer.createQuery();
+    query.where = `FID=${fid}`;
     const results = await this.allRoadLayer.queryFeatures(query);
     return results.features[0];
   }
@@ -251,9 +271,23 @@ export default class SelectRoute2D {
   private async getRoadGraphicByRoadId(
     roadId: string
   ): Promise<__esri.Graphic | void> {
-    const query: __esri.Query = this.allRoadLayer.createQuery();
-    query.where = `ROAD_ID = '${roadId}'`;
+    const query = this.allRoadLayer.createQuery();
+    query.where = `ROAD_ID='${roadId}'`;
     const results = await this.allRoadLayer.queryFeatures(query);
+    if (results.features.length > 0) {
+      return results.features[0];
+    } else {
+      return;
+    }
+  }
+
+  /** 根据信号机id查找graphic */
+  private async getTrafficSignalById(
+    signalId: string
+  ): Promise<__esri.Graphic | void> {
+    const query = this.allTrafficSignalLayer.createQuery();
+    query.where = `SYNODE_ID='${signalId}'`;
+    const results = await this.allTrafficSignalLayer.queryFeatures(query);
     if (results.features.length > 0) {
       return results.features[0];
     } else {
@@ -381,5 +415,47 @@ export default class SelectRoute2D {
     }
   }
 
-  public async showSelectedRoute(params: ISelectRouteResult) {}
+  public async showSelectedRoute(params: ISelectRouteResult) {
+    this.allRoadLayer.popupEnabled = false;
+
+    const roadIds = params.routeInfo.ids;
+    const signalIds = params.signalInfo.ids;
+
+    this.selectedRoadLayer.removeAll();
+    this.selectedRoadGraphicArray = [];
+    for (let i = 0; i < roadIds.length; i++) {
+      const roadId = roadIds[i];
+      const roadGraphic = await this.getRoadGraphicByRoadId(roadId);
+      if (roadGraphic) {
+        roadGraphic.symbol = {
+          type: "simple-line",
+          color: "red",
+          width: 4,
+        } as any;
+        this.selectedRoadLayer.add(roadGraphic);
+        this.selectedRoadGraphicArray.push(roadGraphic);
+      }
+    }
+
+    this.selectedTrafficSignalLayer.removeAll();
+    for (let i = 0; i < signalIds.length; i++) {
+      const signalId = signalIds[i];
+      const signalGraphic = await this.getTrafficSignalById(signalId);
+      if (signalGraphic) {
+        signalGraphic.symbol = {
+          type: "simple-marker",
+          style: "circle",
+          color: "gold",
+          size: "12px",
+          outline: {
+            color: "white",
+            width: 1,
+          },
+        } as any;
+        this.selectedTrafficSignalLayer.add(signalGraphic);
+      }
+    }
+
+    await this.view.goTo(this.selectedRoadGraphicArray);
+  }
 }
