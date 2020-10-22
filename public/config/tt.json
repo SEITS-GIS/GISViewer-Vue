@@ -3,7 +3,8 @@
   "defaultSymbol": {
     "type": "point",
     "url": "assets/image/chedao.png",
-    "size": [30, 40]
+    "size": [30, 40],
+    "yoffset": 20
   },
   "overlays": [
     {

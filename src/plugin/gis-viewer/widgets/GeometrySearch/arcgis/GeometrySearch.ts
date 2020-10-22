@@ -86,6 +86,47 @@ export class GeometrySearch {
     this.searchOverlays = new GraphicsLayer();
     this.view.map.add(this.searchOverlays, 0);
   }
+  private async showClusterPoint(layer: any, geometrys: any) {
+    layer.visible = false;
+    type MapModules = [typeof import('esri/Graphic')];
+    const [Graphic] = await (loadModules(['esri/Graphic']) as Promise<
+      MapModules
+    >);
+    let defaultSymbol = layer.clusterRenderer.defaultSymbol;
+    let graphics = geometrys.map((geometry: any) => {
+      new Graphic({geometry: geometry, symbol: defaultSymbol});
+    });
+    this.searchOverlays.addMany(graphics);
+  }
+  private addText(layer: any, datas: any) {
+    var customText = layer.customText;
+    for (var i = 0; i < datas.length; i++) {
+      let graphic = datas[i];
+      let pt = graphic.geometry;
+      let textsymbol = {
+        type: 'text', // autocasts as new TextSymbol()
+        color: customText.color || 'red',
+        text: customText.content || '',
+        backgroundColor: customText.backgroundColor || 'black',
+        borderLineColor: customText.lineColor || 'white',
+        borderLineSize: customText.lineWidth || 1,
+        font: {
+          // autocasts as new Font()
+          size: customText.fontSize || 10,
+          weight: customText.weight || 'bold'
+        }
+      };
+
+      // var symOffset = graphic.symbol.yoffset ? graphic.symbol.yoffset : 0;
+      // textsymbol.yoffset = graphic.symbol.height / 2 + symOffset;
+      // textsymbol.text = this.getContent(
+      //   graphic.attributes,
+      //   this.customText.content
+      // );
+      // var graphicText = new Graphic({geometry: pt, symbol: textsymbol});
+      // this.add(graphicText);
+    }
+  }
   private async geometrySearch(
     params: IGeometrySearchParameter
   ): Promise<IResult> {
@@ -179,27 +220,54 @@ export class GeometrySearch {
       let searchRses = new Array();
       overlays.forEach((layer: any) => {
         if (layer.type == 'graphics') {
-          layer.graphics.forEach((overlay: any) => {
-            let point = overlay.geometry;
-            let overlayType =
-              overlay.type || overlay.attributes ? overlay.attributes.type : '';
-            if (
-              (searchTypes.indexOf(overlayType) >= 0 ||
-                searchTypes.toString() == ['*'].toString()) &&
-              overlayType !== 'geometrysearch'
-            ) {
-              if (!overlay.defaultVisible) {
-                overlay.defaultVisible = overlay.visible.toString();
+          if (layer.data) {
+            //cluster点位
+            let datas = layer.data;
+            datas.forEach((item: any) => {
+              let overlayType = item.type;
+              if (
+                overlayType == item.type ||
+                searchTypes.toString() == ['*'].toString()
+              ) {
+                let pt = new Point({
+                  longitude: item.x,
+                  latitude: item.y,
+                  spatialReference: {wkid: 4326}
+                });
+                if (circleGeo.contains(pt)) {
+                  searchRses.push(item);
+                }
               }
-              if (circleGeo.contains(point)) {
-                overlay.visible = true;
-                searchRses.push(overlay);
-              } else {
-                overlay.visible = showResult;
+            }, this);
+          } else {
+            layer.graphics.forEach((overlay: any) => {
+              let point = overlay.geometry;
+              let overlayType =
+                overlay.type || overlay.attributes
+                  ? overlay.attributes.type
+                  : '';
+              if (
+                (searchTypes.indexOf(overlayType) >= 0 ||
+                  searchTypes.toString() == ['*'].toString()) &&
+                overlayType !== 'geometrysearch'
+              ) {
+                if (!overlay.defaultVisible) {
+                  overlay.defaultVisible = overlay.visible.toString();
+                }
+                if (circleGeo.contains(point)) {
+                  overlay.visible = true;
+                  searchRses.push(overlay);
+                } else {
+                  overlay.visible = showResult;
+                }
               }
-            }
-          });
-        } else if (layer.type == 'feature' && layer.source) {
+            });
+          }
+        } else if (
+          layer.type == 'feature' &&
+          layer.source &&
+          layer.source.items
+        ) {
           layer.source.items.forEach((graphic: any) => {
             let point = graphic.geometry;
             let overlayType = graphic.attributes.type;

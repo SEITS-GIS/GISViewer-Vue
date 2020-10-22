@@ -1,5 +1,5 @@
-import axios from "axios";
-import { GdConfig } from "./GdConfig";
+import axios from 'axios';
+import {GdConfig} from './GdConfig';
 //import {GisConfig} from './GisConfig';
 //import {GisConfig} from './project/JinBoHui/config_video';
 //import {GisConfig} from './project/JinBoHui/config_yy';
@@ -15,7 +15,7 @@ import { GdConfig } from "./GdConfig";
 //import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
 //import {GisConfig} from './project/PuDong/config_SelectRoute';
-import { GisConfig } from "./project/PuDong/config_SelectRoute";
+import {GisConfig} from './project/PuDong/config_SelectRoute';
 export default class MapConfig {
   public constructor() {}
   private model_view: any;
@@ -67,41 +67,32 @@ export default class MapConfig {
     // map.deleteOverlays({types: ['police']});
     // let overStr = '';
     let points = {
-      type: "police",
+      type: 'police',
       defaultVisible: false,
       defaultSymbol: {
         //symbol for 2d
-        type: "point",
+        type: 'point',
         // primitive: "square",
-        url: "assets/image/camera.png",
+        url: 'assets/image/camera.png',
         size: [20, 20],
-        anchor: "center",
+        anchor: 'center'
       },
       overlays: [
         {
-          id: "test003",
-          geometry: { x: 121.63984297555015, y: 31.305949717282704 },
-          fields: { name: "测试4", featureid: "0001" },
-        },
-      ],
+          id: 'test003',
+          geometry: {x: 121.63984297555015, y: 31.305949717282704},
+          fields: {name: '测试4', featureid: '0001'}
+        }
+      ]
     };
 
     //const result = await map.addOverlays(points);
-
-    await map.initializeRouteSelect({
-      roadUrl:
-        "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2",
-      trafficSignalUrl:
-        "http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0",
-    });
-    await map.showSelectedRoute({
-      routeInfo: {
-        ids: ["45897", "40872", "605871", "605872", "1445", "1496"],
-      },
-      signalInfo: {
-        ids: ["535"],
-      },
-    });
+    // await map.initializeRouteSelect({
+    //   roadUrl:
+    //     'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2',
+    //   trafficSignalUrl:
+    //     'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0'
+    // });
     map.addOverlays(points);
     // map.setMapCenterAndLevel({
     //   x: 121.45,
@@ -110,10 +101,10 @@ export default class MapConfig {
     // });
   }
   public btn_test1(map: any) {
-    // map.findFeature({
-    //   layerName: '发布段',
-    //   ids: ['2157312112'] //GJYJ001,GJ5-002,BS1,TCC2
-    // });
+    map.findFeature({
+      layerName: '发布段',
+      ids: ['61556006006'] //GJYJ001,GJ5-002,BS1,TCC2
+    });
     // map.deleteAllOverlays();
     // let overStr = '';
     // let points = {
@@ -203,171 +194,171 @@ export default class MapConfig {
       {
         points: [
           {
-            geometry: { x: 121.487563, y: 31.395083 },
-            fields: { content: "" },
+            geometry: {x: 121.487563, y: 31.395083},
+            fields: {content: ''}
           },
           {
-            geometry: { x: 121.481867, y: 31.392274 },
-            fields: { content: "" },
+            geometry: {x: 121.481867, y: 31.392274},
+            fields: {content: ''}
           },
           {
-            geometry: { x: 121.479625, y: 31.39665 },
-            fields: { content: "" },
-          },
+            geometry: {x: 121.479625, y: 31.39665},
+            fields: {content: ''}
+          }
         ],
         showDir: true,
-        color: "red",
-        width: 5,
+        color: 'red',
+        width: 5
       },
       {
         points: [
           {
-            geometry: { x: 121.490726, y: 31.378321 },
+            geometry: {x: 121.490726, y: 31.378321},
             fields: {
-              content: "",
-            },
+              content: ''
+            }
           },
           {
-            geometry: { x: 121.488117, y: 31.382392 },
-            fields: { content: "" },
+            geometry: {x: 121.488117, y: 31.382392},
+            fields: {content: ''}
           },
           {
-            geometry: { x: 121.485499, y: 31.386555 },
-            fields: { content: "" },
+            geometry: {x: 121.485499, y: 31.386555},
+            fields: {content: ''}
           },
           {
-            geometry: { x: 121.481947, y: 31.392143 },
-            fields: { content: "" },
+            geometry: {x: 121.481947, y: 31.392143},
+            fields: {content: ''}
           },
           {
-            geometry: { x: 121.479706, y: 31.396507 },
-            fields: { content: "" },
-          },
+            geometry: {x: 121.479706, y: 31.396507},
+            fields: {content: ''}
+          }
         ],
-        showDir: true,
+        showDir: true
       },
       {
         points: [
           {
-            geometry: { x: 121.485116, y: 31.398434 },
-            fields: { content: "牡丹江路-宝杨路(西向东)" },
+            geometry: {x: 121.485116, y: 31.398434},
+            fields: {content: '牡丹江路-宝杨路(西向东)'}
           },
           {
-            geometry: { x: 121.481686, y: 31.397334 },
-            fields: { content: "宝杨路-双庆路(北向南)" },
+            geometry: {x: 121.481686, y: 31.397334},
+            fields: {content: '宝杨路-双庆路(北向南)'}
           },
           {
-            geometry: { x: 121.479326, y: 31.396519 },
-            fields: { content: "同济路-宝杨路(北向南)" },
-          },
+            geometry: {x: 121.479326, y: 31.396519},
+            fields: {content: '同济路-宝杨路(北向南)'}
+          }
         ],
-        showDir: true,
+        showDir: true
       },
       {
         points: [
           {
-            geometry: { x: 121.479407, y: 31.396382 },
-            fields: { content: "同济路-宝杨路(北向南)" },
+            geometry: {x: 121.479407, y: 31.396382},
+            fields: {content: '同济路-宝杨路(北向南)'}
           },
           {
-            geometry: { x: 121.481715, y: 31.39211 },
-            fields: { content: "同济路-海江路(东向西)", dir: "left" },
+            geometry: {x: 121.481715, y: 31.39211},
+            fields: {content: '同济路-海江路(东向西)', dir: 'left'}
           },
           {
-            geometry: { x: 121.487563, y: 31.395083 },
-            fields: { content: "牡丹江路-海江路(东向西)" },
-          },
+            geometry: {x: 121.487563, y: 31.395083},
+            fields: {content: '牡丹江路-海江路(东向西)'}
+          }
         ],
-        showDir: true,
+        showDir: true
       },
       {
         points: [
           {
-            geometry: { x: 121.47939, y: 31.396364 },
-            fields: { content: "同济路-宝杨路(北向南)1" },
+            geometry: {x: 121.47939, y: 31.396364},
+            fields: {content: '同济路-宝杨路(北向南)1'}
           },
           {
-            geometry: { x: 121.481715, y: 31.39211 },
-            fields: { content: "同济路-海江路(东向西)1", dir: "left" },
+            geometry: {x: 121.481715, y: 31.39211},
+            fields: {content: '同济路-海江路(东向西)1', dir: 'left'}
           },
           {
-            geometry: { x: 121.48522, y: 31.386528 },
-            fields: { content: "同济路-双城路(东向西)1" },
+            geometry: {x: 121.48522, y: 31.386528},
+            fields: {content: '同济路-双城路(东向西)1'}
           },
           {
-            geometry: { x: 121.487838, y: 31.382367 },
-            fields: { content: "同济路-水产路(西向东)1" },
+            geometry: {x: 121.487838, y: 31.382367},
+            fields: {content: '同济路-水产路(西向东)1'}
           },
           {
-            geometry: { x: 121.490515, y: 31.378166 },
-          },
+            geometry: {x: 121.490515, y: 31.378166}
+          }
         ],
-        showDir: true,
+        showDir: true
       },
       {
         points: [
           {
-            geometry: { x: 121.479691, y: 31.396509 },
-            fields: { content: "同济路-宝杨路(北向南)" },
+            geometry: {x: 121.479691, y: 31.396509},
+            fields: {content: '同济路-宝杨路(北向南)'}
           },
           {
-            geometry: { x: 121.481736, y: 31.397235 },
-            fields: { content: "宝杨路-双庆路(东向西)" },
+            geometry: {x: 121.481736, y: 31.397235},
+            fields: {content: '宝杨路-双庆路(东向西)'}
           },
           {
-            geometry: { x: 121.485161, y: 31.398369 },
-            fields: { content: "牡丹江路-宝杨路(东向西)" },
-          },
+            geometry: {x: 121.485161, y: 31.398369},
+            fields: {content: '牡丹江路-宝杨路(东向西)'}
+          }
         ],
-        showDir: true,
-      },
+        showDir: true
+      }
     ]);
-    axios.get("config/tt.json").then((res: any) => {
+    axios.get('config/aaa.json').then((res: any) => {
       map.addOverlaysCluster(res.data);
     });
-    // axios.get('config/tt.json').then((res: any) => {
-    //   res.data.type = 'ccv';
-    //   var points = [];
-    //   var x = 121.43;
-    //   var y = 31.15;
-    //   for (var i = 0; i < 1000; i++) {
-    //     var x1 = x + (Math.random() * 2 - 1) / 20;
-    //     var y1 = y + (Math.random() * 2 - 1) / 20;
-    //     var value = Math.floor(1000000 * Math.random() + 1);
-    //     var a = i % 2 == 0 ? '1' : '0';
-    //     let sym =
-    //       i % 3 == 0
-    //         ? {
-    //             type: 'point',
-    //             url: 'assets/image/camera.png',
-    //             size: [30, 40]
-    //           }
-    //         : undefined;
-    //     if (sym) {
-    //       points.push({
-    //         geometry: {x: x1.toString(), y: y1.toString()},
-    //         fields: {
-    //           desc: '上海体育馆停车场',
-    //           value: 5,
-    //           type: a
-    //         },
-    //         symbol: sym
-    //       });
-    //     } else {
-    //       points.push({
-    //         geometry: {x: x1.toString(), y: y1.toString()},
-    //         fields: {
-    //           desc: '上海体育馆停车场',
-    //           value: 5,
-    //           type: a
-    //         }
-    //       });
-    //     }
-    //   }
-    //   res.data.zoom = 15;
-    //   res.data.overlays = points;
-    //   map.addOverlaysCluster(res.data);
-    // });
+    axios.get('config/tt.json').then((res: any) => {
+      res.data.type = 'ccv';
+      var points = [];
+      var x = 121.43;
+      var y = 31.15;
+      for (var i = 0; i < 10; i++) {
+        var x1 = x + (Math.random() * 2 - 1) / 20;
+        var y1 = y + (Math.random() * 2 - 1) / 20;
+        var value = Math.floor(1000000 * Math.random() + 1);
+        var a = i % 2 == 0 ? '1' : '0';
+        let sym =
+          i % 3 == 0
+            ? {
+                type: 'point',
+                url: 'assets/image/camera.png',
+                size: [30, 40]
+              }
+            : undefined;
+        if (sym) {
+          points.push({
+            geometry: {x: x1.toString(), y: y1.toString()},
+            fields: {
+              desc: '上海体育馆停车场',
+              value: 5,
+              type: a
+            },
+            symbol: sym
+          });
+        } else {
+          points.push({
+            geometry: {x: x1.toString(), y: y1.toString()},
+            fields: {
+              desc: '上海体育馆停车场',
+              value: 5,
+              type: a
+            }
+          });
+        }
+      }
+      res.data.zoom = 15;
+      res.data.overlays = points;
+      // map.addOverlaysCluster(res.data);
+    });
     //axios.get("config/Jurisdiction/bsga_v2.geo.json").then((res: any) => {
     //map.addOverlaysCluster(res.data);
     //  console.log(res.data);
@@ -387,10 +378,11 @@ export default class MapConfig {
 
   public btn_test2(map: any) {
     map.findFeature({
-      layerName: "police",
-      ids: ["011740"], //GJYJ001,GJ5-002,BS1,TCC2,
-      level: 7,
+      layerName: 'police',
+      ids: ['011740'], //GJYJ001,GJ5-002,BS1,TCC2,
+      level: 7
     });
+
     // let points = {
     //   type: 'police',
     //   defaultVisible: true,
@@ -521,9 +513,9 @@ export default class MapConfig {
     //map.restoreDegeneFsion();
     map
       .startGeometrySearch({
-        types: ["police"],
+        types: ['police'],
         radius: 5000,
-        showResult: true,
+        showResult: true
       })
       .then((res: any) => {
         console.log(res);
@@ -537,7 +529,7 @@ export default class MapConfig {
     // }
   }
   public btn_test3(map: any) {
-    map.deleteOverlays({ types: ["police"] });
+    map.deleteOverlays({types: ['police']});
     //map.changeDgeneOut();
     //map.hideBarChart();
     //map.showDgene({duration: 0}); //显示三维模型

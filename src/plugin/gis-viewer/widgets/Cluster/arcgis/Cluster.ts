@@ -65,6 +65,8 @@ export class Cluster {
         scale = lod.scale;
       }
     });
+
+    let defaultSym = this.makeSymbol(params.defaultSymbol);
     points.forEach((point: any, index: number) => {
       if (Number(point.geometry.x) > 0) {
         let obj: any = {
@@ -84,7 +86,6 @@ export class Cluster {
         data.push(obj);
       }
     }, this);
-    let defaultSym = this.makeSymbol(params.defaultSymbol);
     this.initLayer({
       data: data,
       defaultSymbol: defaultSym,

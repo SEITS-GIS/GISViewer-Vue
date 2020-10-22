@@ -59,6 +59,7 @@ export class FindFeature {
     let level = params.level || 0;
     let centerResult = params.centerResult !== false;
     let layerIds = params.layerids || undefined;
+    let showPopUp = params.showPopUp !== false;
 
     this.view.map.allLayers.forEach((layer: any) => {
       if (params.layerName && layer.label === params.layerName) {
@@ -70,7 +71,8 @@ export class FindFeature {
             layer: layer,
             layerIds: layerIds || this.getLayerIds(layer),
             ids: ids,
-            zoom: level
+            zoom: level,
+            showPopUp: showPopUp
           });
         }
         //}
@@ -214,6 +216,7 @@ export class FindFeature {
       'esri/tasks/support/FindParameters'
     ]) as Promise<MapModules>);
     let ids = options.ids;
+    let showPopUp = options.showPopUp;
     let symbol = {
       type: 'simple-fill', // autocasts as new SimpleFillSymbol()
       color: [51, 51, 204, 0],
@@ -268,7 +271,9 @@ export class FindFeature {
             });
           }
           that.startHighlightOverlays(graphics[0].geometry);
-          that.showPopUp(select.layer, results[0].layerId, graphics[0]);
+          if (showPopUp) {
+            that.showPopUp(select.layer, results[0].layerId, graphics[0]);
+          }
           resolve(feats);
         });
       });

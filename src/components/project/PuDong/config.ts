@@ -15,17 +15,39 @@ export let GisConfig = {
       type: 'dynamic',
       url:
         'http://10.118.24.58:6080/arcgis/rest/services/ZhongZhi/fbd_zz/MapServer',
-      visible: true
+      visible: false
     },
     {
-      label: 'ksl_11',
+      label: 'dm_84_1',
       type: 'feature',
       url:
-        'http://10.118.24.58:6080/arcgis/rest/services/ZhongZhi/fbd_zz/MapServer/0',
+        'http://10.118.24.58:6080/arcgis/rest/services/ZhongZhi/fbd_zz/MapServer/4',
       visible: true,
       outFields: ['*'],
       refreshInterval: 5,
-      minScale: 16000,
+      minScale: 0,
+      maxScale: 64000
+    },
+    {
+      label: 'dm_84_2',
+      type: 'feature',
+      url:
+        'http://10.118.24.58:6080/arcgis/rest/services/ZhongZhi/fbd_zz/MapServer/3',
+      visible: true,
+      outFields: ['*'],
+      refreshInterval: 5,
+      minScale: 63999,
+      maxScale: 16000
+    },
+    {
+      label: 'dm_84_min',
+      type: 'feature',
+      url:
+        'http://10.118.24.58:6080/arcgis/rest/services/ZhongZhi/fbd_zz/MapServer/2',
+      visible: true,
+      outFields: ['*'],
+      refreshInterval: 5,
+      minScale: 15999,
       maxScale: 0
     },
     {
@@ -36,49 +58,23 @@ export let GisConfig = {
       visible: true,
       outFields: ['*'],
       refreshInterval: 5,
-      minScale: 500000,
-      maxScale: 32000
+      minScale: 0,
+      maxScale: 64000
     },
     {
-      label: 'dm_84_min',
+      label: 'ksl_11',
       type: 'feature',
       url:
-        'http://10.118.24.58:6080/arcgis/rest/services/ZhongZhi/fbd_zz/MapServer/2',
+        'http://10.118.24.58:6080/arcgis/rest/services/ZhongZhi/fbd_zz/MapServer/0',
       visible: true,
       outFields: ['*'],
       refreshInterval: 5,
-      minScale: 16000,
+      minScale: 15999,
       maxScale: 0
-    },
-    {
-      label: 'dm_84_2',
-      type: 'feature',
-      url:
-        'http://10.118.24.58:6080/arcgis/rest/services/ZhongZhi/fbd_zz/MapServer/3',
-      visible: true,
-      outFields: ['*'],
-      refreshInterval: 5,
-      minScale: 15000,
-      maxScale: 17000
-    },
-    {
-      label: 'dm_84_1',
-      type: 'feature',
-      url:
-        'http://10.118.24.58:6080/arcgis/rest/services/ZhongZhi/fbd_zz/MapServer/4',
-      visible: true,
-      outFields: ['*'],
-      refreshInterval: 5,
-      minScale: 500000,
-      maxScale: 32000
     }
   ],
   options: {
-    center: [121.59, 31.22],
-    zoom: 2,
-    constraints: {
-      rotationEnabled: false,
-      minZoom: 0
-    }
+    center: [121.62, 31.22],
+    zoom: 1
   }
 };

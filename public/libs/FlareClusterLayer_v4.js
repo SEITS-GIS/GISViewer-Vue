@@ -724,7 +724,8 @@ define([
           }
         };
 
-        textsymbol.yoffset = graphic.symbol.height / 2;
+        var symOffset = graphic.symbol.yoffset ? graphic.symbol.yoffset : 0;
+        textsymbol.yoffset = graphic.symbol.height / 2 + symOffset;
         textsymbol.text = this.getContent(
           graphic.attributes,
           this.customText.content
@@ -787,15 +788,19 @@ define([
                 var classBreaks = this.clusterRenderer.classBreakInfos;
                 var cCount = Number(gridCluster.clusterCount);
                 var yoffset = classBreaks[0].symbol.height / 2;
+                var symOffset = classBreaks[0].symbol.yoffset
+                  ? classBreaks[0].symbol.yoffset
+                  : 0;
                 var index = 0;
                 for (var i = 0; i < classBreaks.length; i++) {
                   var cbs = classBreaks[i];
                   if (cCount <= cbs.maxValue && cCount > cbs.minValue) {
                     yoffset = cbs.symbol.height / 2;
+                    symOffset = cbs.symbol.yoffset ? cbs.symbol.yoffset : 0;
                     index = i;
                   }
                 }
-                textSymbol.yoffset = yoffset;
+                textSymbol.yoffset = yoffset + symOffset;
                 textSymbol.font.size = textSymbol.font.size + index;
                 textSymbol.font.weight = 'bold';
               }
