@@ -380,4 +380,6 @@ export default class SelectRoute2D {
       });
     }
   }
+
+  public async showSelectedRoute(params: ISelectRouteResult) {}
 }

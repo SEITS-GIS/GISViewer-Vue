@@ -17,6 +17,7 @@ import {
   IGeometrySearchParameter,
   ICustomTip,
   ISelectRouteParam,
+  ISelectRouteResult,
 } from "@/types/map";
 import { OverlayBaidu } from "@/plugin/gis-viewer/widgets/Overlays/bd/OverlayBaidu";
 import { HeatMapBD } from "./widgets/HeatMap/bd/HeatMapBD";
@@ -263,4 +264,5 @@ export default class MapAppBaidu implements IMapContainer {
   public changeDgeneOut() {}
 
   public async initializeRouteSelect(params: ISelectRouteParam) {}
+  public async showSelectedRoute(params: ISelectRouteResult) {}
 }

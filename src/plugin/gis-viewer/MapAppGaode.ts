@@ -17,6 +17,7 @@ import {
   IGeometrySearchParameter,
   ICustomTip,
   ISelectRouteParam,
+  ISelectRouteResult,
 } from "@/types/map";
 import { OverlayGaode } from "@/plugin/gis-viewer/widgets/Overlays/gd/OverlayGaode";
 import { JurisdictionPoliceGD } from "./widgets/JurisdictionPolice/gd/JurisdictionPoliceGD";
@@ -304,4 +305,5 @@ export default class MapAppGaode implements IMapContainer {
   public changeDgeneOut() {}
 
   public async initializeRouteSelect(params: ISelectRouteParam) {}
+  public async showSelectedRoute(params: ISelectRouteResult) {}
 }

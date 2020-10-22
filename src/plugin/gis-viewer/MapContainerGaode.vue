@@ -22,7 +22,7 @@ import {
   IHeatImageParameter,
   IGeometrySearchParameter,
   ICustomTip,
-  ISelectRouteParam,
+  ISelectRouteParam,, ISelectRouteResult
 } from "@/types/map";
 
 @Component({
@@ -177,6 +177,7 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   public changeDgeneOut() {}
 
   public async initializeRouteSelect(params: ISelectRouteParam) {}
+  public async showSelectedRoute(params: ISelectRouteResult) {}
 }
 </script>
 

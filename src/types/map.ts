@@ -185,6 +185,7 @@ export interface IMapContainer {
   showDgeneOutPoint: (params: any) => void;
   changeDgeneOut: () => void;
   initializeRouteSelect: (params: ISelectRouteParam) => Promise<void>;
+  showSelectedRoute: (params: ISelectRouteResult) => Promise<void>;
 }
 export interface IPopUpTemplate {
   title?: string;
@@ -270,9 +271,9 @@ export interface ISelectRouteParam {
 export interface ISelectRouteResult {
   routeInfo: {
     ids: Array<string>;
-    length: number;
-    startPoint: [number, number];
-    endPoint: [number, number];
+    length?: number;
+    startPoint?: [number, number];
+    endPoint?: [number, number];
   };
   signalInfo: {
     ids: Array<string>;

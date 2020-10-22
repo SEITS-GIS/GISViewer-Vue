@@ -18,6 +18,7 @@ import {
   IGeometrySearchParameter,
   ICustomTip,
   ISelectRouteParam,
+  ISelectRouteResult,
 } from "@/types/map";
 import { OverlayArcgis3D } from "@/plugin/gis-viewer/widgets/Overlays/arcgis/OverlayArcgis3D";
 import { RasterStretchRenderer } from "esri/rasterRenderers";
@@ -539,4 +540,6 @@ export default class MapAppArcGIS3D implements IMapContainer {
   public changeDgeneOut() {}
 
   public async initializeRouteSelect(params: ISelectRouteParam) {}
+
+  public async showSelectedRoute(params: ISelectRouteResult) {}
 }

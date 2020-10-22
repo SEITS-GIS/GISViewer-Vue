@@ -21,7 +21,7 @@ import {
   IHeatImageParameter,
   IGeometrySearchParameter,
   ICustomTip,
-  ISelectRouteParam,
+  ISelectRouteParam,, ISelectRouteResult
 } from "@/types/map";
 @Component({
   name: "MapAppBaidu",
@@ -143,6 +143,7 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public changeDgeneOut() {}
 
   public async initializeRouteSelect(params: ISelectRouteParam) {}
+  public async showSelectedRoute(params: ISelectRouteResult) {}
 }
 </script>
 
