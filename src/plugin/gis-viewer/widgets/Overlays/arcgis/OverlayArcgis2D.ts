@@ -136,20 +136,31 @@ export class OverlayArcgis2D {
         yoffset: symbol.yoffset ? symbol.yoffset : null,
         angle: symbol.rotation ? symbol.rotation : null
       };
-    } else if (symbol.type == 'line' || symbol.type == 'polyline') {
+    } else if (
+      symbol.type == 'line' ||
+      symbol.type == 'polyline' ||
+      symbol.type == 'simple-line'
+    ) {
       result = {
         type: 'simple-line', // autocasts as new SimpleLineSymbol()
         color: (symbol as any).color || 'red',
         width: (symbol as any).width || 1,
         style: (symbol as any).style || 'solid'
       };
-    } else if (symbol.type == 'fill' || symbol.type == 'polygon') {
+    } else if (
+      symbol.type == 'fill' ||
+      symbol.type == 'polygon' ||
+      symbol.type == 'simple-fill'
+    ) {
       result = {
         type: 'simple-fill', // autocasts as new SimpleFillSymbol()
         color: (symbol as any).color || 'rgba(255,0,0,0.5)',
         style: (symbol as any).style || 'solid',
         outline: {
           // autocasts as new SimpleLineSymbol()
+          style: (symbol as any).outline
+            ? (symbol as any).outline.style || 'solid'
+            : 'solid',
           color: (symbol as any).outline
             ? (symbol as any).outline.color || 'green'
             : 'green',

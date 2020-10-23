@@ -51,7 +51,7 @@ export class DrawOverlays {
     }
   }
   public async startDrawOverlays(params: IDrawOverlays): IPromise<void> {
-    let repeat = params.repeat !== true;
+    let repeat = params.repeat !== false;
     if (!repeat) {
       this.clear();
     }
@@ -62,7 +62,7 @@ export class DrawOverlays {
   }
   public async createSketch(params: any) {
     let callback = params.callback;
-    let update = params.update === true;
+    let update = params.update !== false;
     type MapModules = [
       typeof import('esri/widgets/Sketch/SketchViewModel'),
       typeof import('esri/geometry/support/webMercatorUtils')
@@ -76,7 +76,7 @@ export class DrawOverlays {
     this.sketchVM = new SketchViewModel({
       layer: this.drawlayer,
       view: this.view,
-      updateOnGraphicClick: update,
+      updateOnGraphicClick: false,
       defaultUpdateOptions: {
         toggleToolOnClick: true,
         enableRotation: true,
@@ -108,7 +108,6 @@ export class DrawOverlays {
       }
     });
     let _this = this;
-
     // listen to create event, only respond when event's state changes to complete
     this.sketchVM.on('create', (event: any) => {
       if (event.state === 'complete') {
@@ -117,26 +116,29 @@ export class DrawOverlays {
         }
       }
     });
+
     let _view = this.view;
-    this.view.on('click', async (event) => {
-      const response = await _view.hitTest(event);
-      if (!_this.sketchVM) {
-        return;
-      }
-      if (_this.sketchVM.state === 'active') {
-        return;
-      }
-      if (response.results.length > 0) {
-        let geometry = response.results[0].graphic.geometry;
-        if (this.view.spatialReference.isWebMercator) {
-          if (geometry.spatialReference.isWGS84) {
-            geometry = WebMercatorUtils.geographicToWebMercator(geometry);
-          }
+    if (update) {
+      this.view.on('click', async (event) => {
+        const response = await _view.hitTest(event);
+        if (!_this.sketchVM) {
+          return;
         }
-        response.results[0].graphic.geometry = geometry;
-        _this.sketchVM.update([response.results[0].graphic], 'reshape');
-      }
-    });
+        if (_this.sketchVM.state === 'active') {
+          return;
+        }
+        if (response.results.length > 0) {
+          let geometry = response.results[0].graphic.geometry;
+          if (this.view.spatialReference.isWebMercator) {
+            if (geometry.spatialReference.isWGS84) {
+              geometry = WebMercatorUtils.geographicToWebMercator(geometry);
+            }
+          }
+          response.results[0].graphic.geometry = geometry;
+          _this.sketchVM.update([response.results[0].graphic], 'reshape');
+        }
+      });
+    }
   }
   private async createOverlaysLayer() {
     type MapModules = [typeof import('esri/layers/GraphicsLayer')];
@@ -172,21 +174,24 @@ export class DrawOverlays {
           let symbol;
           if (graphic.geometry.type == 'polyline') {
             symbol = {
-              color: [255, 0, 0],
+              type: 'simple-line',
+              color: [255, 255, 0],
               width: 2
             };
           } else if (graphic.geometry.type == 'polygon') {
             symbol = {
+              type: 'simple-fill',
               color: [23, 145, 252, 0.4],
               outline: {
                 style: 'dash',
-                color: [255, 0, 0, 0.8],
+                color: [255, 255, 0, 0.8],
                 width: 2
               }
             };
           } else {
             //point
             symbol = {
+              type: 'simple-marker',
               style: 'circle',
               size: 16,
               color: [255, 0, 0],

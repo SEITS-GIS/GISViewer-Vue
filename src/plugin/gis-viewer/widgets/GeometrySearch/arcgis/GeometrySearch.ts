@@ -263,13 +263,13 @@ export class GeometrySearch {
       overlays.forEach((layer: any) => {
         if (layer.label !== 'drawOverlays') {
           if (layer.type == 'graphics') {
-            if (layer.data) {
+            if (layer.data && searchTypes.indexOf(layer.label) > -1) {
               //cluster点位
               let datas = layer.data;
               datas.forEach((item: any) => {
                 let overlayType = item.type;
                 if (
-                  overlayType == item.type ||
+                  searchTypes.indexOf(overlayType) >= 0 ||
                   searchTypes.toString() == ['*'].toString()
                 ) {
                   let pt = new Point({
