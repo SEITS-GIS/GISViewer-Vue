@@ -96,4 +96,19 @@ export class Utils {
     }
     return scale;
   }
+  public static getContent(attr: any, content: string) {
+    let tipContent = content;
+    if (content) {
+      //键值对
+      for (let fieldName in attr) {
+        if (attr.hasOwnProperty(fieldName)) {
+          tipContent = tipContent.replace(
+            '{' + fieldName + '}',
+            attr[fieldName]
+          );
+        }
+      }
+    }
+    return tipContent;
+  }
 }

@@ -186,6 +186,8 @@ export interface IMapContainer {
   changeDgeneOut: () => void;
   initializeRouteSelect: (params: ISelectRouteParam) => Promise<void>;
   showSelectedRoute: (params: ISelectRouteResult) => Promise<void>;
+  startDrawOverlays: (params: IDrawOverlays) => Promise<void>;
+  stopDrawOverlays: () => Promise<void>;
 }
 export interface IPopUpTemplate {
   title?: string;
@@ -251,17 +253,25 @@ export interface routeParameter {
 }
 export interface IGeometrySearchParameter {
   radius: number; //搜索半径,单位米
+  drawType?: string; //作画方式,
   center?: Array<number>; //搜索中心
   types?: Array<string>; //搜索点位类型,默认搜索全部
   showResult?: boolean; //是否显示搜索结果
   showGeometry?: boolean; //是否显示搜素区域
   clickHandle?: any; //点击回调方法
   repeat?: boolean; //是否重复点击画圆
+  geometry?: any;
 }
 export interface ICustomTip {
   prop: any;
   clear: boolean;
   geometry: IPointGeometry;
+}
+export interface IDrawOverlays {
+  drawType: string;
+  callback?: any;
+  update?: boolean; //画完的图形是否可以编辑,
+  repeat?: boolean; //画完是否继续画
 }
 export interface ISelectRouteParam {
   enableXHJ?: boolean;

@@ -11,11 +11,11 @@ import {GdConfig} from './GdConfig';
 //import {GisConfig} from './project/JinBoHui/config_sub';
 //import {GisConfig} from './project/JinBoHui/config_toll';
 //import {GisConfig} from './project/config_jbh';
-//import {GisConfig} from './project/config';
+import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
 //import {GisConfig} from './project/PuDong/config_SelectRoute';
-import {GisConfig} from './project/PuDong/config_SelectRoute';
+//import {GisConfig} from './project/PuDong/config_SelectRoute';
 export default class MapConfig {
   public constructor() {}
   private model_view: any;
@@ -67,8 +67,8 @@ export default class MapConfig {
     // map.deleteOverlays({types: ['police']});
     // let overStr = '';
     let points = {
-      type: 'police',
-      defaultVisible: false,
+      type: 'aa',
+      defaultVisible: true,
       defaultSymbol: {
         //symbol for 2d
         type: 'point',
@@ -79,21 +79,34 @@ export default class MapConfig {
       },
       overlays: [
         {
-          id: 'test003',
-          geometry: {x: 121.63984297555015, y: 31.305949717282704},
-          fields: {name: '测试4', featureid: '0001'}
+          id: 'abc',
+          geometry: {
+            rings: [
+              [121.31, 31.01],
+              [121.2, 31.22],
+              [121.1, 31.33],
+              [121.45, 30.89]
+            ]
+          },
+          fields: {
+            name: '测试2',
+            featureid: '0002'
+          },
+          symbol: {
+            color: 'red'
+          }
         }
       ]
     };
 
-    //const result = await map.addOverlays(points);
+    const result = await map.addOverlays(points);
     // await map.initializeRouteSelect({
     //   roadUrl:
     //     'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2',
     //   trafficSignalUrl:
     //     'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0'
     // });
-    map.addOverlays(points);
+    //map.addOverlays(points);
     // map.setMapCenterAndLevel({
     //   x: 121.45,
     //   y: 31.23,
@@ -101,10 +114,16 @@ export default class MapConfig {
     // });
   }
   public btn_test1(map: any) {
-    map.findFeature({
-      layerName: '发布段',
-      ids: ['61556006006'] //GJYJ001,GJ5-002,BS1,TCC2
-    });
+    // map.startDrawOverlays({
+    //   type: 'polygon',
+    //   callback: (e: any) => {
+    //     console.log(e);
+    //   }
+    // });
+    // map.findFeature({
+    //   layerName: '发布段',
+    //   ids: ['61556006006'] //GJYJ001,GJ5-002,BS1,TCC2
+    // });
     // map.deleteAllOverlays();
     // let overStr = '';
     // let points = {
@@ -313,7 +332,7 @@ export default class MapConfig {
         showDir: true
       }
     ]);
-    axios.get('config/aaa.json').then((res: any) => {
+    axios.get('config/tt.json').then((res: any) => {
       map.addOverlaysCluster(res.data);
     });
     axios.get('config/tt.json').then((res: any) => {
@@ -321,7 +340,7 @@ export default class MapConfig {
       var points = [];
       var x = 121.43;
       var y = 31.15;
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 1000; i++) {
         var x1 = x + (Math.random() * 2 - 1) / 20;
         var y1 = y + (Math.random() * 2 - 1) / 20;
         var value = Math.floor(1000000 * Math.random() + 1);
@@ -357,7 +376,7 @@ export default class MapConfig {
       }
       res.data.zoom = 15;
       res.data.overlays = points;
-      // map.addOverlaysCluster(res.data);
+      map.addOverlaysCluster(res.data);
     });
     //axios.get("config/Jurisdiction/bsga_v2.geo.json").then((res: any) => {
     //map.addOverlaysCluster(res.data);
@@ -377,11 +396,11 @@ export default class MapConfig {
   }
 
   public btn_test2(map: any) {
-    map.findFeature({
-      layerName: 'police',
-      ids: ['011740'], //GJYJ001,GJ5-002,BS1,TCC2,
-      level: 7
-    });
+    // map.findFeature({
+    //   layerName: 'police',
+    //   ids: ['011740'], //GJYJ001,GJ5-002,BS1,TCC2,
+    //   level: 16
+    // });
 
     // let points = {
     //   type: 'police',
@@ -514,7 +533,7 @@ export default class MapConfig {
     map
       .startGeometrySearch({
         types: ['police'],
-        radius: 5000,
+        radius: 3000,
         showResult: true
       })
       .then((res: any) => {
@@ -529,7 +548,8 @@ export default class MapConfig {
     // }
   }
   public btn_test3(map: any) {
-    map.deleteOverlays({types: ['police']});
+    map.clearGeometrySearch();
+    //map.deleteOverlays({types: ['police']});
     //map.changeDgeneOut();
     //map.hideBarChart();
     //map.showDgene({duration: 0}); //显示三维模型

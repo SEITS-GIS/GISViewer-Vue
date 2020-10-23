@@ -66,6 +66,7 @@ export class OverlayArcgis2D {
       'esri/layers/GraphicsLayer'
     ]) as Promise<MapModules>);
     let overlayLayer: __esri.GraphicsLayer = new GraphicsLayer();
+    (overlayLayer as any).label = type;
     this.view.map.add(overlayLayer);
     this.overlayGroups.set(type, overlayLayer);
     return overlayLayer;

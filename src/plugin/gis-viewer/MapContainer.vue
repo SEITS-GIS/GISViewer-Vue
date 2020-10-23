@@ -38,11 +38,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Ref, Emit } from "vue-property-decorator";
-import MapContainerArcgisThreeD from "@/plugin/gis-viewer/MapContainerArcgis3D.vue";
-import MapContainerArcgisTwoD from "@/plugin/gis-viewer/MapContainerArcgis2D.vue";
-import MapContainerBaidu from "@/plugin/gis-viewer/MapContainerBaidu.vue";
-import MapContainerGaode from "@/plugin/gis-viewer/MapContainerGaode.vue";
+import {Vue, Component, Prop, Ref, Emit} from 'vue-property-decorator';
+import MapContainerArcgisThreeD from '@/plugin/gis-viewer/MapContainerArcgis3D.vue';
+import MapContainerArcgisTwoD from '@/plugin/gis-viewer/MapContainerArcgis2D.vue';
+import MapContainerBaidu from '@/plugin/gis-viewer/MapContainerBaidu.vue';
+import MapContainerGaode from '@/plugin/gis-viewer/MapContainerGaode.vue';
 import {
   Platforms,
   IMapContainer,
@@ -63,23 +63,24 @@ import {
   ICustomTip,
   ISelectRouteParam,
   ISelectRouteResult,
-} from "@/types/map";
+  IDrawOverlays
+} from '@/types/map';
 
 @Component({
   components: {
     MapContainerArcgisThreeD,
     MapContainerArcgisTwoD,
     MapContainerBaidu,
-    MapContainerGaode,
-  },
+    MapContainerGaode
+  }
 })
 export default class MapContainer extends Vue implements IMapContainer {
   //平台类型 高德/百度/arcgis
-  @Prop({ default: Platforms.ArcGIS3D, type: String })
+  @Prop({default: Platforms.ArcGIS3D, type: String})
   readonly platform!: string;
 
   //地图配置
-  @Prop({ type: Object }) readonly mapConfig!: Object;
+  @Prop({type: Object}) readonly mapConfig!: Object;
 
   @Ref() readonly containerArcgis3D!: MapContainerArcgisThreeD;
   @Ref() readonly containerArcgis2D!: MapContainerArcgisTwoD;
@@ -105,38 +106,38 @@ export default class MapContainer extends Vue implements IMapContainer {
     //console.log(this.mapConfig);
     if (
       (this.mapConfig as any).arcgis_api &&
-      (this.mapConfig as any).arcgis_api.indexOf("arcgis") > -1
+      (this.mapConfig as any).arcgis_api.indexOf('arcgis') > -1
     ) {
       (window as any).dojoConfig = {
         async: true,
         tlmSiblingOfDojo: false,
-        baseUrl: (this.mapConfig as any).arcgis_api + "/dojo/",
+        baseUrl: (this.mapConfig as any).arcgis_api + '/dojo/',
         packages: [
           {
-            name: "libs",
-            location: "libs",
-          },
+            name: 'libs',
+            location: 'libs'
+          }
         ],
         has: {
-          "esri-promise-compatibility": 1,
-        },
+          'esri-promise-compatibility': 1
+        }
       };
     }
   }
-  @Emit("map-loaded")
+  @Emit('map-loaded')
   private mapLoaded() {}
-  @Emit("map-click")
+  @Emit('map-click')
   public mapClick(point: object) {}
-  @Emit("marker-click")
+  @Emit('marker-click')
   private showGisDeviceInfo(type: string, id: string) {}
-  @Emit("marker-mouse")
+  @Emit('marker-mouse')
   public mouseGisDeviceInfo(
     event: any,
     type: string,
     id: string,
     detail: any
   ) {}
-  @Emit("select-route-finished")
+  @Emit('select-route-finished')
   public selectedRouteFinished(routeInfo: object) {}
 
   public async addOverlays(params: IOverlayParameter): Promise<IResult> {
@@ -192,7 +193,7 @@ export default class MapContainer extends Vue implements IMapContainer {
   public findFeature(params: IFindParameter) {
     this.mapContainer.findFeature(params);
   }
-  public showRoad(param: { ids: string[] }) {
+  public showRoad(param: {ids: string[]}) {
     this.mapContainer.showRoad(param);
   }
   public hideRoad() {
@@ -282,6 +283,13 @@ export default class MapContainer extends Vue implements IMapContainer {
 
   public async showSelectedRoute(params: ISelectRouteResult) {
     await this.mapContainer.showSelectedRoute(params);
+  }
+
+  public async startDrawOverlays(params: IDrawOverlays): Promise<void> {
+    return await this.mapContainer.startDrawOverlays(params);
+  }
+  public async stopDrawOverlays(): Promise<void> {
+    return await this.mapContainer.stopDrawOverlays();
   }
 }
 </script>

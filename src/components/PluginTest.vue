@@ -50,10 +50,10 @@ export default class PluginTest extends Vue {
         }
       });
     }
-    (this.$refs.gisViewer as any).showCustomTip({
-      prop: {vue: PluginTest3d},
-      geometry: detail.geometry
-    });
+    // (this.$refs.gisViewer as any).showCustomTip({
+    //   prop: {vue: PluginTest3d},
+    //   geometry: detail.geometry
+    // });
   }
   private mapClick(pt: any) {
     console.log(pt);

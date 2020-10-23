@@ -1,4 +1,4 @@
-import { loadScript, ILoadScriptOptions } from "esri-loader";
+import {loadScript, ILoadScriptOptions} from 'esri-loader';
 import {
   IMapContainer,
   IOverlayParameter,
@@ -18,10 +18,11 @@ import {
   ICustomTip,
   ISelectRouteParam,
   ISelectRouteResult,
-} from "@/types/map";
-import { OverlayBaidu } from "@/plugin/gis-viewer/widgets/Overlays/bd/OverlayBaidu";
-import { HeatMapBD } from "./widgets/HeatMap/bd/HeatMapBD";
-import { JurisdictionPolice } from "./widgets/JurisdictionPolice/bd/JurisdictionPolice";
+  IDrawOverlays
+} from '@/types/map';
+import {OverlayBaidu} from '@/plugin/gis-viewer/widgets/Overlays/bd/OverlayBaidu';
+import {HeatMapBD} from './widgets/HeatMap/bd/HeatMapBD';
+import {JurisdictionPolice} from './widgets/JurisdictionPolice/bd/JurisdictionPolice';
 declare let BMap: any;
 
 export default class MapAppBaidu implements IMapContainer {
@@ -34,14 +35,14 @@ export default class MapAppBaidu implements IMapContainer {
     const apiUrl = mapConfig.arcgis_api; //"http://localhost:8090/baidu/BDAPI.js";
     let view: any;
     await loadScript({
-      url: `${apiUrl}`,
+      url: `${apiUrl}`
     });
-    const apiRoot = mapConfig.arcgis_api.substring(0, apiUrl.lastIndexOf("/"));
+    const apiRoot = mapConfig.arcgis_api.substring(0, apiUrl.lastIndexOf('/'));
 
     await this.loadOtherScripts([
-      apiRoot + "/library/Heatmap/Heatmap_min.js",
-      apiRoot + "/library/TextIconOverlay/TextIconOverlay_min.js",
-      apiRoot + "/library/MarkerClusterer/MarkerClusterer_min.js",
+      apiRoot + '/library/Heatmap/Heatmap_min.js',
+      apiRoot + '/library/TextIconOverlay/TextIconOverlay_min.js',
+      apiRoot + '/library/MarkerClusterer/MarkerClusterer_min.js'
     ]).then(function(e: any) {
       //console.log("Load Scripts");
     });
@@ -50,8 +51,8 @@ export default class MapAppBaidu implements IMapContainer {
     let gisUrl = mapConfig.gisServer
       ? mapConfig.gisServer
       : this.getIpPort(apiUrl);
-    if (mapConfig.theme === "dark") {
-      view.setMapStyle({ style: "midnight" });
+    if (mapConfig.theme === 'dark') {
+      view.setMapStyle({style: 'midnight'});
     }
     if (mapConfig.baseLayers) {
       mapConfig.baseLayers.forEach((element: any) => {
@@ -78,7 +79,7 @@ export default class MapAppBaidu implements IMapContainer {
   private async loadOtherScripts(scriptUrls: string[]): Promise<any> {
     let promises = scriptUrls.map((url) => {
       return new Promise((resolve, reject) => {
-        const scriptElement = document.createElement("script");
+        const scriptElement = document.createElement('script');
         scriptElement.src = url;
         scriptElement.onload = resolve;
         document.body.appendChild(scriptElement);
@@ -92,31 +93,31 @@ export default class MapAppBaidu implements IMapContainer {
   }
   //得到url中的ip和port
   private getIpPort(url: string): string {
-    let urls = url.split("/");
-    let ip: string = "";
+    let urls = url.split('/');
+    let ip: string = '';
     for (let el in urls) {
-      if (el.indexOf(":") > 0 || el.indexOf(".") > 0) {
+      if (el.indexOf(':') > 0 || el.indexOf('.') > 0) {
         ip = el;
         break;
       }
     }
-    if (ip === "") {
+    if (ip === '') {
       ip = urls[2];
     }
     return ip;
   }
   public createLayer(view: any, layer: any) {
     switch (layer.type) {
-      case "traffic":
+      case 'traffic':
         let trafficlayer = new BMap.TrafficLayer();
         if (layer.visible !== false) {
           view.addTileLayer(trafficlayer);
         }
         this.baseLayers.push({
-          label: layer.label || "",
-          type: layer.type || "",
+          label: layer.label || '',
+          type: layer.type || '',
           layer: trafficlayer,
-          visible: layer.visible !== false,
+          visible: layer.visible !== false
         });
         break;
     }
@@ -224,14 +225,14 @@ export default class MapAppBaidu implements IMapContainer {
   public async hideStreet() {}
   public async locateStreet(param: IStreetParameter) {}
   public async routeSearch(params: routeParameter): Promise<IResult> {
-    return { status: 0, message: "" };
+    return {status: 0, message: ''};
   }
   public clearRouteSearch() {}
 
   public showRoutePoint(params: any) {}
   public clearRoutePoint() {}
   public async addDrawLayer(params: any): Promise<IResult> {
-    return { status: 0, message: "" };
+    return {status: 0, message: ''};
   }
   public clearDrawLayer(params: ILayerConfig) {}
 
@@ -245,19 +246,19 @@ export default class MapAppBaidu implements IMapContainer {
   public async startGeometrySearch(
     params: IGeometrySearchParameter
   ): Promise<IResult> {
-    return { status: 0, message: "" };
+    return {status: 0, message: ''};
   }
   public clearGeometrySearch() {}
 
   public async showDgene(params: any): Promise<IResult> {
-    return { status: 0, message: "" };
+    return {status: 0, message: ''};
   }
   public hideDgene() {}
   public async addDgeneFusion(params: any): Promise<IResult> {
-    return { status: 0, message: "" };
+    return {status: 0, message: ''};
   }
   public async restoreDegeneFsion(): Promise<IResult> {
-    return { status: 0, message: "" };
+    return {status: 0, message: ''};
   }
   public showCustomTip(params: ICustomTip) {}
   public showDgeneOutPoint(params: any) {}
@@ -265,4 +266,7 @@ export default class MapAppBaidu implements IMapContainer {
 
   public async initializeRouteSelect(params: ISelectRouteParam) {}
   public async showSelectedRoute(params: ISelectRouteResult) {}
+
+  public async startDrawOverlays(params: IDrawOverlays): Promise<void> {}
+  public async stopDrawOverlays(): Promise<void> {}
 }

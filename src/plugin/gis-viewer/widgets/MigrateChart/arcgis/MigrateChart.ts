@@ -120,7 +120,7 @@ export class MigrateChart {
     }
     let BJData: any[] = [];
     all_sub.forEach((id: string) => {
-      let value = Math.floor(Math.random() * 100) + 10;
+      let value = 42;
       if (id !== selectid) {
         BJData.push([{name: selectid}, {name: id, value: value}]);
       }
