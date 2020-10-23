@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {GdConfig} from './GdConfig';
 //import {GisConfig} from './GisConfig';
+
 //import {GisConfig} from './project/JinBoHui/config_video';
 //import {GisConfig} from './project/JinBoHui/config_yy';
 //import {GisConfig} from './project/JinBoHui/config_zh';
