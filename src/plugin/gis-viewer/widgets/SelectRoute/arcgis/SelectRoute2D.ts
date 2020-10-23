@@ -22,6 +22,8 @@ export default class SelectRoute2D {
   /** 已选定的信号机编号 */
   private selectedTrafficSignalIdArray: Array<string> = [];
 
+  private mouseMoveHandler: any;
+
   /** 搜索信号机的缓冲距离 */
   private readonly bufferDistance = 20;
 
@@ -104,6 +106,7 @@ export default class SelectRoute2D {
         case "beginRoute": {
           // 选好起点后路网不再能点击，只能点击候选路段
           this.allRoadLayer.popupEnabled = false;
+          this.mouseMoveHandler.remove();
           this.selectedRoadGraphicArray = [];
 
           // popup.selectedFeature.attributes只包含popupTemplate中配置的字段
@@ -257,6 +260,17 @@ export default class SelectRoute2D {
 
     this.selectedRoadGraphicArray = [];
     this.selectedTrafficSignalIdArray = [];
+
+    this.mouseMoveHandler = this.view.on("pointer-move", async (event: any) => {
+      const result = await this.view.hitTest(event, {
+        include: this.allRoadLayer,
+      });
+      if (result.results.length > 0) {
+        const graphic = result.results[0].graphic;
+        const point = this.view.toMap(event);
+        this.view.popup.open({ location: point, features: [graphic] });
+      }
+    });
   }
 
   /** 根据FID查找道路Graphic */
@@ -354,6 +368,9 @@ export default class SelectRoute2D {
     this.selectedRoadLayer.add(graphic);
     this.selectedRoadGraphicArray.push(graphic);
 
+    const center = (graphic.geometry as __esri.Polyline).extent.center;
+    this.view.goTo(center);
+
     // 搜索周边信号机
     await this.searchTrafficSignal(graphic.geometry);
 
@@ -384,37 +401,65 @@ export default class SelectRoute2D {
 
   /** 显示多条待选路段 */
   private async showNextRoad(roadIds: string) {
+    // 去掉最后的逗号
+    if (roadIds.substring(roadIds.length - 1, roadIds.length) === ",") {
+      roadIds = roadIds.substring(0, roadIds.length - 1);
+    }
     const roadIdArray = roadIds.split(",");
+    const roadGraphicArray: Array<__esri.Graphic> = [];
+
     for (let i = 0; i < roadIdArray.length; i++) {
       const roadId = roadIdArray[i];
-      if (roadId !== "") {
-        const roadGraphic = await this.getRoadGraphicByRoadId(roadId);
-        if (roadGraphic) {
-          const candidateRoad = roadGraphic.clone();
-          candidateRoad.symbol = {
-            type: "simple-line",
-            color: "dodgerblue",
-            width: 4,
-          } as any;
-          candidateRoad.popupTemplate = {
-            ...this.popupTemplate,
-            actions: [this.addRoadButton, this.endRouteButton],
-          } as any;
-          this.candidateRoadLayer.add(candidateRoad);
-        }
+      const roadGraphic = await this.getRoadGraphicByRoadId(roadId);
+      if (roadGraphic) {
+        roadGraphicArray.push(roadGraphic);
       }
     }
 
-    // 如果只有一条待选路段，打开弹出框
-    if (this.candidateRoadLayer.graphics.length === 1) {
-      this.view.popup.open({
-        location: (this.candidateRoadLayer.graphics.getItemAt(0)
-          .geometry as __esri.Polyline).extent.center,
-        features: [this.candidateRoadLayer.graphics.getItemAt(0)],
+    // 如果只有一个后续路段直接添加
+    const geometryToUnion: Array<__esri.Geometry> = [];
+    if (roadGraphicArray.length === 1) {
+      const roadGraphic = roadGraphicArray[0];
+      this.addSelectedRoad(roadGraphic);
+    } else {
+      // 显示后续路段
+      roadGraphicArray.forEach((roadGraphic) => {
+        const candidateRoad = roadGraphic.clone();
+        candidateRoad.symbol = {
+          type: "simple-line",
+          color: "dodgerblue",
+          width: 4,
+        } as any;
+        candidateRoad.popupTemplate = {
+          ...this.popupTemplate,
+          actions: [this.addRoadButton, this.endRouteButton],
+        } as any;
+        this.candidateRoadLayer.add(candidateRoad);
+        geometryToUnion.push(candidateRoad.geometry);
       });
+
+      type MapModules = [typeof import("esri/geometry/geometryEngineAsync")];
+      const [geometryEngineAsync] = await (loadModules([
+        "esri/geometry/geometryEngineAsync",
+      ]) as Promise<MapModules>);
+      const unionGeometry = (await geometryEngineAsync.union(
+        geometryToUnion
+      )) as __esri.Polyline;
+      const center = unionGeometry.extent.center;
+      this.view.goTo(center);
     }
+
+    // 如果只有一条待选路段，打开弹出框
+    // if (this.candidateRoadLayer.graphics.length === 1) {
+    //   this.view.popup.open({
+    //     location: (this.candidateRoadLayer.graphics.getItemAt(0)
+    //       .geometry as __esri.Polyline).extent.center,
+    //     features: [this.candidateRoadLayer.graphics.getItemAt(0)],
+    //   });
+    // }
   }
 
+  /** 显示选择好的道路 */
   public async showSelectedRoute(params: ISelectRouteResult) {
     this.allRoadLayer.popupEnabled = false;
 
