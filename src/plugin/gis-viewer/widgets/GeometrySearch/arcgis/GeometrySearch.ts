@@ -109,7 +109,7 @@ export class GeometrySearch {
       'esri/layers/GraphicsLayer'
     ]) as Promise<MapModules>);
     this.searchOverlays = new GraphicsLayer();
-    this.view.map.add(this.searchOverlays, 0);
+    this.view.map.add(this.searchOverlays, 1);
   }
   private async showClusterPoint(layer: any, datas: any) {
     layer.visible = false;
@@ -201,7 +201,7 @@ export class GeometrySearch {
     } else {
       this.searchOverlays.removeAll();
     }
-    let radius = params.radius; //搜索半径,单位米
+    let radius = params.radius || 1000; //搜索半径,单位米
     let center = (params.center as number[]) || undefined; //搜索中心
 
     let searchTypes = params.types || ['*']; //搜索点位类型
@@ -256,6 +256,7 @@ export class GeometrySearch {
       }
     }
 
+    this.view.goTo({target: searchGeometry});
     return new Promise((resolve, reject) => {
       let overlays = this.view.map.allLayers;
       let searchRses = new Array();

@@ -99,7 +99,7 @@ export default class MapConfig {
       ]
     };
 
-    const result = await map.addOverlays(points);
+    //const result = await map.addOverlays(points);
     // await map.initializeRouteSelect({
     //   roadUrl:
     //     'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2',
@@ -533,12 +533,22 @@ export default class MapConfig {
     map
       .startGeometrySearch({
         types: ['police'],
-        radius: 3000,
+        drawType: 'polygon',
+        //radius: 3000,
         showResult: true
       })
       .then((res: any) => {
         console.log(res);
       });
+    // map
+    //   .startGeometrySearch({
+    //     types: ['police'],
+    //     radius:3000,
+    //     showResult: true
+    //   })
+    //   .then((res: any) => {
+    //     console.log(res);
+    //   });
     // if (this.model_view) {
     //   this.model_view.newHideOut(
     //     {x: -13.011890024929382, y: 250.93535559918166, z: 395.3027167055879},

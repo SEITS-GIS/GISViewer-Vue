@@ -131,7 +131,7 @@ export class DrawOverlays {
     if (!layer) {
       let drawlayer = new GraphicsLayer();
       (drawlayer as any).label = 'drawOverlays';
-      this.view.map.add(drawlayer);
+      this.view.map.add(drawlayer, 0);
       layer = drawlayer;
     }
     return layer;
