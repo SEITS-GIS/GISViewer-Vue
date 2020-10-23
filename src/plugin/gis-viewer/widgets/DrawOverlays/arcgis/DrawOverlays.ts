@@ -120,7 +120,10 @@ export class DrawOverlays {
     let _view = this.view;
     this.view.on('click', async (event) => {
       const response = await _view.hitTest(event);
-      if (!_this.sketchVM || _this.sketchVM.state === 'active') {
+      if (!_this.sketchVM) {
+        return;
+      }
+      if (_this.sketchVM.state === 'active') {
         return;
       }
       if (response.results.length > 0) {
