@@ -1061,3 +1061,6 @@ public/font/arial-unicode-ms-regular/9216-9471.pbf
 public/font/arial-unicode-ms-regular/9472-9727.pbf
 public/font/arial-unicode-ms-regular/9728-9983.pbf
 public/font/arial-unicode-ms-regular/9984-10239.pbf
+src/components/MapConfig.ts
+src/components/MapConfig2.ts
+src/components/MapConfig.ts
