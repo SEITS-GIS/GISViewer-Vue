@@ -98,16 +98,6 @@ export default class MapConfig {
         }
       ]
     };
-
-<<<<<<< HEAD
-    const result = await map.addOverlays(points);
-    await map.initializeRouteSelect({
-      roadUrl:
-        'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2',
-      trafficSignalUrl:
-        'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0'
-    });
-=======
     //const result = await map.addOverlays(points);
     // await map.initializeRouteSelect({
     //   roadUrl:
@@ -115,7 +105,6 @@ export default class MapConfig {
     //   trafficSignalUrl:
     //     'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0'
     // });
->>>>>>> 6d4f2f0e2e0900fdb0711fe17a063e499014fd15
     //map.addOverlays(points);
     // map.setMapCenterAndLevel({
     //   x: 121.45,
