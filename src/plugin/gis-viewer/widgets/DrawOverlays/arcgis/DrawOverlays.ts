@@ -9,6 +9,7 @@ import {
 } from '@/types/map';
 import axios from 'axios';
 import {loadModules} from 'esri-loader';
+import {resolve} from 'esri/core/promiseUtils';
 
 export class DrawOverlays {
   private static intances: Map<string, any>;
@@ -50,7 +51,7 @@ export class DrawOverlays {
     }
   }
   public async startDrawOverlays(params: IDrawOverlays): IPromise<void> {
-    let repeat = params.repeat === true;
+    let repeat = params.repeat !== true;
     if (!repeat) {
       this.clear();
     }
@@ -61,22 +62,25 @@ export class DrawOverlays {
   }
   public async createSketch(params: any) {
     let callback = params.callback;
-
     let update = params.update !== false;
-    type MapModules = [typeof import('esri/widgets/Sketch/SketchViewModel')];
-    const [SketchViewModel] = await (loadModules([
-      'esri/widgets/Sketch/SketchViewModel'
+    type MapModules = [
+      typeof import('esri/widgets/Sketch/SketchViewModel'),
+      typeof import('esri/geometry/support/webMercatorUtils')
+    ];
+    const [SketchViewModel, WebMercatorUtils] = await (loadModules([
+      'esri/widgets/Sketch/SketchViewModel',
+      'esri/geometry/support/webMercatorUtils'
     ]) as Promise<MapModules>);
     let drawlayer = await this.createOverlaysLayer();
     this.drawlayer = drawlayer;
     this.sketchVM = new SketchViewModel({
       layer: this.drawlayer,
       view: this.view,
-      updateOnGraphicClick: update,
+      updateOnGraphicClick: false,
       defaultUpdateOptions: {
         toggleToolOnClick: true,
-        enableRotation: false,
-        multipleSelectionEnabled: false
+        enableRotation: true,
+        multipleSelectionEnabled: true
       },
       polygonSymbol: {
         type: 'simple-fill', // autocasts as new SimpleMarkerSymbol()
@@ -108,16 +112,28 @@ export class DrawOverlays {
     // listen to create event, only respond when event's state changes to complete
     this.sketchVM.on('create', (event: any) => {
       if (event.state === 'complete') {
-        callback(event.graphic.geometry);
+        if (callback) {
+          callback(event.graphic.geometry);
+        }
       }
     });
-    // let _view = this.view;
-    // _view.on('click', async (event) => {
-    //   const response = await _view.hitTest(event);
-    //   if (response.results.length > 0) {
-    //     console.log(response.results);
-    //   }
-    // });
+    let _view = this.view;
+    this.view.on('click', async (event) => {
+      const response = await _view.hitTest(event);
+      if (!_this.sketchVM || _this.sketchVM.state === 'active') {
+        return;
+      }
+      if (response.results.length > 0) {
+        let geometry = response.results[0].graphic.geometry;
+        if (this.view.spatialReference.isWebMercator) {
+          if (geometry.spatialReference.isWGS84) {
+            geometry = WebMercatorUtils.geographicToWebMercator(geometry);
+          }
+        }
+        response.results[0].graphic.geometry = geometry;
+        _this.sketchVM.update([response.results[0].graphic], 'reshape');
+      }
+    });
   }
   private async createOverlaysLayer() {
     type MapModules = [typeof import('esri/layers/GraphicsLayer')];
@@ -136,5 +152,63 @@ export class DrawOverlays {
     }
     return layer;
   }
-  public async getDrawOverlays() {}
+  public async getDrawOverlays(): Promise<IResult> {
+    let _this = this;
+    return new Promise((resolve: any, reject: any) => {
+      let layer = _this.view.map.allLayers.find((baselayer: any) => {
+        return (
+          baselayer.type == 'graphics' && baselayer.label === 'drawOverlays'
+        );
+      });
+      if (!layer) {
+        resolve({status: 0, message: '', result: {}});
+      }
+      let overlays: any[] = [];
+      (layer as __esri.GraphicsLayer).graphics.forEach(
+        (graphic: __esri.Graphic, index: number) => {
+          let symbol;
+          if (graphic.geometry.type == 'polyline') {
+            symbol = {
+              color: [255, 0, 0],
+              width: 2
+            };
+          } else if (graphic.geometry.type == 'polygon') {
+            symbol = {
+              color: [23, 145, 252, 0.4],
+              outline: {
+                style: 'dash',
+                color: [255, 0, 0, 0.8],
+                width: 2
+              }
+            };
+          } else {
+            //point
+            symbol = {
+              style: 'circle',
+              size: 16,
+              color: [255, 0, 0],
+              outline: {
+                color: [255, 255, 255],
+                width: 2
+              }
+            };
+          }
+          overlays.push({
+            geometry: graphic.geometry,
+            fields: {
+              id: 'drawoverlay' + index.toString(),
+              type: 'drawOverlays'
+            },
+            symbol: symbol
+          });
+        }
+      );
+      let result = {type: 'drawOverlays', overlays: overlays};
+      resolve({
+        status: 0,
+        message: '',
+        result: {dataJson: JSON.stringify(result), data: result}
+      });
+    });
+  }
 }

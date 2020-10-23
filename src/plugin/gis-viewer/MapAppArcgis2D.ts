@@ -733,4 +733,8 @@ export default class MapAppArcGIS2D {
     const drawoverlay = DrawOverlays.getInstance(this.view);
     return await drawoverlay.stopDrawOverlays();
   }
+  public async getDrawOverlays(): Promise<IResult> {
+    const drawoverlay = DrawOverlays.getInstance(this.view);
+    return await drawoverlay.getDrawOverlays();
+  }
 }

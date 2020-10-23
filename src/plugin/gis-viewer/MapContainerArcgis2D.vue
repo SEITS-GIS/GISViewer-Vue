@@ -191,6 +191,9 @@ export default class MapContainerArcgis extends Vue implements IMapContainer {
   public async stopDrawOverlays(): Promise<void> {
     return await this.mapApp.stopDrawOverlays();
   }
+  public async getDrawOverlays(): Promise<IResult> {
+    return await this.mapApp.getDrawOverlays();
+  }
 }
 </script>
 

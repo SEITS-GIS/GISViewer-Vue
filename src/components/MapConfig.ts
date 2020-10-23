@@ -11,10 +11,10 @@ import {GdConfig} from './GdConfig';
 //import {GisConfig} from './project/JinBoHui/config_sub';
 //import {GisConfig} from './project/JinBoHui/config_toll';
 //import {GisConfig} from './project/config_jbh';
-// import {GisConfig} from './project/config';
+import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
-import {GisConfig} from './project/PuDong/config_SelectRoute';
+//import {GisConfig} from './project/PuDong/config_SelectRoute';
 //import {GisConfig} from './project/PuDong/config_SelectRoute';
 export default class MapConfig {
   public constructor() {}
@@ -67,16 +67,7 @@ export default class MapConfig {
     // map.deleteOverlays({types: ['police']});
     // let overStr = '';
     let points = {
-      type: 'aa',
-      defaultVisible: true,
-      defaultSymbol: {
-        //symbol for 2d
-        type: 'point',
-        // primitive: "square",
-        url: 'assets/image/camera.png',
-        size: [20, 20],
-        anchor: 'center'
-      },
+      type: 'drawOverlays',
       overlays: [
         {
           id: 'abc',
@@ -88,17 +79,14 @@ export default class MapConfig {
               [121.45, 30.89]
             ]
           },
-          fields: {
-            name: '测试2',
-            featureid: '0002'
-          },
+          fields: {},
           symbol: {
             color: 'red'
           }
         }
       ]
     };
-    //const result = await map.addOverlays(points);
+    const result = await map.addOverlays(points);
     // await map.initializeRouteSelect({
     //   roadUrl:
     //     'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2',
@@ -113,12 +101,9 @@ export default class MapConfig {
     // });
   }
   public btn_test1(map: any) {
-    // map.startDrawOverlays({
-    //   type: 'polygon',
-    //   callback: (e: any) => {
-    //     console.log(e);
-    //   }
-    // });
+    map.startDrawOverlays({
+      type: 'polygon'
+    });
     // map.findFeature({
     //   layerName: '发布段',
     //   ids: ['61556006006'] //GJYJ001,GJ5-002,BS1,TCC2
@@ -395,12 +380,16 @@ export default class MapConfig {
   }
 
   public btn_test2(map: any) {
+    map.getDrawOverlays().then((res: any) => {
+      setTimeout(() => {
+        map.addOverlays(res.result.data);
+      }, 3000);
+    });
     // map.findFeature({
     //   layerName: 'police',
     //   ids: ['011740'], //GJYJ001,GJ5-002,BS1,TCC2,
     //   level: 16
     // });
-
     // let points = {
     //   type: 'police',
     //   defaultVisible: true,
@@ -420,7 +409,6 @@ export default class MapConfig {
     //     }
     //   ]
     // };
-
     // map.addOverlays(points);
     // map.setMapCenterAndLevel({
     //   x: 121.145,
@@ -529,16 +517,16 @@ export default class MapConfig {
     //   centerResult: true
     // });
     //map.restoreDegeneFsion();
-    map
-      .startGeometrySearch({
-        types: ['police'],
-        drawType: 'polygon',
-        //radius: 3000,
-        showResult: true
-      })
-      .then((res: any) => {
-        console.log(res);
-      });
+    // map
+    //   .startGeometrySearch({
+    //     types: ['police'],
+    //     drawType: 'polygon',
+    //     //radius: 3000,
+    //     showResult: true
+    //   })
+    //   .then((res: any) => {
+    //     console.log(res);
+    //   });
     // map
     //   .startGeometrySearch({
     //     types: ['police'],
@@ -557,7 +545,7 @@ export default class MapConfig {
     // }
   }
   public btn_test3(map: any) {
-    map.clearGeometrySearch();
+    //map.clearGeometrySearch();
     //map.deleteOverlays({types: ['police']});
     //map.changeDgeneOut();
     //map.hideBarChart();
@@ -577,7 +565,6 @@ export default class MapConfig {
     // });
     //map.hideLayer({label: '匝道灯'});
     //map.deleteHeatMap();
-
     //map.deleteAllOverlays();
     //map.deleteOverlays({types: ['police']});
     //map.hideLayer({label: 'ceshi'});
