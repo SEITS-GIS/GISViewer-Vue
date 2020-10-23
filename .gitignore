@@ -19,6 +19,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+src/components/MapConfig.ts
 lib/gis-viewer.common.js
 lib/gis-viewer.common.js.map
 lib/gis-viewer.css

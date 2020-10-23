@@ -11,10 +11,10 @@ import {GdConfig} from './GdConfig';
 //import {GisConfig} from './project/JinBoHui/config_sub';
 //import {GisConfig} from './project/JinBoHui/config_toll';
 //import {GisConfig} from './project/config_jbh';
-import {GisConfig} from './project/config';
+// import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
-//import {GisConfig} from './project/PuDong/config_SelectRoute';
+import {GisConfig} from './project/PuDong/config_SelectRoute';
 //import {GisConfig} from './project/PuDong/config_SelectRoute';
 export default class MapConfig {
   public constructor() {}
@@ -99,6 +99,15 @@ export default class MapConfig {
       ]
     };
 
+<<<<<<< HEAD
+    const result = await map.addOverlays(points);
+    await map.initializeRouteSelect({
+      roadUrl:
+        'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2',
+      trafficSignalUrl:
+        'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0'
+    });
+=======
     //const result = await map.addOverlays(points);
     // await map.initializeRouteSelect({
     //   roadUrl:
@@ -106,6 +115,7 @@ export default class MapConfig {
     //   trafficSignalUrl:
     //     'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/0'
     // });
+>>>>>>> 6d4f2f0e2e0900fdb0711fe17a063e499014fd15
     //map.addOverlays(points);
     // map.setMapCenterAndLevel({
     //   x: 121.45,
