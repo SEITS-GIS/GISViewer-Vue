@@ -188,6 +188,7 @@ export interface IMapContainer {
   showSelectedRoute: (params: ISelectRouteResult) => Promise<void>;
   startDrawOverlays: (params: IDrawOverlays) => Promise<void>;
   stopDrawOverlays: () => Promise<void>;
+  getDrawOverlays: () => Promise<IResult>;
 }
 export interface IPopUpTemplate {
   title?: string;

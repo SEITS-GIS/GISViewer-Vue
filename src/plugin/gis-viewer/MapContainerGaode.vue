@@ -182,6 +182,9 @@ export default class MapContainerGd extends Vue implements IMapContainer {
   public async showSelectedRoute(params: ISelectRouteResult) {}
   public async startDrawOverlays(params: IDrawOverlays): Promise<void> {}
   public async stopDrawOverlays(): Promise<void> {}
+  public async getDrawOverlays(): Promise<IResult> {
+    return {status: 0, message: ''};
+  }
 }
 </script>
 
