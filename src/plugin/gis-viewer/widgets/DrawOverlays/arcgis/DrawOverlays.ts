@@ -62,7 +62,7 @@ export class DrawOverlays {
   }
   public async createSketch(params: any) {
     let callback = params.callback;
-    let update = params.update !== false;
+    let update = params.update === true;
     type MapModules = [
       typeof import('esri/widgets/Sketch/SketchViewModel'),
       typeof import('esri/geometry/support/webMercatorUtils')
@@ -76,7 +76,7 @@ export class DrawOverlays {
     this.sketchVM = new SketchViewModel({
       layer: this.drawlayer,
       view: this.view,
-      updateOnGraphicClick: false,
+      updateOnGraphicClick: update,
       defaultUpdateOptions: {
         toggleToolOnClick: true,
         enableRotation: true,
