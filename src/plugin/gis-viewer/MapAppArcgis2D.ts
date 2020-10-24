@@ -329,13 +329,12 @@ export default class MapAppArcGIS2D {
         if (
           field.indexOf('FEATUREID') > -1 ||
           field.indexOf('DEVICEID') > -1 ||
-          field.indexOf('SECTIONID') > -1 ||
-          field.indexOf('ID') > -1
+          field.indexOf('SECTIONID') > -1
         ) {
           id = attr[field];
         }
       }
-      this.showSubwayMigrateChart({id: id, type: 'd'});
+      this.showSubwayMigrateChart({id: id, type: 'd', url: layer.url});
     } else {
       this.showSubwayMigrateChart(undefined);
     }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {GdConfig} from './GdConfig';
 //import {GisConfig} from './GisConfig';
+import {GisConfig} from './project/JinBoHui/config';
 //import {GisConfig} from './project/JinBoHui/config_video';
 //import {GisConfig} from './project/JinBoHui/config_yy';
 //import {GisConfig} from './project/JinBoHui/config_zh';
@@ -11,7 +12,7 @@ import {GdConfig} from './GdConfig';
 //import {GisConfig} from './project/JinBoHui/config_sub';
 //import {GisConfig} from './project/JinBoHui/config_toll';
 //import {GisConfig} from './project/config_jbh';
-import {GisConfig} from './project/config';
+//import {GisConfig} from './project/config';
 //import {GisConfig} from './project/configsub';
 //import {GisConfig} from './project/configyj';
 //import {GisConfig} from './project/PuDong/config_SelectRoute';
@@ -86,7 +87,7 @@ export default class MapConfig {
         }
       ]
     };
-    const result = await map.addOverlays(points);
+    //const result = await map.addOverlays(points);
     // await map.initializeRouteSelect({
     //   roadUrl:
     //     'http://115.28.88.187:6080/arcgis/rest/services/ZhongZhi/RoadNetwork/MapServer/2',

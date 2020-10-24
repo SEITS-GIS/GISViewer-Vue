@@ -37,7 +37,29 @@ export let GisConfig = {
       geometry: {x: -16465.35204963667, y: -4542.84795454},
       width: 282,
       height: 282,
+      minScale: 64000,
       maxScale: 16000
+    },
+    {
+      label: '国展中心点',
+      url:
+        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Parking/MapServer/2',
+      type: 'feature',
+      outFields: ['*'],
+      maxScale: 128000,
+      popupTemplate: {
+        title: '',
+        content: '客流：{FSTR_VOLUME}'
+      },
+      renderer: {
+        type: 'simple',
+        symbol: {
+          type: 'picture-marker',
+          url: 'assets/mapIcons/JinBoHui/flower.png',
+          width: 32,
+          height: 32
+        }
+      }
     }
   ],
   options: {

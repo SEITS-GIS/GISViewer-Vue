@@ -1,5 +1,5 @@
 {
-  "url": "http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Subway/MapServer/1",
+  "url": "http://10.31.214.201:6080/arcgis/rest/services/JinBoHui/ShangHai_Subway/MapServer/1",
   "label": "地铁标注点",
   "idField": "地铁标注点.FEATUREID",
   "ODField": "地铁标注点.ISOD"

@@ -96,7 +96,7 @@ export class MigrateChart {
       return;
     }
     let selectid = params.id;
-    let layerUrl = subJson.url;
+    let layerUrl = params.url || subJson.url;
     let idField = subJson.idField;
     let ODField = subJson.ODField;
     let odtype = params.type || 'd';

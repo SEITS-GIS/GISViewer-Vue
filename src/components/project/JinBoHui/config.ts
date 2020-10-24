@@ -1,12 +1,13 @@
 export let GisConfig = {
   arcgis_api:
-    'http://10.31.214.203:8991/arcgis_js_v414_api/arcgis_js_api/library/4.14',
+    'http://10.31.214.203:8994/arcgis_js_v414_api/arcgis_js_api/library/4.14',
   theme: 'custom', //dark,vec
   baseLayers: [
     {
       label: '深色底图',
       type: 'tiled',
-      url: 'https://10.31.214.248/server/rest/services/bj_dmd/MapServer',
+      url:
+        'http://10.31.214.201:6080/arcgis/rest/services/ShangHai/ShangHai_base_PurplishBlue/MapServer',
       visible: true
     }
   ],
@@ -14,7 +15,7 @@ export let GisConfig = {
     {
       label: '国展中心面',
       url:
-        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Exhibition/MapServer',
+        'http://10.31.214.201:6080/arcgis/rest/services/JinBoHui/ShangHai_Exhibition/MapServer',
       type: 'dynamic',
       outFields: ['*'],
       popupTemplates: {
@@ -27,18 +28,18 @@ export let GisConfig = {
     {
       type: 'image',
       url: 'assets/mapIcons/JinBoHui/flower.png',
-      geometry: {x: -16465.35204963667, y: -4542.84795454},
-      width: 282,
-      height: 282,
-      minScale: 64000
+      geometry: {x: 13502204.92578, y: 3658256.1152},
+      width: 564,
+      height: 564,
+      minScale: 72224
     },
     {
       label: '国展中心点',
       url:
-        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_Parking/MapServer/2',
+        'http://10.31.214.201:6080/arcgis/rest/services/JinBoHui/ShangHai_Parking/MapServer/2',
       type: 'feature',
       outFields: ['*'],
-      maxScale: 128000,
+      maxScale: 144448,
       popupTemplate: {
         title: '',
         content: '客流：{FSTR_VOLUME}'
@@ -56,7 +57,7 @@ export let GisConfig = {
     {
       label: '巴士线路',
       url:
-        'http://10.31.214.197:6080/arcgis/rest/services/JinBoHui/ShangHai_jieboxian/MapServer/10',
+        'http://10.31.214.201:6080/arcgis/rest/services/JinBoHui/ShangHai_jieboxian/MapServer/10',
       type: 'feature',
       visible: true,
       outFields: ['*'],
@@ -69,8 +70,8 @@ export let GisConfig = {
     }
   ],
   options: {
-    center: [-0.14532287775028, -0.0435806907338],
-    zoom: 2,
+    center: [121.2974, 31.1956],
+    scale: 144448,
     constraints: {
       rotationEnabled: false,
       minZoom: 0
